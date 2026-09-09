@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { PdfViewer } from './PdfViewer';
 import { PrintButton } from './PrintButton';
 import { DownloadButton } from './DownloadButton';
@@ -32,24 +32,28 @@ describe('Document & Action Controls', () => {
   });
 
   describe('PrintButton', () => {
-    it('handles print click and callbacks', () => {
+    it('handles print click and callbacks', async () => {
       const onPrint = vi.fn();
       render(<PrintButton onPrint={onPrint}>Print Invoice</PrintButton>);
 
       const btn = screen.getByRole('button', { name: /print invoice/i });
-      fireEvent.click(btn);
+      await act(async () => {
+        fireEvent.click(btn);
+      });
 
       expect(onPrint).toHaveBeenCalled();
     });
   });
 
   describe('DownloadButton', () => {
-    it('handles download click and callbacks', () => {
+    it('handles download click and callbacks', async () => {
       const onDownload = vi.fn();
       render(<DownloadButton onDownload={onDownload}>Download File</DownloadButton>);
 
       const btn = screen.getByRole('button', { name: /download file/i });
-      fireEvent.click(btn);
+      await act(async () => {
+        fireEvent.click(btn);
+      });
 
       expect(onDownload).toHaveBeenCalled();
     });

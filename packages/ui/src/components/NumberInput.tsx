@@ -90,6 +90,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
         defaultValue={defaultValue}
         disabled={disabled}
         onChange={handleChange as any}
+        onKeyDown={handleKeyDown}
         rightAdornment={
           showSteppers ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { ExportButton } from './ExportButton';
 import { ExportMenu } from './ExportMenu';
 
@@ -8,12 +8,12 @@ describe('Export Controls', () => {
   const testData = [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }];
 
   describe('ExportButton', () => {
-    it('renders with export action label and executes handler', () => {
+    it('renders with export action label and executes handler', async () => {
       const onExport = vi.fn();
       render(<ExportButton format="csv" data={testData} onExport={onExport} />);
 
       const btn = screen.getByRole('button', { name: /export csv/i });
-      fireEvent.click(btn);
+      await act(async () => { fireEvent.click(btn); });
 
       expect(onExport).toHaveBeenCalled();
     });

@@ -9,12 +9,20 @@ import Link from 'next/link';
 import {
   ListFilter, CheckSquare, Radio as RadioIcon, ToggleLeft,
   Type, Calendar, FileText, Printer, Download, ChevronRight,
-  Loader2, MessageSquare, Bell
+  Loader2, MessageSquare, Bell, Layers, MoreHorizontal, MousePointerClick,
+  FolderTree, ListCollapse, ChevronsUpDown, Navigation
 } from 'lucide-react';
 
 export const metadata = { title: 'UI Components — Skyra Platform Dashboard' };
 
 const SPECIALIZED_PAGES = [
+  { href: '/ui-components/tabs', title: 'Tabs', desc: 'WAI-ARIA tabbed interface supporting horizontal/vertical layouts, auto/manual activation, line and pill variants', icon: FolderTree, badge: 'Phase 4B' },
+  { href: '/ui-components/accordion', title: 'Accordion', desc: 'Expandable multi-section container with single/multiple expand modes, collapsible toggling, and smooth transitions', icon: ListCollapse, badge: 'Phase 4B' },
+  { href: '/ui-components/collapsible', title: 'Collapsible', desc: 'Independent single expandable region primitive for advanced options and developer payload diagnostics', icon: ChevronsUpDown, badge: 'Phase 4B' },
+  { href: '/ui-components/breadcrumb', title: 'Breadcrumbs', desc: 'Semantic hierarchical navigation primitive conforming to WAI-ARIA breadcrumb standards with custom separators', icon: Navigation, badge: 'Phase 4B' },
+  { href: '/ui-components/popover', title: 'Popover', desc: 'Anchored rich content overlay with collision detection, boundary protection, focus restoration, and Escape dismissal', icon: Layers, badge: 'Phase 4A' },
+  { href: '/ui-components/dropdown-menu', title: 'Dropdown Menu', desc: 'Action menu with keyboard navigation, icons, groups, separators, checkable items, and destructive actions', icon: MoreHorizontal, badge: 'Phase 4A' },
+  { href: '/ui-components/context-menu', title: 'Context Menu', desc: 'Right-click contextual menu anchored to pointer click coordinates with viewport collision flipping', icon: MousePointerClick, badge: 'Phase 4A' },
   { href: '/ui-components/select', title: 'DynamicSelect', desc: 'Unified single/multi select with search, select all, creatable, and dynamic +N chips', icon: ListFilter, badge: 'Phase 2' },
   { href: '/ui-components/inputs', title: 'Inputs & Textarea', desc: 'Input variants (status, helper, prefix/suffix), SearchInput, NumberInput, PasswordInput, and auto-resizing Textarea', icon: Type, badge: 'Phase 3' },
   { href: '/ui-components/date-fields', title: 'Date & Time Suite', desc: '10-component suite: DateField, DateRangeField, TimeField, TimeRangeField, DateTimeField, DateTimeRangeField, MonthField, YearField, WeekField, Calendar', icon: Calendar, badge: 'Phase 3' },

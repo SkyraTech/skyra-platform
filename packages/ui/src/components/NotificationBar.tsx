@@ -94,29 +94,39 @@ export function NotificationBar({
   const [isPaused, setIsPaused] = useState(false);
   const [remainingTime, setRemainingTime] = useState(duration);
 
+  // Stable ref for onClose — avoids stale closure causing timer reset on parent re-render
+  const onCloseRef = useRef(onClose);
+  useEffect(() => { onCloseRef.current = onClose; }, [onClose]);
+
+  // Guard so onClose fires exactly once (not multiple ticks before state update)
+  const firedRef = useRef(false);
+
   const config = TYPE_CONFIG[type];
   const IconComponent = config.defaultIcon;
-  const timerInterval = 50; // Update progress every 50ms
+  const TICK = 50;
 
   useEffect(() => {
-    if (duration <= 0 || isDismissed) return;
-
-    if (isPaused) return;
+    if (duration <= 0 || isDismissed || isPaused) return;
 
     const interval = setInterval(() => {
       setRemainingTime((prev) => {
-        if (prev <= timerInterval) {
+        const next = prev - TICK;
+        if (next <= 0) {
           clearInterval(interval);
-          setIsDismissed(true);
-          onClose?.();
+          if (!firedRef.current) {
+            firedRef.current = true;
+            setIsDismissed(true);
+            onCloseRef.current?.();
+          }
           return 0;
         }
-        return prev - timerInterval;
+        return next;
       });
-    }, timerInterval);
+    }, TICK);
 
     return () => clearInterval(interval);
-  }, [duration, isPaused, isDismissed, onClose]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [duration, isPaused, isDismissed]);
 
   const handleClose = () => {
     setIsDismissed(true);

@@ -532,13 +532,33 @@
   }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Linear indeterminate progress bar */
+@keyframes indeterminateProgress {
+  0%   { transform: translateX(-100%); }
+  60%  { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Skeleton pulse */
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
+}
+
+/* Skeleton shimmer */
+@keyframes skeletonShimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
 }
 
 .skyra-spin {
@@ -546,7 +566,492 @@
 }
 
 /* ============================================================
+   POPOVER & OVERLAYS
+   ============================================================ */
+.skyra-popover-content {
+  background: var(--skyra-card-bg, #ffffff);
+  border: 1px solid var(--skyra-border, #e2e8f0);
+  border-radius: var(--skyra-radius-lg, 10px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+  padding: 0.875rem;
+  color: var(--skyra-text, #0f172a);
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+  font-size: 0.875rem;
+  animation: fadeInUp 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   DROPDOWN & CONTEXT MENUS
+   ============================================================ */
+.skyra-dropdown-menu-wrapper,
+.skyra-context-menu-wrapper {
+  background: var(--skyra-card-bg, #ffffff);
+  border: 1px solid var(--skyra-border, #e2e8f0);
+  border-radius: var(--skyra-radius-md, 8px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+  padding: 0.3rem;
+  color: var(--skyra-text, #0f172a);
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+  animation: fadeInUp 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.skyra-menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  outline: none;
+}
+
+.skyra-menu-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--skyra-radius-sm, 6px);
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--skyra-text, #0f172a);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  gap: 0.5rem;
+  transition: background 0.12s ease, color 0.12s ease;
+  user-select: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.skyra-menu-item:hover:not(:disabled):not([aria-disabled="true"]),
+.skyra-menu-item:focus-visible:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--skyra-bg, #f8fafc);
+  color: var(--skyra-primary, #0a58ca);
+}
+
+.skyra-menu-item--destructive {
+  color: var(--skyra-danger, #ef4444);
+}
+
+.skyra-menu-item--destructive:hover:not(:disabled):not([aria-disabled="true"]),
+.skyra-menu-item--destructive:focus-visible:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--skyra-danger-light, rgba(239, 68, 68, 0.1));
+  color: var(--skyra-danger, #ef4444);
+}
+
+.skyra-menu-item:disabled,
+.skyra-menu-item[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.skyra-menu-item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--skyra-text-muted, #64748b);
+  flex-shrink: 0;
+}
+
+.skyra-menu-item:hover:not(:disabled) .skyra-menu-item-icon {
+  color: inherit;
+}
+
+.skyra-menu-item-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.skyra-menu-item-shortcut {
+  font-size: 0.75rem;
+  color: var(--skyra-text-subtle, #94a3b8);
+  margin-left: auto;
+  padding-left: 0.75rem;
+  font-family: monospace;
+}
+
+.skyra-menu-item-trailing {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  color: var(--skyra-text-muted, #64748b);
+}
+
+.skyra-menu-item-check-indicator,
+.skyra-menu-item-radio-indicator {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--skyra-primary, #0a58ca);
+  flex-shrink: 0;
+}
+
+.skyra-menu-separator {
+  height: 1px;
+  background: var(--skyra-border, #e2e8f0);
+  margin: 0.3rem 0.2rem;
+}
+
+.skyra-menu-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.skyra-menu-group-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--skyra-text-muted, #64748b);
+  padding: 0.35rem 0.75rem 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+.skyra-context-menu-target:focus-visible {
+  outline: none;
+  box-shadow: var(--skyra-focus-ring);
+  border-radius: var(--skyra-radius-md);
+}
+
+/* ============================================================
+   TABS SYSTEM
+   ============================================================ */
+.skyra-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.skyra-tabs--vertical {
+  flex-direction: row;
+  gap: 1.5rem;
+}
+
+.skyra-tabs-list {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--skyra-border, #e2e8f0);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 2px;
+}
+.skyra-tabs-list::-webkit-scrollbar {
+  display: none;
+}
+
+.skyra-tabs--vertical .skyra-tabs-list {
+  flex-direction: column;
+  border-bottom: none;
+  border-right: 1px solid var(--skyra-border, #e2e8f0);
+  min-width: 180px;
+  overflow-x: visible;
+  padding: 0;
+}
+
+.skyra-tabs-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: none;
+  background: transparent;
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--skyra-text-muted, #64748b);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  min-height: 40px;
+  min-width: 44px;
+  white-space: nowrap;
+  user-select: none;
+  outline: none;
+}
+
+.skyra-tabs--vertical .skyra-tabs-trigger {
+  justify-content: flex-start;
+  border-bottom: none;
+  border-right: 2px solid transparent;
+  margin-bottom: 0;
+  margin-right: -1px;
+}
+
+.skyra-tabs-trigger:hover:not(:disabled):not([aria-disabled="true"]) {
+  color: var(--skyra-text, #0f172a);
+}
+
+.skyra-tabs-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--skyra-focus-ring);
+  border-radius: var(--skyra-radius-sm);
+}
+
+.skyra-tabs-trigger--active {
+  color: var(--skyra-primary, #0a58ca);
+  font-weight: 600;
+  border-bottom-color: var(--skyra-primary, #0a58ca);
+}
+
+.skyra-tabs--vertical .skyra-tabs-trigger--active {
+  border-bottom-color: transparent;
+  border-right-color: var(--skyra-primary, #0a58ca);
+}
+
+/* Tabs Pill Variant */
+.skyra-tabs--pill .skyra-tabs-list {
+  background: var(--skyra-bg, #f1f5f9);
+  padding: 4px;
+  border-radius: var(--skyra-radius-md, 8px);
+  border-bottom: none;
+  gap: 4px;
+}
+
+.skyra-tabs--pill .skyra-tabs-trigger {
+  border-bottom: none;
+  border-radius: var(--skyra-radius-sm, 6px);
+  margin-bottom: 0;
+}
+
+.skyra-tabs--pill .skyra-tabs-trigger--active {
+  background: var(--skyra-card-bg, #ffffff);
+  color: var(--skyra-primary, #0a58ca);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Tabs Line Variant */
+.skyra-tabs--line .skyra-tabs-trigger--active {
+  color: var(--skyra-primary, #0a58ca);
+  border-bottom-color: var(--skyra-primary, #0a58ca);
+}
+
+.skyra-tabs-trigger:disabled,
+.skyra-tabs-trigger[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.skyra-tabs-content {
+  padding: 1rem 0;
+  outline: none;
+  animation: fadeIn 0.15s ease-out;
+}
+
+/* ============================================================
+   ACCORDION SYSTEM
+   ============================================================ */
+.skyra-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.skyra-accordion-item {
+  border: 1px solid var(--skyra-border, #e2e8f0);
+  border-radius: var(--skyra-radius-md, 8px);
+  background: var(--skyra-card-bg, #ffffff);
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.skyra-accordion-item--expanded {
+  border-color: var(--skyra-border-focus, #0a58ca);
+  box-shadow: 0 2px 8px rgba(10, 88, 202, 0.06);
+}
+
+.skyra-accordion-header {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+}
+
+.skyra-accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  background: transparent;
+  border: none;
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--skyra-text, #0f172a);
+  cursor: pointer;
+  text-align: left;
+  gap: 1rem;
+  min-height: 44px;
+  outline: none;
+  transition: background 0.15s ease;
+  box-sizing: border-box;
+}
+
+.skyra-accordion-trigger:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--skyra-bg, #f8fafc);
+}
+
+.skyra-accordion-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--skyra-focus-ring);
+}
+
+.skyra-accordion-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--skyra-text-muted, #64748b);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.skyra-accordion-icon--expanded {
+  transform: rotate(180deg);
+}
+
+.skyra-accordion-content {
+  overflow: hidden;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.skyra-accordion-content-inner {
+  padding: 0 1.25rem 1rem;
+  color: var(--skyra-text, #0f172a);
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.skyra-accordion-item--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   COLLAPSIBLE PRIMITIVE
+   ============================================================ */
+.skyra-collapsible {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.skyra-collapsible-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+  background: transparent;
+  border: none;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--skyra-primary, #0a58ca);
+  outline: none;
+  text-align: left;
+}
+
+.skyra-collapsible-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--skyra-focus-ring);
+  border-radius: var(--skyra-radius-sm);
+}
+
+.skyra-collapsible-content {
+  overflow: hidden;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.skyra-collapsible-content-inner {
+  padding: 0.5rem 0;
+}
+
+.skyra-collapsible--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   BREADCRUMBS
+   ============================================================ */
+.skyra-breadcrumb {
+  display: flex;
+  align-items: center;
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+  font-size: 0.875rem;
+}
+
+.skyra-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.skyra-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.skyra-breadcrumb-link {
+  color: var(--skyra-text-muted, #64748b);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  outline: none;
+}
+
+.skyra-breadcrumb-link:hover {
+  color: var(--skyra-primary, #0a58ca);
+  text-decoration: underline;
+}
+
+.skyra-breadcrumb-link:focus-visible {
+  outline: none;
+  box-shadow: var(--skyra-focus-ring);
+  border-radius: 3px;
+}
+
+.skyra-breadcrumb-page {
+  color: var(--skyra-text, #0f172a);
+  font-weight: 600;
+}
+
+.skyra-breadcrumb-separator {
+  display: inline-flex;
+  align-items: center;
+  color: var(--skyra-text-subtle, #94a3b8);
+  user-select: none;
+}
+
+.skyra-breadcrumb-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--skyra-text-muted, #64748b);
+}
+
+/* ============================================================
    ACCESSIBILITY: REDUCED MOTION
+   Suppresses all animations for users who prefer reduced motion.
+   Visibility and functionality are preserved — only motion is removed.
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -556,3 +1061,5 @@
     scroll-behavior: auto !important;
   }
 }
+
+

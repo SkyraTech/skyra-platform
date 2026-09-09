@@ -125,10 +125,11 @@ export function Calendar({
         }
       }
     } else if (mode === 'week') {
-      // Calculate Monday of this week to Sunday
-      const day = date.getDay();
-      const diffToMonday = date.getDate() - day + (day === 0 ? -6 : 1);
-      const monday = new Date(date.setDate(diffToMonday));
+      // Calculate Monday of this week to Sunday — do NOT mutate the passed date
+      const d = new Date(date); // copy to avoid mutation
+      const day = d.getDay();
+      const diffToMonday = d.getDate() - day + (day === 0 ? -6 : 1);
+      const monday = new Date(d.getFullYear(), d.getMonth(), diffToMonday);
       const sunday = new Date(monday);
       sunday.setDate(monday.getDate() + 6);
       const startIso = toISODate(monday);

@@ -81,6 +81,7 @@ export function Progress({
       {/* Progress Track */}
       <div
         role="progressbar"
+        aria-label={label ? String(label) : isIndeterminate ? 'Loading' : undefined}
         aria-valuenow={isIndeterminate ? undefined : percent}
         aria-valuemin={0}
         aria-valuemax={100}
@@ -99,9 +100,12 @@ export function Progress({
             height: '100%',
             background: barColor,
             borderRadius: 'var(--skyra-radius-full)',
-            width: isIndeterminate ? '40%' : `${percent}%`,
+            width: isIndeterminate ? '45%' : `${percent}%`,
             transition: isIndeterminate ? 'none' : 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-            animation: isIndeterminate ? 'indeterminateProgress 1.4s infinite ease-in-out' : 'none',
+            animation: isIndeterminate
+              ? 'indeterminateProgress 1.5s ease-in-out infinite'
+              : 'none',
+            transform: isIndeterminate ? undefined : 'none',
           }}
         />
       </div>

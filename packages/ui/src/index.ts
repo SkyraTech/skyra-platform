@@ -160,3 +160,104 @@ export type { PhoneInputFieldProps } from './components/PhoneInputField';
 
 export { LogoUploader } from './components/LogoUploader';
 export type { LogoUploaderProps } from './components/LogoUploader';
+
+// ── Phase 4A: Overlays & Interaction Primitives ──
+export { useFloatingPosition } from './hooks/useFloatingPosition';
+export type {
+  FloatingPlacement,
+  FloatingAlign,
+  UseFloatingPositionOptions,
+  FloatingPositionResult,
+  VirtualAnchor,
+} from './hooks/useFloatingPosition';
+
+export { Popover } from './components/Popover';
+export type { PopoverProps } from './components/Popover';
+
+export { DropdownMenu } from './components/DropdownMenu';
+export type { DropdownMenuProps, DropdownMenuItemConfig } from './components/DropdownMenu';
+
+export { ContextMenu } from './components/ContextMenu';
+export type { ContextMenuProps } from './components/ContextMenu';
+
+export {
+  MenuContent,
+  MenuItem,
+  MenuGroup,
+  MenuSeparator,
+  CheckboxMenuItem,
+  RadioMenuItem,
+} from './components/MenuPrimitives';
+export type {
+  MenuContentProps,
+  MenuItemProps,
+  MenuGroupProps,
+  MenuSeparatorProps,
+  CheckboxMenuItemProps,
+  RadioMenuItemProps,
+  MenuContextValue,
+} from './components/MenuPrimitives';
+
+// ── Phase 4B: Navigation & Disclosure Primitives ──
+export { Tabs, TabsList, TabsTrigger, TabsContent } from './components/Tabs';
+export type {
+  TabsProps,
+  TabsListProps,
+  TabsTriggerProps,
+  TabsContentProps,
+  TabsOrientation,
+  TabsActivationMode,
+  TabsVariant,
+  TabsContextValue,
+} from './components/Tabs';
+
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from './components/Accordion';
+export type {
+  AccordionProps,
+  AccordionSingleProps,
+  AccordionMultipleProps,
+  AccordionItemProps,
+  AccordionTriggerProps,
+  AccordionContentProps,
+  AccordionType,
+  AccordionContextValue,
+  AccordionItemContextValue,
+} from './components/Accordion';
+
+export {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from './components/Collapsible';
+export type {
+  CollapsibleProps,
+  CollapsibleTriggerProps,
+  CollapsibleContentProps,
+  CollapsibleContextValue,
+} from './components/Collapsible';
+
+export {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
+  BreadcrumbEllipsis,
+} from './components/Breadcrumb';
+export type {
+  BreadcrumbProps,
+  BreadcrumbListProps,
+  BreadcrumbItemProps,
+  BreadcrumbLinkProps,
+  BreadcrumbSeparatorProps,
+  BreadcrumbPageProps,
+  BreadcrumbEllipsisProps,
+} from './components/Breadcrumb';
+
+

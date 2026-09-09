@@ -99,8 +99,8 @@ export function Tooltip({
     }
 
     setCoords({
-      top: targetTop + window.scrollY,
-      left: targetLeft + window.scrollX,
+      top: targetTop,
+      left: targetLeft,
       actualPlacement: effectivePlacement,
     });
   };
@@ -187,7 +187,7 @@ export function Tooltip({
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           style={{
-            position: 'absolute',
+            position: 'fixed',
             top: `${coords.top}px`,
             left: `${coords.left}px`,
             maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
