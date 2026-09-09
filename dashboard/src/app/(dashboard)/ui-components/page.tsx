@@ -8,21 +8,25 @@ import { MiscDemo } from '@/components/demos/MiscDemo';
 import Link from 'next/link';
 import {
   ListFilter, CheckSquare, Radio as RadioIcon, ToggleLeft,
-  Type, Calendar, FileText, Printer, Download, ChevronRight
+  Type, Calendar, FileText, Printer, Download, ChevronRight,
+  Loader2, MessageSquare, Bell
 } from 'lucide-react';
 
 export const metadata = { title: 'UI Components — Skyra Platform Dashboard' };
 
 const SPECIALIZED_PAGES = [
-  { href: '/ui-components/select', title: 'DynamicSelect', desc: 'Unified single/multi select with search, creatable, and dynamic +N chips', icon: ListFilter, badge: 'High Priority' },
-  { href: '/ui-components/checkbox', title: 'Checkbox & Group', desc: 'Accessible multi-state checkboxes with indeterminate support and 44px touch targets', icon: CheckSquare, badge: 'New' },
-  { href: '/ui-components/radio', title: 'Radio & RadioGroup', desc: 'WAI-ARIA roving tabindex single selection controls in vertical/horizontal layouts', icon: RadioIcon, badge: 'New' },
-  { href: '/ui-components/switch', title: 'Switch', desc: 'Smooth binary toggle switches for instant settings and feature flags', icon: ToggleLeft, badge: 'New' },
-  { href: '/ui-components/inputs', title: 'Inputs & Textarea', desc: 'SearchInput, NumberInput, PasswordInput, and auto-resizing Textarea with adornments', icon: Type, badge: 'Enhanced' },
-  { href: '/ui-components/date-fields', title: 'Date & Time Suite', desc: 'DateField, DateRangeField, TimeField, and DateTimeField with calendar popovers', icon: Calendar, badge: 'New' },
-  { href: '/pdf-viewer', title: 'PDF & Document Viewer', desc: 'Zoom, fullscreen, print, page navigation, and accessible document viewing chrome', icon: FileText, badge: 'New' },
-  { href: '/print', title: 'Print & Download Studio', desc: 'Target container printing, before/after lifecycle hooks, and file downloads', icon: Printer, badge: 'New' },
-  { href: '/export', title: 'Data Export Engine', desc: 'RFC-4180 CSV & Excel XML export engines with ExportButton and ExportMenu', icon: Download, badge: 'New' },
+  { href: '/ui-components/select', title: 'DynamicSelect', desc: 'Unified single/multi select with search, select all, creatable, and dynamic +N chips', icon: ListFilter, badge: 'Phase 2' },
+  { href: '/ui-components/inputs', title: 'Inputs & Textarea', desc: 'Input variants (status, helper, prefix/suffix), SearchInput, NumberInput, PasswordInput, and auto-resizing Textarea', icon: Type, badge: 'Phase 3' },
+  { href: '/ui-components/date-fields', title: 'Date & Time Suite', desc: '10-component suite: DateField, DateRangeField, TimeField, TimeRangeField, DateTimeField, DateTimeRangeField, MonthField, YearField, WeekField, Calendar', icon: Calendar, badge: 'Phase 3' },
+  { href: '/ui-components/loaders', title: 'Loading System', desc: 'Multi-size Spinners, Linear & Circular Progress, Skeletons (Text, Avatar, Card, Table), DataLoader & OverlayLoader', icon: Loader2, badge: 'Phase 3' },
+  { href: '/ui-components/tooltip', title: 'Rich Tooltips', desc: 'Viewport collision-aware tooltips supporting plain text, rich React subtrees, status badges, and keyboard focus triggers', icon: MessageSquare, badge: 'Phase 3' },
+  { href: '/ui-components/switch', title: 'Switch & Toggles', desc: '5 design variants (default, compact, labeled, icon, outline), 3 sizes (sm/md/lg), loading spinner thumb, error, and disabled states', icon: ToggleLeft, badge: 'Phase 3' },
+  { href: '/ui-components/notifications', title: 'Notification Bar', desc: '5 semantic types, synchronized animated countdown timer, hover-pause/resume, manual close, and error/status codes', icon: Bell, badge: 'Phase 3' },
+  { href: '/ui-components/checkbox', title: 'Checkbox & Group', desc: 'Accessible multi-state checkboxes with indeterminate support and 44px touch targets', icon: CheckSquare, badge: 'Phase 2' },
+  { href: '/ui-components/radio', title: 'Radio & RadioGroup', desc: 'WAI-ARIA roving tabindex single selection controls in vertical/horizontal layouts', icon: RadioIcon, badge: 'Phase 2' },
+  { href: '/pdf-viewer', title: 'PDF & Document Viewer', desc: 'Zoom, fullscreen, print, page navigation, and accessible document viewing chrome', icon: FileText, badge: 'Phase 2' },
+  { href: '/print', title: 'Print & Download Studio', desc: 'Target container printing, before/after lifecycle hooks, and file downloads', icon: Printer, badge: 'Phase 2' },
+  { href: '/export', title: 'Data Export Engine', desc: 'RFC-4180 CSV & Excel XML export engines with ExportButton and ExportMenu', icon: Download, badge: 'Phase 2' },
 ];
 
 export default function UIComponentsPage() {
@@ -76,8 +80,8 @@ export default function UIComponentsPage() {
                 fontWeight: 600,
                 padding: '0.15rem 0.5rem',
                 borderRadius: 'var(--skyra-radius-full)',
-                background: badge === 'High Priority' ? 'var(--skyra-primary)' : 'var(--skyra-bg-muted)',
-                color: badge === 'High Priority' ? '#fff' : 'var(--skyra-text-muted)',
+                background: badge === 'Phase 3' ? 'var(--skyra-primary)' : 'var(--skyra-bg-muted)',
+                color: badge === 'Phase 3' ? '#fff' : 'var(--skyra-text-muted)',
               }}>
                 {badge}
               </span>

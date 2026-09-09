@@ -30,6 +30,8 @@ export interface DateFieldProps {
   required?: boolean;
   /** Clearable */
   clearable?: boolean;
+  /** Display format (e.g. DD/MM/YYYY, MM/DD/YYYY, YYYY-MM-DD, DD MMM YYYY) */
+  format?: string;
   /** Custom ID */
   id?: string;
   /** Additional CSS class */
@@ -86,6 +88,7 @@ export function DateField({
   disabled = false,
   required = false,
   clearable = true,
+  format,
   id,
   className = '',
 }: DateFieldProps) {

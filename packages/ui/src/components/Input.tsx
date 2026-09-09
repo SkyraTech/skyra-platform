@@ -11,16 +11,22 @@ export interface InputProps
   error?: string;
   /** Helper text shown below the input */
   helper?: React.ReactNode;
+  /** Helper text alias */
+  helperText?: React.ReactNode;
   /** Description text shown below the input (alias for helper) */
   description?: React.ReactNode;
+  /** Status variant for borders/accents */
+  status?: 'default' | 'success' | 'warning' | 'error';
   /** Show required asterisk */
   required?: boolean;
   /** Left adornment or prefix */
   leftAdornment?: React.ReactNode;
   prefix?: React.ReactNode;
+  leadingIcon?: React.ReactNode;
   /** Right adornment or suffix */
   rightAdornment?: React.ReactNode;
   suffix?: React.ReactNode;
+  trailingIcon?: React.ReactNode;
   /** Loading state with inline spinner */
   loading?: boolean;
   /** Allow clearing input value */
@@ -38,7 +44,8 @@ export interface InputProps
  *
  * [B] PLATFORM EXTRACTION + [C] ENHANCEMENT
  * Comprehensive input primitive with prefixes, suffixes, clear button,
- * loading spinner, character counter, dark mode, and ERP styling.
+ * loading spinner, character counter, status states (success, warning, error),
+ * dark mode, and ERP styling.
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
@@ -46,12 +53,16 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       label,
       error,
       helper,
+      helperText,
       description,
+      status = 'default',
       required,
       leftAdornment,
       prefix,
+      leadingIcon,
       rightAdornment,
       suffix,
+      trailingIcon,
       loading = false,
       clearable = false,
       onClear,
@@ -64,19 +75,21 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       className = '',
       wrapperClassName = '',
       disabled,
+      readOnly,
       ...rest
     },
     ref
   ) => {
     const uid = React.useId();
     const inputId = id ?? `skyra-input-${uid}`;
-    const effectiveHelper = helper ?? description;
+    const effectiveHelper = helperText ?? helper ?? description;
     const errorId = `${inputId}-error`;
     const helperId = `${inputId}-helper`;
-    const hasError = !!error;
+    const effectiveStatus = error ? 'error' : status;
+    const hasError = effectiveStatus === 'error';
 
-    const left = prefix ?? leftAdornment;
-    const right = suffix ?? rightAdornment;
+    const left = prefix ?? leadingIcon ?? leftAdornment;
+    const right = suffix ?? trailingIcon ?? rightAdornment;
 
     const currentLength = typeof value === 'string' ? value.length : 0;
 
@@ -142,6 +155,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             defaultValue={defaultValue}
             onChange={onChange}
             disabled={disabled}
+            readOnly={readOnly}
             maxLength={maxLength}
             aria-invalid={hasError}
             aria-describedby={describedBy}
@@ -152,13 +166,28 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               padding: '0.65rem 0.875rem',
               paddingLeft: left ? '2.35rem' : '0.875rem',
               paddingRight: right || loading || clearable ? '2.5rem' : '0.875rem',
-              background: disabled ? 'var(--skyra-border)' : 'var(--skyra-bg)',
-              border: hasError ? '1.5px solid var(--skyra-danger)' : '1px solid var(--skyra-border)',
+              background: disabled
+                ? 'var(--skyra-border)'
+                : readOnly
+                ? 'var(--skyra-surface)'
+                : 'var(--skyra-bg)',
+              border: hasError
+                ? '1.5px solid var(--skyra-danger)'
+                : effectiveStatus === 'success'
+                ? '1.5px solid var(--skyra-success)'
+                : effectiveStatus === 'warning'
+                ? '1.5px solid var(--skyra-warning)'
+                : '1px solid var(--skyra-border)',
               borderRadius: 'var(--skyra-radius-md)',
-              color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
+              color: disabled
+                ? 'var(--skyra-text-subtle)'
+                : readOnly
+                ? 'var(--skyra-text-muted)'
+                : 'var(--skyra-text)',
               fontSize: '0.875rem',
               outline: 'none',
               boxSizing: 'border-box',
+              cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'text',
               transition: 'border-color 0.15s, box-shadow 0.15s',
             }}
             {...rest}

@@ -10,6 +10,7 @@ export interface NumberInputProps extends Omit<InputProps, 'type' | 'onChange'> 
   min?: number;
   max?: number;
   step?: number;
+  precision?: number;
   showSteppers?: boolean;
   onChange?: (value: number | undefined) => void;
 }
@@ -18,7 +19,7 @@ export interface NumberInputProps extends Omit<InputProps, 'type' | 'onChange'> 
  * @skyra/ui NumberInput
  *
  * Number input with increment/decrement steppers, min/max bounds,
- * and keyboard controls.
+ * precision rounding, and keyboard controls.
  */
 export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
   (
@@ -28,14 +29,22 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       min,
       max,
       step = 1,
+      precision,
       showSteppers = true,
       onChange,
+      onKeyDown,
       disabled,
       ...props
     },
     ref
   ) => {
-    const numValue = typeof value === 'number' ? value : value !== undefined ? parseFloat(value as string) : undefined;
+    const numValue = typeof value === 'number' ? value : value !== undefined && value !== '' ? parseFloat(value as string) : undefined;
+
+    const roundToPrecision = (val: number): number => {
+      if (precision === undefined) return val;
+      const factor = Math.pow(10, precision);
+      return Math.round(val * factor) / factor;
+    };
 
     const handleStep = (delta: number) => {
       if (disabled) return;
@@ -43,7 +52,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       let next = current + delta;
       if (min !== undefined && next < min) next = min;
       if (max !== undefined && next > max) next = max;
-      onChange?.(next);
+      onChange?.(roundToPrecision(next));
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,9 +62,21 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       } else {
         const parsed = parseFloat(valStr);
         if (!isNaN(parsed)) {
-          onChange?.(parsed);
+          onChange?.(precision !== undefined ? roundToPrecision(parsed) : parsed);
         }
       }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (disabled) return;
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        handleStep(step);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        handleStep(-step);
+      }
+      onKeyDown?.(e);
     };
 
     return (

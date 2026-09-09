@@ -10,6 +10,8 @@ export interface TimeFieldProps {
   onChange?: (time: string) => void;
   /** Time format: 12-hour with AM/PM or 24-hour military */
   format?: '12h' | '24h';
+  /** Minute step (e.g. 1, 5, 10, 15, 30) */
+  minuteStep?: number;
   /** Label */
   label?: React.ReactNode;
   /** Helper text */
@@ -40,6 +42,7 @@ export function TimeField({
   value = '',
   onChange,
   format = '12h',
+  minuteStep = 5,
   label,
   helper,
   description,
@@ -121,7 +124,8 @@ export function TimeField({
   }
 
   const minuteOptions = [];
-  for (let m = 0; m < 60; m += 5) {
+  const step = Math.max(1, Math.min(60, minuteStep));
+  for (let m = 0; m < 60; m += step) {
     const str = String(m).padStart(2, '0');
     minuteOptions.push(str);
   }

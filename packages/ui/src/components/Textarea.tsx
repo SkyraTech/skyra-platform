@@ -8,11 +8,14 @@ export interface TextareaProps
   label?: React.ReactNode;
   description?: React.ReactNode;
   helper?: React.ReactNode;
+  helperText?: React.ReactNode;
+  status?: 'default' | 'success' | 'warning' | 'error';
   error?: string;
   required?: boolean;
   minRows?: number;
   maxRows?: number;
   autoResize?: boolean;
+  resize?: 'none' | 'vertical' | 'horizontal' | 'both';
   showCount?: boolean;
   wrapperClassName?: string;
 }
@@ -22,7 +25,7 @@ export interface TextareaProps
  *
  * [B] PLATFORM EXTRACTION + [C] ENHANCEMENT
  * Multi-line text input with auto-resize, minRows/maxRows bounds,
- * character counter, dark mode, and ERP styling.
+ * character counter, resize options, status states, dark mode, and ERP styling.
  */
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
@@ -30,11 +33,14 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       label,
       description,
       helper,
+      helperText,
+      status = 'default',
       error,
       required,
       minRows = 3,
       maxRows,
       autoResize = false,
+      resize = 'vertical',
       showCount = false,
       maxLength,
       value,
@@ -44,6 +50,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       className = '',
       wrapperClassName = '',
       disabled,
+      readOnly,
       rows = 3,
       ...rest
     },
@@ -51,10 +58,12 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ) => {
     const uid = useId();
     const textareaId = id ?? `skyra-textarea-${uid}`;
+    const effectiveHelper = helperText ?? helper ?? description;
     const errorId = `${textareaId}-error`;
     const helperId = `${textareaId}-helper`;
     const descId = `${textareaId}-desc`;
-    const hasError = !!error;
+    const effectiveStatus = error ? 'error' : status;
+    const hasError = effectiveStatus === 'error';
 
     const innerRef = useRef<HTMLTextAreaElement>(null);
 
@@ -135,18 +144,34 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           style={{
             width: '100%',
             padding: '0.65rem 0.875rem',
-            background: disabled ? 'var(--skyra-border)' : 'var(--skyra-bg)',
-            border: hasError ? '1.5px solid var(--skyra-danger)' : '1px solid var(--skyra-border)',
+            background: disabled
+              ? 'var(--skyra-border)'
+              : readOnly
+              ? 'var(--skyra-surface)'
+              : 'var(--skyra-bg)',
+            border: hasError
+              ? '1.5px solid var(--skyra-danger)'
+              : effectiveStatus === 'success'
+              ? '1.5px solid var(--skyra-success)'
+              : effectiveStatus === 'warning'
+              ? '1.5px solid var(--skyra-warning)'
+              : '1px solid var(--skyra-border)',
             borderRadius: 'var(--skyra-radius-md)',
-            color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
+            color: disabled
+              ? 'var(--skyra-text-subtle)'
+              : readOnly
+              ? 'var(--skyra-text-muted)'
+              : 'var(--skyra-text)',
             fontSize: '0.875rem',
             lineHeight: '1.5',
             outline: 'none',
             boxSizing: 'border-box',
-            resize: autoResize ? 'none' : 'vertical',
+            resize: autoResize ? 'none' : resize,
+            cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'text',
             fontFamily: 'inherit',
             transition: 'border-color 0.15s, box-shadow 0.15s',
           }}
+          readOnly={readOnly}
           {...rest}
         />
 

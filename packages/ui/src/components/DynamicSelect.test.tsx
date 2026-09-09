@@ -207,4 +207,106 @@ describe('DynamicSelect', () => {
     fireEvent.keyDown(trigger, { key: 'Escape' });
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
+
+  it('operates Select All strictly on currently filtered options when search filter is active', () => {
+    const onChange = vi.fn();
+    render(
+      <DynamicSelect
+        mode="multiple"
+        searchable
+        selectAll
+        options={sampleOptions}
+        value={[]}
+        onChange={onChange}
+      />
+    );
+
+    fireEvent.click(screen.getByRole('button'));
+    const searchInput = screen.getByRole('textbox');
+    
+    // Filter down to "Business" options or "Marketing"
+    fireEvent.change(searchInput, { target: { value: 'Market' } });
+    expect(screen.getByText('Marketing')).toBeInTheDocument();
+    expect(screen.queryByText('Engineering')).not.toBeInTheDocument();
+
+    // Click Select all when filtered
+    const selectAllBtn = screen.getByText(/select all/i);
+    fireEvent.click(selectAllBtn);
+
+    // Only 'Marketing' should be selected, NOT all 5 options
+    expect(onChange).toHaveBeenCalledWith([sampleOptions[1]]);
+  });
+
+  it('deselects all matching filtered options when all filtered options are already selected', () => {
+    const onChange = vi.fn();
+    // 'Marketing' and 'Finance' already selected
+    render(
+      <DynamicSelect
+        mode="multiple"
+        searchable
+        selectAll
+        options={sampleOptions}
+        value={['mkt', 'fin', 'eng']}
+        onChange={onChange}
+      />
+    );
+
+    fireEvent.click(screen.getAllByRole('button')[0]!);
+    const searchInput = screen.getByRole('textbox');
+
+    // Filter to 'Market'
+    fireEvent.change(searchInput, { target: { value: 'Market' } });
+    expect(screen.getByRole('option', { name: /marketing/i })).toBeInTheDocument();
+
+    // Select all row shows 'Deselect all' because the only filtered enabled option 'mkt' is already selected
+    const deselectAllBtn = screen.getByText(/deselect all/i);
+    fireEvent.click(deselectAllBtn);
+
+    // 'mkt' is removed while 'fin' and 'eng' remain
+    expect(onChange).toHaveBeenCalledWith([
+      sampleOptions[2], // 'fin'
+      sampleOptions[0], // 'eng'
+    ]);
+  });
+
+  it('renders multi-select sticky footer with selection count and Clear all action', () => {
+    const onChange = vi.fn();
+    render(
+      <DynamicSelect
+        mode="multiple"
+        options={sampleOptions}
+        value={['eng', 'mkt']}
+        onChange={onChange}
+      />
+    );
+
+    fireEvent.click(screen.getAllByRole('button')[0]!);
+    expect(screen.getByText('2 selected')).toBeInTheDocument();
+
+    const clearAllBtn = screen.getByText('Clear all');
+    expect(clearAllBtn).toBeInTheDocument();
+    fireEvent.click(clearAllBtn);
+
+    expect(onChange).toHaveBeenCalledWith([]);
+  });
+
+  it('allows keyboard activation (Enter/Space) on Select All row', () => {
+    const onChange = vi.fn();
+    render(
+      <DynamicSelect
+        mode="multiple"
+        selectAll
+        options={sampleOptions}
+        value={[]}
+        onChange={onChange}
+      />
+    );
+
+    fireEvent.click(screen.getByRole('button'));
+    const selectAllRow = screen.getByLabelText(/select all options/i);
+    
+    // Press Space on select all
+    fireEvent.keyDown(selectAllRow, { key: ' ' });
+    expect(onChange).toHaveBeenCalledWith(sampleOptions.filter((o) => !o.disabled));
+  });
 });

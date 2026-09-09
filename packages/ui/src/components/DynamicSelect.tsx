@@ -407,18 +407,41 @@ export function DynamicSelect<T = DefaultSelectOption>({
     onChange(isMulti ? [] : null);
   };
 
-  // Select all toggle
+  // Select all / Deselect all toggle
   const handleToggleSelectAll = () => {
     if (!isMulti || disabled) return;
-    const allEnabled = options.filter((o) => !defaultGetDisabled(o, optionDisabled));
-    if (selectedItems.length === allEnabled.length) {
-      onChange([]);
+
+    const isSearchActive = isSearchEnabled && searchQuery.trim().length >= minSearchChars;
+    const targetPool = isSearchActive ? filteredOptions : options;
+    const selectableTarget = targetPool.filter((o) => !defaultGetDisabled(o, optionDisabled));
+    if (selectableTarget.length === 0) return;
+
+    const allTargetSelected = selectableTarget.every((o) =>
+      selectedValuesSet.has(defaultGetValue(o, optionValue))
+    );
+
+    if (allTargetSelected) {
+      // Deselect all selectable options in current target pool
+      const targetValuesToRemove = new Set(
+        selectableTarget.map((o) => defaultGetValue(o, optionValue))
+      );
+      const newSelected = selectedItems.filter(
+        (item) => !targetValuesToRemove.has(defaultGetValue(item, optionValue))
+      );
+      onChange(newSelected);
     } else {
+      // Select all unselected selectable options in current target pool
+      const currentSelectedValues = new Set(
+        selectedItems.map((item) => defaultGetValue(item, optionValue))
+      );
+      const toAdd = selectableTarget.filter(
+        (o) => !currentSelectedValues.has(defaultGetValue(o, optionValue))
+      );
+      let newSelected = [...selectedItems, ...toAdd];
       if (maxSelections) {
-        onChange(allEnabled.slice(0, maxSelections));
-      } else {
-        onChange(allEnabled);
+        newSelected = newSelected.slice(0, maxSelections);
       }
+      onChange(newSelected);
     }
   };
 
@@ -511,7 +534,15 @@ export function DynamicSelect<T = DefaultSelectOption>({
 
   const visibleTokens = isMulti ? selectedItems.slice(0, calculatedVisibleCount) : [];
   const hiddenCount = isMulti ? Math.max(0, selectedItems.length - calculatedVisibleCount) : 0;
-  const isAllSelected = isMulti && options.length > 0 && selectedItems.length === options.filter((o) => !defaultGetDisabled(o, optionDisabled)).length;
+  const isSearchActive = isSearchEnabled && searchQuery.trim().length >= minSearchChars;
+  const targetPool = isSearchActive ? filteredOptions : options;
+  const selectableTarget = targetPool.filter((o) => !defaultGetDisabled(o, optionDisabled));
+  const isAllTargetSelected =
+    selectableTarget.length > 0 &&
+    selectableTarget.every((o) => selectedValuesSet.has(defaultGetValue(o, optionValue)));
+  const isSomeTargetSelected =
+    !isAllTargetSelected &&
+    selectableTarget.some((o) => selectedValuesSet.has(defaultGetValue(o, optionValue)));
 
   return (
     <div
@@ -783,62 +814,85 @@ export function DynamicSelect<T = DefaultSelectOption>({
             animation: 'fadeInUp 0.15s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         >
-          {/* Search Box */}
+          {/* Search Box Header */}
           {isSearchEnabled && (
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: '0.5rem 0.75rem',
+                padding: '0.5rem 0.65rem',
                 borderBottom: '1px solid var(--skyra-border)',
-                gap: '0.5rem',
+                background: 'var(--skyra-surface)',
                 flexShrink: 0,
-                background: 'var(--skyra-bg)',
+                position: 'sticky',
+                top: 0,
+                zIndex: 10,
               }}
             >
-              <Search size={14} style={{ color: 'var(--skyra-text-muted)', flexShrink: 0 }} />
-              <input
-                ref={searchInputRef}
-                type="text"
-                value={searchQuery}
-                placeholder={searchPlaceholder}
-                onChange={(e) => handleSearchChange(e.target.value)}
-                onKeyDown={handleKeyDown}
-                aria-label={searchPlaceholder}
+              <div
                 style={{
-                  width: '100%',
-                  border: 'none',
-                  background: 'transparent',
-                  outline: 'none',
-                  fontSize: '0.85rem',
-                  color: 'var(--skyra-text)',
-                  fontFamily: 'inherit',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.35rem 0.6rem',
+                  background: 'var(--skyra-bg)',
+                  border: '1px solid var(--skyra-border)',
+                  borderRadius: 'var(--skyra-radius-sm)',
                 }}
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  aria-label="Clear search"
-                  onClick={() => handleSearchChange('')}
+              >
+                <Search size={14} style={{ color: 'var(--skyra-text-muted)', flexShrink: 0 }} />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  placeholder={searchPlaceholder}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  aria-label={searchPlaceholder}
                   style={{
-                    background: 'none',
+                    width: '100%',
                     border: 'none',
-                    color: 'var(--skyra-text-subtle)',
-                    cursor: 'pointer',
-                    padding: '2px',
-                    display: 'flex',
+                    background: 'transparent',
+                    outline: 'none',
+                    fontSize: '0.85rem',
+                    color: 'var(--skyra-text)',
+                    fontFamily: 'inherit',
                   }}
-                >
-                  <X size={12} />
-                </button>
-              )}
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    aria-label="Clear search"
+                    onClick={() => handleSearchChange('')}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--skyra-text-subtle)',
+                      cursor: 'pointer',
+                      padding: '2px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <X size={12} />
+                  </button>
+                )}
+              </div>
             </div>
           )}
 
-          {/* Select All Row (in multi mode) */}
-          {isMulti && selectAll && options.length > 0 && !searchQuery && (
+          {/* Select All / Deselect All Control Row (in multi mode) */}
+          {isMulti && selectAll && options.length > 0 && (
             <div
+              role="button"
+              tabIndex={0}
               onClick={handleToggleSelectAll}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleToggleSelectAll();
+                }
+              }}
+              aria-label={isAllTargetSelected ? 'Deselect all options' : 'Select all options'}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -847,13 +901,46 @@ export function DynamicSelect<T = DefaultSelectOption>({
                 borderBottom: '1px solid var(--skyra-border)',
                 background: 'var(--skyra-bg)',
                 cursor: 'pointer',
-                fontSize: '0.82rem',
-                fontWeight: 600,
-                color: 'var(--skyra-primary)',
+                userSelect: 'none',
+                flexShrink: 0,
               }}
             >
-              <span>{isAllSelected ? 'Deselect All' : 'Select All'}</span>
-              <span style={{ fontSize: '0.75rem', color: 'var(--skyra-text-muted)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                <div
+                  style={{
+                    width: '18px',
+                    height: '18px',
+                    borderRadius: 'var(--skyra-radius-xs, 4px)',
+                    border: isAllTargetSelected || isSomeTargetSelected ? '1.5px solid var(--skyra-primary)' : '1.5px solid var(--skyra-border)',
+                    background: isAllTargetSelected || isSomeTargetSelected ? 'var(--skyra-primary)' : 'transparent',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  {isAllTargetSelected ? (
+                    <Check size={12} color="#ffffff" strokeWidth={3} />
+                  ) : isSomeTargetSelected ? (
+                    <div style={{ width: '8px', height: '2px', background: '#ffffff', borderRadius: '1px' }} />
+                  ) : null}
+                </div>
+                <span style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--skyra-text)' }}>
+                  {isAllTargetSelected ? 'Deselect all' : 'Select all'}
+                </span>
+              </div>
+              <span
+                style={{
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                  color: 'var(--skyra-text-muted)',
+                  background: 'var(--skyra-surface)',
+                  padding: '0.15rem 0.45rem',
+                  borderRadius: 'var(--skyra-radius-sm)',
+                  border: '1px solid var(--skyra-border)',
+                }}
+              >
                 {selectedItems.length} / {options.length}
               </span>
             </div>
@@ -941,6 +1028,49 @@ export function DynamicSelect<T = DefaultSelectOption>({
               filteredOptions.map((opt) => renderOptionButton(opt))
             )}
           </div>
+
+          {/* Sticky Footer for Multi-Select */}
+          {isMulti && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '0.5rem 0.75rem',
+                borderTop: '1px solid var(--skyra-border)',
+                background: 'var(--skyra-bg)',
+                flexShrink: 0,
+              }}
+            >
+              <span
+                style={{
+                  fontSize: '0.78rem',
+                  fontWeight: 600,
+                  color: 'var(--skyra-text-muted)',
+                }}
+              >
+                {selectedItems.length} selected
+              </span>
+              {selectedItems.length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleClear}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--skyra-danger)',
+                    fontSize: '0.78rem',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    padding: '2px 4px',
+                    borderRadius: 'var(--skyra-radius-xs)',
+                  }}
+                >
+                  Clear all
+                </button>
+              )}
+            </div>
+          )}
         </div>
       )}
 
@@ -999,8 +1129,8 @@ export function DynamicSelect<T = DefaultSelectOption>({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '0.5rem',
-          padding: '0.5rem 0.75rem',
+          gap: '0.625rem',
+          padding: '0.55rem 0.75rem',
           borderRadius: 'var(--skyra-radius-sm)',
           background: isSelected
             ? 'var(--skyra-primary-light)'
@@ -1017,37 +1147,39 @@ export function DynamicSelect<T = DefaultSelectOption>({
           border: 'none',
           textAlign: 'left',
           transition: 'background 0.1s, color 0.1s',
-          opacity: isDis ? 0.6 : 1,
+          opacity: isDis ? 0.55 : 1,
         }}
       >
         {renderOption ? (
           renderOption(opt, { selected: isSelected, focused: isFocused })
         ) : (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1, overflow: 'hidden' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flex: 1, overflow: 'hidden' }}>
             {isMulti && (
               <div
                 style={{
-                  width: '16px',
-                  height: '16px',
-                  borderRadius: '3px',
+                  width: '18px',
+                  height: '18px',
+                  borderRadius: 'var(--skyra-radius-xs, 4px)',
                   border: isSelected ? '1.5px solid var(--skyra-primary)' : '1.5px solid var(--skyra-border)',
                   background: isSelected ? 'var(--skyra-primary)' : 'transparent',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
+                  transition: 'all 0.15s ease',
                 }}
               >
                 {isSelected && <Check size={12} color="#ffffff" strokeWidth={3} />}
               </div>
             )}
-            <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', gap: '1px' }}>
               <span
                 style={{
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
-                  fontWeight: isSelected ? 600 : 400,
+                  fontWeight: isSelected ? 600 : 500,
+                  color: isDis ? 'var(--skyra-text-subtle)' : isSelected ? 'var(--skyra-primary)' : 'var(--skyra-text)',
                 }}
               >
                 {lbl}

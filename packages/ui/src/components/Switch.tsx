@@ -1,6 +1,10 @@
 'use client';
 
 import React, { useId } from 'react';
+import { Check, X, Moon, Sun, Loader2 } from 'lucide-react';
+
+export type SwitchVariant = 'default' | 'compact' | 'labeled' | 'icon' | 'outline';
+export type SwitchSize = 'sm' | 'md' | 'lg';
 
 export interface SwitchProps {
   /** Checked state (controlled) */
@@ -17,14 +21,20 @@ export interface SwitchProps {
   error?: string;
   /** Disabled state */
   disabled?: boolean;
+  /** ReadOnly state */
+  readOnly?: boolean;
+  /** Loading state with spinner in thumb */
+  loading?: boolean;
   /** Required state */
   required?: boolean;
+  /** Visual variant */
+  variant?: SwitchVariant;
+  /** Size variant */
+  size?: SwitchSize;
   /** Custom ID */
   id?: string;
   /** Name for form submissions */
   name?: string;
-  /** Size variant */
-  size?: 'sm' | 'md' | 'lg';
   /** Additional CSS class */
   className?: string;
 }
@@ -32,8 +42,9 @@ export interface SwitchProps {
 /**
  * @skyra/ui Switch
  *
- * Accessible toggle switch with smooth sliding thumb, dark mode tokens,
- * labels, descriptions, and error states.
+ * Highly configurable accessible toggle switch supporting 5 design variants
+ * (default, compact, labeled, icon, outline), 3 sizes (sm, md, lg), loading spinner,
+ * and dark mode tokens.
  */
 export function Switch({
   checked = false,
@@ -43,10 +54,13 @@ export function Switch({
   description,
   error,
   disabled = false,
+  readOnly = false,
+  loading = false,
   required = false,
+  variant = 'default',
+  size = 'md',
   id,
   name,
-  size = 'md',
   className = '',
 }: SwitchProps) {
   const uid = useId();
@@ -60,7 +74,7 @@ export function Switch({
   const currentChecked = isControlled ? checked : internalChecked;
 
   const handleToggle = () => {
-    if (disabled) return;
+    if (disabled || readOnly || loading) return;
     const next = !currentChecked;
     if (!isControlled) {
       setInternalChecked(next);
@@ -69,19 +83,50 @@ export function Switch({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (disabled) return;
+    if (disabled || readOnly || loading) return;
     if (e.key === ' ' || e.key === 'Enter') {
       e.preventDefault();
       handleToggle();
     }
   };
 
-  // Dimensions based on size
+  // Dimensions based on size and variant
+  const isCompact = variant === 'compact';
   const dimensions = {
-    sm: { trackW: '32px', trackH: '18px', thumbS: '14px', translate: '14px' },
-    md: { trackW: '40px', trackH: '22px', thumbS: '18px', translate: '18px' },
-    lg: { trackW: '48px', trackH: '26px', thumbS: '22px', translate: '22px' },
+    sm: {
+      trackW: isCompact ? '28px' : '34px',
+      trackH: isCompact ? '16px' : '18px',
+      thumbS: isCompact ? '12px' : '14px',
+      translate: isCompact ? '12px' : '16px',
+    },
+    md: {
+      trackW: isCompact ? '34px' : '44px',
+      trackH: isCompact ? '18px' : '24px',
+      thumbS: isCompact ? '14px' : '18px',
+      translate: isCompact ? '16px' : '20px',
+    },
+    lg: {
+      trackW: isCompact ? '42px' : '54px',
+      trackH: isCompact ? '22px' : '28px',
+      thumbS: isCompact ? '18px' : '22px',
+      translate: isCompact ? '20px' : '26px',
+    },
   }[size];
+
+  const trackBackground = disabled
+    ? 'var(--skyra-border)'
+    : variant === 'outline'
+    ? 'transparent'
+    : currentChecked
+    ? 'var(--skyra-primary)'
+    : 'var(--skyra-border)';
+
+  const trackBorder =
+    variant === 'outline'
+      ? currentChecked
+        ? '2px solid var(--skyra-primary)'
+        : '2px solid var(--skyra-border)'
+      : 'none';
 
   return (
     <div
@@ -98,9 +143,9 @@ export function Switch({
           display: 'inline-flex',
           alignItems: 'flex-start',
           gap: '0.75rem',
-          minHeight: '44px',
-          padding: '4px 0',
-          cursor: disabled ? 'not-allowed' : 'pointer',
+          minHeight: '38px',
+          padding: '2px 0',
+          cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'pointer',
         }}
         onClick={handleToggle}
       >
@@ -122,35 +167,63 @@ export function Switch({
             width: dimensions.trackW,
             height: dimensions.trackH,
             borderRadius: 'var(--skyra-radius-full)',
-            background: disabled
-              ? 'var(--skyra-border)'
-              : currentChecked
-              ? 'var(--skyra-primary)'
-              : 'var(--skyra-border)',
-            border: 'none',
+            background: trackBackground,
+            border: trackBorder,
             padding: '2px',
-            cursor: disabled ? 'not-allowed' : 'pointer',
-            transition: 'background-color 0.2s ease',
+            cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'pointer',
+            transition: 'background-color 0.2s ease, border-color 0.2s ease',
             outline: 'none',
             flexShrink: 0,
             marginTop: '2px',
             display: 'inline-flex',
             alignItems: 'center',
+            boxSizing: 'border-box',
           }}
         >
+          {/* Labeled Variant ON/OFF Text in Track */}
+          {variant === 'labeled' && (
+            <span
+              style={{
+                position: 'absolute',
+                left: currentChecked ? '6px' : 'auto',
+                right: currentChecked ? 'auto' : '6px',
+                fontSize: size === 'sm' ? '0.6rem' : '0.7rem',
+                fontWeight: 700,
+                color: currentChecked ? '#ffffff' : 'var(--skyra-text-muted)',
+                lineHeight: 1,
+                userSelect: 'none',
+              }}
+            >
+              {currentChecked ? 'ON' : 'OFF'}
+            </span>
+          )}
+
           {/* Sliding Thumb */}
           <span
             style={{
-              display: 'block',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               width: dimensions.thumbS,
               height: dimensions.thumbS,
               borderRadius: '50%',
-              background: '#ffffff',
+              background: variant === 'outline' && currentChecked ? 'var(--skyra-primary)' : '#ffffff',
               boxShadow: 'var(--skyra-shadow-sm)',
               transform: currentChecked ? `translateX(${dimensions.translate})` : 'translateX(0)',
-              transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+              transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease',
+              flexShrink: 0,
             }}
-          />
+          >
+            {loading ? (
+              <Loader2 size={10} className="skyra-spin" style={{ animation: 'spin 1s linear infinite', color: 'var(--skyra-primary)' }} />
+            ) : variant === 'icon' ? (
+              currentChecked ? (
+                <Check size={10} color="var(--skyra-primary)" strokeWidth={3} />
+              ) : (
+                <X size={10} color="var(--skyra-text-muted)" strokeWidth={3} />
+              )
+            ) : null}
+          </span>
         </button>
 
         {/* Label and Description */}
@@ -193,7 +266,7 @@ export function Switch({
           style={{
             fontSize: '0.78rem',
             color: 'var(--skyra-danger)',
-            marginLeft: '48px',
+            marginLeft: dimensions.trackW,
           }}
         >
           {error}

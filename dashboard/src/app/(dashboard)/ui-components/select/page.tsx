@@ -27,6 +27,13 @@ export default function DynamicSelectShowcasePage() {
   const [val1, setVal1] = useState<any>('eng');
   const [val2, setVal2] = useState<any>('prod');
   const [val3, setVal3] = useState<any>('sales');
+  
+  // Dedicated Multi-Select + Search + Select All Redesign showcase states
+  const [valMultiEmpty, setValMultiEmpty] = useState<any>([]);
+  const [valMultiPartial, setValMultiPartial] = useState<any>(['eng', 'prod']);
+  const [valMultiAll, setValMultiAll] = useState<any>(['eng', 'prod', 'mkt', 'sales', 'fin', 'hr']);
+  const [valMultiFiltered, setValMultiFiltered] = useState<any>(['eng']);
+  
   const [valMulti, setValMulti] = useState<any>(['eng', 'prod', 'mkt', 'fin', 'sales']);
   const [valSelectAll, setValSelectAll] = useState<any>(['eng', 'mkt']);
   const [valGrouped, setValGrouped] = useState<any>('eng');
@@ -36,8 +43,8 @@ export default function DynamicSelectShowcasePage() {
   const [valVis2, setValVis2] = useState<any>(['eng', 'prod', 'mkt', 'fin', 'sales']);
   const [valVis3, setValVis3] = useState<any>(['eng', 'prod', 'mkt', 'fin', 'sales']);
   const [valAuto, setValAuto] = useState<any>(['eng', 'prod', 'mkt', 'fin', 'sales']);
-  const [valNarrow, setValNarrow] = useState<any>(['eng', 'prod', 'mkt', 'fin', 'sales']);
-  const [valWide, setValWide] = useState<any>(['eng', 'prod', 'mkt', 'fin', 'sales']);
+  const [valNarrow, setValNarrow] = useState<any>(['eng', 'prod', 'mkt', 'sales']);
+  const [valWide, setValWide] = useState<any>(['eng', 'prod', 'mkt', 'sales', 'fin']);
   const [valCustomOpt, setValCustomOpt] = useState<any>(EMPLOYEES[0]);
   const [valCustomVal, setValCustomVal] = useState<any>(EMPLOYEES[1]);
 
@@ -49,10 +56,79 @@ export default function DynamicSelectShowcasePage() {
           DynamicSelect Component
         </h1>
         <p style={{ color: 'var(--skyra-text-muted)', fontSize: '0.95rem', marginTop: '0.5rem' }}>
-          One highly-configurable select primitive supporting single, multi-select, searchable, creatable, grouped,
-          dynamic <code>+N</code> compact chips overflow, and custom template rendering.
+          One highly-configurable enterprise select primitive supporting single, multi-select, search header,
+          filtered select all, tri-state checkboxes, sticky footer, dynamic <code>+N</code> compact chips overflow, and custom template rendering.
         </p>
       </div>
+
+      {/* ── FEATURED SHOWCASE: Multi-Select + Search + Select All Redesign ── */}
+      <DemoSection
+        title="★ Multi-Select + Search + Select All (Enterprise Menu Redesign)"
+        desc="Showcases the polished enterprise multi-select menu featuring sticky search header, filtered select all, tri-state checkbox state, whole-row click area, and sticky footer with Clear all."
+        erpSource="Skyra ERP Multi-Select Redesign [Phase 2]"
+      >
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1.5rem' }}>
+          <DemoBlock title="A. Empty Selection (Search + Select All)">
+            <DynamicSelect
+              label="Select Multiple Departments"
+              options={DEPARTMENTS}
+              mode="multiple"
+              searchable
+              selectAll
+              clearable
+              maxVisibleValues="auto"
+              value={valMultiEmpty}
+              onChange={setValMultiEmpty}
+              description="Click dropdown to test sticky search and 1-click select all"
+            />
+          </DemoBlock>
+
+          <DemoBlock title="B. Partial Selection with Auto +N Chips">
+            <DynamicSelect
+              label="Active Project Teams"
+              options={DEPARTMENTS}
+              mode="multiple"
+              searchable
+              selectAll
+              clearable
+              maxVisibleValues="auto"
+              value={valMultiPartial}
+              onChange={setValMultiPartial}
+              description="Shows tri-state indeterminate checkbox on select all row"
+            />
+          </DemoBlock>
+
+          <DemoBlock title="C. All Selected (Deselect All State)">
+            <DynamicSelect
+              label="All Operational Units"
+              options={DEPARTMENTS}
+              mode="multiple"
+              searchable
+              selectAll
+              clearable
+              maxVisibleValues="auto"
+              value={valMultiAll}
+              onChange={setValMultiAll}
+              description="Header updates to 'Deselect all' with checked checkbox"
+            />
+          </DemoBlock>
+
+          <DemoBlock title="D. Filtered Search Selection (Try typing 'Tech' or 'Mark')">
+            <DynamicSelect
+              label="Search-Filtered Bulk Selection"
+              options={DEPARTMENTS}
+              mode="multiple"
+              searchable
+              selectAll
+              clearable
+              maxVisibleValues="auto"
+              value={valMultiFiltered}
+              onChange={setValMultiFiltered}
+              description="When filtered, 'Select all' operates ONLY on matching filtered options"
+            />
+          </DemoBlock>
+        </div>
+      </DemoSection>
 
       {/* ── SECTION 1: Single Selection Modes ── */}
       <DemoSection title="1. Single Selection Modes" desc="Standard dropdown, local search filtering, clearable, and disabled option handling." erpSource="CustomSelect.tsx">
