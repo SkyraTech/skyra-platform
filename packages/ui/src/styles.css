@@ -519,6 +519,33 @@
 .skyra-phone-number::placeholder { color: var(--skyra-text-subtle); }
 
 /* ============================================================
+   ANIMATIONS & TRANSITIONS
+   ============================================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.skyra-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ============================================================
    ACCESSIBILITY: REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {

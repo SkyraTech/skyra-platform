@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, Palette, Component, Table2, WrapText,
   PanelTop, Eye, Monitor, BookOpen, Moon, Sun, ChevronRight, Menu, X,
+  FileText, Printer, Download,
 } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -15,6 +16,9 @@ const NAV_ITEMS = [
   { href: '/data-table',    label: 'Data Table',           icon: Table2 },
   { href: '/dynamic-form',  label: 'Dynamic Form',         icon: WrapText },
   { href: '/dialogs',       label: 'Dialogs & Overlays',   icon: PanelTop },
+  { href: '/pdf-viewer',    label: 'PDF & Documents',      icon: FileText },
+  { href: '/print',         label: 'Print Studio',         icon: Printer },
+  { href: '/export',        label: 'Data Export',          icon: Download },
   { href: '/accessibility', label: 'Accessibility Studio', icon: Eye },
   { href: '/responsive',    label: 'Viewport Studio',      icon: Monitor },
   { href: '/docs',          label: 'Documentation',        icon: BookOpen },

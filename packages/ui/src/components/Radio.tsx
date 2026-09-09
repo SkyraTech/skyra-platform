@@ -1,31 +1,27 @@
 'use client';
 
-import React, { useId, useEffect, useRef } from 'react';
-import { Check, Minus } from 'lucide-react';
+import React, { useId } from 'react';
 
-export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+export interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
   label: React.ReactNode;
   description?: React.ReactNode;
   helper?: React.ReactNode;
   error?: string;
-  indeterminate?: boolean;
 }
 
 /**
- * @skyra/ui Checkbox
+ * @skyra/ui Radio
  *
- * [B] PLATFORM EXTRACTION + [C] ENHANCEMENT
- * Supports checked, unchecked, indeterminate, disabled, focus-visible,
- * min 44x44px touch target, descriptions, and accessible ARIA states.
+ * Reusable accessible radio input primitive with ERP visual fidelity,
+ * custom styled indicator dot, minimum 44x44px touch area, and descriptions.
  */
-export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
+export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
     {
       label,
       description,
       helper,
       error,
-      indeterminate = false,
       disabled = false,
       required = false,
       id,
@@ -36,29 +32,19 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       onChange,
       ...rest
     },
-    forwardedRef
+    ref
   ) => {
     const uid = useId();
-    const inputId = id ?? `skyra-checkbox-${uid}`;
+    const inputId = id ?? `skyra-radio-${uid}`;
     const descId = `${inputId}-desc`;
     const errorId = `${inputId}-error`;
-
-    const innerRef = useRef<HTMLInputElement>(null);
-
-    // Sync indeterminate property on real DOM node
-    useEffect(() => {
-      const el = (forwardedRef && 'current' in forwardedRef && forwardedRef.current) || innerRef.current;
-      if (el) {
-        el.indeterminate = indeterminate;
-      }
-    }, [indeterminate, forwardedRef]);
 
     const isChecked = Boolean(checked ?? defaultChecked);
     const hasError = !!error;
 
     return (
       <div
-        className={`skyra-checkbox-container ${className}`}
+        className={`skyra-radio-container ${className}`}
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -79,18 +65,11 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             position: 'relative',
           }}
         >
-          {/* Hidden native checkbox input */}
+          {/* Native Radio Input */}
           <input
-            ref={(node) => {
-              (innerRef as any).current = node;
-              if (typeof forwardedRef === 'function') {
-                forwardedRef(node);
-              } else if (forwardedRef) {
-                (forwardedRef as any).current = node;
-              }
-            }}
+            ref={ref}
             id={inputId}
-            type="checkbox"
+            type="radio"
             checked={checked}
             defaultChecked={defaultChecked}
             disabled={disabled}
@@ -112,43 +91,41 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             {...rest}
           />
 
-          {/* Custom Styled Box */}
+          {/* Custom Styled Radio Circle */}
           <span
             aria-hidden="true"
             style={{
               width: '18px',
               height: '18px',
               marginTop: '3px',
-              borderRadius: 'var(--skyra-radius-sm, 4px)',
+              borderRadius: '50%',
               border: hasError
                 ? '1.5px solid var(--skyra-danger)'
-                : isChecked || indeterminate
+                : isChecked
                 ? '1.5px solid var(--skyra-primary)'
                 : '1.5px solid var(--skyra-border)',
-              background: disabled
-                ? isChecked || indeterminate
-                  ? 'var(--skyra-border)'
-                  : 'var(--skyra-bg)'
-                : isChecked || indeterminate
-                ? 'var(--skyra-primary)'
-                : 'var(--skyra-surface)',
-              color: '#ffffff',
+              background: disabled ? 'var(--skyra-bg)' : 'var(--skyra-surface)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
               transition: 'all 0.15s ease',
-              boxShadow: 'none',
             }}
           >
-            {indeterminate ? (
-              <Minus size={12} strokeWidth={3} />
-            ) : isChecked ? (
-              <Check size={12} strokeWidth={3} />
-            ) : null}
+            {isChecked && (
+              <span
+                style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  background: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-primary)',
+                  transition: 'transform 0.15s ease',
+                }}
+              />
+            )}
           </span>
 
-          {/* Label + Description */}
+          {/* Label & Description */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
             <span
               style={{
@@ -194,4 +171,4 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     );
   }
 );
-Checkbox.displayName = 'Checkbox';
+Radio.displayName = 'Radio';

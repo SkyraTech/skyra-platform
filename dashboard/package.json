@@ -10,6 +10,7 @@
     "lint": "echo \"lint: ok\""
   },
   "dependencies": {
+    "@skyra/data-export": "workspace:*",
     "@skyra/data-table": "workspace:*",
     "@skyra/design-tokens": "workspace:*",
     "@skyra/dialogs": "workspace:*",

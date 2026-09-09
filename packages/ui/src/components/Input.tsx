@@ -1,22 +1,34 @@
 'use client';
 
 import React from 'react';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Loader2, X } from 'lucide-react';
 
 export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'> {
   /** Label text shown above the input */
-  label?: string;
+  label?: React.ReactNode;
   /** Error message — sets error state and shows message */
   error?: string;
   /** Helper text shown below the input */
-  helper?: string;
+  helper?: React.ReactNode;
+  /** Description text shown below the input (alias for helper) */
+  description?: React.ReactNode;
   /** Show required asterisk */
   required?: boolean;
-  /** Left adornment (icon or text) */
+  /** Left adornment or prefix */
   leftAdornment?: React.ReactNode;
-  /** Right adornment (icon or text) */
+  prefix?: React.ReactNode;
+  /** Right adornment or suffix */
   rightAdornment?: React.ReactNode;
+  suffix?: React.ReactNode;
+  /** Loading state with inline spinner */
+  loading?: boolean;
+  /** Allow clearing input value */
+  clearable?: boolean;
+  /** Clear callback */
+  onClear?: () => void;
+  /** Show character count when maxLength is set */
+  showCount?: boolean;
   /** Wrapper className */
   wrapperClassName?: string;
 }
@@ -24,15 +36,9 @@ export interface InputProps
 /**
  * @skyra/ui Input
  *
- * [B] PLATFORM EXTRACTION from skyra-erp/src/styles/ui.css .form-input
- *
- * Confirmed ERP values:
- *   - padding: 0.65rem 0.875rem
- *   - background: var(--bg-color) / var(--skyra-bg)
- *   - border: 1px solid var(--border-color)
- *   - border-radius: var(--radius-md) = 10px
- *   - focus: border var(--primary), box-shadow: 0 0 0 3px rgba(10,88,202,0.12)
- *   - error: border var(--danger), box-shadow: 0 0 0 3px rgba(239,68,68,0.10)
+ * [B] PLATFORM EXTRACTION + [C] ENHANCEMENT
+ * Comprehensive input primitive with prefixes, suffixes, clear button,
+ * loading spinner, character counter, dark mode, and ERP styling.
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
@@ -40,21 +46,39 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       label,
       error,
       helper,
+      description,
       required,
       leftAdornment,
+      prefix,
       rightAdornment,
+      suffix,
+      loading = false,
+      clearable = false,
+      onClear,
+      showCount = false,
+      maxLength,
+      value,
+      defaultValue,
+      onChange,
       id,
       className = '',
       wrapperClassName = '',
+      disabled,
       ...rest
     },
     ref
   ) => {
     const uid = React.useId();
     const inputId = id ?? `skyra-input-${uid}`;
+    const effectiveHelper = helper ?? description;
     const errorId = `${inputId}-error`;
     const helperId = `${inputId}-helper`;
     const hasError = !!error;
+
+    const left = prefix ?? leftAdornment;
+    const right = suffix ?? rightAdornment;
+
+    const currentLength = typeof value === 'string' ? value.length : 0;
 
     const describedBy = [
       hasError ? errorId : '',
@@ -66,25 +90,32 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputClasses = [
       'skyra-input',
       hasError ? 'skyra-input--error' : '',
-      leftAdornment ? 'skyra-input--has-left' : '',
-      rightAdornment ? 'skyra-input--has-right' : '',
+      left ? 'skyra-input--has-left' : '',
+      right || loading || clearable ? 'skyra-input--has-right' : '',
       className,
     ]
       .filter(Boolean)
       .join(' ');
 
     return (
-      <div className={`skyra-field ${wrapperClassName}`}>
+      <div className={`skyra-field ${wrapperClassName}`} style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem', width: '100%', fontFamily: 'var(--skyra-font-body)' }}>
         {label && (
           <label
             htmlFor={inputId}
             className={`skyra-label ${required ? 'skyra-label--required' : ''}`}
+            style={{
+              fontSize: '0.875rem',
+              fontWeight: 500,
+              color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
+            }}
           >
             {label}
+            {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
           </label>
         )}
-        <div style={{ position: 'relative' }}>
-          {leftAdornment && (
+
+        <div style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center' }}>
+          {left && (
             <span
               aria-hidden="true"
               style={{
@@ -95,52 +126,141 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 color: 'var(--skyra-text-muted)',
                 display: 'flex',
                 alignItems: 'center',
+                pointerEvents: 'none',
+                zIndex: 1,
               }}
             >
-              {leftAdornment}
+              {left}
             </span>
           )}
+
           <input
             ref={ref}
             id={inputId}
             className={inputClasses}
+            value={value}
+            defaultValue={defaultValue}
+            onChange={onChange}
+            disabled={disabled}
+            maxLength={maxLength}
             aria-invalid={hasError}
             aria-describedby={describedBy}
             aria-required={required}
             style={{
-              paddingLeft: leftAdornment ? '2.25rem' : undefined,
-              paddingRight: rightAdornment ? '2.25rem' : undefined,
+              width: '100%',
+              height: '42px',
+              padding: '0.65rem 0.875rem',
+              paddingLeft: left ? '2.35rem' : '0.875rem',
+              paddingRight: right || loading || clearable ? '2.5rem' : '0.875rem',
+              background: disabled ? 'var(--skyra-border)' : 'var(--skyra-bg)',
+              border: hasError ? '1.5px solid var(--skyra-danger)' : '1px solid var(--skyra-border)',
+              borderRadius: 'var(--skyra-radius-md)',
+              color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
+              fontSize: '0.875rem',
+              outline: 'none',
+              boxSizing: 'border-box',
+              transition: 'border-color 0.15s, box-shadow 0.15s',
             }}
             {...rest}
           />
-          {rightAdornment && (
+
+          {/* Right Area: Spinner / Clear / Right Adornment */}
+          <div
+            style={{
+              position: 'absolute',
+              right: '0.75rem',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.25rem',
+              color: 'var(--skyra-text-muted)',
+              zIndex: 1,
+            }}
+          >
+            {clearable && value && !disabled && (
+              <button
+                type="button"
+                aria-label="Clear input"
+                onClick={onClear}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: '2px',
+                  cursor: 'pointer',
+                  color: 'var(--skyra-text-subtle)',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <X size={14} />
+              </button>
+            )}
+
+            {loading && (
+              <Loader2
+                size={16}
+                className="skyra-spin"
+                style={{ animation: 'spin 1s linear infinite', color: 'var(--skyra-primary)' }}
+                aria-label="Loading"
+              />
+            )}
+
+            {!loading && right && (
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {right}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Footer: Error / Helper and Character Count */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
+          <div>
+            {hasError && (
+              <span
+                id={errorId}
+                className="skyra-error-msg"
+                role="alert"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  fontSize: '0.78rem',
+                  color: 'var(--skyra-danger)',
+                }}
+              >
+                <AlertCircle size={12} aria-hidden="true" />
+                {error}
+              </span>
+            )}
+            {effectiveHelper && !hasError && (
+              <span
+                id={helperId}
+                className="skyra-helper-msg"
+                style={{
+                  fontSize: '0.78rem',
+                  color: 'var(--skyra-text-muted)',
+                }}
+              >
+                {effectiveHelper}
+              </span>
+            )}
+          </div>
+
+          {showCount && maxLength && (
             <span
-              aria-hidden="true"
               style={{
-                position: 'absolute',
-                right: '0.75rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                color: 'var(--skyra-text-muted)',
-                display: 'flex',
-                alignItems: 'center',
+                fontSize: '0.75rem',
+                color: currentLength >= maxLength ? 'var(--skyra-danger)' : 'var(--skyra-text-subtle)',
+                marginLeft: 'auto',
+                flexShrink: 0,
               }}
             >
-              {rightAdornment}
+              {currentLength} / {maxLength}
             </span>
           )}
         </div>
-        {hasError && (
-          <span id={errorId} className="skyra-error-msg" role="alert">
-            <AlertCircle size={12} aria-hidden="true" />
-            {error}
-          </span>
-        )}
-        {helper && !hasError && (
-          <span id={helperId} className="skyra-helper-msg">
-            {helper}
-          </span>
-        )}
       </div>
     );
   }

@@ -3,7 +3,7 @@
 import React from 'react';
 import { Loader2 } from 'lucide-react';
 
-export type ButtonVariant = 'primary' | 'orange' | 'outline' | 'ghost' | 'danger';
+export type ButtonVariant = 'primary' | 'orange' | 'outline' | 'ghost' | 'danger' | 'destructive' | 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps
@@ -67,7 +67,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const classes = [
       'skyra-btn',
-      `skyra-btn--${variant}`,
+      `skyra-btn--${variant === 'destructive' ? 'danger' : variant}`,
       `skyra-btn--${size}`,
       isLoading ? 'skyra-btn--loading' : '',
       fullWidth ? 'skyra-btn--full' : '',

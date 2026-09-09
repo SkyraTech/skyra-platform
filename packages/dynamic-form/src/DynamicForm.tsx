@@ -1,191 +1,297 @@
 'use client';
 
-import React, { useId } from 'react';
-import { AlertCircle } from 'lucide-react';
+import React from 'react';
+import { AlertCircle, AlertTriangle } from 'lucide-react';
+import {
+  Button,
+  Input,
+  SearchInput,
+  PasswordInput,
+  NumberInput,
+  Textarea,
+  DynamicSelect,
+  Checkbox,
+  CheckboxGroup,
+  RadioGroup,
+  Switch,
+  DateField,
+  DateRangeField,
+  TimeField,
+  DateTimeField,
+} from '@skyra/ui';
 import type { FieldSchema, DynamicFormProps } from './types';
 
-const SELECT_ICON_SVG = 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%2364748b\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpath d=\'M6 9l6 6 6-6\'/%3E%3C/svg%3E")';
-
-/* ─── Single Field ─── */
+/* ─── Single Field Orchestrator ─── */
 
 function FormField({
-  field, value, error, onChange,
+  field,
+  value,
+  error,
+  onChange,
 }: {
   field: FieldSchema;
-  value: string | boolean | number;
+  value: any;
   error?: string;
-  onChange: (key: string, value: string | boolean | number) => void;
+  onChange: (key: string, value: any) => void;
 }) {
-  const uid = useId();
-  const inputId = `skyra-form-field-${uid}-${field.key}`;
-  const errorId = `${inputId}-error`;
-  const hasError = !!error;
-
   const wrapStyle: React.CSSProperties = {
     gridColumn: field.full ? '1 / -1' : undefined,
   };
 
-  const labelEl = !field.type.includes('checkbox') && (
-    <label htmlFor={inputId} style={{
-      display: 'block', fontSize: '0.8125rem', fontWeight: 600,
-      color: 'var(--skyra-text)', marginBottom: '0.375rem',
-    }}>
-      {field.label}
-      {field.required && <span style={{ color: 'var(--skyra-danger)' }}> *</span>}
-    </label>
-  );
-
-  const errorEl = hasError && (
-    <span id={errorId} role="alert" style={{
-      display: 'flex', alignItems: 'center', gap: '0.25rem',
-      fontSize: '0.78rem', color: 'var(--skyra-danger)', marginTop: '0.3rem',
-    }}>
-      <AlertCircle size={12} aria-hidden="true" />
-      {error}
-    </span>
-  );
-
-  const helperEl = field.helper && !hasError && (
-    <span style={{ fontSize: '0.78rem', color: 'var(--skyra-text-muted)', marginTop: '0.3rem', display: 'block' }}>
-      {field.helper}
-    </span>
-  );
-
-  const baseInputStyle: React.CSSProperties = {
-    display: 'block', width: '100%',
-    padding: '0.65rem 0.875rem',                       // [CONFIRMED: DynamicForm.module.css]
-    background: 'var(--skyra-bg)',
-    border: hasError ? '1px solid var(--skyra-danger)' : '1px solid var(--skyra-border)',
-    borderRadius: 'var(--skyra-radius-md)',
-    fontFamily: 'inherit', fontSize: '0.875rem',
-    color: 'var(--skyra-text)', outline: 'none',
-    boxShadow: hasError ? 'var(--skyra-focus-ring-error)' : undefined,
-    transition: 'border-color 0.15s, box-shadow 0.15s',
-    minHeight: '44px',
+  const handleFieldChange = (newVal: any) => {
+    onChange(field.key, newVal);
   };
 
-  if (field.type === 'checkbox') {
-    return (
-      <div style={wrapStyle}>
-        <label htmlFor={inputId} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: field.disabled ? 'not-allowed' : 'pointer', minHeight: '44px' }}>
-          <input
-            id={inputId}
-            type="checkbox"
-            checked={!!value}
+  switch (field.type) {
+    case 'select':
+      return (
+        <div style={wrapStyle}>
+          <DynamicSelect
+            label={field.label}
+            placeholder={field.placeholder ?? `Select ${field.label}...`}
+            options={field.options ?? []}
+            value={value}
+            mode={field.mode ?? 'single'}
+            searchable={field.searchable}
+            selectAll={field.selectAll}
+            maxVisibleValues={field.maxVisibleValues ?? 'auto'}
+            clearable={field.clearable ?? true}
+            grouping={field.grouping}
             disabled={field.disabled}
-            onChange={(e) => onChange(field.key, e.target.checked)}
-            aria-describedby={hasError ? errorId : undefined}
-            aria-invalid={hasError}
-            style={{ width: '16px', height: '16px', accentColor: 'var(--skyra-primary)', cursor: 'inherit', flexShrink: 0 }}
+            required={field.required}
+            description={field.description ?? field.helper}
+            error={error}
+            onChange={handleFieldChange}
           />
-          <span style={{ fontSize: '0.875rem', color: 'var(--skyra-text)' }}>
-            {field.label}
-            {field.required && <span style={{ color: 'var(--skyra-danger)' }}> *</span>}
-          </span>
-        </label>
-        {errorEl}{helperEl}
-      </div>
-    );
-  }
+        </div>
+      );
 
-  if (field.type === 'select') {
-    return (
-      <div style={wrapStyle}>
-        {labelEl}
-        <select
-          id={inputId}
-          value={String(value)}
-          disabled={field.disabled}
-          onChange={(e) => onChange(field.key, e.target.value)}
-          aria-describedby={hasError ? errorId : undefined}
-          aria-invalid={hasError}
-          style={{
-            ...baseInputStyle,
-            appearance: 'none',
-            backgroundImage: SELECT_ICON_SVG,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'right 0.75rem center',
-            paddingRight: '2.25rem',
-          }}
-        >
-          <option value="">{field.placeholder ?? `Select ${field.label}...`}</option>
-          {field.options?.map((opt) => (
-            <option key={opt.value} value={opt.value} disabled={opt.disabled}>{opt.label}</option>
-          ))}
-        </select>
-        {errorEl}{helperEl}
-      </div>
-    );
-  }
+    case 'checkbox':
+      return (
+        <div style={wrapStyle}>
+          <Checkbox
+            label={field.label}
+            description={field.description ?? field.helper}
+            checked={Boolean(value)}
+            disabled={field.disabled}
+            required={field.required}
+            error={error}
+            onChange={(e) => handleFieldChange(e.target.checked)}
+          />
+        </div>
+      );
 
-  if (field.type === 'textarea') {
-    return (
-      <div style={wrapStyle}>
-        {labelEl}
-        <textarea
-          id={inputId}
-          value={String(value)}
-          disabled={field.disabled}
-          placeholder={field.placeholder ?? field.label}
-          onChange={(e) => onChange(field.key, e.target.value)}
-          aria-describedby={hasError ? errorId : undefined}
-          aria-invalid={hasError}
-          style={{ ...baseInputStyle, minHeight: '80px', resize: 'vertical' }}
-        />
-        {errorEl}{helperEl}
-      </div>
-    );
-  }
+    case 'checkbox-group':
+      return (
+        <div style={wrapStyle}>
+          <CheckboxGroup
+            label={field.label}
+            description={field.description ?? field.helper}
+            options={field.options ?? []}
+            value={Array.isArray(value) ? value : []}
+            orientation={field.orientation ?? 'vertical'}
+            disabled={field.disabled}
+            required={field.required}
+            error={error}
+            onChange={handleFieldChange}
+          />
+        </div>
+      );
 
-  return (
-    <div style={wrapStyle}>
-      {labelEl}
-      <input
-        id={inputId}
-        type={field.type}
-        value={String(value)}
-        disabled={field.disabled}
-        placeholder={field.placeholder ?? field.label}
-        min={field.min}
-        max={field.max}
-        step={field.step}
-        onChange={(e) => onChange(field.key, e.target.value)}
-        aria-describedby={hasError ? errorId : undefined}
-        aria-invalid={hasError}
-        style={baseInputStyle}
-        onFocus={(e) => {
-          if (!hasError) e.currentTarget.style.borderColor = 'var(--skyra-primary)';
-          e.currentTarget.style.boxShadow = hasError
-            ? 'var(--skyra-focus-ring-error)'
-            : 'var(--skyra-focus-ring)';              // [CONFIRMED: DynamicForm.module.css focus]
-        }}
-        onBlur={(e) => {
-          e.currentTarget.style.borderColor = hasError ? 'var(--skyra-danger)' : 'var(--skyra-border)';
-          e.currentTarget.style.boxShadow = hasError ? 'var(--skyra-focus-ring-error)' : 'none';
-        }}
-      />
-      {errorEl}{helperEl}
-    </div>
-  );
+    case 'radio-group':
+    case 'radio':
+      return (
+        <div style={wrapStyle}>
+          <RadioGroup
+            label={field.label}
+            description={field.description ?? field.helper}
+            options={field.options ?? []}
+            value={String(value ?? '')}
+            orientation={field.orientation ?? 'vertical'}
+            disabled={field.disabled}
+            required={field.required}
+            error={error}
+            onChange={handleFieldChange}
+          />
+        </div>
+      );
+
+    case 'switch':
+      return (
+        <div style={wrapStyle}>
+          <Switch
+            label={field.label}
+            description={field.description ?? field.helper}
+            checked={Boolean(value)}
+            disabled={field.disabled}
+            required={field.required}
+            error={error}
+            onChange={handleFieldChange}
+          />
+        </div>
+      );
+
+    case 'textarea':
+      return (
+        <div style={wrapStyle}>
+          <Textarea
+            label={field.label}
+            placeholder={field.placeholder}
+            value={value ?? ''}
+            disabled={field.disabled}
+            required={field.required}
+            rows={field.rows ?? 3}
+            minRows={field.minRows}
+            maxRows={field.maxRows}
+            autoResize={field.autoResize}
+            maxLength={field.maxLength}
+            showCount={!!field.maxLength}
+            description={field.description ?? field.helper}
+            error={error}
+            onChange={(e) => handleFieldChange(e.target.value)}
+          />
+        </div>
+      );
+
+    case 'search':
+      return (
+        <div style={wrapStyle}>
+          <SearchInput
+            label={field.label}
+            placeholder={field.placeholder ?? 'Search...'}
+            value={value ?? ''}
+            disabled={field.disabled}
+            required={field.required}
+            helper={field.description ?? field.helper}
+            error={error}
+            onChange={(e) => handleFieldChange(e.target.value)}
+          />
+        </div>
+      );
+
+    case 'password':
+      return (
+        <div style={wrapStyle}>
+          <PasswordInput
+            label={field.label}
+            placeholder={field.placeholder}
+            value={value ?? ''}
+            disabled={field.disabled}
+            required={field.required}
+            helper={field.description ?? field.helper}
+            error={error}
+            onChange={(e) => handleFieldChange(e.target.value)}
+          />
+        </div>
+      );
+
+    case 'number':
+      return (
+        <div style={wrapStyle}>
+          <NumberInput
+            label={field.label}
+            placeholder={field.placeholder}
+            value={value}
+            min={field.min}
+            max={field.max}
+            step={field.step}
+            disabled={field.disabled}
+            required={field.required}
+            helper={field.description ?? field.helper}
+            error={error}
+            onChange={handleFieldChange}
+          />
+        </div>
+      );
+
+    case 'date':
+      return (
+        <div style={wrapStyle}>
+          <DateField
+            label={field.label}
+            placeholder={field.placeholder}
+            value={value}
+            disabled={field.disabled}
+            required={field.required}
+            description={field.description ?? field.helper}
+            error={error}
+            onChange={handleFieldChange}
+          />
+        </div>
+      );
+
+    case 'date-range':
+      return (
+        <div style={wrapStyle}>
+          <DateRangeField
+            label={field.label}
+            value={typeof value === 'object' && value !== null ? value : { startDate: null, endDate: null }}
+            disabled={field.disabled}
+            required={field.required}
+            description={field.description ?? field.helper}
+            error={error}
+            onChange={handleFieldChange}
+          />
+        </div>
+      );
+
+    case 'time':
+      return (
+        <div style={wrapStyle}>
+          <TimeField
+            label={field.label}
+            value={String(value ?? '')}
+            format={field.timeFormat ?? '12h'}
+            disabled={field.disabled}
+            required={field.required}
+            description={field.description ?? field.helper}
+            error={error}
+            onChange={handleFieldChange}
+          />
+        </div>
+      );
+
+    case 'datetime':
+      return (
+        <div style={wrapStyle}>
+          <DateTimeField
+            label={field.label}
+            value={typeof value === 'object' && value !== null ? value : { date: null, time: '' }}
+            timeFormat={field.timeFormat ?? '12h'}
+            disabled={field.disabled}
+            required={field.required}
+            description={field.description ?? field.helper}
+            error={error}
+            onChange={handleFieldChange}
+          />
+        </div>
+      );
+
+    case 'text':
+    case 'email':
+    case 'tel':
+    case 'url':
+    default:
+      return (
+        <div style={wrapStyle}>
+          <Input
+            type={field.type}
+            label={field.label}
+            placeholder={field.placeholder}
+            value={value ?? ''}
+            disabled={field.disabled}
+            required={field.required}
+            helper={field.description ?? field.helper}
+            error={error}
+            onChange={(e) => handleFieldChange(e.target.value)}
+          />
+        </div>
+      );
+  }
 }
 
 /* ─── Main DynamicForm ─── */
 
-/**
- * @skyra/dynamic-form DynamicForm
- *
- * [B] PLATFORM EXTRACTION from skyra-erp/src/components/ui/forms/DynamicForm.tsx
- *
- * Confirmed ERP visual behavior (DynamicForm.module.css):
- *   - Fieldset: border-radius var(--radius-xl) = 20px, bg surface
- *   - Fieldset header: bg var(--bg-color), padding 1.25rem, border-bottom border-color
- *   - Field grid: repeat(2, 1fr) gap 1.25rem  [CONFIRMED: line 112]
- *   - Mobile 1-col: max-width 640px → grid-template-columns: 1fr [CONFIRMED: line 163]
- *   - Focus ring: 0 0 0 3px rgba(10,88,202,0.12)  [CONFIRMED: line 145]
- *   - Error ring: 0 0 0 3px rgba(239,68,68,0.10)  [CONFIRMED: line 157]
- *   - Submit btn gradient: linear-gradient(135deg, var(--primary) 0%, #0847a8 100%) [CONFIRMED]
- *   - Danger zone: danger-light bg, 1px solid var(--danger), radius-xl [CONFIRMED]
- */
 export function DynamicForm({
   fieldsets,
   values,
@@ -197,156 +303,187 @@ export function DynamicForm({
   submitLabel = 'Save Changes',
   cancelLabel = 'Cancel',
   showDangerZone = false,
-  dangerZoneTitle = '⚠ Danger Zone',
-  dangerZoneLabel = 'Deactivate',
-  dangerZoneDesc = 'This action cannot be undone.',
+  dangerZoneTitle = 'Danger Zone',
+  dangerZoneLabel = 'Delete Resource',
+  dangerZoneDesc = 'Permanently remove this resource. This action cannot be undone.',
   onDangerAction,
+  className = '',
 }: DynamicFormProps) {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit();
+  };
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      {fieldsets.map((fs) => (
-        <div key={fs.title} style={{
-          background: 'var(--skyra-surface)',
-          borderRadius: 'var(--skyra-radius-xl)',        // [CONFIRMED: fieldset radius-xl]
-          boxShadow: 'var(--skyra-shadow-sm)',
-          border: '1px solid var(--skyra-border)',
-          overflow: 'hidden',
-        }}>
-          <div style={{
-            background: 'var(--skyra-bg)',               // [CONFIRMED: fieldsetHeader bg]
-            padding: '1.25rem 1.5rem',
-            borderBottom: '1px solid var(--skyra-border)',
-          }}>
-            <div style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 600, fontSize: '1rem', color: 'var(--skyra-text)' }}>
-              {fs.title}
-            </div>
-            {fs.subtitle && (
-              <div style={{ fontSize: '0.8375rem', color: 'var(--skyra-text-muted)', marginTop: '0.25rem' }}>
-                {fs.subtitle}
-              </div>
-            )}
-          </div>
-          <div style={{ padding: '1.5rem' }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',     // [CONFIRMED: 2-column desktop]
-              gap: '1.25rem',                            // [CONFIRMED: gap 1.25rem]
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className={`skyra-dynamic-form ${className}`}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem',
+        fontFamily: 'var(--skyra-font-body)',
+        width: '100%',
+      }}
+    >
+      {fieldsets.map((fieldset) => {
+        // Filter out fields whose dependencies are not met
+        const visibleFields = fieldset.fields.filter((field) => {
+          if (!field.dependsOn) return true;
+          const parentVal = values[field.dependsOn.field];
+          return parentVal === field.dependsOn.value;
+        });
+
+        if (visibleFields.length === 0) return null;
+
+        return (
+          <div
+            key={fieldset.title}
+            className="skyra-fieldset-card"
+            style={{
+              background: 'var(--skyra-surface)',
+              border: '1px solid var(--skyra-border)',
+              borderRadius: 'var(--skyra-radius-xl)',
+              overflow: 'hidden',
+              boxShadow: 'var(--skyra-shadow-sm)',
             }}
-            // Mobile: 1-column via inline media query CSS variable
+          >
+            {/* Fieldset Header */}
+            <div
+              style={{
+                padding: '1rem 1.25rem',
+                borderBottom: '1px solid var(--skyra-border)',
+                background: 'var(--skyra-bg)',
+              }}
             >
-              <style>{`
-                @media (max-width: 640px) {
-                  .skyra-form-grid { grid-template-columns: 1fr !important; }
-                }
-              `}</style>
-              {fs.fields.map((field) => (
+              <h3
+                style={{
+                  margin: 0,
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  fontFamily: 'var(--skyra-font-display)',
+                  color: 'var(--skyra-text)',
+                }}
+              >
+                {fieldset.title}
+              </h3>
+              {fieldset.subtitle && (
+                <p
+                  style={{
+                    margin: '0.25rem 0 0',
+                    fontSize: '0.8rem',
+                    color: 'var(--skyra-text-muted)',
+                  }}
+                >
+                  {fieldset.subtitle}
+                </p>
+              )}
+            </div>
+
+            {/* Fieldset Grid: 2 columns on desktop, 1 on mobile */}
+            <div
+              style={{
+                padding: '1.25rem',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '1.25rem',
+              }}
+            >
+              {visibleFields.map((field) => (
                 <FormField
                   key={field.key}
                   field={field}
-                  value={values[field.key] ?? ''}
+                  value={values[field.key]}
                   error={errors[field.key]}
                   onChange={onChange}
                 />
               ))}
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
 
-      {/* ── Danger Zone ── [CONFIRMED: DynamicForm.module.css dangerZone] */}
+      {/* ── Optional Danger Zone ── */}
       {showDangerZone && (
-        <div style={{
-          background: 'var(--skyra-danger-light)',
-          border: '1px solid var(--skyra-danger)',
-          borderRadius: 'var(--skyra-radius-xl)',
-          padding: '1.25rem 1.5rem',
-        }}>
-          <div style={{ fontWeight: 700, color: 'var(--skyra-danger)', marginBottom: '0.5rem', fontSize: '0.9375rem' }}>
-            {dangerZoneTitle}
+        <div
+          style={{
+            background: 'var(--skyra-danger-light)',
+            border: '1px solid var(--skyra-danger)',
+            borderRadius: 'var(--skyra-radius-xl)',
+            padding: '1.25rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '1rem',
+            flexWrap: 'wrap',
+          }}
+        >
+          <div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                color: 'var(--skyra-danger)',
+                fontWeight: 600,
+                fontSize: '0.95rem',
+              }}
+            >
+              <AlertTriangle size={18} />
+              <span>{dangerZoneTitle}</span>
+            </div>
+            <p
+              style={{
+                margin: '0.25rem 0 0',
+                fontSize: '0.82rem',
+                color: 'var(--skyra-text-muted)',
+              }}
+            >
+              {dangerZoneDesc}
+            </p>
           </div>
-          <p style={{ fontSize: '0.875rem', color: 'var(--skyra-text)', marginBottom: '1rem' }}>
-            {dangerZoneDesc}
-          </p>
-          <button
-            type="button"
-            onClick={onDangerAction}
-            style={{
-              background: 'var(--skyra-danger)',
-              color: '#fff',
-              border: 'none',
-              borderRadius: 'var(--skyra-radius-md)',
-              padding: '0.5rem 1.25rem',
-              fontSize: '0.875rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              fontFamily: 'inherit',
-            }}
-          >
-            {dangerZoneLabel}
-          </button>
+
+          {onDangerAction && (
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={onDangerAction}
+            >
+              {dangerZoneLabel}
+            </Button>
+          )}
         </div>
       )}
 
-      {/* ── Footer ── */}
-      <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+      {/* ── Form Actions ── */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          gap: '0.75rem',
+          paddingTop: '0.5rem',
+        }}
+      >
         {onCancel && (
-          <button
+          <Button
             type="button"
+            variant="ghost"
             onClick={onCancel}
             disabled={isLoading}
-            style={{
-              background: 'var(--skyra-surface)',
-              color: 'var(--skyra-text)',
-              border: '1px solid var(--skyra-border)',
-              borderRadius: 'var(--skyra-radius-md)',
-              padding: '0.6rem 1.25rem',
-              fontSize: '0.875rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              fontFamily: 'inherit',
-              minHeight: '40px',
-            }}
           >
             {cancelLabel}
-          </button>
+          </Button>
         )}
-        <button
-          type="button"
-          onClick={onSubmit}
-          disabled={isLoading}
-          aria-busy={isLoading}
-          style={{
-            background: 'linear-gradient(135deg, var(--skyra-primary) 0%, #0847a8 100%)',  // [CONFIRMED]
-            color: '#fff',
-            border: 'none',
-            borderRadius: 'var(--skyra-radius-md)',
-            padding: '0.6rem 1.5rem',
-            fontSize: '0.875rem',
-            fontWeight: 600,
-            cursor: isLoading ? 'wait' : 'pointer',
-            fontFamily: 'inherit',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            minHeight: '40px',
-            opacity: isLoading ? 0.8 : 1,
-            boxShadow: '0 2px 8px rgba(10, 88, 202, 0.25)',
-            transition: 'opacity 0.15s, transform 0.15s',
-          }}
+        <Button
+          type="submit"
+          variant="primary"
+          isLoading={isLoading}
         >
-          {isLoading && (
-            <span style={{
-              width: '14px', height: '14px',
-              border: '2px solid rgba(255,255,255,0.3)',
-              borderTopColor: '#fff',
-              borderRadius: '50%',
-              animation: 'skyra-spin 0.7s linear infinite',
-              flexShrink: 0,
-            }} aria-hidden="true" />
-          )}
-          {isLoading ? 'Saving...' : submitLabel}
-        </button>
+          {submitLabel}
+        </Button>
       </div>
-    </div>
+    </form>
   );
 }
