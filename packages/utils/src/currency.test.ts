@@ -258,6 +258,22 @@ describe('amountInWords', () => {
     expect(result).toContain('Dirhams');
   });
 
+  // Fallback branch test
+  it('handles Intl.NumberFormat exception fallback branch gracefully', () => {
+    const origIntl = Intl.NumberFormat;
+    // @ts-ignore
+    Intl.NumberFormat = function () {
+      throw new Error('Simulated Intl failure');
+    };
+    try {
+      expect(formatCurrency(1250.5, 'USD')).toBe('$1,250.50');
+      expect(formatCurrency(-500, 'USD')).toBe('-$500.00');
+      expect(formatCurrency(100, 'USD', { showSymbol: false })).toBe('100.00');
+    } finally {
+      Intl.NumberFormat = origIntl;
+    }
+  });
+
   // CURRENCY_CONFIGS export check
   it('exports CURRENCY_CONFIGS with all 6 currencies', () => {
     expect(Object.keys(CURRENCY_CONFIGS)).toHaveLength(6);
@@ -265,3 +281,13 @@ describe('amountInWords', () => {
     expect(CURRENCY_CONFIGS.USD.symbol).toBe('$');
   });
 });
+
+describe('index.ts barrel exports', () => {
+  it('re-exports all string, date, and currency functions', async () => {
+    const barrel = await import('./index');
+    expect(barrel.formatCurrency).toBeDefined();
+    expect(barrel.formatDate).toBeDefined();
+    expect(barrel.truncate).toBeDefined();
+  });
+});
+

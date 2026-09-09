@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { exportToCsv, escapeCsvCell } from './csv';
+import { describe, it, expect, vi } from 'vitest';
+import { exportToCsv, escapeCsvCell, downloadCsv } from './csv';
 
 describe('CSV Export Engine', () => {
   const sampleData = [
@@ -41,8 +41,73 @@ describe('CSV Export Engine', () => {
     expect(csv).toContain('"Bob\nBuilder",N/A');
   });
 
-  it('handles empty dataset gracefully', () => {
-    const csv = exportToCsv([], { includeBom: false });
-    expect(csv).toBe('');
+  it('escapes complex object values as JSON strings', () => {
+    expect(escapeCsvCell({ a: 1 })).toBe('"{""a"":1}"');
+  });
+
+  it('handles empty dataset with BOM and custom headers with/without BOM', () => {
+    const csvBom = exportToCsv([], { includeBom: true });
+    expect(csvBom).toBe('\uFEFF');
+
+    const csvHeadersBom = exportToCsv([], {
+      includeBom: true,
+      columns: [{ key: 'id', header: 'ID' }],
+    });
+    expect(csvHeadersBom).toBe('\uFEFFID');
+  });
+
+  it('appends .csv if filename has no extension in downloadCsv', () => {
+    const clickMock = vi.fn();
+    const origCreateElement = document.createElement.bind(document);
+    const origCreateObjectURL = URL.createObjectURL;
+    const origRevokeObjectURL = URL.revokeObjectURL;
+
+    URL.createObjectURL = vi.fn(() => 'blob:mock');
+    URL.revokeObjectURL = vi.fn();
+
+    vi.spyOn(document, 'createElement').mockImplementation((tag) => {
+      const el = origCreateElement(tag);
+      if (tag === 'a') {
+        el.click = clickMock;
+      }
+      return el;
+    });
+
+    try {
+      downloadCsv(sampleData, { filename: 'raw_export' });
+      expect(clickMock).toHaveBeenCalled();
+    } finally {
+      URL.createObjectURL = origCreateObjectURL;
+      URL.revokeObjectURL = origRevokeObjectURL;
+      vi.restoreAllMocks();
+    }
+  });
+
+  it('triggers downloadCsv browser interaction', () => {
+    const clickMock = vi.fn();
+    const origCreateElement = document.createElement.bind(document);
+    const origCreateObjectURL = URL.createObjectURL;
+    const origRevokeObjectURL = URL.revokeObjectURL;
+
+    URL.createObjectURL = vi.fn(() => 'blob:mock');
+    URL.revokeObjectURL = vi.fn();
+
+    vi.spyOn(document, 'createElement').mockImplementation((tag) => {
+      const el = origCreateElement(tag);
+      if (tag === 'a') {
+        el.click = clickMock;
+      }
+      return el;
+    });
+
+    try {
+      downloadCsv(sampleData, { filename: 'test.csv' });
+      expect(clickMock).toHaveBeenCalled();
+    } finally {
+      URL.createObjectURL = origCreateObjectURL;
+      URL.revokeObjectURL = origRevokeObjectURL;
+      vi.restoreAllMocks();
+    }
   });
 });
+

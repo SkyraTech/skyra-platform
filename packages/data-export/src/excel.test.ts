@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { exportToExcelXml } from './excel';
+import { describe, it, expect, vi } from 'vitest';
+import { exportToExcelXml, downloadExcel } from './excel';
 
 describe('Excel XML Export Engine', () => {
   const sampleData = [
@@ -31,4 +31,71 @@ describe('Excel XML Export Engine', () => {
     expect(xml).toContain('<Data ss:Type="String">Total (USD)</Data>');
     expect(xml).toContain('<Data ss:Type="Number">5500</Data>');
   });
+
+  it('handles null, undefined, and empty data', () => {
+    const xml = exportToExcelXml([{ id: null, name: undefined }]);
+    expect(xml).toContain('<Data ss:Type="String"></Data>');
+  });
+
+  it('handles .xlsx and raw filenames in downloadExcel', () => {
+    const clickMock = vi.fn();
+    const origCreateElement = document.createElement.bind(document);
+    const origCreateObjectURL = URL.createObjectURL;
+    const origRevokeObjectURL = URL.revokeObjectURL;
+
+    URL.createObjectURL = vi.fn(() => 'blob:mock');
+    URL.revokeObjectURL = vi.fn();
+
+    vi.spyOn(document, 'createElement').mockImplementation((tag) => {
+      const el = origCreateElement(tag);
+      if (tag === 'a') {
+        el.click = clickMock;
+      }
+      return el;
+    });
+
+    try {
+      downloadExcel(sampleData, { filename: 'test.xlsx' });
+      downloadExcel(sampleData, { filename: 'test_no_ext' });
+      expect(clickMock).toHaveBeenCalledTimes(2);
+    } finally {
+      URL.createObjectURL = origCreateObjectURL;
+      URL.revokeObjectURL = origRevokeObjectURL;
+      vi.restoreAllMocks();
+    }
+  });
+
+  it('triggers downloadExcel browser interaction', () => {
+    const clickMock = vi.fn();
+    const origCreateElement = document.createElement.bind(document);
+    const origCreateObjectURL = URL.createObjectURL;
+    const origRevokeObjectURL = URL.revokeObjectURL;
+
+    URL.createObjectURL = vi.fn(() => 'blob:mock');
+    URL.revokeObjectURL = vi.fn();
+
+    vi.spyOn(document, 'createElement').mockImplementation((tag) => {
+      const el = origCreateElement(tag);
+      if (tag === 'a') {
+        el.click = clickMock;
+      }
+      return el;
+    });
+
+    try {
+      downloadExcel(sampleData, { filename: 'test.xls' });
+      expect(clickMock).toHaveBeenCalled();
+    } finally {
+      URL.createObjectURL = origCreateObjectURL;
+      URL.revokeObjectURL = origRevokeObjectURL;
+      vi.restoreAllMocks();
+    }
+  });
+
+  it('exports from index.ts barrel', async () => {
+    const barrel = await import('./index');
+    expect(barrel.exportToCsv).toBeDefined();
+    expect(barrel.exportToExcelXml).toBeDefined();
+  });
 });
+

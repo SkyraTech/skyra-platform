@@ -15,10 +15,10 @@
     "dashboard": "pnpm --filter dashboard dev"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^2.1.9",
     "turbo": "^2.3.3",
     "typescript": "^5.7.0",
-    "vitest": "^2.1.8",
-    "@vitest/coverage-v8": "^2.1.8"
+    "vitest": "^2.1.8"
   },
   "engines": {
     "node": ">=20.0.0",

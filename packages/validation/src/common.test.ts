@@ -6,6 +6,8 @@ import {
   percentageSchema,
   gstinSchema,
   panSchema,
+  shortTextSchema,
+  longTextSchema,
 } from './common';
 
 describe('emailSchema', () => {
@@ -79,3 +81,24 @@ describe('panSchema', () => {
     expect(() => panSchema.parse('INVALID')).toThrow();
   });
 });
+
+describe('textSchemas and barrel exports', () => {
+  it('validates shortTextSchema and longTextSchema', () => {
+    const short = shortTextSchema('Custom Field');
+    expect(short.parse('Hello')).toBe('Hello');
+    expect(() => short.parse('a'.repeat(256))).toThrow();
+
+    const long = longTextSchema('Custom Notes', 100);
+    expect(long.parse('Valid note')).toBe('Valid note');
+    expect(long.parse('')).toBe('');
+    expect(long.parse(undefined)).toBeUndefined();
+    expect(() => long.parse('a'.repeat(101))).toThrow();
+  });
+
+  it('barrel exports everything from index.ts', async () => {
+    const barrel = await import('./index');
+    expect(barrel.emailSchema).toBeDefined();
+    expect(barrel.orgSchema).toBeDefined();
+  });
+});
+
