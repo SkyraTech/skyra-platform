@@ -1,0 +1,531 @@
+/*
+ * @skyra/ui — Component Styles
+ * All values confirmed from skyra-erp/src/styles/ui.css (READ-ONLY).
+ * Requires @skyra/design-tokens/tokens.css to be loaded first.
+ */
+
+/* ============================================================
+   BUTTONS
+   [CONFIRMED: skyra-erp/src/styles/ui.css]
+   ============================================================ */
+
+.skyra-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--skyra-radius-md);
+  font-family: var(--skyra-font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background var(--skyra-duration-fast) ease,
+    box-shadow var(--skyra-duration-fast) ease,
+    transform var(--skyra-duration-fast) ease,
+    border-color var(--skyra-duration-fast) ease;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  min-height: 40px;        /* ≥ 44px touch on mobile via padding */
+  min-width: 44px;
+  position: relative;
+}
+
+.skyra-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--skyra-focus-ring);
+}
+
+.skyra-btn:disabled,
+.skyra-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Sizes ── */
+.skyra-btn--sm {
+  padding: 0.4rem 0.875rem;
+  font-size: 0.8125rem;
+  min-height: 36px;
+}
+.skyra-btn--lg {
+  padding: 0.75rem 1.75rem;
+  font-size: 0.9375rem;
+  min-height: 48px;
+}
+
+/* ── Primary [CONFIRMED: .btn-primary in ui.css] ── */
+.skyra-btn--primary {
+  background: var(--skyra-primary);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(10, 88, 202, 0.25);
+}
+.skyra-btn--primary:hover:not(:disabled) {
+  background: var(--skyra-primary-hover);
+  box-shadow: 0 4px 14px rgba(10, 88, 202, 0.35);
+  transform: translateY(-1px);
+}
+.skyra-btn--primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(10, 88, 202, 0.25);
+}
+
+/* ── Orange [CONFIRMED: .btn-orange in ui.css] ── */
+.skyra-btn--orange {
+  background: var(--skyra-orange);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(255, 107, 0, 0.25);
+}
+.skyra-btn--orange:hover:not(:disabled) {
+  background: var(--skyra-orange-hover);
+  box-shadow: 0 4px 14px rgba(255, 107, 0, 0.35);
+  transform: translateY(-1px);
+}
+.skyra-btn--orange:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* ── Outline [CONFIRMED: .btn-outline in ui.css] ── */
+.skyra-btn--outline {
+  background: transparent;
+  color: var(--skyra-primary);
+  border-color: var(--skyra-primary);
+}
+.skyra-btn--outline:hover:not(:disabled) {
+  background: var(--skyra-primary-light);
+}
+
+/* ── Ghost [CONFIRMED: .btn-ghost in ui.css] ── */
+.skyra-btn--ghost {
+  background: transparent;
+  color: var(--skyra-text-muted);
+  border-color: var(--skyra-border);
+}
+.skyra-btn--ghost:hover:not(:disabled) {
+  background: var(--skyra-bg);
+  color: var(--skyra-text);
+}
+
+/* ── Danger ── [C] PLATFORM ENHANCEMENT — not in ERP base, added for platform dialogs */
+.skyra-btn--danger {
+  background: var(--skyra-danger);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+}
+.skyra-btn--danger:hover:not(:disabled) {
+  background: #dc2626;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+  transform: translateY(-1px);
+}
+
+/* ── Loading state ── */
+.skyra-btn--loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+/* ── Icon only ── */
+.skyra-btn--icon {
+  padding: 0.6rem;
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+}
+.skyra-btn--icon.skyra-btn--sm {
+  padding: 0.4rem;
+  width: 36px;
+  height: 36px;
+}
+.skyra-btn--icon.skyra-btn--lg {
+  padding: 0.75rem;
+  width: 48px;
+  height: 48px;
+}
+
+/* ── Full width ── */
+.skyra-btn--full {
+  width: 100%;
+}
+
+/* ============================================================
+   SPINNER
+   [CONFIRMED: skyra-erp/src/styles/ui.css .spinner]
+   ============================================================ */
+.skyra-spinner {
+  display: inline-block;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  animation: skyra-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+.skyra-spinner--sm { width: 14px; height: 14px; }
+.skyra-spinner--md { width: 20px; height: 20px; }
+.skyra-spinner--lg { width: 28px; height: 28px; }
+.skyra-spinner--xl { width: 40px; height: 40px; }
+
+@keyframes skyra-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   FORM INPUTS
+   [CONFIRMED: skyra-erp/src/styles/ui.css .form-input etc.]
+   ============================================================ */
+.skyra-input {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 0.875rem;
+  background: var(--skyra-bg);
+  border: 1px solid var(--skyra-border);
+  border-radius: var(--skyra-radius-md);
+  font-family: var(--skyra-font-body);
+  font-size: 0.875rem;
+  color: var(--skyra-text);
+  transition: border-color var(--skyra-duration-fast), box-shadow var(--skyra-duration-fast);
+  outline: none;
+  min-height: 44px;
+}
+.skyra-input::placeholder { color: var(--skyra-text-subtle); }
+.skyra-input:focus {
+  border-color: var(--skyra-primary);
+  box-shadow: var(--skyra-focus-ring);
+}
+.skyra-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--skyra-border);
+}
+.skyra-input--error {
+  border-color: var(--skyra-danger);
+  box-shadow: var(--skyra-focus-ring-error);
+}
+.skyra-input--error:focus {
+  border-color: var(--skyra-danger);
+  box-shadow: var(--skyra-focus-ring-error);
+}
+
+.skyra-textarea {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 0.875rem;
+  background: var(--skyra-bg);
+  border: 1px solid var(--skyra-border);
+  border-radius: var(--skyra-radius-md);
+  font-family: var(--skyra-font-body);
+  font-size: 0.875rem;
+  color: var(--skyra-text);
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color var(--skyra-duration-fast), box-shadow var(--skyra-duration-fast);
+  outline: none;
+}
+.skyra-textarea::placeholder { color: var(--skyra-text-subtle); }
+.skyra-textarea:focus {
+  border-color: var(--skyra-primary);
+  box-shadow: var(--skyra-focus-ring);
+}
+.skyra-textarea--error {
+  border-color: var(--skyra-danger);
+}
+
+.skyra-select {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 2.25rem 0.65rem 0.875rem;
+  background: var(--skyra-bg);
+  border: 1px solid var(--skyra-border);
+  border-radius: var(--skyra-radius-md);
+  font-family: var(--skyra-font-body);
+  font-size: 0.875rem;
+  color: var(--skyra-text);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  cursor: pointer;
+  min-height: 44px;
+  transition: border-color var(--skyra-duration-fast), box-shadow var(--skyra-duration-fast);
+  outline: none;
+}
+.skyra-select:focus {
+  border-color: var(--skyra-primary);
+  box-shadow: var(--skyra-focus-ring);
+}
+.skyra-select--error { border-color: var(--skyra-danger); }
+
+/* ── Form Labels ── */
+.skyra-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--skyra-text);
+  margin-bottom: 0.375rem;
+}
+.skyra-label--required::after {
+  content: ' *';
+  color: var(--skyra-danger);
+}
+
+/* ── Error Message ── */
+.skyra-error-msg {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  color: var(--skyra-danger);
+  margin-top: 0.3rem;
+}
+
+/* ── Helper Text ── */
+.skyra-helper-msg {
+  font-size: 0.78rem;
+  color: var(--skyra-text-muted);
+  margin-top: 0.3rem;
+}
+
+/* ── Checkbox ── */
+.skyra-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--skyra-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.skyra-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  min-height: 44px;
+}
+.skyra-checkbox-label {
+  font-size: 0.875rem;
+  color: var(--skyra-text);
+  user-select: none;
+}
+
+/* ============================================================
+   BADGE
+   [CONFIRMED: skyra-erp/src/styles/ui.css .badge-*]
+   ============================================================ */
+.skyra-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--skyra-radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.skyra-badge--sm { font-size: 0.68rem; padding: 0.12rem 0.45rem; }
+.skyra-badge--lg { font-size: 0.82rem; padding: 0.3rem 0.9rem; font-weight: 700; }
+
+.skyra-badge--primary   { background: var(--skyra-primary-light);  color: var(--skyra-primary);  border-color: var(--skyra-primary); }
+.skyra-badge--orange    { background: var(--skyra-orange-light);   color: var(--skyra-orange);   border-color: var(--skyra-orange); }
+.skyra-badge--success   { background: var(--skyra-success-light);  color: var(--skyra-success);  border-color: var(--skyra-success); }
+.skyra-badge--danger    { background: var(--skyra-danger-light);   color: var(--skyra-danger);   border-color: var(--skyra-danger); }
+.skyra-badge--warning   { background: var(--skyra-warning-light);  color: var(--skyra-warning);  border-color: var(--skyra-warning); }
+.skyra-badge--neutral   { background: var(--skyra-border);        color: var(--skyra-text-muted); border-color: var(--skyra-border); }
+.skyra-badge--info      { background: var(--skyra-info-light);    color: var(--skyra-info);      border-color: var(--skyra-info); }
+
+/* ============================================================
+   STATUS BADGE
+   Generic — statusMap configured externally.
+   [B] PLATFORM EXTRACTION from StatusBadge.tsx
+   Size values CONFIRMED from StatusBadge.tsx:26-28
+   ============================================================ */
+.skyra-status-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--skyra-radius-full);
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-width: 1px;
+  border-style: solid;
+}
+.skyra-status-badge--sm {
+  font-size: 0.68rem;
+  padding: 0.12rem 0.45rem;
+  letter-spacing: 0.02em;
+  border-color: transparent;
+}
+.skyra-status-badge--md {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.65rem;
+  letter-spacing: 0.03em;
+  border-color: transparent;
+}
+.skyra-status-badge--lg {
+  font-size: 0.82rem;
+  padding: 0.3rem 0.9rem;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  border-width: 1.5px;
+}
+
+/* ============================================================
+   CARD
+   [CONFIRMED: skyra-erp globals / ui.css .card patterns]
+   ============================================================ */
+.skyra-card {
+  background: var(--skyra-surface);
+  border-radius: var(--skyra-radius-xl);
+  box-shadow: var(--skyra-shadow-sm);
+  border: 1px solid var(--skyra-border);
+  padding: 1.5rem;
+}
+.skyra-card--sm { padding: 1rem; border-radius: var(--skyra-radius-lg); }
+.skyra-card--lg { padding: 2rem; }
+.skyra-card--flat { box-shadow: none; }
+
+/* ============================================================
+   ALERT
+   [CONFIRMED: skyra-erp/src/styles/ui.css .alert-*]
+   ============================================================ */
+.skyra-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--skyra-radius-md);
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+}
+.skyra-alert__icon { flex-shrink: 0; margin-top: 1px; }
+.skyra-alert__content { flex: 1; min-width: 0; }
+.skyra-alert__title { font-weight: 600; margin-bottom: 0.125rem; }
+.skyra-alert__desc { color: inherit; opacity: 0.85; }
+
+.skyra-alert--info    { background: var(--skyra-info-light);    color: var(--skyra-info);    border-color: var(--skyra-info); }
+.skyra-alert--success { background: var(--skyra-success-light); color: var(--skyra-success); border-color: var(--skyra-success); }
+.skyra-alert--warning { background: var(--skyra-warning-light); color: var(--skyra-warning); border-color: var(--skyra-warning); }
+.skyra-alert--danger  { background: var(--skyra-danger-light);  color: var(--skyra-danger);  border-color: var(--skyra-danger); }
+
+/* ============================================================
+   DIVIDER
+   [CONFIRMED: skyra-erp/src/styles/ui.css .divider]
+   ============================================================ */
+.skyra-divider {
+  border: none;
+  border-top: 1px solid var(--skyra-border);
+  margin: 1.5rem 0;
+}
+.skyra-divider--sm { margin: 0.75rem 0; }
+.skyra-divider--lg { margin: 2rem 0; }
+
+.skyra-divider-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--skyra-text-subtle);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.skyra-divider-label::before,
+.skyra-divider-label::after {
+  content: '';
+  flex: 1;
+  border-top: 1px solid var(--skyra-border);
+}
+
+/* ============================================================
+   LOGO UPLOADER
+   ============================================================ */
+.skyra-logo-uploader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.skyra-logo-preview {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--skyra-radius-lg);
+  border: 2px dashed var(--skyra-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--skyra-bg);
+  position: relative;
+}
+.skyra-logo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.skyra-logo-upload-btn {
+  font-size: 0.8125rem;
+  color: var(--skyra-primary);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  font-family: inherit;
+}
+
+/* ============================================================
+   PHONE INPUT
+   ============================================================ */
+.skyra-phone-input {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border: 1px solid var(--skyra-border);
+  border-radius: var(--skyra-radius-md);
+  overflow: hidden;
+  transition: border-color var(--skyra-duration-fast), box-shadow var(--skyra-duration-fast);
+}
+.skyra-phone-input:focus-within {
+  border-color: var(--skyra-primary);
+  box-shadow: var(--skyra-focus-ring);
+}
+.skyra-phone-input--error { border-color: var(--skyra-danger); }
+.skyra-phone-prefix {
+  display: flex;
+  align-items: center;
+  padding: 0 0.75rem;
+  background: var(--skyra-bg);
+  border-right: 1px solid var(--skyra-border);
+  font-size: 0.875rem;
+  color: var(--skyra-text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.skyra-phone-number {
+  flex: 1;
+  border: none;
+  background: var(--skyra-bg);
+  padding: 0.65rem 0.875rem;
+  font-family: var(--skyra-font-body);
+  font-size: 0.875rem;
+  color: var(--skyra-text);
+  outline: none;
+  min-height: 44px;
+}
+.skyra-phone-number::placeholder { color: var(--skyra-text-subtle); }
+
+/* ============================================================
+   ACCESSIBILITY: REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

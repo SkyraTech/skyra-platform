@@ -1,0 +1,90 @@
+/*
+ * Skyra Platform Base Reset
+ * @skyra/design-tokens/reset.css
+ *
+ * Derived from skyra-erp/src/app/globals.css base reset (READ-ONLY).
+ * Import AFTER tokens.css.
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--skyra-font-body);
+  background-color: var(--skyra-bg);
+  color: var(--skyra-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100dvh;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Focus Visible ── */
+:focus-visible {
+  outline: 2px solid var(--skyra-primary);
+  outline-offset: 2px;
+  border-radius: var(--skyra-radius-sm);
+}
+
+/* ── Links ── */
+a {
+  color: var(--skyra-primary);
+  text-decoration: none;
+  transition: color var(--skyra-duration-fast) ease;
+}
+a:hover {
+  color: var(--skyra-primary-hover);
+}
+
+/* ── Images ── */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Interactive base ── */
+button, input, optgroup, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ── Remove tap highlight on mobile ── */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Scrollbar styling (Webkit) ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--skyra-border);
+  border-radius: var(--skyra-radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--skyra-text-subtle);
+}

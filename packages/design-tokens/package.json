@@ -1,0 +1,22 @@
+{
+  "name": "@skyra/design-tokens",
+  "version": "0.1.0",
+  "description": "Skyra Platform design tokens — CSS custom properties, dark mode, reset",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./src/tokens.css",
+    "./reset.css": "./src/reset.css"
+  },
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "echo 'no lint for CSS package'",
+    "typecheck": "tsc --noEmit",
+    "build": "echo 'design-tokens: CSS-only, no build step required'",
+    "clean": "echo 'nothing to clean'"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}

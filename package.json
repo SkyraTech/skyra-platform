@@ -1,0 +1,28 @@
+{
+  "name": "skyra-platform",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Skyra Platform — Internal reusable UI foundation and design system",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:unit": "turbo run test:unit",
+    "test:a11y": "turbo run test:a11y",
+    "clean": "turbo run clean",
+    "dashboard": "pnpm --filter dashboard dev"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.8",
+    "@vitest/coverage-v8": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.12.0"
+}

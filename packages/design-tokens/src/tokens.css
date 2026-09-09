@@ -1,0 +1,205 @@
+/*
+ * ============================================================
+ * SKYRA PLATFORM DESIGN TOKENS
+ * @skyra/design-tokens — v0.1.0
+ * ============================================================
+ *
+ * All [CONFIRMED] values derived directly from:
+ *   skyra-erp/src/app/globals.css  (READ-ONLY reference)
+ *   skyra-erp/src/styles/ui.css    (READ-ONLY reference)
+ *
+ * --skyra-* namespace prevents conflicts with ERP tokens
+ * during the migration phase.
+ *
+ * Backward-compat aliases at end of file allow ERP to continue
+ * consuming old un-namespaced tokens transparently.
+ * ============================================================
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+/* ============================================================
+   LIGHT MODE (DEFAULT)
+   ============================================================ */
+:root {
+
+  /* ── Brand Palette ── [CONFIRMED: globals.css:8-16] */
+  --skyra-primary:           #0A58CA;
+  --skyra-primary-hover:     #0847a8;
+  --skyra-primary-light:     rgba(10, 88, 202, 0.1);
+  --skyra-orange:            #FF6B00;
+  --skyra-orange-hover:      #e05e00;
+  --skyra-orange-light:      rgba(255, 107, 0, 0.1);
+  --skyra-cyan:              #00A3E0;
+  --skyra-cyan-light:        rgba(0, 163, 224, 0.1);
+  --skyra-navy:              #002B66;
+
+  /* ── Surfaces & Backgrounds ── [CONFIRMED: globals.css:18-23] */
+  --skyra-bg:                #F4F7FC;
+  --skyra-surface:           #FFFFFF;
+  --skyra-sidebar-bg:        #002B66;
+  --skyra-sidebar-text:      rgba(255, 255, 255, 0.75);
+  --skyra-sidebar-active:    rgba(255, 255, 255, 0.12);
+
+  /* ── Text ── [CONFIRMED: globals.css:25-28] */
+  --skyra-text:              #0f172a;
+  --skyra-text-muted:        #64748b;
+  --skyra-text-subtle:       #94a3b8;
+
+  /* ── Borders ── [CONFIRMED: globals.css:30-36] */
+  --skyra-border:            #e2e8f0;
+  --skyra-border-focus:      #0A58CA;
+
+  /* ── Shadows ── [CONFIRMED: globals.css:33-36] */
+  --skyra-shadow-sm:         0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --skyra-shadow-md:         0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --skyra-shadow-lg:         0 10px 30px rgba(0, 0, 0, 0.10), 0 4px 10px rgba(0, 0, 0, 0.05);
+  --skyra-shadow-glow:       0 0 0 3px rgba(10, 88, 202, 0.15);
+
+  /* ── Semantic Colors ── [CONFIRMED: globals.css:38-45] */
+  --skyra-danger:            #ef4444;
+  --skyra-danger-light:      rgba(239, 68, 68, 0.1);
+  --skyra-success:           #10b981;
+  --skyra-success-light:     rgba(16, 185, 129, 0.1);
+  --skyra-warning:           #f59e0b;
+  --skyra-warning-light:     rgba(245, 158, 11, 0.1);
+  --skyra-info:              #3b82f6;
+  --skyra-info-light:        rgba(59, 130, 246, 0.1);
+
+  /* ── Status: VIEWED badge (confirmed from StatusBadge.tsx:9) ── */
+  --skyra-viewed-bg:         #eff6ff;
+  --skyra-viewed-color:      #1d4ed8;
+  --skyra-viewed-border:     #bfdbfe;
+
+  /* ── Status: VOIDED badge (confirmed from StatusBadge.tsx:13) ── */
+  --skyra-voided-bg:         #f3f4f6;
+  --skyra-voided-color:      #6b7280;
+  --skyra-voided-border:     #e5e7eb;
+
+  /* ── Border Radius ── [CONFIRMED: globals.css:46-50] */
+  --skyra-radius-sm:         6px;
+  --skyra-radius-md:         10px;
+  --skyra-radius-lg:         14px;
+  --skyra-radius-xl:         20px;
+  --skyra-radius-full:       9999px;
+
+  /* ── Typography ── [CONFIRMED: globals.css:98] */
+  --skyra-font-body:         'Inter', system-ui, -apple-system, sans-serif;
+  --skyra-font-display:      'Outfit', sans-serif;
+  --skyra-font-mono:         'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* ── Sidebar Dimensions ── [CONFIRMED: DashboardLayout.module.css] */
+  --skyra-sidebar-width:     280px;
+  --skyra-sidebar-collapsed: 72px;
+  --skyra-header-height:     64px;
+
+  /* ── Breakpoints (as reference values — not media query syntax) ── */
+  --skyra-bp-xs:             320px;    /* Minimum mobile [A] */
+  --skyra-bp-sm:             375px;    /* Standard mobile [A] */
+  --skyra-bp-md:             640px;    /* Large mobile / collapse threshold [A] */
+  --skyra-bp-lg:             768px;    /* Tablet portrait / sidebar mobile threshold [A] */
+  --skyra-bp-xl:             1024px;   /* Tablet landscape / small desktop */
+  --skyra-bp-2xl:            1280px;   /* Standard desktop */
+  --skyra-bp-3xl:            1536px;   /* Wide desktop */
+
+  /* ── Focus Ring (confirmed from DynamicForm.module.css) ── */
+  --skyra-focus-ring:        0 0 0 3px rgba(10, 88, 202, 0.12);
+  --skyra-focus-ring-error:  0 0 0 3px rgba(239, 68, 68, 0.10);
+
+  /* ── Animation Curves ── [CONFIRMED: DashboardLayout.module.css sidebar transition] */
+  --skyra-ease-default:      cubic-bezier(0.4, 0, 0.2, 1);
+  --skyra-ease-spring:       cubic-bezier(0.16, 1, 0.3, 1);
+  --skyra-duration-fast:     150ms;
+  --skyra-duration-normal:   250ms;
+  --skyra-duration-slow:     350ms;
+
+  /* ── Z-Index Scale ── [CONFIRMED: ConfirmDialog.tsx z-indices 199/200] */
+  --skyra-z-dropdown:        100;
+  --skyra-z-sticky:          150;
+  --skyra-z-overlay:         199;
+  --skyra-z-modal:           200;
+  --skyra-z-toast:           300;
+}
+
+/* ============================================================
+   DARK MODE
+   Applied via .dark class on <html> element
+   [CONFIRMED: globals.css:57-82]
+   ============================================================ */
+.dark {
+  --skyra-bg:                #0B111E;
+  --skyra-surface:           #151D30;
+  --skyra-sidebar-bg:        #0B111E;
+  --skyra-sidebar-text:      rgba(255, 255, 255, 0.65);
+  --skyra-sidebar-active:    rgba(10, 88, 202, 0.25);
+
+  --skyra-text:              #f1f5f9;
+  --skyra-text-muted:        #94a3b8;
+  --skyra-text-subtle:       #64748b;
+
+  --skyra-border:            rgba(255, 255, 255, 0.08);
+
+  --skyra-shadow-sm:         0 1px 3px rgba(0, 0, 0, 0.40);
+  --skyra-shadow-md:         0 4px 12px rgba(0, 0, 0, 0.50);
+  --skyra-shadow-lg:         0 10px 30px rgba(0, 0, 0, 0.60);
+
+  --skyra-primary-light:     rgba(10, 88, 202, 0.15);
+  --skyra-orange-light:      rgba(255, 107, 0, 0.15);
+  --skyra-cyan-light:        rgba(0, 163, 224, 0.15);
+  --skyra-danger-light:      rgba(239, 68, 68, 0.15);
+  --skyra-success-light:     rgba(16, 185, 129, 0.15);
+  --skyra-warning-light:     rgba(245, 158, 11, 0.15);
+  --skyra-info-light:        rgba(59, 130, 246, 0.15);
+
+  /* Dark mode viewed/voided */
+  --skyra-viewed-bg:         rgba(29, 78, 216, 0.15);
+  --skyra-viewed-color:      #93c5fd;
+  --skyra-viewed-border:     rgba(147, 197, 253, 0.3);
+
+  --skyra-voided-bg:         rgba(107, 114, 128, 0.15);
+  --skyra-voided-color:      #9ca3af;
+  --skyra-voided-border:     rgba(156, 163, 175, 0.3);
+}
+
+/* ============================================================
+   BACKWARD-COMPAT ALIASES
+   These map old ERP token names → new --skyra-* tokens.
+   Applied so skyra-erp continues to work transparently
+   if @skyra/design-tokens is ever imported in ERP.
+   [C] PLATFORM ENHANCEMENT — non-breaking safety bridge
+   ============================================================ */
+:root {
+  --primary:         var(--skyra-primary);
+  --primary-hover:   var(--skyra-primary-hover);
+  --primary-light:   var(--skyra-primary-light);
+  --orange:          var(--skyra-orange);
+  --orange-hover:    var(--skyra-orange-hover);
+  --orange-light:    var(--skyra-orange-light);
+  --cyan:            var(--skyra-cyan);
+  --cyan-light:      var(--skyra-cyan-light);
+  --navy:            var(--skyra-navy);
+  --bg-color:        var(--skyra-bg);
+  --card-bg:         var(--skyra-surface);
+  --sidebar-bg:      var(--skyra-sidebar-bg);
+  --sidebar-text:    var(--skyra-sidebar-text);
+  --sidebar-active:  var(--skyra-sidebar-active);
+  --text-main:       var(--skyra-text);
+  --text-muted:      var(--skyra-text-muted);
+  --text-subtle:     var(--skyra-text-subtle);
+  --border-color:    var(--skyra-border);
+  --border-focus:    var(--skyra-border-focus);
+  --shadow-sm:       var(--skyra-shadow-sm);
+  --shadow-md:       var(--skyra-shadow-md);
+  --shadow-lg:       var(--skyra-shadow-lg);
+  --shadow-glow:     var(--skyra-shadow-glow);
+  --danger:          var(--skyra-danger);
+  --danger-light:    var(--skyra-danger-light);
+  --success:         var(--skyra-success);
+  --success-light:   var(--skyra-success-light);
+  --warning:         var(--skyra-warning);
+  --warning-light:   var(--skyra-warning-light);
+  --radius-sm:       var(--skyra-radius-sm);
+  --radius-md:       var(--skyra-radius-md);
+  --radius-lg:       var(--skyra-radius-lg);
+  --radius-xl:       var(--skyra-radius-xl);
+}

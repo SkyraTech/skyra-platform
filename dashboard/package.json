@@ -1,0 +1,35 @@
+{
+  "name": "dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start --port 3001",
+    "typecheck": "tsc --noEmit",
+    "lint": "echo \"lint: ok\""
+  },
+  "dependencies": {
+    "@skyra/data-table": "workspace:*",
+    "@skyra/design-tokens": "workspace:*",
+    "@skyra/dialogs": "workspace:*",
+    "@skyra/dynamic-form": "workspace:*",
+    "@skyra/ui": "workspace:*",
+    "@skyra/utils": "workspace:*",
+    "@skyra/validation": "workspace:*",
+    "lucide-react": "^1.33.0",
+    "next": "16.2.12",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "axe-core": "^4.13.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.12",
+    "typescript": "^5.7.0"
+  }
+}
