@@ -1758,6 +1758,376 @@
 }
 
 /* ============================================================
+   PHASE 4E: KBD & COMMAND PALETTE
+   ============================================================ */
+
+/* Kbd badge */
+.skyra-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--skyra-font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+  font-weight: 600;
+  color: var(--skyra-text-muted, #64748b);
+  background-color: var(--skyra-bg-muted, #f1f5f9);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--skyra-border, #e2e8f0);
+  border-radius: var(--skyra-radius-xs, 4px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+  user-select: none;
+  line-height: 1;
+}
+
+.skyra-kbd--xs {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.35rem;
+  min-height: 18px;
+  min-width: 18px;
+}
+
+.skyra-kbd--sm {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.45rem;
+  min-height: 22px;
+  min-width: 22px;
+}
+
+.skyra-kbd--md {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.55rem;
+  min-height: 26px;
+  min-width: 26px;
+}
+
+.dark .skyra-kbd {
+  color: var(--skyra-text-muted, #94a3b8);
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--skyra-border, #334155);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Command Palette Trigger */
+.skyra-command-palette-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--skyra-surface, #ffffff);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--skyra-border, #e2e8f0);
+  border-radius: var(--skyra-radius-md, 8px);
+  color: var(--skyra-text-muted, #64748b);
+  font-size: 0.875rem;
+  font-family: inherit;
+  cursor: pointer;
+  min-height: 38px;
+  min-width: 200px;
+  max-width: 320px;
+  width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.skyra-command-palette-trigger:hover {
+  border-color: var(--skyra-primary, #0A58CA);
+  color: var(--skyra-text, #0f172a);
+}
+
+.skyra-command-palette-trigger:focus-visible {
+  outline: none;
+  border-color: var(--skyra-primary, #0A58CA);
+  box-shadow: var(--skyra-focus-ring, 0 0 0 3px rgba(10, 88, 202, 0.2));
+}
+
+.dark .skyra-command-palette-trigger {
+  background-color: var(--skyra-surface, #151D30);
+  border-color: var(--skyra-border, #1e293b);
+  color: var(--skyra-text-muted, #94a3b8);
+}
+
+/* Command Palette Backdrop */
+.skyra-command-palette-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 999;
+  animation: fadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Command Palette Modal */
+.skyra-command-palette-modal {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 640px;
+  max-width: calc(100vw - 2rem);
+  max-height: calc(85vh);
+  background-color: var(--skyra-surface, #ffffff);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--skyra-border, #e2e8f0);
+  border-radius: var(--skyra-radius-xl, 14px);
+  box-shadow: var(--skyra-shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.15));
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: skyra-dialog-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .skyra-command-palette-modal {
+  background-color: var(--skyra-surface, #151D30);
+  border-color: var(--skyra-border, #1e293b);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* Command Palette Input */
+.skyra-command-palette-input-wrap {
+  display: flex;
+  align-items: center;
+  padding: 0.875rem 1rem;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--skyra-border, #e2e8f0);
+  gap: 0.75rem;
+  position: relative;
+  background-color: transparent;
+}
+
+.dark .skyra-command-palette-input-wrap {
+  border-bottom-color: var(--skyra-border, #1e293b);
+}
+
+.skyra-command-palette-search-icon {
+  color: var(--skyra-text-muted, #64748b);
+  flex-shrink: 0;
+}
+
+.skyra-command-palette-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--skyra-text, #0f172a);
+  outline: none;
+  min-width: 0;
+}
+
+.dark .skyra-command-palette-input {
+  color: var(--skyra-text, #f8fafc);
+}
+
+.skyra-command-palette-input::placeholder {
+  color: var(--skyra-text-muted, #94a3b8);
+}
+
+.skyra-command-palette-clear-btn {
+  background: transparent;
+  border: none;
+  color: var(--skyra-text-muted, #64748b);
+  padding: 4px;
+  border-radius: var(--skyra-radius-xs, 4px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skyra-command-palette-clear-btn:hover {
+  color: var(--skyra-text, #0f172a);
+  background-color: var(--skyra-bg-muted, #f1f5f9);
+}
+
+.dark .skyra-command-palette-clear-btn:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Command Palette List */
+.skyra-command-palette-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 360px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  scroll-padding: 0.5rem;
+}
+
+/* Command Palette Group */
+.skyra-command-palette-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.skyra-command-palette-group-heading {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--skyra-text-muted, #64748b);
+  padding: 0.35rem 0.65rem 0.2rem;
+}
+
+.dark .skyra-command-palette-group-heading {
+  color: var(--skyra-text-muted, #94a3b8);
+}
+
+/* Command Palette Item */
+.skyra-command-palette-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--skyra-radius-md, 8px);
+  cursor: pointer;
+  user-select: none;
+  color: var(--skyra-text, #0f172a);
+  font-size: 0.875rem;
+  transition: background-color 0.1s ease, color 0.1s ease;
+  min-height: 40px;
+}
+
+.dark .skyra-command-palette-item {
+  color: var(--skyra-text, #f8fafc);
+}
+
+.skyra-command-palette-item:hover,
+.skyra-command-palette-item--selected {
+  background-color: var(--skyra-bg-muted, #f1f5f9);
+  color: var(--skyra-primary, #0A58CA);
+}
+
+.dark .skyra-command-palette-item:hover,
+.dark .skyra-command-palette-item--selected {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #38bdf8;
+}
+
+.skyra-command-palette-item--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.skyra-command-palette-item-main {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.skyra-command-palette-item-icon {
+  color: var(--skyra-text-muted, #64748b);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skyra-command-palette-item--selected .skyra-command-palette-item-icon {
+  color: var(--skyra-primary, #0A58CA);
+}
+
+.dark .skyra-command-palette-item--selected .skyra-command-palette-item-icon {
+  color: #38bdf8;
+}
+
+.skyra-command-palette-item-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.skyra-command-palette-item-label {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.skyra-command-palette-item-desc {
+  font-size: 0.75rem;
+  color: var(--skyra-text-muted, #64748b);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dark .skyra-command-palette-item-desc {
+  color: var(--skyra-text-muted, #94a3b8);
+}
+
+/* Empty State */
+.skyra-command-palette-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2.5rem 1rem;
+  color: var(--skyra-text-muted, #64748b);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.skyra-command-palette-empty-icon {
+  color: var(--skyra-text-muted, #94a3b8);
+  opacity: 0.6;
+}
+
+/* Separator */
+.skyra-command-palette-separator {
+  border: none;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: var(--skyra-border, #e2e8f0);
+  margin: 0.35rem 0.5rem;
+}
+
+.dark .skyra-command-palette-separator {
+  border-top-color: var(--skyra-border, #1e293b);
+}
+
+/* Footer */
+.skyra-command-palette-footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 1rem;
+  background-color: var(--skyra-bg, #f8fafc);
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: var(--skyra-border, #e2e8f0);
+  font-size: 0.72rem;
+  color: var(--skyra-text-muted, #64748b);
+  flex-wrap: wrap;
+}
+
+.dark .skyra-command-palette-footer {
+  background-color: var(--skyra-bg, #0B111E);
+  border-top-color: var(--skyra-border, #1e293b);
+}
+
+.skyra-command-palette-footer-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ============================================================
    ACCESSIBILITY: REDUCED MOTION
    Suppresses all animations for users who prefer reduced motion.
    Visibility and functionality are preserved — only motion is removed.

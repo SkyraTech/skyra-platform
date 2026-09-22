@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "@skyra/design-tokens": "workspace:*",
-    "@skyra/data-export": "workspace:*"
+    "@skyra/data-export": "workspace:*",
+    "@skyra/utils": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18 || ^19",

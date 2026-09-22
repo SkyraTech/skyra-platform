@@ -219,6 +219,9 @@ importers:
       '@skyra/design-tokens':
         specifier: workspace:*
         version: link:../design-tokens
+      '@skyra/utils':
+        specifier: workspace:*
+        version: link:../utils
     devDependencies:
       '@testing-library/jest-dom':
         specifier: ^6.4.0

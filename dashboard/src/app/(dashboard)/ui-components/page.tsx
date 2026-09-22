@@ -11,12 +11,14 @@ import {
   Type, Calendar, FileText, Printer, Download, ChevronRight,
   Loader2, MessageSquare, Bell, Layers, MoreHorizontal, MousePointerClick,
   FolderTree, ListCollapse, ChevronsUpDown, Navigation, ListOrdered, BellRing,
-  UploadCloud, FileUp, Inbox, AlertOctagon
+  UploadCloud, FileUp, Inbox, AlertOctagon, Command as CommandIcon, Keyboard
 } from 'lucide-react';
 
 export const metadata = { title: 'UI Components — Skyra Platform Dashboard' };
 
 const SPECIALIZED_PAGES = [
+  { href: '/ui-components/command-palette', title: 'Command Palette', desc: 'Enterprise quick-command overlay with fuzzy keyword search, category grouping, keyboard navigation, and ARIA combobox semantics', icon: CommandIcon, badge: 'Phase 4E' },
+  { href: '/ui-components/keyboard-shortcuts', title: 'Keyboard Shortcuts', desc: 'Centralized cross-platform shortcut orchestrator with deterministic normalization, input-element typing safety, and platform Kbd display', icon: Keyboard, badge: 'Phase 4E' },
   { href: '/ui-components/file-upload', title: 'File Upload', desc: 'Managed file selection system with strict type validation, pure size/count checks, progress visualization, and image previews', icon: UploadCloud, badge: 'Phase 4D' },
   { href: '/ui-components/dropzone', title: 'Dropzone', desc: 'Accessible drag-and-drop surface with nested element event tracking, click-to-browse fallback, and keyboard triggers', icon: FileUp, badge: 'Phase 4D' },
   { href: '/ui-components/empty-state', title: 'Empty State', desc: 'Semantic state container for empty datasets, tables, or search misses with clear call-to-actions', icon: Inbox, badge: 'Phase 4D' },

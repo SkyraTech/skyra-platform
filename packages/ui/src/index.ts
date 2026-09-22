@@ -363,3 +363,50 @@ export type {
   ErrorStateDetailsProps,
 } from './components/ErrorState';
 
+// ── Phase 4E: Command Palette & Keyboard Shortcut System ──
+export { Kbd } from './components/Kbd';
+export type { KbdProps, KbdSize } from './components/Kbd';
+
+export {
+  KeyboardShortcutProvider,
+  useKeyboardShortcut,
+  useKeyboardShortcuts,
+} from './components/KeyboardShortcutProvider';
+export type {
+  KeyboardShortcutProviderProps,
+  ShortcutOptions,
+  RegisteredShortcut,
+} from './components/KeyboardShortcutProvider';
+
+export {
+  CommandProvider,
+  useCommandRegistry,
+} from './components/CommandProvider';
+export type {
+  Command,
+  CommandProviderProps,
+  CommandRegistryContextValue,
+} from './components/CommandProvider';
+
+export {
+  CommandPalette,
+  CommandPaletteTrigger,
+  CommandPaletteInput,
+  CommandPaletteList,
+  CommandPaletteGroup,
+  CommandPaletteItem,
+  CommandPaletteEmpty,
+  CommandPaletteSeparator,
+  CommandPaletteFooter,
+} from './components/CommandPalette';
+export type {
+  CommandPaletteProps,
+  CommandPaletteTriggerProps,
+  CommandPaletteInputProps,
+  CommandPaletteListProps,
+  CommandPaletteGroupProps,
+  CommandPaletteItemProps,
+  CommandPaletteEmptyProps,
+} from './components/CommandPalette';
+
+
