@@ -260,4 +260,106 @@ export type {
   BreadcrumbEllipsisProps,
 } from './components/Breadcrumb';
 
+// ── Phase 4C: Navigation & Notification Orchestration ──
+export {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationFirst,
+  PaginationLast,
+  PaginationEllipsis,
+  getPaginationRange,
+} from './components/Pagination';
+export type {
+  PaginationProps,
+  PaginationContentProps,
+  PaginationItemProps,
+  PaginationLinkProps,
+  PaginationPreviousProps,
+  PaginationNextProps,
+  PaginationFirstProps,
+  PaginationLastProps,
+  PaginationEllipsisProps,
+  PaginationRangeOptions,
+  PaginationItemValue,
+  PaginationSize,
+  PaginationVariant,
+} from './components/Pagination';
+
+export {
+  ToastProvider,
+  ToastViewport,
+  useToast,
+  toast,
+} from './components/Toast';
+export type {
+  ToastPosition,
+  ToastAction,
+  ToastOptions,
+  ToastData,
+  ToastContextValue,
+  ToastProviderProps,
+  ToastViewportProps,
+} from './components/Toast';
+
+// ── Phase 4D: File Management & Semantic Content States ──
+export {
+  FileUpload,
+  FileUploadTrigger,
+  FileUploadList,
+  FileUploadItem,
+  validateFiles,
+  formatFileSize,
+  isAcceptedFileType,
+} from './components/FileUpload';
+export type {
+  FileUploadProps,
+  FileUploadTriggerProps,
+  FileUploadListProps,
+  FileUploadItemProps,
+  FileUploadStatus,
+  FileValidationError,
+  FileRejection,
+  FileUploadContextValue,
+  FileValidationOptions,
+} from './components/FileUpload';
+
+export { Dropzone, FileUploadDropzone } from './components/Dropzone';
+export type { DropzoneProps, FileUploadDropzoneProps } from './components/Dropzone';
+
+export {
+  EmptyState,
+  EmptyStateIcon,
+  EmptyStateTitle,
+  EmptyStateDescription,
+  EmptyStateActions,
+} from './components/EmptyState';
+export type {
+  EmptyStateProps,
+  EmptyStateIconProps,
+  EmptyStateTitleProps,
+  EmptyStateDescriptionProps,
+  EmptyStateActionsProps,
+  EmptyStateVariant,
+} from './components/EmptyState';
+
+export {
+  ErrorState,
+  ErrorStateIcon,
+  ErrorStateTitle,
+  ErrorStateDescription,
+  ErrorStateActions,
+  ErrorStateDetails,
+} from './components/ErrorState';
+export type {
+  ErrorStateProps,
+  ErrorStateIconProps,
+  ErrorStateTitleProps,
+  ErrorStateDescriptionProps,
+  ErrorStateActionsProps,
+  ErrorStateDetailsProps,
+} from './components/ErrorState';
 

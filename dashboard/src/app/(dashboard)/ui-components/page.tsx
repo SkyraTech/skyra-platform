@@ -10,12 +10,19 @@ import {
   ListFilter, CheckSquare, Radio as RadioIcon, ToggleLeft,
   Type, Calendar, FileText, Printer, Download, ChevronRight,
   Loader2, MessageSquare, Bell, Layers, MoreHorizontal, MousePointerClick,
-  FolderTree, ListCollapse, ChevronsUpDown, Navigation
+  FolderTree, ListCollapse, ChevronsUpDown, Navigation, ListOrdered, BellRing,
+  UploadCloud, FileUp, Inbox, AlertOctagon
 } from 'lucide-react';
 
 export const metadata = { title: 'UI Components — Skyra Platform Dashboard' };
 
 const SPECIALIZED_PAGES = [
+  { href: '/ui-components/file-upload', title: 'File Upload', desc: 'Managed file selection system with strict type validation, pure size/count checks, progress visualization, and image previews', icon: UploadCloud, badge: 'Phase 4D' },
+  { href: '/ui-components/dropzone', title: 'Dropzone', desc: 'Accessible drag-and-drop surface with nested element event tracking, click-to-browse fallback, and keyboard triggers', icon: FileUp, badge: 'Phase 4D' },
+  { href: '/ui-components/empty-state', title: 'Empty State', desc: 'Semantic state container for empty datasets, tables, or search misses with clear call-to-actions', icon: Inbox, badge: 'Phase 4D' },
+  { href: '/ui-components/error-state', title: 'Error State', desc: 'Content-level failure container with retry recovery callbacks, technical details disclosure, and theme integration', icon: AlertOctagon, badge: 'Phase 4D' },
+  { href: '/ui-components/pagination', title: 'Pagination', desc: 'Accessible navigation landmark with pure page calculation engine, controlled state, intelligent ellipsis placement, and table integration', icon: ListOrdered, badge: 'Phase 4C' },
+  { href: '/ui-components/toast', title: 'Toast Manager', desc: 'Lifecycle orchestration layer built on NotificationBar with auto-dismiss timers, hover pause/resume, actions, and stack viewports', icon: BellRing, badge: 'Phase 4C' },
   { href: '/ui-components/tabs', title: 'Tabs', desc: 'WAI-ARIA tabbed interface supporting horizontal/vertical layouts, auto/manual activation, line and pill variants', icon: FolderTree, badge: 'Phase 4B' },
   { href: '/ui-components/accordion', title: 'Accordion', desc: 'Expandable multi-section container with single/multiple expand modes, collapsible toggling, and smooth transitions', icon: ListCollapse, badge: 'Phase 4B' },
   { href: '/ui-components/collapsible', title: 'Collapsible', desc: 'Independent single expandable region primitive for advanced options and developer payload diagnostics', icon: ChevronsUpDown, badge: 'Phase 4B' },

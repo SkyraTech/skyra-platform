@@ -19,6 +19,8 @@ import { NumberInput } from './NumberInput';
 import { NotificationBar } from './NotificationBar';
 import { DataLoader } from './DataLoader';
 import { Tooltip } from './Tooltip';
+import { CustomSelect } from './CustomSelect';
+import { Spinner } from './Spinner';
 
 // ── parseISODate timezone-neutral ──────────────────────────────────────────
 
@@ -514,3 +516,66 @@ describe('Tooltip — edge cases', () => {
     });
   });
 });
+
+// ── Style Property Normalization Regression (React Shorthand/Longhand) ──────
+
+describe('Style Property Normalization — React Shorthand/Longhand conflict prevention', () => {
+  it('CustomSelect transitions focus and error states without React style removal warnings', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error');
+    const options = [
+      { value: 'opt1', label: 'Option 1' },
+      { value: 'opt2', label: 'Option 2' },
+    ];
+
+    const { rerender } = render(
+      <CustomSelect options={options} placeholder="Select an option" />
+    );
+
+    const trigger = screen.getByRole('button');
+    fireEvent.focus(trigger);
+    fireEvent.blur(trigger);
+
+    // Rerender in error state
+    rerender(
+      <CustomSelect options={options} placeholder="Select an option" error="Required field" />
+    );
+
+    fireEvent.focus(trigger);
+    fireEvent.blur(trigger);
+
+    // Rerender back to normal state
+    rerender(
+      <CustomSelect options={options} placeholder="Select an option" />
+    );
+
+    const styleConflictErrors = consoleErrorSpy.mock.calls.filter(args =>
+      args.some(arg => typeof arg === 'string' && (
+        arg.includes('Removing a style property during rerender') ||
+        arg.includes('borderColor') ||
+        arg.includes('conflicting property is set (border)')
+      ))
+    );
+
+    expect(styleConflictErrors).toHaveLength(0);
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('Spinner rerenders with different colors and sizes without shorthand/longhand conflicts', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error');
+
+    const { rerender } = render(<Spinner size="sm" color="var(--skyra-primary)" />);
+    rerender(<Spinner size="lg" color="var(--skyra-danger)" />);
+    rerender(<Spinner size="md" color="var(--skyra-success)" />);
+
+    const styleConflictErrors = consoleErrorSpy.mock.calls.filter(args =>
+      args.some(arg => typeof arg === 'string' && (
+        arg.includes('Removing a style property during rerender') ||
+        arg.includes('border')
+      ))
+    );
+
+    expect(styleConflictErrors).toHaveLength(0);
+    consoleErrorSpy.mockRestore();
+  });
+});
+

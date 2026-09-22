@@ -172,9 +172,11 @@ export function CustomSelect({
             justifyContent: 'space-between',
             padding: '0.65rem 0.875rem',         // [CONFIRMED: CustomSelect.tsx:126]
             background: 'var(--skyra-bg)',
-            border: hasError
-              ? '1px solid var(--skyra-danger)'
-              : '1px solid var(--skyra-border)',
+            borderWidth: '1px',
+            borderStyle: 'solid',
+            borderColor: hasError
+              ? 'var(--skyra-danger)'
+              : 'var(--skyra-border)',
             borderRadius: 'var(--skyra-radius-md)',
             fontSize: '0.875rem',
             color: selectedOption ? 'var(--skyra-text)' : 'var(--skyra-text-subtle)',

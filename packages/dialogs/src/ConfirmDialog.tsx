@@ -228,7 +228,8 @@ export function ConfirmDialog({
             {isLoading && (
               <span style={{
                 width: '14px', height: '14px',
-                border: '2px solid rgba(255,255,255,0.3)',
+                borderWidth: '2px', borderStyle: 'solid',
+                borderColor: 'rgba(255,255,255,0.3)',
                 borderTopColor: '#fff', borderRadius: '50%',
                 animation: 'skyra-spin 0.7s linear infinite', flexShrink: 0,
               }} aria-hidden="true" />

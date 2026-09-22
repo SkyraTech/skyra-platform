@@ -1049,6 +1049,715 @@
 }
 
 /* ============================================================
+   PAGINATION
+   ============================================================ */
+.skyra-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+  user-select: none;
+}
+
+.skyra-pagination-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.skyra-pagination-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.skyra-pagination-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  box-sizing: border-box;
+  border-radius: var(--skyra-radius-md, 8px);
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+  font-weight: 500;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--skyra-text, #0f172a);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+  text-decoration: none;
+  padding: 0 0.6rem;
+  min-width: 36px;
+  min-height: 36px;
+}
+
+.skyra-pagination-link:hover:not(:disabled) {
+  background: var(--skyra-surface-hover, rgba(0, 0, 0, 0.04));
+  color: var(--skyra-primary, #0a58ca);
+}
+
+.skyra-pagination-link:focus-visible {
+  outline: none;
+  box-shadow: var(--skyra-focus-ring, 0 0 0 3px rgba(10, 88, 202, 0.25));
+}
+
+.skyra-pagination-link:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.skyra-pagination-link--active {
+  background: var(--skyra-primary, #0a58ca) !important;
+  color: #ffffff !important;
+  border-color: var(--skyra-primary, #0a58ca) !important;
+  font-weight: 600;
+}
+
+/* Pagination Sizes */
+.skyra-pagination-link--sm {
+  min-width: 30px;
+  min-height: 30px;
+  font-size: 0.78rem;
+  padding: 0 0.45rem;
+}
+
+.skyra-pagination-link--md {
+  min-width: 36px;
+  min-height: 36px;
+  font-size: 0.875rem;
+  padding: 0 0.6rem;
+}
+
+.skyra-pagination-link--lg {
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 1rem;
+  padding: 0 0.85rem;
+}
+
+/* Pagination Variants */
+.skyra-pagination--outline .skyra-pagination-link {
+  border-color: var(--skyra-border, #e2e8f0);
+}
+
+.skyra-pagination--compact .skyra-pagination-content {
+  gap: 0.15rem;
+}
+
+.skyra-pagination--compact .skyra-pagination-prev-label,
+.skyra-pagination--compact .skyra-pagination-next-label,
+.skyra-pagination--compact .skyra-pagination-first-label,
+.skyra-pagination--compact .skyra-pagination-last-label {
+  display: none;
+}
+
+.skyra-pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  color: var(--skyra-text-muted, #64748b);
+}
+
+.skyra-pagination-ellipsis--sm {
+  min-width: 30px;
+  min-height: 30px;
+}
+
+.skyra-pagination-ellipsis--lg {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* ============================================================
+   TOAST MANAGER
+   ============================================================ */
+.skyra-toast-viewport {
+  position: fixed;
+  z-index: var(--skyra-z-toast, 9999);
+  max-width: 420px;
+  width: calc(100vw - 2rem);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.skyra-toast-viewport--top-right {
+  top: 1rem;
+  right: 1rem;
+}
+
+.skyra-toast-viewport--top-left {
+  top: 1rem;
+  left: 1rem;
+}
+
+.skyra-toast-viewport--top-center {
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.skyra-toast-viewport--bottom-right {
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.skyra-toast-viewport--bottom-left {
+  bottom: 1rem;
+  left: 1rem;
+}
+
+.skyra-toast-viewport--bottom-center {
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.skyra-toast-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.skyra-toast-item {
+  pointer-events: auto;
+  animation: fadeInUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+}
+
+.skyra-toast-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--skyra-radius-sm, 6px);
+  background: var(--skyra-primary, #0a58ca);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  outline: none;
+}
+
+.skyra-toast-action-btn:hover {
+  filter: brightness(1.1);
+}
+
+.skyra-toast-action-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--skyra-focus-ring);
+}
+
+/* ============================================================
+   FILE UPLOAD
+   ============================================================ */
+.skyra-file-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+}
+
+.skyra-file-upload--disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.skyra-file-upload-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+  color: var(--skyra-text, #0f172a);
+  background: var(--skyra-surface, #ffffff);
+  border: 1px solid var(--skyra-border, #e2e8f0);
+  border-radius: var(--skyra-radius-md, 8px);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.skyra-file-upload-trigger:hover:not(:disabled) {
+  background: var(--skyra-surface-hover, rgba(0, 0, 0, 0.04));
+  border-color: var(--skyra-border-focus, #0a58ca);
+}
+
+.skyra-file-upload-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--skyra-focus-ring);
+}
+
+.skyra-file-upload-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.skyra-file-upload-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--skyra-surface, #ffffff);
+  border: 1px solid var(--skyra-border, #e2e8f0);
+  border-radius: var(--skyra-radius-md, 8px);
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+}
+
+.skyra-file-upload-item--error {
+  border-color: var(--skyra-danger, #ef4444);
+  background: rgba(239, 68, 68, 0.02);
+}
+
+.skyra-file-upload-item--success {
+  border-color: var(--skyra-success, #10b981);
+}
+
+.skyra-file-item-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--skyra-radius-sm, 6px);
+  overflow: hidden;
+  background: var(--skyra-bg-muted, #f8fafc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.skyra-file-item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.skyra-file-item-icon {
+  color: var(--skyra-text-muted, #64748b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skyra-file-item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.skyra-file-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.skyra-file-item-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--skyra-text, #0f172a);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.skyra-file-item-size {
+  font-size: 0.75rem;
+  color: var(--skyra-text-muted, #64748b);
+  flex-shrink: 0;
+}
+
+.skyra-file-item-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skyra-file-item-progress-text {
+  font-size: 0.75rem;
+  font-family: var(--skyra-font-mono, monospace);
+  color: var(--skyra-text-muted, #64748b);
+  min-width: 32px;
+  text-align: right;
+}
+
+.skyra-file-item-error {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--skyra-danger, #ef4444);
+}
+
+.skyra-file-item-success {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--skyra-success, #10b981);
+}
+
+.skyra-file-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.skyra-file-item-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--skyra-radius-sm, 4px);
+  background: transparent;
+  border: none;
+  color: var(--skyra-text-muted, #64748b);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.skyra-file-item-btn:hover {
+  background: var(--skyra-surface-hover, rgba(0, 0, 0, 0.05));
+  color: var(--skyra-text, #0f172a);
+}
+
+.skyra-file-item-btn--remove:hover {
+  color: var(--skyra-danger, #ef4444);
+}
+
+.skyra-file-item-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--skyra-focus-ring);
+}
+
+/* ============================================================
+   DROPZONE
+   ============================================================ */
+.skyra-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+  border: 2px dashed var(--skyra-border, #e2e8f0);
+  border-radius: var(--skyra-radius-lg, 12px);
+  background: var(--skyra-surface, #ffffff);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  box-sizing: border-box;
+  text-align: center;
+  user-select: none;
+}
+
+.skyra-dropzone:hover:not(.skyra-dropzone--disabled) {
+  border-color: var(--skyra-primary, #0a58ca);
+  background: var(--skyra-surface-hover, rgba(10, 88, 202, 0.02));
+}
+
+.skyra-dropzone:focus-visible {
+  outline: none;
+  border-color: var(--skyra-primary, #0a58ca);
+  box-shadow: var(--skyra-focus-ring);
+}
+
+.skyra-dropzone--active {
+  border-color: var(--skyra-primary, #0a58ca) !important;
+  background: rgba(10, 88, 202, 0.06) !important;
+  transform: scale(1.005);
+}
+
+.skyra-dropzone--reject {
+  border-color: var(--skyra-danger, #ef4444) !important;
+  background: rgba(239, 68, 68, 0.06) !important;
+}
+
+.skyra-dropzone--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.skyra-dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.skyra-dropzone-icon {
+  color: var(--skyra-primary, #0a58ca);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.skyra-dropzone:hover .skyra-dropzone-icon {
+  transform: translateY(-2px);
+}
+
+.skyra-dropzone-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.skyra-dropzone-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--skyra-text, #0f172a);
+}
+
+.skyra-dropzone-desc {
+  font-size: 0.8125rem;
+  color: var(--skyra-text-muted, #64748b);
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.skyra-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  box-sizing: border-box;
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+}
+
+.skyra-empty-state--outline {
+  border: 1px solid var(--skyra-border, #e2e8f0);
+  border-radius: var(--skyra-radius-lg, 12px);
+  background: var(--skyra-surface, #ffffff);
+}
+
+.skyra-empty-state--dashed {
+  border: 2px dashed var(--skyra-border, #e2e8f0);
+  border-radius: var(--skyra-radius-lg, 12px);
+  background: var(--skyra-surface, #ffffff);
+}
+
+.skyra-empty-state--compact {
+  padding: 1.5rem 1rem;
+}
+
+.skyra-empty-state-icon {
+  color: var(--skyra-text-subtle, #94a3b8);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skyra-empty-state-title {
+  font-family: var(--skyra-font-display, 'Inter', sans-serif);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--skyra-text, #0f172a);
+  margin: 0 0 0.35rem 0;
+}
+
+.skyra-empty-state--compact .skyra-empty-state-title {
+  font-size: 0.95rem;
+}
+
+.skyra-empty-state-desc {
+  font-size: 0.875rem;
+  color: var(--skyra-text-muted, #64748b);
+  max-width: 420px;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.5;
+}
+
+.skyra-empty-state--compact .skyra-empty-state-desc {
+  font-size: 0.8125rem;
+  margin-bottom: 0.75rem;
+}
+
+.skyra-empty-state-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   ERROR STATE
+   ============================================================ */
+.skyra-error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  box-sizing: border-box;
+  font-family: var(--skyra-font-body, 'Inter', sans-serif);
+}
+
+.skyra-error-state--card {
+  border: 1px solid var(--skyra-border, #e2e8f0);
+  border-radius: var(--skyra-radius-lg, 12px);
+  background: var(--skyra-surface, #ffffff);
+  box-shadow: var(--skyra-shadow-sm);
+}
+
+.skyra-error-state--subtle {
+  background: rgba(239, 68, 68, 0.03);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--skyra-radius-lg, 12px);
+}
+
+.skyra-error-state--compact {
+  padding: 1.5rem 1rem;
+}
+
+.skyra-error-state-icon {
+  color: var(--skyra-danger, #ef4444);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skyra-error-state-title {
+  font-family: var(--skyra-font-display, 'Inter', sans-serif);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--skyra-text, #0f172a);
+  margin: 0 0 0.35rem 0;
+}
+
+.skyra-error-state--compact .skyra-error-state-title {
+  font-size: 0.95rem;
+}
+
+.skyra-error-state-desc {
+  font-size: 0.875rem;
+  color: var(--skyra-text-muted, #64748b);
+  max-width: 440px;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.5;
+}
+
+.skyra-error-state--compact .skyra-error-state-desc {
+  font-size: 0.8125rem;
+  margin-bottom: 0.75rem;
+}
+
+.skyra-error-state-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  max-width: 500px;
+  width: 100%;
+}
+
+.skyra-error-state-code {
+  font-family: var(--skyra-font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--skyra-radius-xs, 4px);
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--skyra-danger, #ef4444);
+}
+
+.skyra-error-state-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: none;
+  font-size: 0.78rem;
+  color: var(--skyra-text-muted, #64748b);
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+.skyra-error-state-toggle:hover {
+  color: var(--skyra-text, #0f172a);
+  text-decoration: underline;
+}
+
+.skyra-error-state-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--skyra-bg-muted, #0f172a);
+  color: #f8fafc;
+  border-radius: var(--skyra-radius-md, 8px);
+  padding: 0.75rem;
+  text-align: left;
+  animation: fadeIn 0.15s ease;
+}
+
+.skyra-error-state-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 0.72rem;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.skyra-error-state-copy:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.skyra-error-state-pre {
+  margin: 0;
+  font-family: var(--skyra-font-mono, monospace);
+  font-size: 0.75rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.skyra-error-state-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
    ACCESSIBILITY: REDUCED MOTION
    Suppresses all animations for users who prefer reduced motion.
    Visibility and functionality are preserved — only motion is removed.
