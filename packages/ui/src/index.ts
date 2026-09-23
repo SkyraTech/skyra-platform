@@ -130,8 +130,12 @@ export type { BadgeProps, BadgeVariant, BadgeSize } from './components/Badge';
 export { StatusBadge } from './components/StatusBadge';
 export type { StatusBadgeProps, StatusConfig, StatusSize } from './components/StatusBadge';
 
-export { Card } from './components/Card';
-export type { CardProps } from './components/Card';
+export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './components/Card';
+export type { CardProps, CardSectionProps } from './components/Card';
+
+// ── Avatar ──
+export { Avatar } from './components/Avatar';
+export type { AvatarProps, AvatarSize, AvatarShape } from './components/Avatar';
 
 export { Alert } from './components/Alert';
 export type { AlertProps, AlertVariant } from './components/Alert';
