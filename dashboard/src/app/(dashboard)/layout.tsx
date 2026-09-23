@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, Palette, Component, Table2, WrapText,
   PanelTop, Eye, Monitor, BookOpen, Moon, Sun, ChevronRight, Menu, X,
-  FileText, Printer, Download,
+  FileText, Printer, Download, QrCode
 } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -19,6 +19,7 @@ const NAV_ITEMS = [
   { href: '/pdf-viewer',    label: 'PDF & Documents',      icon: FileText },
   { href: '/print',         label: 'Print Studio',         icon: Printer },
   { href: '/export',        label: 'Data Export',          icon: Download },
+  { href: '/qr-code',       label: 'QR Code',              icon: QrCode },
   { href: '/accessibility', label: 'Accessibility Studio', icon: Eye },
   { href: '/responsive',    label: 'Viewport Studio',      icon: Monitor },
   { href: '/docs',          label: 'Documentation',        icon: BookOpen },
