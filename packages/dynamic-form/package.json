@@ -16,7 +16,9 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@skyra/ui": "workspace:*"
+    "@skyra/ui": "workspace:*",
+    "@skyra/utils": "workspace:*",
+    "@skyra/validation": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18 || ^19",
@@ -35,6 +37,8 @@
     "react-dom": "19.2.4",
     "lucide-react": "^1.33.0",
     "@types/react": "^19",
-    "@types/react-dom": "^19"
+    "@types/react-dom": "^19",
+    "jest-axe": "^9.0.0",
+    "@types/jest-axe": "^3.5.9"
   }
 }
