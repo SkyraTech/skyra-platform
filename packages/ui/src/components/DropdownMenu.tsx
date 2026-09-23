@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useId, useCallback, ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { useFloatingPosition, FloatingPlacement, FloatingAlign } from '../hooks/useFloatingPosition';
 import {
   MenuContext,
@@ -301,7 +302,7 @@ export function DropdownMenu({
         {trigger}
       </div>
 
-      {isOpen && (
+      {isOpen && typeof document !== 'undefined' && createPortal(
         <div
           ref={menuRef}
           id={menuId}
@@ -320,7 +321,8 @@ export function DropdownMenu({
           <MenuContent ariaLabel={ariaLabel}>
             {items ? renderDeclarativeItems(items) : children}
           </MenuContent>
-        </div>
+        </div>,
+        document.body
       )}
     </MenuContext.Provider>
   );

@@ -91,7 +91,7 @@ export function useFloatingPosition({
     const floatingWidth = floatingRect.width || floatingEl.offsetWidth || 180;
     const floatingHeight = floatingRect.height || floatingEl.offsetHeight || 120;
 
-    const viewportWidth = window.innerWidth;
+    const viewportWidth = document.documentElement.clientWidth || window.innerWidth;
     const viewportHeight = window.innerHeight;
 
     let effectivePlacement: 'top' | 'bottom' | 'left' | 'right' =

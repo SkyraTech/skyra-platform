@@ -586,7 +586,7 @@
    ============================================================ */
 .skyra-dropdown-menu-wrapper,
 .skyra-context-menu-wrapper {
-  background: var(--skyra-card-bg, #ffffff);
+  background: var(--skyra-surface, #ffffff);
   border: 1px solid var(--skyra-border, #e2e8f0);
   border-radius: var(--skyra-radius-md, 8px);
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
