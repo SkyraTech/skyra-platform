@@ -15,6 +15,7 @@
     "@skyra/design-tokens": "workspace:*",
     "@skyra/dialogs": "workspace:*",
     "@skyra/dynamic-form": "workspace:*",
+    "@skyra/qr": "workspace:^",
     "@skyra/ui": "workspace:*",
     "@skyra/utils": "workspace:*",
     "@skyra/validation": "workspace:*",
