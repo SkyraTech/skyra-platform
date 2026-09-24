@@ -1,0 +1,82 @@
+name: Platform Quality Gates
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  platform-quality:
+    name: Platform Quality Gates
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9.12.0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Regression Tests
+        run: pnpm test
+
+      - name: Build Packages
+        run: pnpm build
+
+      - name: Inspect Artifacts & Pack
+        run: |
+          mkdir -p .tmp/platform-consumer-validation/tarballs
+          cd packages
+          for pkg in $(ls -d */); do
+            cd $pkg
+            pnpm pack --pack-destination ../../.tmp/platform-consumer-validation/tarballs
+            cd ..
+          done
+          cd ..
+          
+          echo "Validating artifacts..."
+          for tarball in .tmp/platform-consumer-validation/tarballs/*.tgz; do
+            if tar -tf "$tarball" | grep -q "src/.*\.ts$"; then
+              echo "FAIL: $tarball leaks TypeScript source."
+              exit 1
+            fi
+            if tar -tf "$tarball" | grep -q "tests/"; then
+              echo "FAIL: $tarball leaks tests."
+              exit 1
+            fi
+            if tar -tf "$tarball" | grep -q "tsconfig.json"; then
+              echo "FAIL: $tarball leaks tsconfig.json."
+              exit 1
+            fi
+          done
+          
+      - name: External Consumer Validation
+        run: bash scripts/external-consumer-validation.sh
+
+      - name: Package Metadata Validation
+        run: |
+          echo "Installing publint..."
+          pnpm add -w publint
+          cd packages
+          for pkg in $(ls -d */); do
+            echo "Running publint for $pkg"
+            npx publint ./$pkg
+          done
