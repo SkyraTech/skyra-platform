@@ -2,7 +2,6 @@
   "name": "@skyra/qr",
   "version": "0.1.0",
   "description": "Skyra Platform generic QR code generation, matrix calculation, and SVG rendering",
-  "type": "module",
   "exports": {
     ".": "./src/index.ts"
   },

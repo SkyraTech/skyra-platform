@@ -1,9 +1,9 @@
 # Skyra Platform — Technical Architecture Specification
 
-**Version:** 2.1.0 — Final Pre-Approval Specification
+**Version:** 3.0.0 — Platform Governance Expansion
 **Date:** September 2026
 **Author:** Skyra Tech Architecture Team
-**Status:** PENDING APPROVAL — DO NOT IMPLEMENT
+**Status:** GOVERNANCE BASELINE — PENDING FORMAL APPROVAL
 
 ---
 
@@ -327,3 +327,79 @@ skyra-platform/
 ---
 
 *End of Technical Architecture Specification v2.1.0 — Awaiting formal approval.*
+
+
+---
+
+# Platform Governance Expansion — v3.0.0
+
+> This section supersedes conflicting planning assumptions in earlier v2.1.0 material where necessary. It does not remove existing component or domain requirements; it establishes the operating standards required for Skyra Platform to function as a professional, reusable internal platform for Skyra Tech.
+
+## Platform Mission
+
+Skyra Platform is the reusable engineering foundation for Skyra Tech applications. It provides reusable UI, interaction patterns, design semantics, validation, utilities, application-shell infrastructure, accessibility, responsive behavior, documentation, testing, and release governance.
+
+**Core rule:** Build reusable technology once in Skyra Platform and consume it across Skyra applications. Applications own their business/domain logic, persistence, authentication, routing, product workflows, and application-specific behavior.
+
+## Mandatory Platform Standards
+
+1. **Version-controlled platform APIs** — packages and public APIs follow explicit lifecycle states: Experimental → Stable → Deprecated → Removed.
+2. **Documented public APIs** — every stable reusable package/component has usage, API, accessibility, responsive, and migration documentation in the Platform Dashboard.
+3. **Dashboard as engineering workbench** — the Dashboard is the authoritative interactive documentation and QA surface, not a product/customer dashboard.
+4. **Style isolation** — Platform must not inject application-global styling that can unexpectedly alter consuming applications. Component styles are scoped/component-local or explicitly opt-in. Design tokens remain available as a controlled contract.
+5. **No global element styling leakage** — Platform packages must not impose selectors such as `body`, `button`, `input`, `h1`, or `*` on consuming applications unless a separately documented, explicitly imported reset/base package is introduced in a future approved change.
+6. **Responsive by contract** — reusable elements must remain usable at 320px, 375px, 640px, 768px, 1024px, 1280px, and 1536px unless a component is explicitly documented as viewport-specific.
+7. **Accessibility by contract** — keyboard behavior, focus management, semantic structure, ARIA, reduced motion, touch targets, and axe validation are release requirements.
+8. **Security by boundary** — reusable packages must not contain credentials, application persistence, auth/session implementation, secret access, or uncontrolled network calls.
+9. **Dependency discipline** — lower-level packages cannot import higher-level packages; application packages cannot leak into foundational packages; forbidden dependency rules are CI-enforced.
+10. **Strict TypeScript** — public APIs contain no `any`; new `@ts-ignore` and `@ts-nocheck` are prohibited.
+11. **Real implementation showcase** — Dashboard examples must import the actual compiled workspace package. No duplicated showcase implementations or mock component copies.
+12. **Frozen regression contracts** — completed package behavior must remain protected by tests and regression gates when later phases are implemented.
+
+## Platform Quality Gate
+
+A package or component is not considered release-ready until architecture, API, type safety, tests, accessibility, responsive behavior, light/dark behavior, reduced-motion behavior, documentation, Dashboard integration, and security/package-boundary checks pass.
+
+## Release Lifecycle
+
+Every public package/component must have a lifecycle state, release version, changelog entry, migration guidance for breaking changes, and a documented deprecation path where applicable.
+
+## Documentation Lifecycle
+
+Documentation is versioned with the implementation. The Dashboard must expose the current package API and examples, while repository documentation records architecture, governance, contribution rules, release policy, security, accessibility, responsive standards, and migration guidance.
+
+## Future-Proofing Rule
+
+A capability belongs in Skyra Platform when it is genuinely reusable across multiple Skyra applications or is foundational infrastructure. Product-specific behavior remains in the consuming application. The Platform must not become a shared dumping ground for unrelated business logic.
+
+## Architecture Governance Addendum
+
+### Package Layers
+
+The current platform architecture includes reusable foundations, UI systems, application-shell infrastructure, and justified reusable capabilities such as `@skyra/qr`. The exact package inventory is governed by the repository rather than this document alone; this specification defines dependency direction and ownership.
+
+```text
+Layer 0 — Repository / Governance
+        ↓
+Layer 1 — design-tokens / utils / validation / pure engines
+        ↓
+Layer 2 — ui / dialogs / data-table / dynamic-form / data-export
+        ↓
+Layer 2A — app-shell / reusable application infrastructure
+        ↓
+Layer 3 — justified reusable domain capabilities (for example QR or invoice)
+        ↓
+Consuming applications: ERP / QR / future Skyra products
+```
+
+### Application Isolation
+
+No Platform package may import an application package, application database layer, application route, authentication implementation, or product-specific business workflow. Platform components communicate with applications through typed props, callbacks, adapters, and documented contracts.
+
+### Styling Boundary
+
+`@skyra/design-tokens` defines semantic values and theme contracts, but importing Platform packages must not silently introduce a global CSS reset, global element rules, global typography rules, or global layout rules. Consumers explicitly opt into token styles. Component styling remains isolated.
+
+### Versioned Public Surface
+
+Public exports are treated as API contracts. Breaking changes require a major version or an approved compatibility/deprecation strategy. Internal implementation details are not public API and may change without consumer migration when no public contract is affected.
