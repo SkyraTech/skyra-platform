@@ -37,9 +37,9 @@ const matrix = generateQRMatrix('https://skyra.tech', { errorCorrectionLevel: 'H
 
 ## Dependencies / Peer Dependencies
 - **Dependencies:** `qrcode`
-- **Peer Dependencies:** `react`, `react-dom`
+- **Peer Dependencies (Optional):** `react`, `react-dom`
 
-*(Note: Currently, React peerDependencies are declared at the package level, meaning consumers of `/core` in pure Node environments may receive peer dependency warnings. Resolving this boundary is slated for a future phase.)*
+The React peer dependencies are optional. Consumers using only `@skyra/qr/core` do not need to install React.
 
 ## Version & Lifecycle
 Current Version: `0.1.0` (Pre-1.0 Minor bumps signify breaking changes).
