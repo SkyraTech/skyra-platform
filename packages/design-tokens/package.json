@@ -1,22 +1,32 @@
 {
-  "name": "@skyra/design-tokens",
-  "version": "0.1.0",
-  "description": "Skyra Platform design tokens — CSS custom properties, dark mode, reset",
-  "type": "module",
-  "exports": {
-    ".": "./src/index.ts",
-    "./tokens.css": "./src/tokens.css",
-    "./reset.css": "./src/reset.css"
-  },
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
-  "scripts": {
-    "lint": "echo 'no lint for CSS package'",
-    "typecheck": "tsc --noEmit",
-    "build": "echo 'design-tokens: CSS-only, no build step required'",
-    "clean": "echo 'nothing to clean'"
-  },
-  "devDependencies": {
-    "typescript": "^5.7.0"
-  }
+    "name":  "@skyra/design-tokens",
+    "version":  "0.1.0",
+    "description":  "Skyra Platform design tokens — CSS custom properties, dark mode, reset",
+    "type":  "module",
+    "exports":  {
+                    "./reset.css":  "./src/reset.css",
+                    "./tokens.css":  "./src/tokens.css",
+                    ".":  {
+                              "require":  "./dist/index.cjs",
+                              "types":  "./dist/index.d.ts",
+                              "import":  "./dist/index.js"
+                          }
+                },
+    "main":  "./dist/index.cjs",
+    "types":  "./dist/index.d.ts",
+    "scripts":  {
+                    "lint":  "echo \u0027no lint for CSS package\u0027",
+                    "typecheck":  "tsc --noEmit",
+                    "build":  "tsup --config ../../tsup.config.ts",
+                    "clean":  "echo \u0027nothing to clean\u0027"
+                },
+    "devDependencies":  {
+                            "typescript":  "^5.7.0"
+                        },
+    "module":  "./dist/index.js",
+    "files":  [
+                  "dist",
+                  "src/reset.css",
+                  "src/tokens.css"
+              ]
 }

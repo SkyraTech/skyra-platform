@@ -1,9 +1,9 @@
 # Skyra Platform — Component Catalog & Standards
 
-**Version:** 2.1.0 — Final Pre-Approval Specification
+**Version:** 3.0.0 — Platform Governance Expansion
 **Date:** September 2026
 **Author:** Skyra Tech Architecture Team
-**Status:** PENDING APPROVAL — DO NOT IMPLEMENT
+**Status:** GOVERNANCE BASELINE — PENDING FORMAL APPROVAL
 
 ---
 
@@ -283,3 +283,74 @@ Drawer use cases:
 ---
 
 *End of Component Catalog & Standards v2.1.0 — Awaiting formal approval.*
+
+
+---
+
+# Platform Governance Expansion — v3.0.0
+
+> This section supersedes conflicting planning assumptions in earlier v2.1.0 material where necessary. It does not remove existing component or domain requirements; it establishes the operating standards required for Skyra Platform to function as a professional, reusable internal platform for Skyra Tech.
+
+## Platform Mission
+
+Skyra Platform is the reusable engineering foundation for Skyra Tech applications. It provides reusable UI, interaction patterns, design semantics, validation, utilities, application-shell infrastructure, accessibility, responsive behavior, documentation, testing, and release governance.
+
+**Core rule:** Build reusable technology once in Skyra Platform and consume it across Skyra applications. Applications own their business/domain logic, persistence, authentication, routing, product workflows, and application-specific behavior.
+
+## Mandatory Platform Standards
+
+1. **Version-controlled platform APIs** — packages and public APIs follow explicit lifecycle states: Experimental → Stable → Deprecated → Removed.
+2. **Documented public APIs** — every stable reusable package/component has usage, API, accessibility, responsive, and migration documentation in the Platform Dashboard.
+3. **Dashboard as engineering workbench** — the Dashboard is the authoritative interactive documentation and QA surface, not a product/customer dashboard.
+4. **Style isolation** — Platform must not inject application-global styling that can unexpectedly alter consuming applications. Component styles are scoped/component-local or explicitly opt-in. Design tokens remain available as a controlled contract.
+5. **No global element styling leakage** — Platform packages must not impose selectors such as `body`, `button`, `input`, `h1`, or `*` on consuming applications unless a separately documented, explicitly imported reset/base package is introduced in a future approved change.
+6. **Responsive by contract** — reusable elements must remain usable at 320px, 375px, 640px, 768px, 1024px, 1280px, and 1536px unless a component is explicitly documented as viewport-specific.
+7. **Accessibility by contract** — keyboard behavior, focus management, semantic structure, ARIA, reduced motion, touch targets, and axe validation are release requirements.
+8. **Security by boundary** — reusable packages must not contain credentials, application persistence, auth/session implementation, secret access, or uncontrolled network calls.
+9. **Dependency discipline** — lower-level packages cannot import higher-level packages; application packages cannot leak into foundational packages; forbidden dependency rules are CI-enforced.
+10. **Strict TypeScript** — public APIs contain no `any`; new `@ts-ignore` and `@ts-nocheck` are prohibited.
+11. **Real implementation showcase** — Dashboard examples must import the actual compiled workspace package. No duplicated showcase implementations or mock component copies.
+12. **Frozen regression contracts** — completed package behavior must remain protected by tests and regression gates when later phases are implemented.
+
+## Platform Quality Gate
+
+A package or component is not considered release-ready until architecture, API, type safety, tests, accessibility, responsive behavior, light/dark behavior, reduced-motion behavior, documentation, Dashboard integration, and security/package-boundary checks pass.
+
+## Release Lifecycle
+
+Every public package/component must have a lifecycle state, release version, changelog entry, migration guidance for breaking changes, and a documented deprecation path where applicable.
+
+## Documentation Lifecycle
+
+Documentation is versioned with the implementation. The Dashboard must expose the current package API and examples, while repository documentation records architecture, governance, contribution rules, release policy, security, accessibility, responsive standards, and migration guidance.
+
+## Future-Proofing Rule
+
+A capability belongs in Skyra Platform when it is genuinely reusable across multiple Skyra applications or is foundational infrastructure. Product-specific behavior remains in the consuming application. The Platform must not become a shared dumping ground for unrelated business logic.
+
+## 15. Component Lifecycle & Documentation Standard
+
+Every component in this catalog must carry:
+
+- package ownership;
+- lifecycle status: Experimental, Stable, Deprecated, or Removed;
+- introduced version;
+- public API contract;
+- accessibility contract;
+- responsive behavior;
+- theme/reduced-motion behavior where applicable;
+- test coverage;
+- Dashboard showcase location;
+- changelog and migration notes for consumer-visible changes.
+
+### Component Acceptance Checklist
+
+A component is ready for Stable status only when it has real-package Dashboard integration, meaningful behavioral tests, accessibility validation, seven-viewport verification, light/dark verification, strict TypeScript, no prohibited type escapes, style-isolation verification, and documentation sufficient for a new Skyra engineer to consume it without reading implementation internals.
+
+### Reuse Decision Rule
+
+Do not move application-specific business logic into Platform merely because it is technically reusable. A capability should enter Platform when it is foundational or has a clear multi-product reuse case. Product-specific workflows remain application-owned.
+
+### Catalog Integrity
+
+The component catalog must describe the actual repository state. Planned components, implemented components, deprecated components, and future concepts must be clearly distinguished. Documentation must never imply that a package is production-ready when its implementation or quality gates are incomplete.
