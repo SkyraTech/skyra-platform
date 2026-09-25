@@ -183,8 +183,7 @@ export function Calendar({
         borderRadius: 'var(--skyra-radius-md)',
         fontFamily: 'var(--skyra-font-body)',
         userSelect: 'none',
-        width: '280px',
-      }}
+        width: '280px' }}
     >
       {/* Month / Year Header */}
       <div
@@ -192,8 +191,7 @@ export function Calendar({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginBottom: '0.75rem',
-        }}
+          marginBottom: '0.75rem' }}
       >
         <button
           type="button"
@@ -207,8 +205,7 @@ export function Calendar({
             borderRadius: 'var(--skyra-radius-sm)',
             color: 'var(--skyra-text-muted)',
             display: 'flex',
-            alignItems: 'center',
-          }}
+            alignItems: 'center' }}
         >
           <ChevronLeft size={16} />
         </button>
@@ -229,8 +226,7 @@ export function Calendar({
             borderRadius: 'var(--skyra-radius-sm)',
             color: 'var(--skyra-text-muted)',
             display: 'flex',
-            alignItems: 'center',
-          }}
+            alignItems: 'center' }}
         >
           <ChevronRight size={16} />
         </button>
@@ -242,8 +238,7 @@ export function Calendar({
           display: 'grid',
           gridTemplateColumns: 'repeat(7, 1fr)',
           textAlign: 'center',
-          marginBottom: '4px',
-        }}
+          marginBottom: '4px' }}
       >
         {DAY_NAMES.map((name) => (
           <div
@@ -252,8 +247,7 @@ export function Calendar({
               fontSize: '0.72rem',
               fontWeight: 600,
               color: 'var(--skyra-text-subtle)',
-              padding: '4px 0',
-            }}
+              padding: '4px 0' }}
           >
             {name}
           </div>
@@ -276,7 +270,7 @@ export function Calendar({
               (!rangeEnd && hoverDate && hoverDate < rangeStart && iso <= rangeStart && iso >= hoverDate));
 
           return (
-            <button
+            <button className="skyra-motion-transition-bg"
               key={`${iso}-${idx}`}
               type="button"
               disabled={isDisabled}
@@ -308,9 +302,7 @@ export function Calendar({
                 borderRadius: isSelected ? 'var(--skyra-radius-sm)' : inRange ? '0' : 'var(--skyra-radius-sm)',
                 border: isToday && !isSelected ? '1px solid var(--skyra-primary)' : 'none',
                 cursor: isDisabled ? 'not-allowed' : 'pointer',
-                opacity: !isCurrentMonth && !isSelected && !inRange ? 0.4 : isDisabled ? 0.35 : 1,
-                transition: 'background-color 0.1s ease',
-              }}
+                opacity: !isCurrentMonth && !isSelected && !inRange ? 0.4 : isDisabled ? 0.35 : 1 }}
             >
               {date.getDate()}
             </button>
@@ -327,8 +319,7 @@ export function Calendar({
             borderTop: '1px solid var(--skyra-border)',
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
+            alignItems: 'center' }}
         >
           <button
             type="button"
@@ -341,8 +332,7 @@ export function Calendar({
               fontWeight: 600,
               cursor: 'pointer',
               padding: '2px 6px',
-              borderRadius: 'var(--skyra-radius-sm)',
-            }}
+              borderRadius: 'var(--skyra-radius-sm)' }}
           >
             Today
           </button>

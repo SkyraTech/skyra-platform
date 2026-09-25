@@ -119,8 +119,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             style={{
               fontSize: '0.875rem',
               fontWeight: 500,
-              color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-            }}
+              color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)' }}
           >
             {label}
             {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
@@ -140,8 +139,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 display: 'flex',
                 alignItems: 'center',
                 pointerEvents: 'none',
-                zIndex: 1,
-              }}
+                zIndex: 1 }}
             >
               {left}
             </span>
@@ -187,9 +185,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               fontSize: '0.875rem',
               outline: 'none',
               boxSizing: 'border-box',
-              cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'text',
-              transition: 'border-color 0.15s, box-shadow 0.15s',
-            }}
+              cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'text' }}
             {...rest}
           />
 
@@ -204,8 +200,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               alignItems: 'center',
               gap: '0.25rem',
               color: 'var(--skyra-text-muted)',
-              zIndex: 1,
-            }}
+              zIndex: 1 }}
           >
             {clearable && value && !disabled && (
               <button
@@ -219,8 +214,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                   cursor: 'pointer',
                   color: 'var(--skyra-text-subtle)',
                   display: 'flex',
-                  alignItems: 'center',
-                }}
+                  alignItems: 'center' }}
               >
                 <X size={14} />
               </button>
@@ -230,7 +224,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               <Loader2
                 size={16}
                 className="skyra-spin"
-                style={{ animation: 'spin 1s linear infinite', color: 'var(--skyra-primary)' }}
+                style={{ color: 'var(--skyra-primary)' }}
                 aria-label="Loading"
               />
             )}
@@ -256,8 +250,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                   alignItems: 'center',
                   gap: '4px',
                   fontSize: '0.78rem',
-                  color: 'var(--skyra-danger)',
-                }}
+                  color: 'var(--skyra-danger)' }}
               >
                 <AlertCircle size={12} aria-hidden="true" />
                 {error}
@@ -269,8 +262,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 className="skyra-helper-msg"
                 style={{
                   fontSize: '0.78rem',
-                  color: 'var(--skyra-text-muted)',
-                }}
+                  color: 'var(--skyra-text-muted)' }}
               >
                 {effectiveHelper}
               </span>
@@ -283,8 +275,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 fontSize: '0.75rem',
                 color: currentLength >= maxLength ? 'var(--skyra-danger)' : 'var(--skyra-text-subtle)',
                 marginLeft: 'auto',
-                flexShrink: 0,
-              }}
+                flexShrink: 0 }}
             >
               {currentLength} / {maxLength}
             </span>

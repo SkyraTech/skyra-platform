@@ -14,7 +14,7 @@ export default defineConfig([
     dts: true,
     sourcemap: true,
     clean: false,
-    external: ['react', 'react-dom', '@skyra/qr/core'],
+    external: ['react', '@skyra/qr/core'],
     banner: { js: '"use client";' }
   }
 ]);

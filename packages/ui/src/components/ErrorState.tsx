@@ -131,7 +131,7 @@ export interface ErrorStateTitleProps extends ComponentPropsWithoutRef<'h3'> {
 
 export const ErrorStateTitle = forwardRef<HTMLHeadingElement, ErrorStateTitleProps>(
   ({ as: Component = 'h3', children, className = '', ...props }, ref) => {
-    const Tag = Component as any;
+    const Tag = Component as React.ElementType;
     return (
       <Tag
         ref={ref}

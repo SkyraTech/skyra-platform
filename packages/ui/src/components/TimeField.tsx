@@ -141,8 +141,7 @@ export function TimeField({
         gap: '0.375rem',
         position: 'relative',
         width: '100%',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       {label && (
         <label
@@ -150,8 +149,7 @@ export function TimeField({
           style={{
             fontSize: '0.875rem',
             fontWeight: 500,
-            color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-          }}
+            color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)' }}
         >
           {label}
           {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
@@ -169,8 +167,7 @@ export function TimeField({
           background: disabled ? 'var(--skyra-border)' : 'var(--skyra-bg)',
           border: hasError ? '1.5px solid var(--skyra-danger)' : '1px solid var(--skyra-border)',
           borderRadius: 'var(--skyra-radius-md)',
-          boxSizing: 'border-box',
-        }}
+          boxSizing: 'border-box' }}
       >
         <Clock size={16} style={{ color: 'var(--skyra-text-muted)', flexShrink: 0 }} />
 
@@ -189,8 +186,7 @@ export function TimeField({
             color: 'var(--skyra-text)',
             fontFamily: 'inherit',
             fontWeight: 500,
-            cursor: disabled ? 'not-allowed' : 'pointer',
-          }}
+            cursor: disabled ? 'not-allowed' : 'pointer' }}
         >
           {hourOptions.map((h) => (
             <option key={h} value={h}>
@@ -215,8 +211,7 @@ export function TimeField({
             color: 'var(--skyra-text)',
             fontFamily: 'inherit',
             fontWeight: 500,
-            cursor: disabled ? 'not-allowed' : 'pointer',
-          }}
+            cursor: disabled ? 'not-allowed' : 'pointer' }}
         >
           {minuteOptions.map((m) => (
             <option key={m} value={m}>
@@ -234,8 +229,7 @@ export function TimeField({
               border: '1px solid var(--skyra-border)',
               borderRadius: 'var(--skyra-radius-sm)',
               overflow: 'hidden',
-              background: 'var(--skyra-surface)',
-            }}
+              background: 'var(--skyra-surface)' }}
           >
             <button
               type="button"
@@ -248,8 +242,7 @@ export function TimeField({
                 fontWeight: 600,
                 cursor: disabled ? 'not-allowed' : 'pointer',
                 background: period === 'AM' ? 'var(--skyra-primary)' : 'transparent',
-                color: period === 'AM' ? '#ffffff' : 'var(--skyra-text-muted)',
-              }}
+                color: period === 'AM' ? '#ffffff' : 'var(--skyra-text-muted)' }}
             >
               AM
             </button>
@@ -264,8 +257,7 @@ export function TimeField({
                 fontWeight: 600,
                 cursor: disabled ? 'not-allowed' : 'pointer',
                 background: period === 'PM' ? 'var(--skyra-primary)' : 'transparent',
-                color: period === 'PM' ? '#ffffff' : 'var(--skyra-text-muted)',
-              }}
+                color: period === 'PM' ? '#ffffff' : 'var(--skyra-text-muted)' }}
             >
               PM
             </button>
@@ -284,8 +276,7 @@ export function TimeField({
               cursor: 'pointer',
               color: 'var(--skyra-text-subtle)',
               display: 'flex',
-              marginLeft: format === '24h' ? 'auto' : undefined,
-            }}
+              marginLeft: format === '24h' ? 'auto' : undefined }}
           >
             <X size={14} />
           </button>
@@ -302,8 +293,7 @@ export function TimeField({
             alignItems: 'center',
             gap: '4px',
             fontSize: '0.78rem',
-            color: 'var(--skyra-danger)',
-          }}
+            color: 'var(--skyra-danger)' }}
         >
           <AlertCircle size={12} />
           {error}
@@ -313,8 +303,7 @@ export function TimeField({
           id={descId}
           style={{
             fontSize: '0.78rem',
-            color: 'var(--skyra-text-muted)',
-          }}
+            color: 'var(--skyra-text-muted)' }}
         >
           {description || helper}
         </span>

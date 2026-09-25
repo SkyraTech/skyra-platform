@@ -89,8 +89,7 @@ export function Collapsible({
         toggleOpen,
         disabled,
         triggerId,
-        contentId,
-      }}
+        contentId }}
     >
       <div
         className={`skyra-collapsible ${isOpen ? 'skyra-collapsible--open' : 'skyra-collapsible--closed'} ${disabled ? 'skyra-collapsible--disabled' : ''} ${className}`}

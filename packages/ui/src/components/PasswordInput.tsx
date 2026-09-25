@@ -35,8 +35,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
                 cursor: 'pointer',
                 color: 'var(--skyra-text-muted)',
                 display: 'flex',
-                alignItems: 'center',
-              }}
+                alignItems: 'center' }}
             >
               {isVisible ? <EyeOff size={16} /> : <Eye size={16} />}
             </button>

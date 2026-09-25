@@ -91,7 +91,7 @@ export const BreadcrumbLink = forwardRef<HTMLAnchorElement, BreadcrumbLinkProps>
         className: `skyra-breadcrumb-link ${className} ${children.props.className || ''}`.trim(),
         ref,
         ...props,
-      } as any);
+      } as React.LiHTMLAttributes<HTMLLIElement>);
     }
 
     return (

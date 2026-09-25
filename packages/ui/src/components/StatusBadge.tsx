@@ -72,8 +72,7 @@ export function StatusBadge({
         padding: sizeStyle.padding,
         letterSpacing: sizeStyle.letterSpacing,
         fontWeight: sizeStyle.fontWeight,
-        ...style,
-      }}
+        ...style }}
       {...rest}
     >
       {cfg.label}

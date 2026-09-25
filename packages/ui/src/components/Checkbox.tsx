@@ -63,8 +63,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           display: 'flex',
           flexDirection: 'column',
           gap: '0.25rem',
-          ...style,
-        }}
+          ...style }}
       >
         <label
           htmlFor={inputId}
@@ -76,17 +75,16 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             userSelect: 'none',
             minHeight: '44px',
             padding: '4px 0',
-            position: 'relative',
-          }}
+            position: 'relative' }}
         >
           {/* Hidden native checkbox input */}
           <input
             ref={(node) => {
-              (innerRef as any).current = node;
+              (innerRef as React.MutableRefObject<HTMLInputElement | HTMLTextAreaElement | null>).current = node;
               if (typeof forwardedRef === 'function') {
                 forwardedRef(node);
               } else if (forwardedRef) {
-                (forwardedRef as any).current = node;
+                (forwardedRef as React.MutableRefObject<HTMLInputElement | HTMLTextAreaElement | null>).current = node;
               }
             }}
             id={inputId}
@@ -107,13 +105,12 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               left: 0,
               margin: 0,
               cursor: disabled ? 'not-allowed' : 'pointer',
-              zIndex: 1,
-            }}
+              zIndex: 1 }}
             {...rest}
           />
 
           {/* Custom Styled Box */}
-          <span
+          <span className="skyra-motion-transition-all"
             aria-hidden="true"
             style={{
               width: '18px',
@@ -137,9 +134,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
-              transition: 'all 0.15s ease',
-              boxShadow: 'none',
-            }}
+              
+              boxShadow: 'none' }}
           >
             {indeterminate ? (
               <Minus size={12} strokeWidth={3} />
@@ -155,8 +151,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                 fontSize: '0.875rem',
                 fontWeight: 500,
                 color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-                lineHeight: '1.4',
-              }}
+                lineHeight: '1.4' }}
             >
               {label}
               {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
@@ -167,8 +162,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                 style={{
                   fontSize: '0.78rem',
                   color: 'var(--skyra-text-muted)',
-                  lineHeight: '1.35',
-                }}
+                  lineHeight: '1.35' }}
               >
                 {description || helper}
               </span>
@@ -184,8 +178,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             style={{
               fontSize: '0.78rem',
               color: 'var(--skyra-danger)',
-              marginLeft: '28px',
-            }}
+              marginLeft: '28px' }}
           >
             {error}
           </span>

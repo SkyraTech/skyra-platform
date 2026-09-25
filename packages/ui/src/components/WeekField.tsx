@@ -83,8 +83,7 @@ export function WeekField({
         gap: '0.375rem',
         width: '100%',
         position: 'relative',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       {label && (
         <label
@@ -95,8 +94,7 @@ export function WeekField({
             color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
             display: 'flex',
             alignItems: 'center',
-            gap: '4px',
-          }}
+            gap: '4px' }}
         >
           {label}
           {required && <span style={{ color: 'var(--skyra-danger)' }}>*</span>}
@@ -131,9 +129,7 @@ export function WeekField({
           boxShadow: isOpen ? 'var(--skyra-shadow-glow)' : 'none',
           cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'pointer',
           outline: 'none',
-          boxSizing: 'border-box',
-          transition: 'border-color 0.15s, box-shadow 0.15s',
-        }}
+          boxSizing: 'border-box' }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1, overflow: 'hidden' }}>
           <CalendarIcon size={16} style={{ color: 'var(--skyra-text-muted)', flexShrink: 0 }} />
@@ -143,8 +139,7 @@ export function WeekField({
               color: displayString ? 'var(--skyra-text)' : 'var(--skyra-text-subtle)',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
+              whiteSpace: 'nowrap' }}
           >
             {displayString || placeholder}
           </span>
@@ -163,8 +158,7 @@ export function WeekField({
                 cursor: 'pointer',
                 color: 'var(--skyra-text-subtle)',
                 display: 'flex',
-                alignItems: 'center',
-              }}
+                alignItems: 'center' }}
             >
               <X size={14} />
             </button>
@@ -174,7 +168,7 @@ export function WeekField({
 
       {/* Popover Calendar */}
       {isOpen && (
-        <div
+        <div className="skyra-motion-fade-in-up"
           id={popoverId}
           style={{
             position: 'absolute',
@@ -182,9 +176,7 @@ export function WeekField({
             left: 0,
             zIndex: 200,
             boxShadow: 'var(--skyra-shadow-lg)',
-            borderRadius: 'var(--skyra-radius-md)',
-            animation: 'fadeInUp 0.15s cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
+            borderRadius: 'var(--skyra-radius-md)' }}
         >
           <Calendar
             mode="week"

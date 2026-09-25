@@ -59,8 +59,7 @@ export function CircularProgress({
         alignItems: 'center',
         justifyContent: 'center',
         width: `${size}px`,
-        height: `${size}px`,
-      }}
+        height: `${size}px` }}
     >
       <svg
         width={size}
@@ -68,8 +67,7 @@ export function CircularProgress({
         viewBox={`0 0 ${size} ${size}`}
         style={{
           transform: isIndeterminate ? 'none' : 'rotate(-90deg)',
-          animation: isIndeterminate ? 'spin 1.2s linear infinite' : 'none',
-        }}
+          }}
       >
         {/* Background Track */}
         <circle
@@ -82,6 +80,7 @@ export function CircularProgress({
         />
         {/* Progress Arc */}
         <circle
+          className={!isIndeterminate ? 'skyra-circular-progress-arc' : undefined}
           cx={size / 2}
           cy={size / 2}
           r={radius}
@@ -91,9 +90,6 @@ export function CircularProgress({
           strokeDashoffset={isIndeterminate ? circumference * 0.75 : strokeDashoffset}
           strokeLinecap="round"
           fill="transparent"
-          style={{
-            transition: isIndeterminate ? 'none' : 'stroke-dashoffset 0.35s ease',
-          }}
         />
       </svg>
 
@@ -105,8 +101,7 @@ export function CircularProgress({
             fontSize: `${Math.max(10, Math.floor(size * 0.26))}px`,
             fontWeight: 700,
             color: 'var(--skyra-text)',
-            fontFamily: 'var(--skyra-font-body)',
-          }}
+            fontFamily: 'var(--skyra-font-body)' }}
         >
           {clamped}%
         </span>

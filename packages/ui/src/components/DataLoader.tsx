@@ -56,8 +56,7 @@ export function DataLoader<T>({
           justifyContent: 'center',
           gap: '0.75rem',
           color: 'var(--skyra-text-muted)',
-          fontFamily: 'var(--skyra-font-body)',
-        }}
+          fontFamily: 'var(--skyra-font-body)' }}
       >
         <Spinner size="lg" />
         <span style={{ fontSize: '0.875rem', fontWeight: 500 }}>Loading data...</span>
@@ -86,8 +85,7 @@ export function DataLoader<T>({
           alignItems: 'center',
           gap: '0.75rem',
           color: 'var(--skyra-danger)',
-          fontFamily: 'var(--skyra-font-body)',
-        }}
+          fontFamily: 'var(--skyra-font-body)' }}
       >
         <AlertCircle size={20} style={{ flexShrink: 0 }} />
         <div>
@@ -117,8 +115,7 @@ export function DataLoader<T>({
           gap: '0.5rem',
           color: 'var(--skyra-text-subtle)',
           fontFamily: 'var(--skyra-font-body)',
-          textAlign: 'center',
-        }}
+          textAlign: 'center' }}
       >
         <Inbox size={32} style={{ color: 'var(--skyra-text-muted)' }} />
         <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--skyra-text)' }}>No records found</div>

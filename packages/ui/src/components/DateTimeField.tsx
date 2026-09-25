@@ -71,16 +71,14 @@ export function DateTimeField({
         flexDirection: 'column',
         gap: '0.375rem',
         width: '100%',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       {label && (
         <span
           style={{
             fontSize: '0.875rem',
             fontWeight: 500,
-            color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-          }}
+            color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)' }}
         >
           {label}
           {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
@@ -92,8 +90,7 @@ export function DateTimeField({
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
           gap: '0.75rem',
-          alignItems: 'flex-start',
-        }}
+          alignItems: 'flex-start' }}
       >
         <DateField
           value={value.date}
@@ -116,8 +113,7 @@ export function DateTimeField({
           role="alert"
           style={{
             fontSize: '0.78rem',
-            color: 'var(--skyra-danger)',
-          }}
+            color: 'var(--skyra-danger)' }}
         >
           {error}
         </span>
@@ -125,8 +121,7 @@ export function DateTimeField({
         <span
           style={{
             fontSize: '0.78rem',
-            color: 'var(--skyra-text-muted)',
-          }}
+            color: 'var(--skyra-text-muted)' }}
         >
           {description || helper}
         </span>

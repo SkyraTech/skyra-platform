@@ -73,8 +73,7 @@ export function RadioGroup({
         display: 'flex',
         flexDirection: 'column',
         gap: '0.5rem',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       {label && (
         <legend
@@ -83,8 +82,7 @@ export function RadioGroup({
             fontSize: '0.875rem',
             fontWeight: 600,
             color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-            marginBottom: '0.25rem',
-          }}
+            marginBottom: '0.25rem' }}
         >
           {label}
           {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
@@ -97,8 +95,7 @@ export function RadioGroup({
           style={{
             fontSize: '0.78rem',
             color: 'var(--skyra-text-muted)',
-            marginBottom: '0.25rem',
-          }}
+            marginBottom: '0.25rem' }}
         >
           {description}
         </span>
@@ -109,8 +106,7 @@ export function RadioGroup({
           display: 'flex',
           flexDirection: orientation === 'horizontal' ? 'row' : 'column',
           flexWrap: orientation === 'horizontal' ? 'wrap' : 'nowrap',
-          gap: orientation === 'horizontal' ? '1.25rem' : '0.25rem',
-        }}
+          gap: orientation === 'horizontal' ? '1.25rem' : '0.25rem' }}
       >
         {options.map((opt) => {
           const isChecked = value === opt.value;
@@ -138,8 +134,7 @@ export function RadioGroup({
           style={{
             fontSize: '0.78rem',
             color: 'var(--skyra-danger)',
-            marginTop: '0.25rem',
-          }}
+            marginTop: '0.25rem' }}
         >
           {error}
         </span>

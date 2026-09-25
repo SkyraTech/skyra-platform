@@ -96,8 +96,7 @@ export function Tabs({
         orientation,
         activationMode,
         variant,
-        baseId,
-      }}
+        baseId }}
     >
       <div
         className={`skyra-tabs skyra-tabs--${orientation} skyra-tabs--${variant} ${className}`}
@@ -176,9 +175,9 @@ export const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
     return (
       <div
         ref={(node) => {
-          (listRef as any).current = node;
+          (listRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
           if (typeof ref === 'function') ref(node);
-          else if (ref) (ref as any).current = node;
+          else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
         }}
         role="tablist"
         aria-orientation={orientation}

@@ -144,8 +144,7 @@ export function CommandProvider({ children, initialCommands = [] }: CommandProvi
         registerCommand,
         registerCommands,
         unregisterCommand,
-        executeCommand,
-      }}
+        executeCommand }}
     >
       {children}
     </CommandRegistryContext.Provider>

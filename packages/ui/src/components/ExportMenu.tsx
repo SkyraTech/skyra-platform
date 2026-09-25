@@ -11,9 +11,9 @@ import {
 import { downloadCsv, downloadExcel, ExportColumn } from '@skyra/data-export';
 import { Button } from './Button';
 
-export interface ExportMenuProps {
+export interface ExportMenuProps<T extends Record<string, unknown> = Record<string, unknown>> {
   /** Dataset to export */
-  data: any[];
+  data: T[];
   /** Column definitions */
   columns?: ExportColumn[];
   /** Base filename */
@@ -37,8 +37,8 @@ export interface ExportMenuProps {
  *
  * Compact action dropdown menu offering CSV, Excel, PDF export, and Print.
  */
-export function ExportMenu({
-  data = [],
+export function ExportMenu<T extends Record<string, unknown> = Record<string, unknown>>({
+  data = [] as unknown as T[],
   columns,
   filename = 'export',
   sheetName = 'Sheet1',
@@ -140,8 +140,7 @@ export function ExportMenu({
       style={{
         position: 'relative',
         display: 'inline-block',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       <Button
         type="button"
@@ -151,12 +150,10 @@ export function ExportMenu({
         aria-expanded={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
         rightIcon={
-          <ChevronDown
+          <ChevronDown className="skyra-motion-transition-transform"
             size={14}
             style={{
-              transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
-              transition: 'transform 0.15s ease',
-            }}
+              transform: isOpen ? 'rotate(180deg)' : 'rotate(0)' }}
           />
         }
       >
@@ -164,7 +161,7 @@ export function ExportMenu({
       </Button>
 
       {isOpen && (
-        <div
+        <div className="skyra-motion-fade-in-up-fast"
           id={menuId}
           ref={menuRef}
           role="menu"
@@ -181,14 +178,12 @@ export function ExportMenu({
             padding: '4px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '2px',
-            animation: 'fadeInUp 0.12s ease',
-          }}
+            gap: '2px' }}
         >
           {items.map((item, idx) => {
             const isFocused = idx === focusedIndex;
             return (
-              <button
+              <button className="skyra-motion-transition-bg"
                 key={item.label}
                 type="button"
                 role="menuitem"
@@ -207,9 +202,7 @@ export function ExportMenu({
                   border: 'none',
                   borderRadius: 'var(--skyra-radius-sm)',
                   cursor: 'pointer',
-                  textAlign: 'left',
-                  transition: 'background-color 0.1s ease',
-                }}
+                  textAlign: 'left' }}
               >
                 <span style={{ color: 'var(--skyra-primary)', display: 'flex' }}>
                   {item.icon}

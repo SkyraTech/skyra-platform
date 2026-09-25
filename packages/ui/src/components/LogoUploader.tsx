@@ -136,8 +136,7 @@ export function LogoUploader({
               fontFamily: 'inherit',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.25rem',
-            }}
+              gap: '0.25rem' }}
           >
             <X size={12} aria-hidden="true" />
             Remove

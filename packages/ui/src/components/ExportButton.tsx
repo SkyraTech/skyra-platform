@@ -5,11 +5,11 @@ import { Download, FileSpreadsheet } from 'lucide-react';
 import { downloadCsv, downloadExcel, ExportColumn } from '@skyra/data-export';
 import { Button, ButtonProps } from './Button';
 
-export interface ExportButtonProps extends Omit<ButtonProps, 'onClick'> {
+export interface ExportButtonProps<T extends Record<string, unknown> = Record<string, unknown>> extends Omit<ButtonProps, 'onClick'> {
   /** Target export format */
   format: 'csv' | 'xlsx' | 'xls';
   /** Array of data objects to export */
-  data: any[];
+  data: T[];
   /** Optional custom column definitions */
   columns?: ExportColumn[];
   /** Destination filename */
@@ -25,9 +25,9 @@ export interface ExportButtonProps extends Omit<ButtonProps, 'onClick'> {
  *
  * One-click data export button delegating directly to @skyra/data-export engines.
  */
-export function ExportButton({
+export function ExportButton<T extends Record<string, unknown> = Record<string, unknown>>({
   format = 'csv',
-  data = [],
+  data = [] as unknown as T[],
   columns,
   filename = 'export',
   sheetName = 'Data',

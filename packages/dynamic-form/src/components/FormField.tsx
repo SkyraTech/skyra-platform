@@ -87,7 +87,7 @@ export function FormField<TValues extends Record<string, unknown>>({
             label={field.label}
             placeholder={field.placeholder ?? `Select ${field.label}...`}
             options={field.options ?? []}
-            value={value as any}
+            value={value as unknown as string}
             mode={field.mode ?? (field.type === 'multi-select' ? 'multiple' : 'single')}
             searchable={field.searchable}
             selectAll={field.selectAll}
@@ -263,7 +263,7 @@ export function FormField<TValues extends Record<string, unknown>>({
             name={fieldKey}
             label={field.label}
             placeholder={field.placeholder}
-            value={value as any}
+            value={value as unknown as string}
             min={field.min}
             max={field.max}
             step={field.step}
@@ -286,7 +286,7 @@ export function FormField<TValues extends Record<string, unknown>>({
             id={fieldKey}
             label={field.label}
             placeholder={field.placeholder}
-            value={value as any}
+            value={value as unknown as string}
             disabled={isFieldDisabled}
             required={field.required}
             description={field.description ?? field.helper ?? field.helpText}
@@ -304,7 +304,7 @@ export function FormField<TValues extends Record<string, unknown>>({
           <DateRangeField
             id={fieldKey}
             label={field.label}
-            value={typeof value === 'object' && value !== null ? (value as any) : { startDate: null, endDate: null }}
+            value={typeof value === 'object' && value !== null ? (value as unknown as { startDate: string | null, endDate: string | null }) : { startDate: null, endDate: null }}
             disabled={isFieldDisabled}
             required={field.required}
             description={field.description ?? field.helper ?? field.helpText}
@@ -340,7 +340,7 @@ export function FormField<TValues extends Record<string, unknown>>({
         <div style={wrapStyle} onBlur={handleBlur} className={`skyra-field-wrap ${field.className ?? ''}`.trim()}>
           <DateTimeField
             label={field.label}
-            value={typeof value === 'object' && value !== null ? (value as any) : { date: null, time: '' }}
+            value={typeof value === 'object' && value !== null ? (value as unknown as { date: string | null, time: string }) : { date: null, time: '' }}
             timeFormat={field.timeFormat ?? '12h'}
             disabled={isFieldDisabled}
             required={field.required}

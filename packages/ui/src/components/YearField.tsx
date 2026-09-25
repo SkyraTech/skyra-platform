@@ -94,8 +94,7 @@ export function YearField({
         gap: '0.375rem',
         width: '100%',
         position: 'relative',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       {label && (
         <label
@@ -107,8 +106,7 @@ export function YearField({
             color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
             display: 'flex',
             alignItems: 'center',
-            gap: '4px',
-          }}
+            gap: '4px' }}
         >
           {label}
           {required && <span style={{ color: 'var(--skyra-danger)' }}>*</span>}
@@ -144,9 +142,7 @@ export function YearField({
           boxShadow: isOpen ? 'var(--skyra-shadow-glow)' : 'none',
           cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'pointer',
           outline: 'none',
-          boxSizing: 'border-box',
-          transition: 'border-color 0.15s, box-shadow 0.15s',
-        }}
+          boxSizing: 'border-box' }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1, overflow: 'hidden' }}>
           <CalendarIcon size={16} style={{ color: 'var(--skyra-text-muted)', flexShrink: 0 }} />
@@ -156,8 +152,7 @@ export function YearField({
               color: value ? 'var(--skyra-text)' : 'var(--skyra-text-subtle)',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
+              whiteSpace: 'nowrap' }}
           >
             {value ? String(value) : placeholder}
           </span>
@@ -176,8 +171,7 @@ export function YearField({
                 cursor: 'pointer',
                 color: 'var(--skyra-text-subtle)',
                 display: 'flex',
-                alignItems: 'center',
-              }}
+                alignItems: 'center' }}
             >
               <X size={14} />
             </button>
@@ -187,7 +181,7 @@ export function YearField({
 
       {/* Popover Grid */}
       {isOpen && (
-        <div
+        <div className="skyra-motion-fade-in-up"
           id={popoverId}
           style={{
             position: 'absolute',
@@ -199,9 +193,7 @@ export function YearField({
             borderRadius: 'var(--skyra-radius-md)',
             boxShadow: 'var(--skyra-shadow-lg)',
             zIndex: 200,
-            padding: '0.75rem',
-            animation: 'fadeInUp 0.15s cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
+            padding: '0.75rem' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
             <button
@@ -228,7 +220,7 @@ export function YearField({
               const isSelected = parsedYear === yr && !!value;
               const isOutDecade = yr < decadeStart || yr > decadeStart + 9;
               return (
-                <button
+                <button className="skyra-motion-transition-all-fast"
                   key={yr}
                   type="button"
                   onClick={() => handleSelectYear(yr)}
@@ -241,9 +233,7 @@ export function YearField({
                     color: isSelected ? '#ffffff' : isOutDecade ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
                     fontSize: '0.8rem',
                     fontWeight: isSelected ? 700 : 500,
-                    cursor: 'pointer',
-                    transition: 'all 0.1s ease',
-                  }}
+                    cursor: 'pointer' }}
                 >
                   {yr}
                 </button>

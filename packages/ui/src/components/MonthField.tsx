@@ -93,8 +93,7 @@ export function MonthField({
         gap: '0.375rem',
         width: '100%',
         position: 'relative',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       {label && (
         <label
@@ -106,8 +105,7 @@ export function MonthField({
             color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
             display: 'flex',
             alignItems: 'center',
-            gap: '4px',
-          }}
+            gap: '4px' }}
         >
           {label}
           {required && <span style={{ color: 'var(--skyra-danger)' }}>*</span>}
@@ -143,9 +141,7 @@ export function MonthField({
           boxShadow: isOpen ? 'var(--skyra-shadow-glow)' : 'none',
           cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'pointer',
           outline: 'none',
-          boxSizing: 'border-box',
-          transition: 'border-color 0.15s, box-shadow 0.15s',
-        }}
+          boxSizing: 'border-box' }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1, overflow: 'hidden' }}>
           <CalendarIcon size={16} style={{ color: 'var(--skyra-text-muted)', flexShrink: 0 }} />
@@ -155,8 +151,7 @@ export function MonthField({
               color: displayString ? 'var(--skyra-text)' : 'var(--skyra-text-subtle)',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
+              whiteSpace: 'nowrap' }}
           >
             {displayString || placeholder}
           </span>
@@ -175,8 +170,7 @@ export function MonthField({
                 cursor: 'pointer',
                 color: 'var(--skyra-text-subtle)',
                 display: 'flex',
-                alignItems: 'center',
-              }}
+                alignItems: 'center' }}
             >
               <X size={14} />
             </button>
@@ -186,7 +180,7 @@ export function MonthField({
 
       {/* Popover Grid */}
       {isOpen && (
-        <div
+        <div className="skyra-motion-fade-in-up"
           id={popoverId}
           style={{
             position: 'absolute',
@@ -198,9 +192,7 @@ export function MonthField({
             borderRadius: 'var(--skyra-radius-md)',
             boxShadow: 'var(--skyra-shadow-lg)',
             zIndex: 200,
-            padding: '0.75rem',
-            animation: 'fadeInUp 0.15s cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
+            padding: '0.75rem' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
             <button
@@ -224,7 +216,7 @@ export function MonthField({
             {MONTHS.map((name, idx) => {
               const isSelected = value === `${viewYear}-${String(idx + 1).padStart(2, '0')}`;
               return (
-                <button
+                <button className="skyra-motion-transition-all-fast"
                   key={name}
                   type="button"
                   onClick={() => handleSelectMonth(idx)}
@@ -237,9 +229,7 @@ export function MonthField({
                     color: isSelected ? '#ffffff' : 'var(--skyra-text)',
                     fontSize: '0.8rem',
                     fontWeight: isSelected ? 700 : 500,
-                    cursor: 'pointer',
-                    transition: 'all 0.1s ease',
-                  }}
+                    cursor: 'pointer' }}
                 >
                   {name}
                 </button>

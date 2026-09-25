@@ -178,8 +178,7 @@ export function PdfViewer({
         overflow: 'hidden',
         boxShadow: 'var(--skyra-shadow-md)',
         fontFamily: 'var(--skyra-font-body)',
-        outline: 'none',
-      }}
+        outline: 'none' }}
     >
       {/* ── Top Toolbar ── */}
       <div
@@ -192,8 +191,7 @@ export function PdfViewer({
           borderBottom: '1px solid var(--skyra-border)',
           gap: '0.75rem',
           flexWrap: 'wrap',
-          zIndex: 10,
-        }}
+          zIndex: 10 }}
       >
         {/* Title */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: '160px' }}>
@@ -222,8 +220,7 @@ export function PdfViewer({
               ...toolbarBtnStyle,
               fontSize: '0.78rem',
               fontWeight: 600,
-              minWidth: '48px',
-            }}
+              minWidth: '48px' }}
           >
             {zoom}%
           </button>
@@ -285,8 +282,7 @@ export function PdfViewer({
             style={{
               ...toolbarBtnStyle,
               background: 'var(--skyra-primary)',
-              color: '#ffffff',
-            }}
+              color: '#ffffff' }}
           >
             <Download size={16} />
           </button>
@@ -303,12 +299,11 @@ export function PdfViewer({
           justifyContent: 'center',
           padding: '1.5rem',
           background: 'var(--skyra-bg)',
-          position: 'relative',
-        }}
+          position: 'relative' }}
       >
         {loading ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: 'var(--skyra-text-muted)' }}>
-            <Loader2 size={32} className="skyra-spin" style={{ animation: 'spin 1s linear infinite', color: 'var(--skyra-primary)' }} />
+            <Loader2 size={32} className="skyra-spin" style={{ color: 'var(--skyra-primary)' }} />
             <span style={{ fontSize: '0.875rem' }}>Loading document...</span>
           </div>
         ) : error ? (
@@ -317,16 +312,15 @@ export function PdfViewer({
             <span style={{ fontSize: '0.875rem', fontWeight: 500 }}>{error}</span>
           </div>
         ) : (
-          <div
+          <div className="skyra-motion-transition-transform"
             ref={printAreaRef}
             style={{
               transform: `scale(${zoom / 100}) rotate(${rotation}deg)`,
               transformOrigin: 'center center',
-              transition: 'transform 0.15s ease-out',
+              
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center',
-            }}
+              alignItems: 'center' }}
           >
             {renderPage ? (
               renderPage(currentPage, zoom)
@@ -340,8 +334,7 @@ export function PdfViewer({
                   border: 'none',
                   background: '#ffffff',
                   boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-                  borderRadius: '4px',
-                }}
+                  borderRadius: '4px' }}
               />
             ) : (
               /* High fidelity document page preview mockup */
@@ -357,8 +350,7 @@ export function PdfViewer({
                   flexDirection: 'column',
                   gap: '1.25rem',
                   color: 'var(--skyra-text)',
-                  boxSizing: 'border-box',
-                }}
+                  boxSizing: 'border-box' }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '2px solid var(--skyra-border)', paddingBottom: '1rem' }}>
                   <div>
@@ -397,8 +389,7 @@ export function PdfViewer({
           padding: '0.5rem 1rem',
           background: 'var(--skyra-surface)',
           borderTop: '1px solid var(--skyra-border)',
-          zIndex: 10,
-        }}
+          zIndex: 10 }}
       >
         <button
           type="button"
@@ -438,5 +429,6 @@ const toolbarBtnStyle: React.CSSProperties = {
   alignItems: 'center',
   justifyContent: 'center',
   color: 'var(--skyra-text)',
-  transition: 'background-color 0.15s ease',
+  
 };
+

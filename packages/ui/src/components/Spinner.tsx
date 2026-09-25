@@ -52,13 +52,12 @@ export function Spinner({
     <span
       role="status"
       aria-label={label}
-      className={`skyra-spinner-wrapper skyra-spinner--${size} ${className}`}
+      className={`skyra-spin-fast skyra-spinner-wrapper skyra-spinner--${size} ${className}`}
       style={{
         display: inline ? 'inline-flex' : 'flex',
         alignItems: 'center',
         gap: '0.5rem',
-        ...style,
-      }}
+        ...style }}
     >
       <span
         style={{
@@ -71,9 +70,8 @@ export function Spinner({
           borderTopColor: color,
           display: 'inline-block',
           boxSizing: 'border-box',
-          animation: 'spin 0.75s linear infinite',
-          flexShrink: 0,
-        }}
+          
+          flexShrink: 0 }}
       />
       {showLabel && (
         <span style={{ fontSize: size === 'xs' || size === 'sm' ? '0.78rem' : '0.875rem', color: 'var(--skyra-text-muted)', fontWeight: 500 }}>

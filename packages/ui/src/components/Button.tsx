@@ -92,7 +92,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             size={size === 'sm' ? 13 : size === 'lg' ? 17 : 15}
             className="skyra-spinner"
             aria-hidden="true"
-            style={{ animation: 'skyra-spin 0.7s linear infinite' }}
+            
           />
         )}
         {!isLoading && leftIcon && <span aria-hidden="true">{leftIcon}</span>}

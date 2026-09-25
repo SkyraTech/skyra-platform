@@ -33,7 +33,7 @@ export interface DynamicSelectProps<T = DefaultSelectOption> {
   /** Selected value: single item, array of items, or null */
   value?: T | T[] | string | string[] | null;
   /** Callback fired when selection changes */
-  onChange: (value: any) => void;
+  onChange: (value: T | T[] | null) => void;
   /** Selection mode */
   mode?: DynamicSelectMode;
   /** Whether search input is enabled in dropdown */
@@ -100,7 +100,7 @@ export interface DynamicSelectProps<T = DefaultSelectOption> {
 function defaultGetLabel<T>(opt: T, custom?: (o: T) => string): string {
   if (custom) return custom(opt);
   if (typeof opt === 'object' && opt !== null && 'label' in opt) {
-    return String((opt as any).label);
+    return String((opt as Record<string, unknown>).label);
   }
   return String(opt);
 }
@@ -108,7 +108,7 @@ function defaultGetLabel<T>(opt: T, custom?: (o: T) => string): string {
 function defaultGetValue<T>(opt: T, custom?: (o: T) => string): string {
   if (custom) return custom(opt);
   if (typeof opt === 'object' && opt !== null && 'value' in opt) {
-    return String((opt as any).value);
+    return String((opt as Record<string, unknown>).value);
   }
   return String(opt);
 }
@@ -116,7 +116,7 @@ function defaultGetValue<T>(opt: T, custom?: (o: T) => string): string {
 function defaultGetGroup<T>(opt: T, custom?: (o: T) => string): string | undefined {
   if (custom) return custom(opt);
   if (typeof opt === 'object' && opt !== null && 'group' in opt) {
-    return (opt as any).group;
+    return ((opt as Record<string, unknown>).group as string);
   }
   return undefined;
 }
@@ -124,7 +124,7 @@ function defaultGetGroup<T>(opt: T, custom?: (o: T) => string): string | undefin
 function defaultGetDesc<T>(opt: T, custom?: (o: T) => string | undefined): string | undefined {
   if (custom) return custom(opt);
   if (typeof opt === 'object' && opt !== null && 'description' in opt) {
-    return (opt as any).description;
+    return ((opt as Record<string, unknown>).description as string);
   }
   return undefined;
 }
@@ -132,7 +132,7 @@ function defaultGetDesc<T>(opt: T, custom?: (o: T) => string | undefined): strin
 function defaultGetDisabled<T>(opt: T, custom?: (o: T) => boolean): boolean {
   if (custom) return custom(opt);
   if (typeof opt === 'object' && opt !== null && 'disabled' in opt) {
-    return Boolean((opt as any).disabled);
+    return Boolean((opt as Record<string, unknown>).disabled);
   }
   return false;
 }
@@ -554,8 +554,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
         gap: '0.375rem',
         width: '100%',
         position: 'relative',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       {/* ── Label ── */}
       {label && (
@@ -568,8 +567,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
             color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
             display: 'flex',
             alignItems: 'center',
-            gap: '4px',
-          }}
+            gap: '4px' }}
         >
           {label}
           {required && <span style={{ color: 'var(--skyra-danger)' }} aria-hidden="true">*</span>}
@@ -607,11 +605,10 @@ export function DynamicSelect<T = DefaultSelectOption>({
           boxShadow: isOpen ? 'var(--skyra-shadow-glow)' : 'none',
           cursor: disabled ? 'not-allowed' : 'pointer',
           outline: 'none',
-          transition: 'border-color 0.15s, box-shadow 0.15s',
+          
           textAlign: 'left',
           overflow: 'hidden',
-          boxSizing: 'border-box',
-        }}
+          boxSizing: 'border-box' }}
       >
         {/* Trigger Content: Chips or Text */}
         <div
@@ -622,8 +619,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
             gap: '0.375rem',
             flex: 1,
             overflow: 'hidden',
-            whiteSpace: 'nowrap',
-          }}
+            whiteSpace: 'nowrap' }}
         >
           {selectedItems.length === 0 ? (
             <span
@@ -631,8 +627,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                 color: 'var(--skyra-text-subtle)',
                 fontSize: '0.875rem',
                 overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}
+                textOverflow: 'ellipsis' }}
             >
               {placeholder}
             </span>
@@ -647,8 +642,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                 color: 'var(--skyra-text)',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
-                fontWeight: 500,
-              }}
+                fontWeight: 500 }}
             >
               {defaultGetLabel(selectedItems[0] as T, optionLabel)}
             </span>
@@ -674,8 +668,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
-                      flexShrink: 0,
-                    }}
+                      flexShrink: 0 }}
                   >
                     <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{itemLbl}</span>
                     {!disabled && (
@@ -687,7 +680,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                         onKeyDown={(e) => {
                           if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
-                            handleRemoveToken(e as any, item);
+                            handleRemoveToken(e as unknown as React.MouseEvent, item);
                           }
                         }}
                         style={{
@@ -696,8 +689,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                           justifyContent: 'center',
                           cursor: 'pointer',
                           borderRadius: '50%',
-                          padding: '2px',
-                        }}
+                          padding: '2px' }}
                       >
                         <X size={12} />
                       </span>
@@ -734,8 +726,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                     fontSize: '0.75rem',
                     fontWeight: 700,
                     cursor: 'pointer',
-                    flexShrink: 0,
-                  }}
+                    flexShrink: 0 }}
                 >
                   +{hiddenCount}
                 </span>
@@ -755,7 +746,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  handleClear(e as any);
+                  handleClear(e as unknown as React.MouseEvent);
                 }
               }}
               style={{
@@ -763,8 +754,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                 color: 'var(--skyra-text-subtle)',
                 display: 'inline-flex',
                 padding: '2px',
-                borderRadius: 'var(--skyra-radius-sm)',
-              }}
+                borderRadius: 'var(--skyra-radius-sm)' }}
             >
               <X size={14} />
             </span>
@@ -774,17 +764,16 @@ export function DynamicSelect<T = DefaultSelectOption>({
             <Loader2
               size={16}
               className="skyra-spin"
-              style={{ color: 'var(--skyra-primary)', animation: 'spin 1s linear infinite' }}
+              style={{ color: 'var(--skyra-primary)' }}
               aria-label="Loading options"
             />
           ) : (
-            <ChevronDown
+            <ChevronDown className="skyra-motion-transition-transform"
               size={16}
               style={{
                 transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
-                transition: 'transform 0.15s ease',
-                color: 'var(--skyra-text-muted)',
-              }}
+                
+                color: 'var(--skyra-text-muted)' }}
             />
           )}
         </div>
@@ -792,7 +781,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
 
       {/* ── Dropdown Menu ── */}
       {isOpen && (
-        <div
+        <div className="skyra-motion-fade-in-up"
           id={listboxId}
           role="listbox"
           aria-multiselectable={isMulti}
@@ -810,9 +799,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
-            maxHeight: `${maxMenuHeight}px`,
-            animation: 'fadeInUp 0.15s cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
+            maxHeight: `${maxMenuHeight}px` }}
         >
           {/* Search Box Header */}
           {isSearchEnabled && (
@@ -824,8 +811,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                 flexShrink: 0,
                 position: 'sticky',
                 top: 0,
-                zIndex: 10,
-              }}
+                zIndex: 10 }}
             >
               <div
                 style={{
@@ -835,8 +821,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                   padding: '0.35rem 0.6rem',
                   background: 'var(--skyra-bg)',
                   border: '1px solid var(--skyra-border)',
-                  borderRadius: 'var(--skyra-radius-sm)',
-                }}
+                  borderRadius: 'var(--skyra-radius-sm)' }}
               >
                 <Search size={14} style={{ color: 'var(--skyra-text-muted)', flexShrink: 0 }} />
                 <input
@@ -854,8 +839,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                     outline: 'none',
                     fontSize: '0.85rem',
                     color: 'var(--skyra-text)',
-                    fontFamily: 'inherit',
-                  }}
+                    fontFamily: 'inherit' }}
                 />
                 {searchQuery && (
                   <button
@@ -870,8 +854,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                       padding: '2px',
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
+                      justifyContent: 'center' }}
                   >
                     <X size={12} />
                   </button>
@@ -902,11 +885,10 @@ export function DynamicSelect<T = DefaultSelectOption>({
                 background: 'var(--skyra-bg)',
                 cursor: 'pointer',
                 userSelect: 'none',
-                flexShrink: 0,
-              }}
+                flexShrink: 0 }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-                <div
+                <div className="skyra-motion-transition-all"
                   style={{
                     width: '18px',
                     height: '18px',
@@ -916,9 +898,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    flexShrink: 0,
-                    transition: 'all 0.15s ease',
-                  }}
+                    flexShrink: 0 }}
                 >
                   {isAllTargetSelected ? (
                     <Check size={12} color="#ffffff" strokeWidth={3} />
@@ -938,8 +918,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                   background: 'var(--skyra-surface)',
                   padding: '0.15rem 0.45rem',
                   borderRadius: 'var(--skyra-radius-sm)',
-                  border: '1px solid var(--skyra-border)',
-                }}
+                  border: '1px solid var(--skyra-border)' }}
               >
                 {selectedItems.length} / {options.length}
               </span>
@@ -955,8 +934,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
               padding: '4px',
               display: 'flex',
               flexDirection: 'column',
-              gap: '2px',
-            }}
+              gap: '2px' }}
           >
             {loading ? (
               <div
@@ -967,10 +945,9 @@ export function DynamicSelect<T = DefaultSelectOption>({
                   justifyContent: 'center',
                   gap: '0.5rem',
                   color: 'var(--skyra-text-muted)',
-                  fontSize: '0.85rem',
-                }}
+                  fontSize: '0.85rem' }}
               >
-                <Loader2 size={16} className="skyra-spin" style={{ animation: 'spin 1s linear infinite' }} />
+                <Loader2 size={16} className="skyra-spin" />
                 <span>Loading options...</span>
               </div>
             ) : filteredOptions.length === 0 ? (
@@ -994,8 +971,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                       borderRadius: 'var(--skyra-radius-sm)',
                       fontSize: '0.8rem',
                       fontWeight: 600,
-                      cursor: 'pointer',
-                    }}
+                      cursor: 'pointer' }}
                   >
                     <Plus size={14} />
                     <span>Create &quot;{searchQuery}&quot;</span>
@@ -1015,8 +991,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                       letterSpacing: '0.05em',
                       color: 'var(--skyra-text-subtle)',
                       background: 'var(--skyra-bg)',
-                      borderRadius: 'var(--skyra-radius-sm)',
-                    }}
+                      borderRadius: 'var(--skyra-radius-sm)' }}
                   >
                     {groupName}
                   </div>
@@ -1039,15 +1014,13 @@ export function DynamicSelect<T = DefaultSelectOption>({
                 padding: '0.5rem 0.75rem',
                 borderTop: '1px solid var(--skyra-border)',
                 background: 'var(--skyra-bg)',
-                flexShrink: 0,
-              }}
+                flexShrink: 0 }}
             >
               <span
                 style={{
                   fontSize: '0.78rem',
                   fontWeight: 600,
-                  color: 'var(--skyra-text-muted)',
-                }}
+                  color: 'var(--skyra-text-muted)' }}
               >
                 {selectedItems.length} selected
               </span>
@@ -1063,8 +1036,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                     fontWeight: 600,
                     cursor: 'pointer',
                     padding: '2px 4px',
-                    borderRadius: 'var(--skyra-radius-xs)',
-                  }}
+                    borderRadius: 'var(--skyra-radius-xs)' }}
                 >
                   Clear all
                 </button>
@@ -1084,8 +1056,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
             alignItems: 'center',
             gap: '4px',
             fontSize: '0.78rem',
-            color: 'var(--skyra-danger)',
-          }}
+            color: 'var(--skyra-danger)' }}
         >
           <AlertCircle size={14} />
           <span>{error}</span>
@@ -1095,8 +1066,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
           id={descId}
           style={{
             fontSize: '0.78rem',
-            color: 'var(--skyra-text-muted)',
-          }}
+            color: 'var(--skyra-text-muted)' }}
         >
           {description}
         </span>
@@ -1114,7 +1084,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
     const isFocused = optIndex === focusedIndex;
 
     return (
-      <button
+      <button className="skyra-motion-transition-bg-color"
         key={val}
         type="button"
         role="option"
@@ -1146,16 +1116,15 @@ export function DynamicSelect<T = DefaultSelectOption>({
           cursor: isDis ? 'not-allowed' : 'pointer',
           border: 'none',
           textAlign: 'left',
-          transition: 'background 0.1s, color 0.1s',
-          opacity: isDis ? 0.55 : 1,
-        }}
+          
+          opacity: isDis ? 0.55 : 1 }}
       >
         {renderOption ? (
           renderOption(opt, { selected: isSelected, focused: isFocused })
         ) : (
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flex: 1, overflow: 'hidden' }}>
             {isMulti && (
-              <div
+              <div className="skyra-motion-transition-all"
                 style={{
                   width: '18px',
                   height: '18px',
@@ -1165,9 +1134,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  flexShrink: 0,
-                  transition: 'all 0.15s ease',
-                }}
+                  flexShrink: 0 }}
               >
                 {isSelected && <Check size={12} color="#ffffff" strokeWidth={3} />}
               </div>
@@ -1179,8 +1146,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
                   fontWeight: isSelected ? 600 : 500,
-                  color: isDis ? 'var(--skyra-text-subtle)' : isSelected ? 'var(--skyra-primary)' : 'var(--skyra-text)',
-                }}
+                  color: isDis ? 'var(--skyra-text-subtle)' : isSelected ? 'var(--skyra-primary)' : 'var(--skyra-text)' }}
               >
                 {lbl}
               </span>
@@ -1191,8 +1157,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
                     color: 'var(--skyra-text-muted)',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                  }}
+                    whiteSpace: 'nowrap' }}
                 >
                   {desc}
                 </span>

@@ -189,16 +189,14 @@ export function DateRangeField({
         gap: '0.375rem',
         position: 'relative',
         width: '100%',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       {label && (
         <label
           style={{
             fontSize: '0.875rem',
             fontWeight: 500,
-            color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-          }}
+            color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)' }}
         >
           {label}
           {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
@@ -220,8 +218,7 @@ export function DateRangeField({
           boxShadow: isOpen ? 'var(--skyra-shadow-glow)' : 'none',
           cursor: disabled ? 'not-allowed' : 'pointer',
           boxSizing: 'border-box',
-          gap: '0.5rem',
-        }}
+          gap: '0.5rem' }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1, fontSize: '0.875rem' }}>
           <span style={{ color: startIso ? 'var(--skyra-text)' : 'var(--skyra-text-subtle)', fontWeight: startIso ? 500 : 400 }}>
@@ -245,8 +242,7 @@ export function DateRangeField({
                 padding: '2px',
                 cursor: 'pointer',
                 color: 'var(--skyra-text-subtle)',
-                display: 'flex',
-              }}
+                display: 'flex' }}
             >
               <X size={14} />
             </button>
@@ -257,7 +253,7 @@ export function DateRangeField({
 
       {/* Popover Calendar */}
       {isOpen && (
-        <div
+        <div className="skyra-motion-fade-in-up"
           role="dialog"
           aria-label="Date range calendar picker"
           style={{
@@ -270,9 +266,7 @@ export function DateRangeField({
             borderRadius: 'var(--skyra-radius-md)',
             boxShadow: 'var(--skyra-shadow-lg)',
             padding: '0.875rem',
-            width: '280px',
-            animation: 'fadeInUp 0.15s ease',
-          }}
+            width: '280px' }}
         >
           {/* Month Header */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
@@ -291,8 +285,7 @@ export function DateRangeField({
                   padding: '4px',
                   cursor: 'pointer',
                   display: 'flex',
-                  color: 'var(--skyra-text)',
-                }}
+                  color: 'var(--skyra-text)' }}
               >
                 <ChevronLeft size={14} />
               </button>
@@ -307,8 +300,7 @@ export function DateRangeField({
                   padding: '4px',
                   cursor: 'pointer',
                   display: 'flex',
-                  color: 'var(--skyra-text)',
-                }}
+                  color: 'var(--skyra-text)' }}
               >
                 <ChevronRight size={14} />
               </button>
@@ -334,7 +326,7 @@ export function DateRangeField({
               const isDis = isDateDisabled(date);
 
               return (
-                <button
+                <button className="skyra-motion-transition-bg"
                   key={iso}
                   type="button"
                   role="gridcell"
@@ -365,9 +357,7 @@ export function DateRangeField({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    border: 'none',
-                    transition: 'background 0.1s ease',
-                  }}
+                    border: 'none' }}
                 >
                   {date.getDate()}
                 </button>
@@ -386,8 +376,7 @@ export function DateRangeField({
                 color: 'var(--skyra-text-muted)',
                 fontSize: '0.78rem',
                 cursor: 'pointer',
-                padding: '2px 4px',
-              }}
+                padding: '2px 4px' }}
             >
               Close
             </button>
@@ -405,8 +394,7 @@ export function DateRangeField({
             alignItems: 'center',
             gap: '4px',
             fontSize: '0.78rem',
-            color: 'var(--skyra-danger)',
-          }}
+            color: 'var(--skyra-danger)' }}
         >
           <AlertCircle size={12} />
           {error}
@@ -416,8 +404,7 @@ export function DateRangeField({
           id={descId}
           style={{
             fontSize: '0.78rem',
-            color: 'var(--skyra-text-muted)',
-          }}
+            color: 'var(--skyra-text-muted)' }}
         >
           {description || helper}
         </span>

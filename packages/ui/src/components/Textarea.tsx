@@ -104,8 +104,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           flexDirection: 'column',
           gap: '0.375rem',
           width: '100%',
-          fontFamily: 'var(--skyra-font-body)',
-        }}
+          fontFamily: 'var(--skyra-font-body)' }}
       >
         {label && (
           <label
@@ -113,8 +112,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             style={{
               fontSize: '0.875rem',
               fontWeight: 500,
-              color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-            }}
+              color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)' }}
           >
             {label}
             {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
@@ -123,11 +121,11 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
         <textarea
           ref={(node) => {
-            (innerRef as any).current = node;
+            (innerRef as React.MutableRefObject<HTMLInputElement | HTMLTextAreaElement | null>).current = node;
             if (typeof forwardedRef === 'function') {
               forwardedRef(node);
             } else if (forwardedRef) {
-              (forwardedRef as any).current = node;
+              (forwardedRef as React.MutableRefObject<HTMLInputElement | HTMLTextAreaElement | null>).current = node;
             }
           }}
           id={textareaId}
@@ -168,9 +166,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             boxSizing: 'border-box',
             resize: autoResize ? 'none' : resize,
             cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'text',
-            fontFamily: 'inherit',
-            transition: 'border-color 0.15s, box-shadow 0.15s',
-          }}
+            fontFamily: 'inherit' }}
           readOnly={readOnly}
           {...rest}
         />
@@ -187,8 +183,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                   alignItems: 'center',
                   gap: '4px',
                   fontSize: '0.78rem',
-                  color: 'var(--skyra-danger)',
-                }}
+                  color: 'var(--skyra-danger)' }}
               >
                 <AlertCircle size={12} aria-hidden="true" />
                 {error}
@@ -199,8 +194,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                 id={helper ? helperId : descId}
                 style={{
                   fontSize: '0.78rem',
-                  color: 'var(--skyra-text-muted)',
-                }}
+                  color: 'var(--skyra-text-muted)' }}
               >
                 {description || helper}
               </span>
@@ -213,8 +207,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                 fontSize: '0.75rem',
                 color: currentLength >= maxLength ? 'var(--skyra-danger)' : 'var(--skyra-text-subtle)',
                 marginLeft: 'auto',
-                flexShrink: 0,
-              }}
+                flexShrink: 0 }}
             >
               {currentLength} / {maxLength}
             </span>

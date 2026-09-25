@@ -178,8 +178,7 @@ export function Popover({
             zIndex: 'var(--skyra-z-popover, 1000)',
             width: width ? (typeof width === 'number' ? `${width}px` : width) : undefined,
             maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
-            minWidth: typeof minWidth === 'number' ? `${minWidth}px` : minWidth,
-          }}
+            minWidth: typeof minWidth === 'number' ? `${minWidth}px` : minWidth }}
           tabIndex={-1}
         >
           {content}

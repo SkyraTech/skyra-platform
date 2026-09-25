@@ -37,8 +37,7 @@ export function PageLoader({
         justifyContent: 'center',
         zIndex: 9999,
         gap: '1rem',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       <Spinner size="xl" />
       <div style={{ textAlign: 'center' }}>

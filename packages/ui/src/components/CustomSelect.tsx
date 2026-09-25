@@ -183,11 +183,10 @@ export function CustomSelect({
             cursor: disabled ? 'not-allowed' : 'pointer',
             outline: 'none',
             opacity: disabled ? 0.5 : 1,
-            transition: 'border-color 0.15s, box-shadow 0.15s',
+            
             fontFamily: 'inherit',
             textAlign: 'left',
-            minHeight: '44px',
-          }}
+            minHeight: '44px' }}
           onFocus={(e) => {
             if (!hasError) {
               e.currentTarget.style.borderColor = 'var(--skyra-primary)';
@@ -204,21 +203,20 @@ export function CustomSelect({
           <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {selectedOption ? selectedOption.label : placeholder}
           </span>
-          <ChevronDown
+          <ChevronDown className="skyra-motion-transition-transform-slow"
             size={16}
             aria-hidden="true"
             style={{
               transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
-              transition: 'transform 0.2s',
+              
               color: 'var(--skyra-text-muted)',
               flexShrink: 0,
-              marginLeft: '8px',
-            }}
+              marginLeft: '8px' }}
           />
         </button>
 
         {isOpen && (
-          <div
+          <div className="skyra-motion-fade-in-up"
             id={listboxId}
             role="listbox"
             aria-labelledby={label ? `${selectId}-label` : undefined}
@@ -236,7 +234,7 @@ export function CustomSelect({
               display: 'flex',
               flexDirection: 'column',
               maxHeight: '260px',                        // [CONFIRMED: CustomSelect.tsx:183]
-              animation: 'skyra-fadeInUp 0.15s cubic-bezier(0.16, 1, 0.3, 1)',  // [CONFIRMED]
+                // [CONFIRMED]
             }}
           >
             <style>{`
@@ -255,8 +253,7 @@ export function CustomSelect({
                   borderBottom: '1px solid var(--skyra-border)',
                   gap: '0.5rem',
                   flexShrink: 0,
-                  background: 'var(--skyra-bg)',
-                }}
+                  background: 'var(--skyra-bg)' }}
               >
                 <Search size={14} aria-hidden="true" style={{ color: 'var(--skyra-text-muted)', flexShrink: 0 }} />
                 <input
@@ -273,8 +270,7 @@ export function CustomSelect({
                     outline: 'none',
                     fontSize: '0.8rem',
                     color: 'var(--skyra-text)',
-                    padding: '2px 0',
-                  }}
+                    padding: '2px 0' }}
                 />
                 {search && (
                   <button type="button" onClick={() => setSearch('')} aria-label="Clear search"
@@ -295,7 +291,7 @@ export function CustomSelect({
                   const isActive = opt.value === value;
                   const isFocused = idx === focusedIndex;
                   return (
-                    <button
+                    <button className="skyra-motion-transition-bg"
                       key={opt.value}
                       type="button"
                       role="option"
@@ -322,9 +318,7 @@ export function CustomSelect({
                         cursor: opt.disabled ? 'not-allowed' : 'pointer',
                         border: 'none',
                         textAlign: 'left',
-                        opacity: opt.disabled ? 0.4 : 1,
-                        transition: 'background 0.15s',
-                      }}
+                        opacity: opt.disabled ? 0.4 : 1 }}
                     >
                       <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {opt.label}

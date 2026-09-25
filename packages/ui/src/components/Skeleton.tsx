@@ -41,16 +41,15 @@ export function Skeleton({
   return (
     <div
       aria-hidden="true"
-      className={`skyra-skeleton ${className}`}
+      className={ `skyra-skeleton ${className}`}
       style={{
         width: w,
         height: h,
         borderRadius: RADIUS_MAP[radius],
         background: 'var(--skyra-border)',
-        animation: animation === 'pulse' ? 'skeletonPulse 1.5s ease-in-out infinite' : 'none',
+        
         flexShrink: 0,
-        ...style,
-      }}
+        ...style }}
     />
   );
 }
@@ -109,8 +108,7 @@ export function SkeletonCard({ className = '' }: { className?: string }) {
         display: 'flex',
         flexDirection: 'column',
         gap: '1rem',
-        width: '100%',
-      }}
+        width: '100%' }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <SkeletonAvatar size={40} />
@@ -145,8 +143,7 @@ export function SkeletonTable({
         border: '1px solid var(--skyra-border)',
         borderRadius: 'var(--skyra-radius-md)',
         overflow: 'hidden',
-        background: 'var(--skyra-surface)',
-      }}
+        background: 'var(--skyra-surface)' }}
     >
       {/* Table Header */}
       <div
@@ -156,8 +153,7 @@ export function SkeletonTable({
           padding: '0.75rem 1rem',
           background: 'var(--skyra-bg)',
           borderBottom: '1px solid var(--skyra-border)',
-          gap: '1rem',
-        }}
+          gap: '1rem' }}
       >
         {Array.from({ length: columns }).map((_, i) => (
           <Skeleton key={i} height="14px" width="70%" radius="sm" />
@@ -173,8 +169,7 @@ export function SkeletonTable({
             gridTemplateColumns: `repeat(${columns}, 1fr)`,
             padding: '0.85rem 1rem',
             borderBottom: rIdx === rows - 1 ? 'none' : '1px solid var(--skyra-border)',
-            gap: '1rem',
-          }}
+            gap: '1rem' }}
         >
           {Array.from({ length: columns }).map((_, cIdx) => (
             <Skeleton key={cIdx} height="12px" width={cIdx === 0 ? '85%' : '60%'} radius="sm" />

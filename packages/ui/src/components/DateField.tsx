@@ -222,8 +222,7 @@ export function DateField({
         gap: '0.375rem',
         position: 'relative',
         width: '100%',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       {label && (
         <label
@@ -231,8 +230,7 @@ export function DateField({
           style={{
             fontSize: '0.875rem',
             fontWeight: 500,
-            color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-          }}
+            color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)' }}
         >
           {label}
           {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
@@ -263,9 +261,7 @@ export function DateField({
             fontSize: '0.875rem',
             outline: 'none',
             boxSizing: 'border-box',
-            boxShadow: isOpen ? 'var(--skyra-shadow-glow)' : 'none',
-            transition: 'border-color 0.15s, box-shadow 0.15s',
-          }}
+            boxShadow: isOpen ? 'var(--skyra-shadow-glow)' : 'none' }}
         />
 
         {/* Action icons */}
@@ -275,8 +271,7 @@ export function DateField({
             right: '0.65rem',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.25rem',
-          }}
+            gap: '0.25rem' }}
         >
           {clearable && inputValue && !disabled && (
             <button
@@ -289,8 +284,7 @@ export function DateField({
                 padding: '2px',
                 cursor: 'pointer',
                 color: 'var(--skyra-text-subtle)',
-                display: 'flex',
-              }}
+                display: 'flex' }}
             >
               <X size={14} />
             </button>
@@ -307,8 +301,7 @@ export function DateField({
               padding: '2px',
               cursor: disabled ? 'not-allowed' : 'pointer',
               color: isOpen ? 'var(--skyra-primary)' : 'var(--skyra-text-muted)',
-              display: 'flex',
-            }}
+              display: 'flex' }}
           >
             <Calendar size={16} />
           </button>
@@ -317,7 +310,7 @@ export function DateField({
 
       {/* Calendar Popover */}
       {isOpen && (
-        <div
+        <div className="skyra-motion-fade-in-up"
           id={popoverId}
           ref={popoverRef}
           role="dialog"
@@ -333,9 +326,7 @@ export function DateField({
             borderRadius: 'var(--skyra-radius-md)',
             boxShadow: 'var(--skyra-shadow-lg)',
             padding: '0.875rem',
-            width: '280px',
-            animation: 'fadeInUp 0.15s ease',
-          }}
+            width: '280px' }}
         >
           {/* Header Month / Year Navigation */}
           <div
@@ -343,8 +334,7 @@ export function DateField({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              marginBottom: '0.75rem',
-            }}
+              marginBottom: '0.75rem' }}
           >
             <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--skyra-text)' }}>
               {MONTH_NAMES[month]} {year}
@@ -361,8 +351,7 @@ export function DateField({
                   padding: '4px',
                   cursor: 'pointer',
                   display: 'flex',
-                  color: 'var(--skyra-text)',
-                }}
+                  color: 'var(--skyra-text)' }}
               >
                 <ChevronLeft size={14} />
               </button>
@@ -377,8 +366,7 @@ export function DateField({
                   padding: '4px',
                   cursor: 'pointer',
                   display: 'flex',
-                  color: 'var(--skyra-text)',
-                }}
+                  color: 'var(--skyra-text)' }}
               >
                 <ChevronRight size={14} />
               </button>
@@ -391,8 +379,7 @@ export function DateField({
               display: 'grid',
               gridTemplateColumns: 'repeat(7, 1fr)',
               textAlign: 'center',
-              marginBottom: '0.35rem',
-            }}
+              marginBottom: '0.35rem' }}
           >
             {DAY_NAMES.map((name) => (
               <span
@@ -401,8 +388,7 @@ export function DateField({
                   fontSize: '0.72rem',
                   fontWeight: 600,
                   color: 'var(--skyra-text-subtle)',
-                  padding: '2px 0',
-                }}
+                  padding: '2px 0' }}
               >
                 {name}
               </span>
@@ -415,8 +401,7 @@ export function DateField({
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(7, 1fr)',
-              gap: '2px',
-            }}
+              gap: '2px' }}
           >
             {calendarDays.map(({ date, isCurrentMonth }) => {
               const iso = toISODateString(date);
@@ -425,7 +410,7 @@ export function DateField({
               const isDis = isDateDisabled(date);
 
               return (
-                <button
+                <button className="skyra-motion-transition-all-fast"
                   key={iso}
                   type="button"
                   role="gridcell"
@@ -453,9 +438,7 @@ export function DateField({
                     cursor: isDis ? 'not-allowed' : 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    transition: 'all 0.1s ease',
-                  }}
+                    justifyContent: 'center' }}
                 >
                   {date.getDate()}
                 </button>
@@ -471,8 +454,7 @@ export function DateField({
               alignItems: 'center',
               marginTop: '0.75rem',
               paddingTop: '0.5rem',
-              borderTop: '1px solid var(--skyra-border)',
-            }}
+              borderTop: '1px solid var(--skyra-border)' }}
           >
             <button
               type="button"
@@ -484,8 +466,7 @@ export function DateField({
                 fontSize: '0.78rem',
                 fontWeight: 600,
                 cursor: 'pointer',
-                padding: '2px 4px',
-              }}
+                padding: '2px 4px' }}
             >
               Today
             </button>
@@ -498,8 +479,7 @@ export function DateField({
                 color: 'var(--skyra-text-muted)',
                 fontSize: '0.78rem',
                 cursor: 'pointer',
-                padding: '2px 4px',
-              }}
+                padding: '2px 4px' }}
             >
               Close
             </button>
@@ -517,8 +497,7 @@ export function DateField({
             alignItems: 'center',
             gap: '4px',
             fontSize: '0.78rem',
-            color: 'var(--skyra-danger)',
-          }}
+            color: 'var(--skyra-danger)' }}
         >
           <AlertCircle size={12} />
           {error}
@@ -528,8 +507,7 @@ export function DateField({
           id={descId}
           style={{
             fontSize: '0.78rem',
-            color: 'var(--skyra-text-muted)',
-          }}
+            color: 'var(--skyra-text-muted)' }}
         >
           {description || helper}
         </span>

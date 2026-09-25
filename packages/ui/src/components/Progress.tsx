@@ -64,8 +64,7 @@ export function Progress({
         gap: '0.375rem',
         width: '100%',
         fontFamily: 'var(--skyra-font-body)',
-        ...style,
-      }}
+        ...style }}
     >
       {(label || showLabel) && (
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.82rem' }}>
@@ -91,22 +90,17 @@ export function Progress({
           background: 'var(--skyra-border)',
           borderRadius: 'var(--skyra-radius-full)',
           overflow: 'hidden',
-          position: 'relative',
-        }}
+          position: 'relative' }}
       >
         {/* Progress Fill */}
         <div
+          className={`skyra-progress-fill ${isIndeterminate ? 'skyra-progress-fill--indeterminate' : ''}`}
           style={{
             height: '100%',
             background: barColor,
             borderRadius: 'var(--skyra-radius-full)',
             width: isIndeterminate ? '45%' : `${percent}%`,
-            transition: isIndeterminate ? 'none' : 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-            animation: isIndeterminate
-              ? 'indeterminateProgress 1.5s ease-in-out infinite'
-              : 'none',
-            transform: isIndeterminate ? undefined : 'none',
-          }}
+            transform: isIndeterminate ? undefined : 'none' }}
         />
       </div>
     </div>

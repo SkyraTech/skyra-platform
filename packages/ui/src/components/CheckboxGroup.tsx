@@ -77,8 +77,7 @@ export function CheckboxGroup({
         display: 'flex',
         flexDirection: 'column',
         gap: '0.5rem',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       {label && (
         <legend
@@ -87,8 +86,7 @@ export function CheckboxGroup({
             fontSize: '0.875rem',
             fontWeight: 600,
             color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-            marginBottom: '0.25rem',
-          }}
+            marginBottom: '0.25rem' }}
         >
           {label}
           {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
@@ -101,8 +99,7 @@ export function CheckboxGroup({
           style={{
             fontSize: '0.78rem',
             color: 'var(--skyra-text-muted)',
-            marginBottom: '0.25rem',
-          }}
+            marginBottom: '0.25rem' }}
         >
           {description}
         </span>
@@ -113,8 +110,7 @@ export function CheckboxGroup({
           display: 'flex',
           flexDirection: orientation === 'horizontal' ? 'row' : 'column',
           flexWrap: orientation === 'horizontal' ? 'wrap' : 'nowrap',
-          gap: orientation === 'horizontal' ? '1rem' : '0.25rem',
-        }}
+          gap: orientation === 'horizontal' ? '1rem' : '0.25rem' }}
       >
         {options.map((opt) => {
           const isChecked = value.includes(opt.value);
@@ -141,8 +137,7 @@ export function CheckboxGroup({
           style={{
             fontSize: '0.78rem',
             color: 'var(--skyra-danger)',
-            marginTop: '0.25rem',
-          }}
+            marginTop: '0.25rem' }}
         >
           {error}
         </span>

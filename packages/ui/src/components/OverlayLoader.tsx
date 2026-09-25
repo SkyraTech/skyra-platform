@@ -45,8 +45,7 @@ export function OverlayLoader({
             zIndex: 50,
             borderRadius: 'inherit',
             color: '#ffffff',
-            fontFamily: 'var(--skyra-font-body)',
-          }}
+            fontFamily: 'var(--skyra-font-body)' }}
         >
           <Spinner size="lg" color="#ffffff" />
           {message && <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>{message}</span>}

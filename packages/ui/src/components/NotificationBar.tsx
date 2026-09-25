@@ -157,21 +157,20 @@ export function NotificationBar({
         overflow: 'hidden',
         fontFamily: 'var(--skyra-font-body)',
         outline: 'none',
-        ...style,
-      }}
+        ...style }}
     >
       {/* Top Countdown Progress Timer */}
       {duration > 0 && (
         <div
-          style={{
+            className="skyra-notification-progress"
+            style={{
             position: 'absolute',
             top: 0,
             left: 0,
             height: '3px',
             width: `${progressPercent}%`,
             background: config.barColor,
-            transition: 'width 50ms linear',
-          }}
+            }}
         />
       )}
 
@@ -181,8 +180,7 @@ export function NotificationBar({
           padding: '0.85rem 1rem',
           display: 'flex',
           alignItems: 'flex-start',
-          gap: '0.75rem',
-        }}
+          gap: '0.75rem' }}
       >
         {/* Leading Icon */}
         <div style={{ color: config.iconColor, flexShrink: 0, marginTop: '2px' }}>
@@ -204,8 +202,7 @@ export function NotificationBar({
                   padding: '1px 6px',
                   borderRadius: 'var(--skyra-radius-xs, 3px)',
                   background: config.badgeBg,
-                  color: config.badgeColor,
-                }}
+                  color: config.badgeColor }}
               >
                 {code}
               </span>
@@ -233,8 +230,7 @@ export function NotificationBar({
             alignItems: 'center',
             borderRadius: 'var(--skyra-radius-sm)',
             flexShrink: 0,
-            marginTop: '2px',
-          }}
+            marginTop: '2px' }}
         >
           <X size={16} />
         </button>

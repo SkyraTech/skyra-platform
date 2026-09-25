@@ -58,8 +58,7 @@ export const CardHeader = React.forwardRef<HTMLDivElement, CardSectionProps>(
         flexDirection: 'column',
         gap: '0.375rem',
         padding: '1.25rem 1.5rem',
-        borderBottom: '1px solid var(--skyra-border)',
-      }}
+        borderBottom: '1px solid var(--skyra-border)' }}
       {...props}
     />
   )
@@ -77,8 +76,7 @@ export const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttribut
         color: 'var(--skyra-text)',
         fontFamily: 'var(--skyra-font-display)',
         margin: 0,
-        lineHeight: 1.3,
-      }}
+        lineHeight: 1.3 }}
       {...props}
     />
   )
@@ -94,8 +92,7 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTML
         fontSize: '0.8125rem',
         color: 'var(--skyra-text-muted)',
         margin: 0,
-        lineHeight: 1.5,
-      }}
+        lineHeight: 1.5 }}
       {...props}
     />
   )
@@ -124,8 +121,7 @@ export const CardFooter = React.forwardRef<HTMLDivElement, CardSectionProps>(
         alignItems: 'center',
         padding: '1rem 1.5rem',
         borderTop: '1px solid var(--skyra-border)',
-        gap: '0.75rem',
-      }}
+        gap: '0.75rem' }}
       {...props}
     />
   )

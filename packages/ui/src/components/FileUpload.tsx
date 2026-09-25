@@ -298,8 +298,7 @@ export const FileUpload = forwardRef<HTMLDivElement, FileUploadProps>(
           openFilePicker,
           removeFile,
           clearFiles,
-          onFilesSelected: handleFilesSelected,
-        }}
+          onFilesSelected: handleFilesSelected }}
       >
         <div
           ref={ref}

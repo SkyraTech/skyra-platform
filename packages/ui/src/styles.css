@@ -2133,7 +2133,12 @@
    Visibility and functionality are preserved — only motion is removed.
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  [class^="skyra-"],
+  [class*=" skyra-"],
+  [class^="skyra-"]::before,
+  [class*=" skyra-"]::before,
+  [class^="skyra-"]::after,
+  [class*=" skyra-"]::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -2142,3 +2147,72 @@
 }
 
 
+
+/* ============================================================
+   MOTION HELPERS (Phase 9.4)
+   These explicit classes move inline motion to CSS so it can
+   be targeted by the global prefers-reduced-motion selector
+   without breaking consumer isolation boundaries.
+   ============================================================ */
+
+.skyra-motion-fade-in-up {
+  animation: fadeInUp 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skyra-motion-fade-in-up-fast {
+  animation: fadeInUp 0.12s ease;
+}
+.skyra-motion-fade-in {
+  animation: fadeIn 0.12s ease;
+}
+.skyra-motion-transition-all {
+  transition: all 0.15s ease;
+}
+.skyra-motion-transition-all-fast {
+  transition: all 0.1s ease;
+}
+.skyra-motion-transition-transform {
+  transition: transform 0.15s ease;
+}
+.skyra-motion-transition-transform-slow {
+  transition: transform 0.2s;
+}
+.skyra-motion-transition-bg {
+  transition: background-color 0.1s ease;
+}
+.skyra-motion-transition-bg-color {
+  transition: background 0.1s, color 0.1s;
+}
+.skyra-motion-transition-border {
+  transition: border-color 0.2s ease;
+}
+.skyra-motion-pulse {
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+/* Progress Component Inner Element Helpers */
+.skyra-progress-fill {
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skyra-progress-fill--indeterminate {
+  animation: indeterminateProgress 1.5s ease-in-out infinite;
+}
+.skyra-circular-progress-arc {
+  transition: stroke-dashoffset 0.35s ease;
+}
+.skyra-switch-thumb {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+}
+
+/* Additional component motion helpers */
+.skyra-spin-slow {
+  animation: spin 1.2s linear infinite;
+}
+.skyra-spin-fast {
+  animation: spin 0.75s linear infinite;
+}
+.skyra-notification-progress {
+  transition: width 50ms linear;
+}
+.skyra-switch-container {
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}

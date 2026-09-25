@@ -183,7 +183,7 @@ export function Tooltip({
           ref={tooltipRef}
           id={tooltipId}
           role="tooltip"
-          className={`skyra-tooltip ${className}`}
+          className={`skyra-motion-fade-in skyra-tooltip ${className}`}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           style={{
@@ -201,9 +201,7 @@ export function Tooltip({
             lineHeight: '1.4',
             zIndex: 9999,
             pointerEvents: 'auto',
-            fontFamily: 'var(--skyra-font-body)',
-            animation: 'fadeIn 0.12s ease',
-          }}
+            fontFamily: 'var(--skyra-font-body)' }}
         >
           {content}
         </div>

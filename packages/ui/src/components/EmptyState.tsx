@@ -102,7 +102,7 @@ export interface EmptyStateTitleProps extends ComponentPropsWithoutRef<'h3'> {
 
 export const EmptyStateTitle = forwardRef<HTMLHeadingElement, EmptyStateTitleProps>(
   ({ as: Component = 'h3', children, className = '', ...props }, ref) => {
-    const Tag = Component as any;
+    const Tag = Component as React.ElementType;
     return (
       <Tag
         ref={ref}

@@ -49,8 +49,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           display: 'flex',
           flexDirection: 'column',
           gap: '0.25rem',
-          ...style,
-        }}
+          ...style }}
       >
         <label
           htmlFor={inputId}
@@ -62,8 +61,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
             userSelect: 'none',
             minHeight: '44px',
             padding: '4px 0',
-            position: 'relative',
-          }}
+            position: 'relative' }}
         >
           {/* Native Radio Input */}
           <input
@@ -86,13 +84,12 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
               left: 0,
               margin: 0,
               cursor: disabled ? 'not-allowed' : 'pointer',
-              zIndex: 1,
-            }}
+              zIndex: 1 }}
             {...rest}
           />
 
           {/* Custom Styled Radio Circle */}
-          <span
+          <span className="skyra-motion-transition-all"
             aria-hidden="true"
             style={{
               width: '18px',
@@ -108,19 +105,15 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              flexShrink: 0,
-              transition: 'all 0.15s ease',
-            }}
+              flexShrink: 0 }}
           >
             {isChecked && (
-              <span
+              <span className="skyra-motion-transition-transform"
                 style={{
                   width: '8px',
                   height: '8px',
                   borderRadius: '50%',
-                  background: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-primary)',
-                  transition: 'transform 0.15s ease',
-                }}
+                  background: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-primary)' }}
               />
             )}
           </span>
@@ -132,8 +125,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
                 fontSize: '0.875rem',
                 fontWeight: 500,
                 color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-                lineHeight: '1.4',
-              }}
+                lineHeight: '1.4' }}
             >
               {label}
               {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
@@ -144,8 +136,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
                 style={{
                   fontSize: '0.78rem',
                   color: 'var(--skyra-text-muted)',
-                  lineHeight: '1.35',
-                }}
+                  lineHeight: '1.35' }}
               >
                 {description || helper}
               </span>
@@ -161,8 +152,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
             style={{
               fontSize: '0.78rem',
               color: 'var(--skyra-danger)',
-              marginLeft: '28px',
-            }}
+              marginLeft: '28px' }}
           >
             {error}
           </span>

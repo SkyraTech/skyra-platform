@@ -89,7 +89,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
         value={value ?? ''}
         defaultValue={defaultValue}
         disabled={disabled}
-        onChange={handleChange as any}
+        onChange={handleChange as unknown as React.ChangeEventHandler<HTMLInputElement>}
         onKeyDown={handleKeyDown}
         rightAdornment={
           showSteppers ? (
@@ -106,8 +106,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                   cursor: 'pointer',
                   color: 'var(--skyra-text-muted)',
                   display: 'flex',
-                  alignItems: 'center',
-                }}
+                  alignItems: 'center' }}
               >
                 <Minus size={14} />
               </button>
@@ -123,8 +122,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                   cursor: 'pointer',
                   color: 'var(--skyra-text-muted)',
                   display: 'flex',
-                  alignItems: 'center',
-                }}
+                  alignItems: 'center' }}
               >
                 <Plus size={14} />
               </button>

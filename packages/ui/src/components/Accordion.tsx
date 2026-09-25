@@ -170,8 +170,7 @@ export function Accordion(props: AccordionProps) {
         type,
         isItemExpanded,
         toggleItem,
-        baseId,
-      }}
+        baseId }}
     >
       <div
         ref={containerRef}
@@ -231,8 +230,7 @@ export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
           disabled,
           isExpanded,
           triggerId,
-          contentId,
-        }}
+          contentId }}
       >
         <div
           ref={ref}

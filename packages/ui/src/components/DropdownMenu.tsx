@@ -315,8 +315,7 @@ export function DropdownMenu({
             zIndex: 'var(--skyra-z-dropdown, 1000)',
             width: width ? (typeof width === 'number' ? `${width}px` : width) : undefined,
             minWidth: typeof minWidth === 'number' ? `${minWidth}px` : minWidth,
-            maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
-          }}
+            maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth }}
         >
           <MenuContent ariaLabel={ariaLabel}>
             {items ? renderDeclarativeItems(items) : children}

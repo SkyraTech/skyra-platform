@@ -135,8 +135,7 @@ export function Switch({
         display: 'flex',
         flexDirection: 'column',
         gap: '0.25rem',
-        fontFamily: 'var(--skyra-font-body)',
-      }}
+        fontFamily: 'var(--skyra-font-body)' }}
     >
       <div
         style={{
@@ -145,8 +144,7 @@ export function Switch({
           gap: '0.75rem',
           minHeight: '38px',
           padding: '2px 0',
-          cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'pointer',
-        }}
+          cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'pointer' }}
         onClick={handleToggle}
       >
         {/* Toggle Track */}
@@ -171,14 +169,13 @@ export function Switch({
             border: trackBorder,
             padding: '2px',
             cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'pointer',
-            transition: 'background-color 0.2s ease, border-color 0.2s ease',
+            
             outline: 'none',
             flexShrink: 0,
             marginTop: '2px',
             display: 'inline-flex',
             alignItems: 'center',
-            boxSizing: 'border-box',
-          }}
+            boxSizing: 'border-box' }}
         >
           {/* Labeled Variant ON/OFF Text in Track */}
           {variant === 'labeled' && (
@@ -191,8 +188,7 @@ export function Switch({
                 fontWeight: 700,
                 color: currentChecked ? '#ffffff' : 'var(--skyra-text-muted)',
                 lineHeight: 1,
-                userSelect: 'none',
-              }}
+                userSelect: 'none' }}
             >
               {currentChecked ? 'ON' : 'OFF'}
             </span>
@@ -200,6 +196,7 @@ export function Switch({
 
           {/* Sliding Thumb */}
           <span
+            className="skyra-switch-thumb"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -210,12 +207,10 @@ export function Switch({
               background: variant === 'outline' && currentChecked ? 'var(--skyra-primary)' : '#ffffff',
               boxShadow: 'var(--skyra-shadow-sm)',
               transform: currentChecked ? `translateX(${dimensions.translate})` : 'translateX(0)',
-              transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease',
-              flexShrink: 0,
-            }}
+              flexShrink: 0 }}
           >
             {loading ? (
-              <Loader2 size={10} className="skyra-spin" style={{ animation: 'spin 1s linear infinite', color: 'var(--skyra-primary)' }} />
+              <Loader2 size={10} className="skyra-spin" style={{ color: 'var(--skyra-primary)' }} />
             ) : variant === 'icon' ? (
               currentChecked ? (
                 <Check size={10} color="var(--skyra-primary)" strokeWidth={3} />
@@ -236,8 +231,7 @@ export function Switch({
                   fontSize: '0.875rem',
                   fontWeight: 500,
                   color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-                  lineHeight: '1.4',
-                }}
+                  lineHeight: '1.4' }}
               >
                 {label}
                 {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
@@ -249,8 +243,7 @@ export function Switch({
                 style={{
                   fontSize: '0.78rem',
                   color: 'var(--skyra-text-muted)',
-                  lineHeight: '1.35',
-                }}
+                  lineHeight: '1.35' }}
               >
                 {description}
               </span>
@@ -266,8 +259,7 @@ export function Switch({
           style={{
             fontSize: '0.78rem',
             color: 'var(--skyra-danger)',
-            marginLeft: dimensions.trackW,
-          }}
+            marginLeft: dimensions.trackW }}
         >
           {error}
         </span>
