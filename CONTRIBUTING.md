@@ -61,6 +61,13 @@ Once a package reaches `1.0.0`:
 - **MINOR:** Backward-compatible new features.
 - **MAJOR:** Breaking API changes.
 
+### API Lifecycle & Deprecation
+- **Experimental:** May change without breaking version bumps.
+- **Stable:** Default state. Breaking changes require appropriate version bumps.
+- **Deprecated:** Must be supported for one applicable breaking-release cycle before removal:
+  - Before 1.0: Supported for one `0.x` MINOR release.
+  - After 1.0: Supported for one MAJOR release.
+
 ## 8. Prohibited Patterns
 - Do NOT introduce ERP business logic into Platform.
 - Do NOT add new global CSS resets without an explicit `tokens.css` boundary.
