@@ -207,7 +207,11 @@ function ToastShowcaseInner() {
             <div style={{ width: '220px' }}>
               <DynamicSelect
                 value={position}
-                onChange={(val) => setPosition(val as string)}
+                onChange={(val) => {
+                  if (val && !Array.isArray(val) && 'value' in val) {
+                    setPosition(val.value);
+                  }
+                }}
                 options={[
                   { value: 'top-right', label: 'Top Right (Default)' },
                   { value: 'top-left', label: 'Top Left' },

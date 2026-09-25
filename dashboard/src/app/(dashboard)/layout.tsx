@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, Palette, Component, Table2, WrapText,
   PanelTop, Eye, Monitor, BookOpen, Moon, Sun, ChevronRight,
-  FileText, Printer, Download, QrCode
+  FileText, Printer, Download, QrCode, Package
 } from 'lucide-react';
 import { 
   ApplicationShell, 
@@ -24,6 +24,7 @@ import '@skyra/app-shell/styles.css';
 
 const NAV_ITEMS = [
   { href: '/overview',      label: 'Overview',             icon: LayoutDashboard },
+  { href: '/packages',      label: 'Packages (Layer A)',   icon: Package },
   { href: '/design-system', label: 'Design System',        icon: Palette },
   { href: '/ui-components', label: 'UI Components',        icon: Component },
   { href: '/data-table',    label: 'Data Table',           icon: Table2 },

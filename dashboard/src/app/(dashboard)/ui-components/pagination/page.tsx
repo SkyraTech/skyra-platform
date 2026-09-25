@@ -173,8 +173,10 @@ export default function PaginationShowcasePage() {
                 <DynamicSelect
                   value={pageSize}
                   onChange={(val) => {
-                    setPageSize(val as string);
-                    setTablePage(1);
+                    if (val && !Array.isArray(val) && 'value' in val) {
+                      setPageSize(val.value);
+                      setTablePage(1);
+                    }
                   }}
                   options={[
                     { value: '5', label: '5' },
