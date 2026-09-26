@@ -37,8 +37,11 @@ export default function PackagesPage() {
                   {pkg.status}
                 </Badge>
               </div>
-              <div style={{ fontSize: '0.8125rem', color: 'var(--skyra-text-subtle)', fontFamily: 'var(--skyra-font-mono, monospace)', marginBottom: '1rem' }}>
-                v{pkg.version}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                <span style={{ fontSize: '0.8125rem', color: 'var(--skyra-text-subtle)', fontFamily: 'var(--skyra-font-mono, monospace)' }}>
+                  v{pkg.version}
+                </span>
+                <Badge variant="neutral" size="sm">{pkg.runtime}</Badge>
               </div>
               <p style={{ fontSize: '0.875rem', color: 'var(--skyra-text-muted)', margin: 0, minHeight: '40px' }}>
                 {pkg.description || 'Core platform capability.'}
