@@ -20,7 +20,7 @@ export default function OverviewPage() {
         <h1 style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 800, fontSize: '1.75rem', color: 'var(--skyra-text)', marginBottom: '0.5rem' }}>
           Skyra Platform
         </h1>
-        <p style={{ color: 'var(--skyra-text-muted)', fontSize: '1rem', maxWidth: '640px' }}>
+        <p style={{ color: 'var(--skyra-text)', fontSize: '1rem', maxWidth: '640px', opacity: 0.8 }}>
           Internal reusable UI foundation. All components are extracted from and visually
           derived from <strong>skyra-erp</strong> — the primary visual source of truth.
         </p>
@@ -31,8 +31,7 @@ export default function OverviewPage() {
           <Card key={pkg.name} size="sm">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
               <span style={{
-                fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em',
-                color: pkg.layer === 'Layer 1' ? 'var(--skyra-success)' : pkg.layer === 'Layer 2' ? 'var(--skyra-primary)' : 'var(--skyra-text-muted)',
+                color: pkg.layer === 'Layer 1' ? 'var(--skyra-text)' : pkg.layer === 'Layer 2' ? 'var(--skyra-text)' : 'var(--skyra-text)',
                 background: pkg.layer === 'Layer 1' ? 'var(--skyra-success-light)' : pkg.layer === 'Layer 2' ? 'var(--skyra-primary-light)' : 'var(--skyra-border)',
                 padding: '0.15rem 0.5rem', borderRadius: 'var(--skyra-radius-full)',
               }}>
@@ -40,7 +39,7 @@ export default function OverviewPage() {
               </span>
               <span style={{
                 fontSize: '0.7rem', fontWeight: 600,
-                color: pkg.status === 'Ready' ? 'var(--skyra-success)' : 'var(--skyra-text-muted)',
+                color: pkg.status === 'Ready' ? 'var(--skyra-text)' : 'var(--skyra-text)',
               }}>
                 {pkg.status === 'Ready' ? '✓ ' : '○ '}{pkg.status}
               </span>
@@ -55,7 +54,7 @@ export default function OverviewPage() {
         ))}
       </div>
 
-      <div style={{ marginTop: '2rem', padding: '1rem 1.25rem', background: 'var(--skyra-primary-light)', borderRadius: 'var(--skyra-radius-lg)', border: '1px solid var(--skyra-primary)', fontSize: '0.875rem', color: 'var(--skyra-primary)' }}>
+      <div style={{ marginTop: '2rem', padding: '1rem 1.25rem', background: 'var(--skyra-primary-light)', borderRadius: 'var(--skyra-radius-lg)', border: '1px solid var(--skyra-primary)', fontSize: '0.875rem', color: 'var(--skyra-text)' }}>
         <strong>ERP Visual Source of Truth:</strong> All design tokens, component visual behavior, spacing, shadows, and
         responsive breakpoints are confirmed from <code>skyra-erp</code> (READ-ONLY). No assumptions.
       </div>

@@ -1,4 +1,6 @@
 import { docsRegistry } from './registry';
+import { bootstrapDesignTokens } from './design-metadata';
+import { behavioralMetadataMap } from './behavioral-metadata';
 import type { PackageMetadata, RuntimeCategory, CapabilityMetadata } from './metadata';
 
 // Import authoritative package manifests — machine-derived, never manually duplicated.
@@ -188,6 +190,8 @@ let bootstrapped = false;
 export function bootstrapRegistry() {
   if (bootstrapped) return;
   bootstrapped = true;
+  
+  bootstrapDesignTokens();
 
   const packages = [
     appShellPkg, dataExportPkg, dataTablePkg, designTokensPkg,
@@ -221,6 +225,7 @@ export function bootstrapRegistry() {
   });
 
   // Register authored capability definitions
+  capabilityDefinitions.forEach((cap) => {
     docsRegistry.registerCapability({ ...cap, apis: [] });
   });
 
@@ -228,6 +233,12 @@ export function bootstrapRegistry() {
   try {
     const extractedApis = require('./data/apis.json');
     extractedApis.forEach((api: any) => {
+      // Merge authored behavioral metadata
+      const behavior = behavioralMetadataMap[api.id];
+      if (behavior) {
+        Object.assign(api, behavior);
+      }
+
       docsRegistry.registerApi(api);
       
       // Link back to capability
@@ -240,5 +251,25 @@ export function bootstrapRegistry() {
     });
   } catch (e) {
     console.warn('API metadata not found, skipping Phase 10.3 API registration');
+  }
+
+  // Register Examples (Phase 10.4)
+  try {
+    const examples = require('./data/examples.json');
+    examples.forEach((example: any) => {
+      docsRegistry.registerExample(example);
+    });
+  } catch (e) {
+    console.warn('Examples metadata not found, skipping Phase 10.4 Example registration');
+  }
+
+  // Register Releases (Phase 10.7)
+  try {
+    const releases = require('./data/releases.json');
+    Object.values(releases).forEach((release: any) => {
+      docsRegistry.registerRelease(release);
+    });
+  } catch (e) {
+    console.warn('Releases metadata not found, skipping Phase 10.7 Release registration');
   }
 }

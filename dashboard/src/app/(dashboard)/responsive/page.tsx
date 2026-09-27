@@ -20,11 +20,26 @@ export default function ResponsiveStudioPage() {
     <div className="dash-page" style={{ height: 'calc(100vh - 80px)', display: 'flex', flexDirection: 'column' }}>
       <div style={{ marginBottom: '1.5rem' }}>
         <h1 style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 800, fontSize: '1.75rem', color: 'var(--skyra-text)', marginBottom: '0.5rem' }}>
-          Responsive Viewport Studio
+          Responsive Design & Viewport Studio
         </h1>
         <p style={{ color: 'var(--skyra-text-muted)' }}>
-          Test Skyra Platform components across all 7 canonical viewports.
+          Canonical viewports, breakpoint tokens, and interactive sandbox for Skyra Platform components.
         </p>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+        <div style={{ padding: '1rem', background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', borderRadius: 'var(--skyra-radius-md)' }}>
+          <div style={{ fontWeight: 600 }}>Mobile First</div>
+          <div style={{ fontSize: '0.85rem', color: 'var(--skyra-text-muted)', marginTop: '0.5rem' }}>Base styles assume &lt; 640px. Media queries scale up via <code>min-width</code>.</div>
+        </div>
+        <div style={{ padding: '1rem', background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', borderRadius: 'var(--skyra-radius-md)' }}>
+          <div style={{ fontWeight: 600 }}>Data Tables</div>
+          <div style={{ fontSize: '0.85rem', color: 'var(--skyra-text-muted)', marginTop: '0.5rem' }}>Tables use <code>overflow-x: auto</code> to permit horizontal scrolling on small viewports without breaking layout.</div>
+        </div>
+        <div style={{ padding: '1rem', background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', borderRadius: 'var(--skyra-radius-md)' }}>
+          <div style={{ fontWeight: 600 }}>Dialogs & Forms</div>
+          <div style={{ fontSize: '0.85rem', color: 'var(--skyra-text-muted)', marginTop: '0.5rem' }}>Dialogs scale to 100% width with margins on mobile. Multi-column forms collapse to single column below <code>bpMd (640px)</code>.</div>
+        </div>
       </div>
 
       <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '1rem', borderBottom: '1px solid var(--skyra-border)', marginBottom: '2rem' }}>

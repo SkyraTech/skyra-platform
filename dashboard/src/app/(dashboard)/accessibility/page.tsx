@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
-import { Button, Input, Checkbox, Card, Alert } from '@skyra/ui';
+import { Button, Input, Checkbox, Card, Alert, Divider } from '@skyra/ui';
 
 export default function AccessibilityStudioPage() {
   const [results, setResults] = useState<any>(null);
@@ -29,11 +29,46 @@ export default function AccessibilityStudioPage() {
         Accessibility Studio
       </h1>
       <p style={{ color: 'var(--skyra-text-muted)', marginBottom: '2rem' }}>
-        Automated runtime accessibility audits using <code>axe-core</code>. Target: Zero Violations.
+        Platform principles and automated runtime accessibility audits using <code>axe-core</code>. Target: Zero Violations.
       </p>
 
+      <div style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: 600 }}>Core Principles</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+          <Card size="sm">
+            <h3 style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Keyboard Navigation</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--skyra-text-muted)' }}>
+              All interactive components must be reachable and operable via keyboard (Tab, Space, Enter, Arrows). Escape must dismiss overlays.
+            </p>
+          </Card>
+          <Card size="sm">
+            <h3 style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Focus Management</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--skyra-text-muted)' }}>
+              Dialogs trap focus. Modals restore focus on close. Focus rings (<code>--skyra-focus-ring</code>) must have high contrast.
+            </p>
+          </Card>
+          <Card size="sm">
+            <h3 style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Semantic HTML & ARIA</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--skyra-text-muted)' }}>
+              Use native HTML5 semantics first. Add WAI-ARIA only where native semantics fall short.
+            </p>
+          </Card>
+          <Card size="sm">
+            <h3 style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Forms & Errors</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--skyra-text-muted)' }}>
+              Inputs must have connected labels. Validation errors must be programmatically associated via <code>aria-describedby</code>.
+            </p>
+          </Card>
+        </div>
+      </div>
+
+      <div style={{ margin: '2rem 0' }}>
+        <Divider />
+      </div>
+
+      <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1rem' }}>Automated Audit</h2>
       <div style={{ marginBottom: '2rem' }}>
-        <Button onClick={runAudit} isLoading={running}>Run Axe-Core Audit</Button>
+        <Button onClick={runAudit} isLoading={running}>Run Axe-Core Audit on Test Surface</Button>
       </div>
 
       {results && (

@@ -11,12 +11,16 @@
     "test": "turbo run test",
     "test:unit": "turbo run test:unit",
     "test:a11y": "turbo run test:a11y",
+    "test:e2e": "playwright test",
+    "test:visual": "playwright test --update-snapshots",
     "clean": "turbo run clean",
     "dashboard": "pnpm --filter dashboard dev"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
+    "@playwright/test": "^1.63.0",
     "@vitest/coverage-v8": "^2.1.9",
+    "axe-playwright": "^2.2.2",
     "tsup": "^8.5.1",
     "turbo": "^2.3.3",
     "typescript": "^5.7.0",

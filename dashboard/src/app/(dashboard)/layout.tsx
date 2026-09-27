@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, Palette, Component, Table2, WrapText,
   PanelTop, Eye, Monitor, BookOpen, Moon, Sun, ChevronRight,
-  FileText, Printer, Download, QrCode, Package
+  FileText, Printer, Download, QrCode, Package, History
 } from 'lucide-react';
 import { 
   ApplicationShell, 
@@ -21,6 +21,7 @@ import {
   SkipLink 
 } from '@skyra/app-shell';
 import '@skyra/app-shell/styles.css';
+import { SearchDialog } from '../../components/docs/SearchDialog';
 
 const NAV_ITEMS = [
   { href: '/overview',      label: 'Overview',             icon: LayoutDashboard },
@@ -37,6 +38,7 @@ const NAV_ITEMS = [
   { href: '/accessibility', label: 'Accessibility Studio', icon: Eye },
   { href: '/responsive',    label: 'Viewport Studio',      icon: Monitor },
   { href: '/docs',          label: 'Documentation',        icon: BookOpen },
+  { href: '/releases',      label: 'Releases & Changelog', icon: History },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -67,7 +69,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 800, fontSize: '1.125rem', color: '#fff', letterSpacing: '-0.01em' }}>
               Skyra Platform
             </div>
-            <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>
+            <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)', marginTop: '2px' }}>
               Design System v0.1.0
             </div>
           </div>
@@ -119,8 +121,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           rightNode={
             <span style={{
               fontSize: '0.75rem',
-              background: 'var(--skyra-primary-light)',
-              color: 'var(--skyra-primary)',
+              background: 'var(--skyra-primary)',
+              color: '#ffffff',
               padding: '0.25rem 0.625rem',
               borderRadius: 'var(--skyra-radius-full)',
               fontWeight: 600,
@@ -129,8 +131,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </span>
           }
         >
-          <div style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 700, fontSize: '1rem', color: 'var(--skyra-text)', marginLeft: '1rem' }}>
-            Application Shell
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: '1rem', marginRight: '1rem' }}>
+            <SearchDialog />
           </div>
         </Header>
         <main style={{ flex: 1, position: 'relative' }}>

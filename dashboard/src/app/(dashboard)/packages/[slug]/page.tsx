@@ -4,7 +4,7 @@ import { docsRegistry } from '../../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../../docs-system/bootstrap';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Package, ArrowLeft, Terminal, Box, PlayCircle, Code } from 'lucide-react';
+import { Package, ArrowLeft, Terminal, Box, PlayCircle, Code, History } from 'lucide-react';
 
 // Initialize the registry for SSR/SSG.
 bootstrapRegistry();
@@ -36,6 +36,9 @@ export default function PackageDetailPage({ params }: { params: { slug: string }
   }
 
   const capabilities = docsRegistry.getCapabilitiesForPackage(id);
+  const releases = docsRegistry.getReleases()
+    .filter(r => r.packages.some(p => p.packageId === id))
+    .reverse();
 
   return (
     <div className="dash-page" style={{ padding: '2rem 1rem', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -156,6 +159,46 @@ export default function PackageDetailPage({ params }: { params: { slug: string }
 
         {/* Sidebar / Metadata */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          
+          {/* Recent Changes */}
+          {releases.length > 0 && (
+            <Card style={{ padding: '1.5rem' }}>
+              <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--skyra-text)', margin: '0 0 1rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <History size={16} /> Recent Changes
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {releases.slice(0, 3).map((release) => {
+                  const pkgChanges = release.packages.find(p => p.packageId === id)?.changes || [];
+                  return (
+                    <div key={release.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingBottom: '1rem', borderBottom: '1px solid var(--skyra-border)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <strong style={{ color: 'var(--skyra-text)' }}>{release.version}</strong>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--skyra-text-muted)' }}>{release.date}</span>
+                      </div>
+                      <ul style={{ margin: 0, paddingLeft: '1.25rem', fontSize: '0.875rem', color: 'var(--skyra-text-muted)', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                        {pkgChanges.slice(0, 3).map(change => (
+                          <li key={change.id}>
+                            <span style={{ color: 'var(--skyra-text)' }}>{change.title}</span>
+                          </li>
+                        ))}
+                        {pkgChanges.length > 3 && (
+                          <li><em>and {pkgChanges.length - 3} more...</em></li>
+                        )}
+                      </ul>
+                      <Link href={`/releases#${release.id}`} style={{ fontSize: '0.75rem', color: 'var(--skyra-primary)', textDecoration: 'none', alignSelf: 'flex-start', marginTop: '0.25rem' }}>
+                        View full release →
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+              <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+                 <Link href="/releases" style={{ fontSize: '0.875rem', color: 'var(--skyra-text-muted)', textDecoration: 'none' }}>
+                   See all releases
+                 </Link>
+              </div>
+            </Card>
+          )}
           
           {/* Public Exports */}
           <Card style={{ padding: '1.5rem' }}>
