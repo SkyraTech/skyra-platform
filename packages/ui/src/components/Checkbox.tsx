@@ -60,6 +60,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       <div
         className={`skyra-checkbox-container ${className}`}
         style={{
+          minWidth: 0,
           display: 'flex',
           flexDirection: 'column',
           gap: '0.25rem',
@@ -75,7 +76,9 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             userSelect: 'none',
             minHeight: '44px',
             padding: '4px 0',
-            position: 'relative' }}
+            position: 'relative',
+            minWidth: 0,
+            maxWidth: '100%' }}
         >
           {/* Hidden native checkbox input */}
           <input className="skyra-sr-only-peer"

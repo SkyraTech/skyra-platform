@@ -583,12 +583,14 @@ export function DynamicSelect<T = DefaultSelectOption>({
         onClick={() => setIsOpen((prev) => !prev)}
         onKeyDown={handleKeyDown}
         aria-haspopup="listbox"
+        aria-controls={isOpen ? listboxId : undefined}
         aria-expanded={isOpen}
         aria-labelledby={label ? labelId : undefined}
         aria-describedby={error ? errorId : description ? descId : undefined}
         aria-disabled={disabled}
         aria-required={required}
         aria-invalid={!!error}
+        aria-activedescendant={isOpen && focusedIndex >= 0 && !isSearchEnabled ? `${selectId}-opt-${focusedIndex}` : undefined}
         style={{
           width: '100%',
           height: '42px',
@@ -618,6 +620,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
             alignItems: 'center',
             gap: '0.375rem',
             flex: 1,
+            minWidth: 0,
             overflow: 'hidden',
             whiteSpace: 'nowrap' }}
         >
@@ -638,10 +641,12 @@ export function DynamicSelect<T = DefaultSelectOption>({
           ) : !isMulti && selectedItems.length > 0 && selectedItems[0] ? (
             <span
               style={{
+                display: 'block',
                 fontSize: '0.875rem',
                 color: 'var(--skyra-text)',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
                 fontWeight: 500 }}
             >
               {defaultGetLabel(selectedItems[0] as T, optionLabel)}
@@ -827,6 +832,11 @@ export function DynamicSelect<T = DefaultSelectOption>({
                 <input
                   ref={searchInputRef}
                   type="text"
+                  role="combobox"
+                  aria-expanded={isOpen}
+                  aria-controls={listboxId}
+                  aria-autocomplete="list"
+                  aria-activedescendant={isOpen && focusedIndex >= 0 ? `${selectId}-opt-${focusedIndex}` : undefined}
                   value={searchQuery}
                   placeholder={searchPlaceholder}
                   onChange={(e) => handleSearchChange(e.target.value)}

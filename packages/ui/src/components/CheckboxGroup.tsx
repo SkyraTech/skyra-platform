@@ -110,7 +110,8 @@ export function CheckboxGroup({
           display: 'flex',
           flexDirection: orientation === 'horizontal' ? 'row' : 'column',
           flexWrap: orientation === 'horizontal' ? 'wrap' : 'nowrap',
-          gap: orientation === 'horizontal' ? '1rem' : '0.25rem' }}
+          gap: orientation === 'horizontal' ? '1rem' : '0.25rem',
+          minWidth: 0 }}
       >
         {options.map((opt) => {
           const isChecked = value.includes(opt.value);

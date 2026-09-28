@@ -245,6 +245,11 @@
   .skyra-sidebar[data-mobile-open="true"] {
     transform: translateX(0);
   }
+
+  .skyra-header {
+    padding: 0 0.75rem;
+    gap: 0.5rem;
+  }
 }
 
 /* Reduced Motion */

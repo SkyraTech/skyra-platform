@@ -162,8 +162,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               width: '100%',
               height: '42px',
               padding: '0.65rem 0.875rem',
-              paddingLeft: left ? '2.35rem' : '0.875rem',
-              paddingRight: right || loading || clearable ? '2.5rem' : '0.875rem',
+              paddingLeft: left ? (typeof left === 'string' ? `calc(1.2rem + ${left.length}ch)` : '2.35rem') : '0.875rem',
+              paddingRight: right || loading || clearable ? (typeof right === 'string' ? `calc(1.2rem + ${right.length}ch)` : '2.5rem') : '0.875rem',
               background: disabled
                 ? 'var(--skyra-border)'
                 : readOnly

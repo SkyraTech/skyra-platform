@@ -154,7 +154,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </span>
           }
         >
-          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: '1rem', marginRight: '1rem' }}>
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <SearchDialog />
           </div>
         </Header>
