@@ -1,7 +1,7 @@
 import { Card } from '@skyra/ui';
 import Link from 'next/link';
-import { docsRegistry } from '../../docs-system/registry';
-import { bootstrapRegistry } from '../../docs-system/bootstrap';
+import { docsRegistry } from '../../../docs-system/registry';
+import { bootstrapRegistry } from '../../../docs-system/bootstrap';
 
 export const metadata = { title: 'Overview — Skyra Platform Dashboard' };
 
@@ -24,7 +24,7 @@ export default function OverviewPage() {
       const layerA = getLayer(a.id);
       const layerB = getLayer(b.id);
       if (layerOrder[layerA] !== layerOrder[layerB]) {
-        return layerOrder[layerA] - layerOrder[layerB];
+        return (layerOrder[layerA] || 4) - (layerOrder[layerB] || 4);
       }
       return a.id.localeCompare(b.id);
     });
