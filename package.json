@@ -16,7 +16,8 @@
     "clean": "turbo run clean",
     "dashboard": "pnpm --filter dashboard dev",
     "api:update": "tsx scripts/api-governance.ts update",
-    "api:check": "tsx scripts/api-governance.ts check"
+    "api:check": "tsx scripts/api-governance.ts check",
+    "release": "pnpm publish -r --no-git-checks"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",

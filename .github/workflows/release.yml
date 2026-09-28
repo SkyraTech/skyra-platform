@@ -1,0 +1,131 @@
+name: Release Packages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate-and-release:
+    name: Validate and Release
+    runs-on: ubuntu-latest
+    environment: release # Protected environment
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9.12.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Setup Azure Artifacts Auth
+        run: |
+          echo "//pkgs.dev.azure.com/<AZURE_ORG>/<AZURE_PROJECT>/_packaging/<AZURE_FEED>/npm/registry/:_authToken=\${NPM_TOKEN}" >> .npmrc
+          echo "@skyra:registry=https://pkgs.dev.azure.com/<AZURE_ORG>/<AZURE_PROJECT>/_packaging/<AZURE_FEED>/npm/registry/" >> .npmrc
+          echo "always-auth=true" >> .npmrc
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      # QUALITY GATES (MUST PASS BEFORE PUBLISH)
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Regression Tests
+        run: pnpm test
+
+      - name: Build Packages
+        run: pnpm build
+
+      - name: API Governance Check
+        run: pnpm api:check
+        
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Visual & Accessibility Regression Tests
+        run: pnpm exec playwright test
+
+      # TARBALL VALIDATION
+      - name: Package Tarball Validation
+        run: |
+          echo "Validating package tarballs..."
+          mkdir -p .tmp/tarballs
+          cd packages
+          for pkg in $(ls -d */); do
+            cd $pkg
+            pnpm pack --pack-destination ../../.tmp/tarballs
+            cd ..
+          done
+          cd ..
+          
+          for tarball in .tmp/tarballs/*.tgz; do
+            echo "Checking $tarball"
+            
+            # Ensure no source leakage
+            if tar -tf "$tarball" | grep -q "src/.*\.ts$"; then
+              echo "FAIL: $tarball leaks TypeScript source."
+              exit 1
+            fi
+            if tar -tf "$tarball" | grep -q "tests/"; then
+              echo "FAIL: $tarball leaks tests."
+              exit 1
+            fi
+            if tar -tf "$tarball" | grep -q "tsconfig.json"; then
+              echo "FAIL: $tarball leaks tsconfig.json."
+              exit 1
+            fi
+            
+            # Ensure dist exists
+            if ! tar -tf "$tarball" | grep -q "dist/"; then
+              echo "FAIL: $tarball is missing dist folder."
+              exit 1
+            fi
+            
+            # Ensure package.json exists
+            if ! tar -tf "$tarball" | grep -q "package.json"; then
+              echo "FAIL: $tarball is missing package.json."
+              exit 1
+            fi
+          done
+          echo "All tarballs passed validation."
+
+      # CHANGESETS VERSIONING PR & PUBLISHING
+      - name: Validate Azure Infrastructure & Credentials
+        run: |
+          if [ -z "${NPM_TOKEN}" ]; then
+            echo "FAIL: NPM_TOKEN secret is missing. Cannot publish without credentials."
+            exit 1
+          fi
+          
+          if grep -q "<AZURE_ORG>" .npmrc; then
+            echo "FAIL: .npmrc contains <AZURE_ORG> placeholder. Real infrastructure is required for publish."
+            exit 1
+          fi
+        env:
+          NPM_TOKEN: ${{ secrets.AZURE_ARTIFACTS_PAT }}
+
+      - name: Create Release PR or Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: pnpm changeset version
+          publish: pnpm release
+          commit: "chore(release): version packages"
+          title: "chore(release): version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.AZURE_ARTIFACTS_PAT }}

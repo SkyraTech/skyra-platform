@@ -1,0 +1,18 @@
+# Example .npmrc configuration for Skyra Platform developers
+# Do NOT commit your actual .npmrc with secrets!
+
+# Map the @skyra scope to the Azure Artifacts registry
+@skyra:registry=https://pkgs.dev.azure.com/<AZURE_ORG>/<AZURE_PROJECT>/_packaging/<AZURE_FEED>/npm/registry/
+
+# Provide authentication (Use vsts-npm-auth or an Azure DevOps PAT)
+# Example using an environment variable (recommended for CI):
+//pkgs.dev.azure.com/<AZURE_ORG>/<AZURE_PROJECT>/_packaging/<AZURE_FEED>/npm/registry/:_authToken=${NPM_TOKEN}
+
+# Or hardcoded token (DO NOT COMMIT):
+# //pkgs.dev.azure.com/<AZURE_ORG>/<AZURE_PROJECT>/_packaging/<AZURE_FEED>/npm/registry/:_authToken=<YOUR_PAT_HERE>
+
+# Standard strict package management configurations
+always-auth=true
+shamefully-hoist=false
+strict-peer-dependencies=false
+auto-install-peers=true
