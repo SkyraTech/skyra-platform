@@ -1,0 +1,582 @@
+{
+  "CURRENCY_CONFIGS": {
+    "kind": "constant",
+    "signature": "Record<SupportedCurrency, CurrencyConfig>",
+    "properties": {},
+    "deprecated": false
+  },
+  "CommandLike": {
+    "kind": "interface",
+    "properties": {
+      "id": {
+        "type": "string",
+        "required": true
+      },
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "keywords": {
+        "type": "string[] | undefined",
+        "required": false
+      },
+      "group": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "hidden": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CurrencyConfig": {
+    "kind": "interface",
+    "properties": {
+      "symbol": {
+        "type": "string",
+        "required": true
+      },
+      "code": {
+        "type": "SupportedCurrency",
+        "required": true
+      },
+      "locale": {
+        "type": "string",
+        "required": true
+      },
+      "decimalPlaces": {
+        "type": "number",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "DateInput": {
+    "kind": "type",
+    "signature": "Date | string | number",
+    "properties": {},
+    "deprecated": false
+  },
+  "KeyboardEventLike": {
+    "kind": "interface",
+    "properties": {
+      "key": {
+        "type": "string",
+        "required": true
+      },
+      "ctrlKey": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "metaKey": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "altKey": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "shiftKey": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "target": {
+        "type": "unknown",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ModifierKey": {
+    "kind": "type",
+    "signature": "'ctrl' | 'meta' | 'alt' | 'shift' | 'mod'",
+    "properties": {},
+    "deprecated": false
+  },
+  "ScoredCommand": {
+    "kind": "interface",
+    "properties": {
+      "item": {
+        "type": "T",
+        "required": true
+      },
+      "score": {
+        "type": "number",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "ShortcutConflict": {
+    "kind": "interface",
+    "properties": {
+      "shortcut": {
+        "type": "string",
+        "required": true
+      },
+      "ids": {
+        "type": "string[]",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "ShortcutDescriptor": {
+    "kind": "interface",
+    "properties": {
+      "raw": {
+        "type": "string",
+        "required": true
+      },
+      "normalized": {
+        "type": "string",
+        "required": true
+      },
+      "ctrlKey": {
+        "type": "boolean",
+        "required": true
+      },
+      "metaKey": {
+        "type": "boolean",
+        "required": true
+      },
+      "altKey": {
+        "type": "boolean",
+        "required": true
+      },
+      "shiftKey": {
+        "type": "boolean",
+        "required": true
+      },
+      "isMod": {
+        "type": "boolean",
+        "required": true
+      },
+      "key": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "SupportedCurrency": {
+    "kind": "type",
+    "signature": "'INR' | 'USD' | 'EUR' | 'GBP' | 'AED' | 'SGD'",
+    "properties": {},
+    "deprecated": false
+  },
+  "addDays": {
+    "kind": "function",
+    "signature": "declare function addDays(input: DateInput, days: number): Date;",
+    "returnType": "Date",
+    "properties": {
+      "input": {
+        "type": "DateInput",
+        "required": true
+      },
+      "days": {
+        "type": "number",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "amountInWords": {
+    "kind": "function",
+    "signature": "declare function amountInWords(amount: number, currency?: SupportedCurrency): string;",
+    "returnType": "string",
+    "properties": {
+      "amount": {
+        "type": "number",
+        "required": true
+      },
+      "currency": {
+        "type": "SupportedCurrency | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "capitalize": {
+    "kind": "function",
+    "signature": "declare function capitalize(str: string): string;",
+    "returnType": "string",
+    "properties": {
+      "str": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "detectShortcutConflicts": {
+    "kind": "function",
+    "signature": "declare function detectShortcutConflicts(entries: Array<",
+    "returnType": "ShortcutConflict[]",
+    "properties": {
+      "entries": {
+        "type": "{ id: string; shortcut: string; }[]",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "filterCommands": {
+    "kind": "function",
+    "signature": "declare function filterCommands<T extends CommandLike>(commands: T[], query: string): T[];",
+    "returnType": "T[]",
+    "properties": {
+      "commands": {
+        "type": "T[]",
+        "required": true
+      },
+      "query": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "formatCurrency": {
+    "kind": "function",
+    "signature": "declare function formatCurrency(amount: number, currency?: SupportedCurrency, options?:",
+    "returnType": "string",
+    "properties": {
+      "amount": {
+        "type": "number",
+        "required": true
+      },
+      "currency": {
+        "type": "SupportedCurrency | undefined",
+        "required": false
+      },
+      "options": {
+        "type": "{ showSymbol?: boolean; compact?: boolean; } | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "formatDate": {
+    "kind": "function",
+    "signature": "declare function formatDate(input: DateInput, options?:",
+    "returnType": "string",
+    "properties": {
+      "input": {
+        "type": "DateInput",
+        "required": true
+      },
+      "options": {
+        "type": "{ format?: \"short\" | \"medium\" | \"long\" | \"numeric\"; locale?: string; includeTime?: boolean; } | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "formatRelativeTime": {
+    "kind": "function",
+    "signature": "declare function formatRelativeTime(input: DateInput, locale?: string): string;",
+    "returnType": "string",
+    "properties": {
+      "input": {
+        "type": "DateInput",
+        "required": true
+      },
+      "locale": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "formatShortcut": {
+    "kind": "function",
+    "signature": "declare function formatShortcut(shortcut: string, platform?: 'mac' | 'windows' | 'linux'): string;",
+    "returnType": "string",
+    "properties": {
+      "shortcut": {
+        "type": "string",
+        "required": true
+      },
+      "platform": {
+        "type": "\"mac\" | \"windows\" | \"linux\" | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "getInitials": {
+    "kind": "function",
+    "signature": "declare function getInitials(name: string, maxChars?: number): string;",
+    "returnType": "string",
+    "properties": {
+      "name": {
+        "type": "string",
+        "required": true
+      },
+      "maxChars": {
+        "type": "number | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "isInputElement": {
+    "kind": "function",
+    "signature": "declare function isInputElement(target: unknown): boolean;",
+    "returnType": "boolean",
+    "properties": {
+      "target": {
+        "type": "unknown",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "isPast": {
+    "kind": "function",
+    "signature": "declare function isPast(input: DateInput): boolean;",
+    "returnType": "boolean",
+    "properties": {
+      "input": {
+        "type": "DateInput",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "isToday": {
+    "kind": "function",
+    "signature": "declare function isToday(input: DateInput): boolean;",
+    "returnType": "boolean",
+    "properties": {
+      "input": {
+        "type": "DateInput",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "isValidEmail": {
+    "kind": "function",
+    "signature": "declare function isValidEmail(email: string): boolean;",
+    "returnType": "boolean",
+    "properties": {
+      "email": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "maskString": {
+    "kind": "function",
+    "signature": "declare function maskString(str: string, visibleEnd?: number, maskChar?: string): string;",
+    "returnType": "string",
+    "properties": {
+      "str": {
+        "type": "string",
+        "required": true
+      },
+      "visibleEnd": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maskChar": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "matchesShortcutKey": {
+    "kind": "function",
+    "signature": "declare function matchesShortcutKey(event: KeyboardEventLike, shortcut: string, platform?: 'mac' | 'windows' | 'linux'): boolean;",
+    "returnType": "boolean",
+    "properties": {
+      "event": {
+        "type": "KeyboardEventLike",
+        "required": true
+      },
+      "shortcut": {
+        "type": "string",
+        "required": true
+      },
+      "platform": {
+        "type": "\"mac\" | \"windows\" | \"linux\" | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "normalizePhone": {
+    "kind": "function",
+    "signature": "declare function normalizePhone(phone: string): string;",
+    "returnType": "string",
+    "properties": {
+      "phone": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "normalizeShortcut": {
+    "kind": "function",
+    "signature": "declare function normalizeShortcut(shortcut: string): string;",
+    "returnType": "string",
+    "properties": {
+      "shortcut": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "normalizeWhitespace": {
+    "kind": "function",
+    "signature": "declare function normalizeWhitespace(str: string): string;",
+    "returnType": "string",
+    "properties": {
+      "str": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "parseMoney": {
+    "kind": "function",
+    "signature": "declare function parseMoney(value: unknown): number;",
+    "returnType": "number",
+    "properties": {
+      "value": {
+        "type": "unknown",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "parseShortcut": {
+    "kind": "function",
+    "signature": "declare function parseShortcut(shortcut: string): ShortcutDescriptor;",
+    "returnType": "ShortcutDescriptor",
+    "properties": {
+      "shortcut": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "roundMoney": {
+    "kind": "function",
+    "signature": "declare function roundMoney(amount: number, decimalPlaces?: number): number;",
+    "returnType": "number",
+    "properties": {
+      "amount": {
+        "type": "number",
+        "required": true
+      },
+      "decimalPlaces": {
+        "type": "number | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "simpleId": {
+    "kind": "function",
+    "signature": "declare function simpleId(prefix?: string, length?: number): string;",
+    "returnType": "string",
+    "properties": {
+      "prefix": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "length": {
+        "type": "number | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "startOfDay": {
+    "kind": "function",
+    "signature": "declare function startOfDay(input: DateInput): Date;",
+    "returnType": "Date",
+    "properties": {
+      "input": {
+        "type": "DateInput",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "toISODate": {
+    "kind": "function",
+    "signature": "declare function toISODate(input: DateInput): string;",
+    "returnType": "string",
+    "properties": {
+      "input": {
+        "type": "DateInput",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "toSlug": {
+    "kind": "function",
+    "signature": "declare function toSlug(str: string): string;",
+    "returnType": "string",
+    "properties": {
+      "str": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "toTitleCase": {
+    "kind": "function",
+    "signature": "declare function toTitleCase(str: string): string;",
+    "returnType": "string",
+    "properties": {
+      "str": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "truncate": {
+    "kind": "function",
+    "signature": "declare function truncate(str: string, maxLength: number, suffix?: string): string;",
+    "returnType": "string",
+    "properties": {
+      "str": {
+        "type": "string",
+        "required": true
+      },
+      "maxLength": {
+        "type": "number",
+        "required": true
+      },
+      "suffix": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  }
+}

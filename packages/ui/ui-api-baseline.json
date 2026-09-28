@@ -1,0 +1,8297 @@
+{
+  "Accordion": {
+    "kind": "component",
+    "signature": "declare function Accordion(props: AccordionProps): React.JSX.Element;",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "props": {
+        "type": "AccordionProps",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "AccordionContent": {
+    "kind": "component",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "AccordionContentProps": {
+    "kind": "interface",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "AccordionContextValue": {
+    "kind": "interface",
+    "properties": {
+      "type": {
+        "type": "AccordionType",
+        "required": true
+      },
+      "isItemExpanded": {
+        "type": "(itemValue: string) => boolean",
+        "required": true
+      },
+      "toggleItem": {
+        "type": "(itemValue: string) => void",
+        "required": true
+      },
+      "baseId": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "AccordionItem": {
+    "kind": "component",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "AccordionItemContextValue": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "disabled": {
+        "type": "boolean",
+        "required": true
+      },
+      "isExpanded": {
+        "type": "boolean",
+        "required": true
+      },
+      "triggerId": {
+        "type": "string",
+        "required": true
+      },
+      "contentId": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "AccordionItemProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "AccordionMultipleProps": {
+    "kind": "interface",
+    "properties": {
+      "type": {
+        "type": "\"multiple\"",
+        "required": true
+      },
+      "value": {
+        "type": "string[] | undefined",
+        "required": false
+      },
+      "defaultValue": {
+        "type": "string[] | undefined",
+        "required": false
+      },
+      "onValueChange": {
+        "type": "((value: string[]) => void) | undefined",
+        "required": false
+      },
+      "collapsible": {
+        "type": "undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "AccordionProps": {
+    "kind": "type",
+    "signature": "AccordionSingleProps | AccordionMultipleProps",
+    "properties": {},
+    "deprecated": false
+  },
+  "AccordionSingleProps": {
+    "kind": "interface",
+    "properties": {
+      "type": {
+        "type": "\"single\"",
+        "required": true
+      },
+      "value": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "defaultValue": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onValueChange": {
+        "type": "((value: string) => void) | undefined",
+        "required": false
+      },
+      "collapsible": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "AccordionTrigger": {
+    "kind": "component",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "AccordionTriggerProps": {
+    "kind": "interface",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "AccordionType": {
+    "kind": "type",
+    "signature": "'single' | 'multiple'",
+    "properties": {},
+    "deprecated": false
+  },
+  "Alert": {
+    "kind": "component",
+    "signature": "declare function Alert(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "variant": {
+        "type": "AlertVariant | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "onDismiss": {
+        "type": "(() => void) | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "AlertProps": {
+    "kind": "interface",
+    "properties": {
+      "variant": {
+        "type": "AlertVariant | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "onDismiss": {
+        "type": "(() => void) | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "AlertVariant": {
+    "kind": "type",
+    "signature": "'info' | 'success' | 'warning' | 'danger'",
+    "properties": {},
+    "deprecated": false
+  },
+  "Avatar": {
+    "kind": "component",
+    "signature": "declare function Avatar(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "src": {
+        "type": "string | null | undefined",
+        "required": false
+      },
+      "alt": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "fallback": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "size": {
+        "type": "AvatarSize | undefined",
+        "required": false
+      },
+      "shape": {
+        "type": "AvatarShape | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "AvatarProps": {
+    "kind": "interface",
+    "properties": {
+      "src": {
+        "type": "string | null | undefined",
+        "required": false
+      },
+      "alt": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "fallback": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "size": {
+        "type": "AvatarSize | undefined",
+        "required": false
+      },
+      "shape": {
+        "type": "AvatarShape | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "AvatarShape": {
+    "kind": "type",
+    "signature": "'circle' | 'square'",
+    "properties": {},
+    "deprecated": false
+  },
+  "AvatarSize": {
+    "kind": "type",
+    "signature": "'xs' | 'sm' | 'md' | 'lg' | 'xl'",
+    "properties": {},
+    "deprecated": false
+  },
+  "Badge": {
+    "kind": "component",
+    "signature": "declare function Badge(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "variant": {
+        "type": "BadgeVariant | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "BadgeSize | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "BadgeProps": {
+    "kind": "interface",
+    "properties": {
+      "variant": {
+        "type": "BadgeVariant | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "BadgeSize | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "BadgeSize": {
+    "kind": "type",
+    "signature": "'sm' | 'md' | 'lg'",
+    "properties": {},
+    "deprecated": false
+  },
+  "BadgeVariant": {
+    "kind": "type",
+    "signature": "'primary' | 'orange' | 'success' | 'danger' | 'warning' | 'neutral' | 'info'",
+    "properties": {},
+    "deprecated": false
+  },
+  "Breadcrumb": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "separator": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbEllipsis": {
+    "kind": "component",
+    "signature": "declare function BreadcrumbEllipsis(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbEllipsisProps": {
+    "kind": "interface",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbItem": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbItemProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbLink": {
+    "kind": "component",
+    "properties": {
+      "asChild": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbLinkProps": {
+    "kind": "interface",
+    "properties": {
+      "asChild": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbList": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbListProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbPage": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbPageProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "separator": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbSeparator": {
+    "kind": "component",
+    "signature": "declare function BreadcrumbSeparator(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "BreadcrumbSeparatorProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Button": {
+    "kind": "component",
+    "properties": {
+      "variant": {
+        "type": "ButtonVariant | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "ButtonSize | undefined",
+        "required": false
+      },
+      "isLoading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "loadingText": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "fullWidth": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "iconOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "leftIcon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "rightIcon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ButtonProps": {
+    "kind": "interface",
+    "properties": {
+      "variant": {
+        "type": "ButtonVariant | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "ButtonSize | undefined",
+        "required": false
+      },
+      "isLoading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "loadingText": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "fullWidth": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "iconOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "leftIcon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "rightIcon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ButtonSize": {
+    "kind": "type",
+    "signature": "'sm' | 'md' | 'lg'",
+    "properties": {},
+    "deprecated": false
+  },
+  "ButtonVariant": {
+    "kind": "type",
+    "signature": "'primary' | 'orange' | 'outline' | 'ghost' | 'danger' | 'destructive' | 'link'",
+    "properties": {},
+    "deprecated": false
+  },
+  "Calendar": {
+    "kind": "component",
+    "signature": "declare function Calendar(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "mode": {
+        "type": "\"single\" | \"range\" | \"week\" | \"month\" | \"year\" | undefined",
+        "required": false
+      },
+      "value": {
+        "type": "string | null | undefined",
+        "required": false
+      },
+      "rangeValue": {
+        "type": "[string | null, string | null] | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((date: string) => void) | undefined",
+        "required": false
+      },
+      "onRangeChange": {
+        "type": "((range: [string, string]) => void) | undefined",
+        "required": false
+      },
+      "minDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "maxDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "disabledDate": {
+        "type": "((date: Date) => boolean) | undefined",
+        "required": false
+      },
+      "disableWeekends": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "showToday": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CalendarProps": {
+    "kind": "interface",
+    "properties": {
+      "mode": {
+        "type": "\"single\" | \"range\" | \"week\" | \"month\" | \"year\" | undefined",
+        "required": false
+      },
+      "value": {
+        "type": "string | null | undefined",
+        "required": false
+      },
+      "rangeValue": {
+        "type": "[string | null, string | null] | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((date: string) => void) | undefined",
+        "required": false
+      },
+      "onRangeChange": {
+        "type": "((range: [string, string]) => void) | undefined",
+        "required": false
+      },
+      "minDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "maxDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "disabledDate": {
+        "type": "((date: Date) => boolean) | undefined",
+        "required": false
+      },
+      "disableWeekends": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "showToday": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Card": {
+    "kind": "component",
+    "signature": "declare function Card(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "size": {
+        "type": "\"sm\" | \"md\" | \"lg\" | undefined",
+        "required": false
+      },
+      "flat": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CardContent": {
+    "kind": "component",
+    "properties": {},
+    "deprecated": false
+  },
+  "CardDescription": {
+    "kind": "component",
+    "properties": {},
+    "deprecated": false
+  },
+  "CardFooter": {
+    "kind": "component",
+    "properties": {},
+    "deprecated": false
+  },
+  "CardHeader": {
+    "kind": "component",
+    "properties": {},
+    "deprecated": false
+  },
+  "CardProps": {
+    "kind": "interface",
+    "properties": {
+      "size": {
+        "type": "\"sm\" | \"md\" | \"lg\" | undefined",
+        "required": false
+      },
+      "flat": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CardSectionProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CardTitle": {
+    "kind": "component",
+    "properties": {},
+    "deprecated": false
+  },
+  "Checkbox": {
+    "kind": "component",
+    "properties": {
+      "label": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "indeterminate": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CheckboxGroup": {
+    "kind": "component",
+    "signature": "declare function CheckboxGroup(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "string[]",
+        "required": true
+      },
+      "onChange": {
+        "type": "(value: string[]) => void",
+        "required": true
+      },
+      "options": {
+        "type": "CheckboxGroupOption[]",
+        "required": true
+      },
+      "orientation": {
+        "type": "\"vertical\" | \"horizontal\" | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CheckboxGroupOption": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CheckboxGroupProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string[]",
+        "required": true
+      },
+      "onChange": {
+        "type": "(value: string[]) => void",
+        "required": true
+      },
+      "options": {
+        "type": "CheckboxGroupOption[]",
+        "required": true
+      },
+      "orientation": {
+        "type": "\"vertical\" | \"horizontal\" | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CheckboxMenuItem": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "checked": {
+        "type": "boolean",
+        "required": true
+      },
+      "onCheckedChange": {
+        "type": "(checked: boolean) => void",
+        "required": true
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CheckboxMenuItemProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "checked": {
+        "type": "boolean",
+        "required": true
+      },
+      "onCheckedChange": {
+        "type": "(checked: boolean) => void",
+        "required": true
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CheckboxProps": {
+    "kind": "interface",
+    "properties": {
+      "label": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "indeterminate": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CircularProgress": {
+    "kind": "component",
+    "signature": "declare function CircularProgress(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "strokeWidth": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "variant": {
+        "type": "\"danger\" | \"warning\" | \"primary\" | \"success\" | undefined",
+        "required": false
+      },
+      "showValue": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CircularProgressProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "strokeWidth": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "variant": {
+        "type": "\"danger\" | \"warning\" | \"primary\" | \"success\" | undefined",
+        "required": false
+      },
+      "showValue": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Collapsible": {
+    "kind": "component",
+    "signature": "declare function Collapsible(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "open": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "defaultOpen": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onOpenChange": {
+        "type": "((open: boolean) => void) | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "CollapsibleContent": {
+    "kind": "component",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "CollapsibleContentProps": {
+    "kind": "interface",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "CollapsibleContextValue": {
+    "kind": "interface",
+    "properties": {
+      "open": {
+        "type": "boolean",
+        "required": true
+      },
+      "toggleOpen": {
+        "type": "() => void",
+        "required": true
+      },
+      "disabled": {
+        "type": "boolean",
+        "required": true
+      },
+      "triggerId": {
+        "type": "string",
+        "required": true
+      },
+      "contentId": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "CollapsibleProps": {
+    "kind": "interface",
+    "properties": {
+      "open": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "defaultOpen": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onOpenChange": {
+        "type": "((open: boolean) => void) | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "CollapsibleTrigger": {
+    "kind": "component",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "CollapsibleTriggerProps": {
+    "kind": "interface",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "Command": {
+    "kind": "interface",
+    "properties": {
+      "id": {
+        "type": "string",
+        "required": true
+      },
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "keywords": {
+        "type": "string[] | undefined",
+        "required": false
+      },
+      "group": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "hidden": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "closeOnExecute": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onExecute": {
+        "type": "() => void",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPalette": {
+    "kind": "function",
+    "signature": "declare function CommandPalette(",
+    "returnType": "React.ReactPortal | null",
+    "properties": {
+      "{ open: controlledOpen, defaultOpen, onOpenChange, commands: explicitCommands, placeholder, emptyText, children, className, }": {
+        "type": "CommandPaletteProps",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteEmpty": {
+    "kind": "component",
+    "signature": "declare function CommandPaletteEmpty(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "message": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteEmptyProps": {
+    "kind": "interface",
+    "properties": {
+      "message": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteFooter": {
+    "kind": "component",
+    "signature": "declare function CommandPaletteFooter(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ className }": {
+        "type": "{ className?: string; }",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteGroup": {
+    "kind": "component",
+    "properties": {
+      "heading": {
+        "type": "string",
+        "required": true
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteGroupProps": {
+    "kind": "interface",
+    "properties": {
+      "heading": {
+        "type": "string",
+        "required": true
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteInput": {
+    "kind": "component",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteInputProps": {
+    "kind": "interface",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteItem": {
+    "kind": "component",
+    "properties": {
+      "command": {
+        "type": "Command",
+        "required": true
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteItemProps": {
+    "kind": "interface",
+    "properties": {
+      "command": {
+        "type": "Command",
+        "required": true
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteList": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteListProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteProps": {
+    "kind": "interface",
+    "properties": {
+      "open": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "defaultOpen": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onOpenChange": {
+        "type": "((open: boolean) => void) | undefined",
+        "required": false
+      },
+      "commands": {
+        "type": "Command[] | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "emptyText": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteSeparator": {
+    "kind": "component",
+    "signature": "declare function CommandPaletteSeparator(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ className }": {
+        "type": "{ className?: string; }",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteTrigger": {
+    "kind": "component",
+    "properties": {
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandPaletteTriggerProps": {
+    "kind": "interface",
+    "properties": {
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandProvider": {
+    "kind": "component",
+    "signature": "declare function CommandProvider(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "initialCommands": {
+        "type": "Command[] | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandProviderProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "initialCommands": {
+        "type": "Command[] | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CommandRegistryContextValue": {
+    "kind": "interface",
+    "properties": {
+      "commands": {
+        "type": "Command[]",
+        "required": true
+      },
+      "groups": {
+        "type": "string[]",
+        "required": true
+      },
+      "registerCommand": {
+        "type": "(command: Command) => () => void",
+        "required": true
+      },
+      "registerCommands": {
+        "type": "(commands: Command[]) => () => void",
+        "required": true
+      },
+      "unregisterCommand": {
+        "type": "(id: string) => void",
+        "required": true
+      },
+      "executeCommand": {
+        "type": "(id: string) => boolean",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "ContextMenu": {
+    "kind": "component",
+    "signature": "declare function ContextMenu(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "items": {
+        "type": "DropdownMenuItemConfig[] | undefined",
+        "required": false
+      },
+      "content": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "width": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "minWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "maxWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "closeOnOutsideClick": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "closeOnEscape": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "closeOnSelect": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "contentClassName": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "ariaLabel": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ContextMenuProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "items": {
+        "type": "DropdownMenuItemConfig[] | undefined",
+        "required": false
+      },
+      "content": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "width": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "minWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "maxWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "closeOnOutsideClick": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "closeOnEscape": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "closeOnSelect": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "contentClassName": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "ariaLabel": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CustomSelect": {
+    "kind": "component",
+    "signature": "declare function CustomSelect(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "options": {
+        "type": "SelectOption[]",
+        "required": true
+      },
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "onChange": {
+        "type": "(value: string) => void",
+        "required": true
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "searchThreshold": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "helper": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "wrapperClassName": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CustomSelectProps": {
+    "kind": "interface",
+    "properties": {
+      "options": {
+        "type": "SelectOption[]",
+        "required": true
+      },
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "onChange": {
+        "type": "(value: string) => void",
+        "required": true
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "searchThreshold": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "helper": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "wrapperClassName": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DataLoader": {
+    "kind": "component",
+    "signature": "declare function DataLoader<T>(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "loading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | Error | null | undefined",
+        "required": false
+      },
+      "data": {
+        "type": "T | null | undefined",
+        "required": false
+      },
+      "isEmpty": {
+        "type": "((data: T | null | undefined) => boolean) | undefined",
+        "required": false
+      },
+      "loadingFallback": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "errorFallback": {
+        "type": "React.ReactNode | ((err: string | Error) => React.ReactNode)",
+        "required": false
+      },
+      "emptyFallback": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode | ((data: T) => React.ReactNode)",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DataLoaderProps": {
+    "kind": "interface",
+    "properties": {
+      "loading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | Error | null | undefined",
+        "required": false
+      },
+      "data": {
+        "type": "T | null | undefined",
+        "required": false
+      },
+      "isEmpty": {
+        "type": "((data: T | null | undefined) => boolean) | undefined",
+        "required": false
+      },
+      "loadingFallback": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "errorFallback": {
+        "type": "React.ReactNode | ((err: string | Error) => React.ReactNode)",
+        "required": false
+      },
+      "emptyFallback": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode | ((data: T) => React.ReactNode)",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DateField": {
+    "kind": "component",
+    "signature": "declare function DateField(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "string | Date | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((date: string | null) => void) | undefined",
+        "required": false
+      },
+      "minDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "maxDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "disabledDate": {
+        "type": "((date: Date) => boolean) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "format": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DateFieldProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string | Date | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((date: string | null) => void) | undefined",
+        "required": false
+      },
+      "minDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "maxDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "disabledDate": {
+        "type": "((date: Date) => boolean) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "format": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DateRangeField": {
+    "kind": "component",
+    "signature": "declare function DateRangeField(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "DateRangeValue | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((value: DateRangeValue) => void) | undefined",
+        "required": false
+      },
+      "minDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "maxDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DateRangeFieldProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "DateRangeValue | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((value: DateRangeValue) => void) | undefined",
+        "required": false
+      },
+      "minDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "maxDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DateRangeValue": {
+    "kind": "interface",
+    "properties": {
+      "startDate": {
+        "type": "string | null",
+        "required": true
+      },
+      "endDate": {
+        "type": "string | null",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "DateTimeField": {
+    "kind": "component",
+    "signature": "declare function DateTimeField(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "DateTimeValue | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((value: DateTimeValue) => void) | undefined",
+        "required": false
+      },
+      "minDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "maxDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "timeFormat": {
+        "type": "\"12h\" | \"24h\" | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DateTimeFieldProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "DateTimeValue | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((value: DateTimeValue) => void) | undefined",
+        "required": false
+      },
+      "minDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "maxDate": {
+        "type": "string | Date | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "timeFormat": {
+        "type": "\"12h\" | \"24h\" | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DateTimeRangeField": {
+    "kind": "component",
+    "signature": "declare function DateTimeRangeField(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "[string, string] | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((range: [string, string] | null) => void) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DateTimeRangeFieldProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "[string, string] | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((range: [string, string] | null) => void) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DateTimeValue": {
+    "kind": "interface",
+    "properties": {
+      "date": {
+        "type": "string | null",
+        "required": true
+      },
+      "time": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "DefaultSelectOption": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "group": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Divider": {
+    "kind": "component",
+    "signature": "declare function Divider(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "size": {
+        "type": "\"sm\" | \"md\" | \"lg\" | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DividerProps": {
+    "kind": "interface",
+    "properties": {
+      "size": {
+        "type": "\"sm\" | \"md\" | \"lg\" | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DownloadButton": {
+    "kind": "component",
+    "signature": "declare function DownloadButton(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "url": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "blob": {
+        "type": "Blob | undefined",
+        "required": false
+      },
+      "filename": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onDownload": {
+        "type": "(() => void | Promise<void>) | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DownloadButtonProps": {
+    "kind": "interface",
+    "properties": {
+      "url": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "blob": {
+        "type": "Blob | undefined",
+        "required": false
+      },
+      "filename": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onDownload": {
+        "type": "(() => void | Promise<void>) | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DropdownMenu": {
+    "kind": "component",
+    "signature": "declare function DropdownMenu(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "trigger": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "items": {
+        "type": "DropdownMenuItemConfig[] | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "open": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "defaultOpen": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onOpenChange": {
+        "type": "((open: boolean) => void) | undefined",
+        "required": false
+      },
+      "placement": {
+        "type": "FloatingPlacement | undefined",
+        "required": false
+      },
+      "align": {
+        "type": "FloatingAlign | undefined",
+        "required": false
+      },
+      "offset": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "viewportPadding": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "width": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "minWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "maxWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "closeOnSelect": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "closeOnOutsideClick": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "closeOnEscape": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "contentClassName": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "ariaLabel": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DropdownMenuItemConfig": {
+    "kind": "interface",
+    "properties": {
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "type": {
+        "type": "\"checkbox\" | \"radio\" | \"item\" | \"separator\" | \"group\" | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "trailing": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "destructive": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "checked": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onClick": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "onCheckedChange": {
+        "type": "((checked: boolean) => void) | undefined",
+        "required": false
+      },
+      "items": {
+        "type": "DropdownMenuItemConfig[] | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DropdownMenuProps": {
+    "kind": "interface",
+    "properties": {
+      "trigger": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "items": {
+        "type": "DropdownMenuItemConfig[] | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "open": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "defaultOpen": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onOpenChange": {
+        "type": "((open: boolean) => void) | undefined",
+        "required": false
+      },
+      "placement": {
+        "type": "FloatingPlacement | undefined",
+        "required": false
+      },
+      "align": {
+        "type": "FloatingAlign | undefined",
+        "required": false
+      },
+      "offset": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "viewportPadding": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "width": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "minWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "maxWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "closeOnSelect": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "closeOnOutsideClick": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "closeOnEscape": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "contentClassName": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "ariaLabel": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Dropzone": {
+    "kind": "component",
+    "properties": {
+      "onDrop": {
+        "type": "((files: File[]) => void) | undefined",
+        "required": false
+      },
+      "onReject": {
+        "type": "((rejections: FileRejection[]) => void) | undefined",
+        "required": false
+      },
+      "accept": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "maxSize": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxFiles": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "multiple": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DropzoneProps": {
+    "kind": "interface",
+    "properties": {
+      "onDrop": {
+        "type": "((files: File[]) => void) | undefined",
+        "required": false
+      },
+      "onReject": {
+        "type": "((rejections: FileRejection[]) => void) | undefined",
+        "required": false
+      },
+      "accept": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "maxSize": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxFiles": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "multiple": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DynamicSelect": {
+    "kind": "component",
+    "signature": "declare function DynamicSelect<T = DefaultSelectOption>(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "options": {
+        "type": "T[]",
+        "required": true
+      },
+      "value": {
+        "type": "string | string[] | T | T[] | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "(value: T | T[] | null) => void",
+        "required": true
+      },
+      "mode": {
+        "type": "DynamicSelectMode | undefined",
+        "required": false
+      },
+      "searchable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "search": {
+        "type": "DynamicSelectSearchConfig | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "selectAll": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "maxVisibleValues": {
+        "type": "number | \"auto\" | undefined",
+        "required": false
+      },
+      "maxSelections": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "grouping": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "loading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "allowCreate": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "virtualized": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "dropdownWidth": {
+        "type": "number | \"auto\" | \"match\" | undefined",
+        "required": false
+      },
+      "maxMenuHeight": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "optionLabel": {
+        "type": "((option: T) => string) | undefined",
+        "required": false
+      },
+      "optionValue": {
+        "type": "((option: T) => string) | undefined",
+        "required": false
+      },
+      "optionGroup": {
+        "type": "((option: T) => string) | undefined",
+        "required": false
+      },
+      "optionDescription": {
+        "type": "((option: T) => string | undefined) | undefined",
+        "required": false
+      },
+      "optionDisabled": {
+        "type": "((option: T) => boolean) | undefined",
+        "required": false
+      },
+      "renderOption": {
+        "type": "((option: T, state: { selected: boolean; focused: boolean; }) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "renderValue": {
+        "type": "((option: T | T[]) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "onSearch": {
+        "type": "((query: string) => void) | undefined",
+        "required": false
+      },
+      "onCreateOption": {
+        "type": "((query: string) => void) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DynamicSelectMode": {
+    "kind": "type",
+    "signature": "'single' | 'multiple'",
+    "properties": {},
+    "deprecated": false
+  },
+  "DynamicSelectProps": {
+    "kind": "interface",
+    "properties": {
+      "options": {
+        "type": "T[]",
+        "required": true
+      },
+      "value": {
+        "type": "string | string[] | T | T[] | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "(value: T | T[] | null) => void",
+        "required": true
+      },
+      "mode": {
+        "type": "DynamicSelectMode | undefined",
+        "required": false
+      },
+      "searchable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "search": {
+        "type": "DynamicSelectSearchConfig | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "selectAll": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "maxVisibleValues": {
+        "type": "number | \"auto\" | undefined",
+        "required": false
+      },
+      "maxSelections": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "grouping": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "loading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "allowCreate": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "virtualized": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "dropdownWidth": {
+        "type": "number | \"auto\" | \"match\" | undefined",
+        "required": false
+      },
+      "maxMenuHeight": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "optionLabel": {
+        "type": "((option: T) => string) | undefined",
+        "required": false
+      },
+      "optionValue": {
+        "type": "((option: T) => string) | undefined",
+        "required": false
+      },
+      "optionGroup": {
+        "type": "((option: T) => string) | undefined",
+        "required": false
+      },
+      "optionDescription": {
+        "type": "((option: T) => string | undefined) | undefined",
+        "required": false
+      },
+      "optionDisabled": {
+        "type": "((option: T) => boolean) | undefined",
+        "required": false
+      },
+      "renderOption": {
+        "type": "((option: T, state: { selected: boolean; focused: boolean; }) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "renderValue": {
+        "type": "((option: T | T[]) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "onSearch": {
+        "type": "((query: string) => void) | undefined",
+        "required": false
+      },
+      "onCreateOption": {
+        "type": "((query: string) => void) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DynamicSelectSearchConfig": {
+    "kind": "interface",
+    "properties": {
+      "enabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "minCharacters": {
+        "type": "number | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "EmptyState": {
+    "kind": "component",
+    "properties": {
+      "variant": {
+        "type": "EmptyStateVariant | undefined",
+        "required": false
+      },
+      "compact": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "action": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "EmptyStateActions": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "EmptyStateActionsProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "EmptyStateDescription": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "EmptyStateDescriptionProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "EmptyStateIcon": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "EmptyStateIconProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "EmptyStateProps": {
+    "kind": "interface",
+    "properties": {
+      "variant": {
+        "type": "EmptyStateVariant | undefined",
+        "required": false
+      },
+      "compact": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "action": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "EmptyStateTitle": {
+    "kind": "component",
+    "properties": {
+      "as": {
+        "type": "EmptyStateHeadingLevel | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "EmptyStateTitleProps": {
+    "kind": "interface",
+    "properties": {
+      "as": {
+        "type": "EmptyStateHeadingLevel | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "EmptyStateVariant": {
+    "kind": "type",
+    "signature": "'default' | 'compact' | 'outline' | 'dashed'",
+    "properties": {},
+    "deprecated": false
+  },
+  "ErrorState": {
+    "kind": "component",
+    "properties": {
+      "variant": {
+        "type": "ErrorStateVariant | undefined",
+        "required": false
+      },
+      "compact": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "code": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "technicalDetails": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "action": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "onRetry": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "retryLabel": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ErrorStateActions": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ErrorStateActionsProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ErrorStateDescription": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ErrorStateDescriptionProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ErrorStateDetails": {
+    "kind": "component",
+    "properties": {
+      "code": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "errorCode": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "requestId": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "details": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "technicalMessage": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ErrorStateDetailsProps": {
+    "kind": "interface",
+    "properties": {
+      "code": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "errorCode": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "requestId": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "details": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "technicalMessage": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ErrorStateIcon": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ErrorStateIconProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ErrorStateProps": {
+    "kind": "interface",
+    "properties": {
+      "variant": {
+        "type": "ErrorStateVariant | undefined",
+        "required": false
+      },
+      "compact": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "code": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "technicalDetails": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "action": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "onRetry": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "retryLabel": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ErrorStateTitle": {
+    "kind": "component",
+    "properties": {
+      "as": {
+        "type": "ErrorStateHeadingLevel | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ErrorStateTitleProps": {
+    "kind": "interface",
+    "properties": {
+      "as": {
+        "type": "ErrorStateHeadingLevel | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ExportButton": {
+    "kind": "component",
+    "signature": "declare function ExportButton<T extends Record<string, unknown> = Record<string, unknown>>(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "format": {
+        "type": "\"csv\" | \"xlsx\" | \"xls\"",
+        "required": true
+      },
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "columns": {
+        "type": "ExportColumn<any>[] | undefined",
+        "required": false
+      },
+      "filename": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onExport": {
+        "type": "(() => void | Promise<void>) | undefined",
+        "required": false
+      },
+      "sheetName": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ExportButtonProps": {
+    "kind": "interface",
+    "properties": {
+      "format": {
+        "type": "\"csv\" | \"xlsx\" | \"xls\"",
+        "required": true
+      },
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "columns": {
+        "type": "ExportColumn<any>[] | undefined",
+        "required": false
+      },
+      "filename": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onExport": {
+        "type": "(() => void | Promise<void>) | undefined",
+        "required": false
+      },
+      "sheetName": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ExportMenu": {
+    "kind": "component",
+    "signature": "declare function ExportMenu<T extends Record<string, unknown> = Record<string, unknown>>(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "columns": {
+        "type": "ExportColumn<any>[] | undefined",
+        "required": false
+      },
+      "filename": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "sheetName": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onExportPdf": {
+        "type": "(() => void | Promise<void>) | undefined",
+        "required": false
+      },
+      "onPrint": {
+        "type": "(() => void | Promise<void>) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ExportMenuProps": {
+    "kind": "interface",
+    "properties": {
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "columns": {
+        "type": "ExportColumn<any>[] | undefined",
+        "required": false
+      },
+      "filename": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "sheetName": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onExportPdf": {
+        "type": "(() => void | Promise<void>) | undefined",
+        "required": false
+      },
+      "onPrint": {
+        "type": "(() => void | Promise<void>) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FileRejection": {
+    "kind": "interface",
+    "properties": {
+      "file": {
+        "type": "File",
+        "required": true
+      },
+      "errors": {
+        "type": "FileError[]",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "FileUpload": {
+    "kind": "component",
+    "properties": {
+      "files": {
+        "type": "File[] | undefined",
+        "required": false
+      },
+      "defaultFiles": {
+        "type": "File[] | undefined",
+        "required": false
+      },
+      "onFilesChange": {
+        "type": "((files: File[]) => void) | undefined",
+        "required": false
+      },
+      "onReject": {
+        "type": "((rejections: FileRejection[]) => void) | undefined",
+        "required": false
+      },
+      "accept": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "maxSize": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxFiles": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "multiple": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FileUploadContextValue": {
+    "kind": "interface",
+    "properties": {
+      "files": {
+        "type": "File[]",
+        "required": true
+      },
+      "fileStates": {
+        "type": "Record<string, FileItemState> | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "accept": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "maxSize": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxFiles": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "multiple": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "inputRef": {
+        "type": "React.RefObject<HTMLInputElement | null>",
+        "required": true
+      },
+      "openFilePicker": {
+        "type": "() => void",
+        "required": true
+      },
+      "removeFile": {
+        "type": "(fileToRemove: File) => void",
+        "required": true
+      },
+      "clearFiles": {
+        "type": "() => void",
+        "required": true
+      },
+      "onFilesSelected": {
+        "type": "(selectedFiles: File[]) => void",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "FileUploadDropzone": {
+    "kind": "component",
+    "properties": {},
+    "deprecated": false
+  },
+  "FileUploadDropzoneProps": {
+    "kind": "type",
+    "signature": "DropzoneProps",
+    "properties": {},
+    "deprecated": false
+  },
+  "FileUploadItem": {
+    "kind": "component",
+    "properties": {
+      "file": {
+        "type": "File",
+        "required": true
+      },
+      "status": {
+        "type": "FileUploadStatus | undefined",
+        "required": false
+      },
+      "progress": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "errorMessage": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onRemove": {
+        "type": "((file: File) => void) | undefined",
+        "required": false
+      },
+      "onRetry": {
+        "type": "((file: File) => void) | undefined",
+        "required": false
+      },
+      "showPreview": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FileUploadItemProps": {
+    "kind": "interface",
+    "properties": {
+      "file": {
+        "type": "File",
+        "required": true
+      },
+      "status": {
+        "type": "FileUploadStatus | undefined",
+        "required": false
+      },
+      "progress": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "errorMessage": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onRemove": {
+        "type": "((file: File) => void) | undefined",
+        "required": false
+      },
+      "onRetry": {
+        "type": "((file: File) => void) | undefined",
+        "required": false
+      },
+      "showPreview": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FileUploadList": {
+    "kind": "component",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FileUploadListProps": {
+    "kind": "interface",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FileUploadProps": {
+    "kind": "interface",
+    "properties": {
+      "files": {
+        "type": "File[] | undefined",
+        "required": false
+      },
+      "defaultFiles": {
+        "type": "File[] | undefined",
+        "required": false
+      },
+      "onFilesChange": {
+        "type": "((files: File[]) => void) | undefined",
+        "required": false
+      },
+      "onReject": {
+        "type": "((rejections: FileRejection[]) => void) | undefined",
+        "required": false
+      },
+      "accept": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "maxSize": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxFiles": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "multiple": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FileUploadStatus": {
+    "kind": "type",
+    "signature": "'idle' | 'uploading' | 'success' | 'error'",
+    "properties": {},
+    "deprecated": false
+  },
+  "FileUploadTrigger": {
+    "kind": "component",
+    "properties": {
+      "asChild": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FileUploadTriggerProps": {
+    "kind": "interface",
+    "properties": {
+      "asChild": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FileValidationError": {
+    "kind": "type",
+    "signature": "FileError",
+    "properties": {},
+    "deprecated": false
+  },
+  "FileValidationOptions": {
+    "kind": "type",
+    "signature": "ValidateFilesOptions",
+    "properties": {},
+    "deprecated": false
+  },
+  "FloatingAlign": {
+    "kind": "type",
+    "signature": "'start' | 'center' | 'end'",
+    "properties": {},
+    "deprecated": false
+  },
+  "FloatingPlacement": {
+    "kind": "type",
+    "signature": "'top' | 'bottom' | 'left' | 'right' | 'auto'",
+    "properties": {},
+    "deprecated": false
+  },
+  "FloatingPositionResult": {
+    "kind": "interface",
+    "properties": {
+      "top": {
+        "type": "number",
+        "required": true
+      },
+      "left": {
+        "type": "number",
+        "required": true
+      },
+      "actualPlacement": {
+        "type": "FloatingPlacement",
+        "required": true
+      },
+      "actualAlign": {
+        "type": "FloatingAlign",
+        "required": true
+      },
+      "recompute": {
+        "type": "() => void",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "Input": {
+    "kind": "component",
+    "properties": {
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "status": {
+        "type": "\"warning\" | \"success\" | \"default\" | \"error\" | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "leftAdornment": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "prefix": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "leadingIcon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "rightAdornment": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "suffix": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "trailingIcon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "loading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onClear": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "showCount": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "wrapperClassName": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "InputProps": {
+    "kind": "interface",
+    "properties": {
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "status": {
+        "type": "\"warning\" | \"success\" | \"default\" | \"error\" | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "leftAdornment": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "prefix": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "leadingIcon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "rightAdornment": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "suffix": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "trailingIcon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "loading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onClear": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "showCount": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "wrapperClassName": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Kbd": {
+    "kind": "component",
+    "properties": {
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "platform": {
+        "type": "\"mac\" | \"windows\" | \"linux\" | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "KbdSize | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "KbdProps": {
+    "kind": "interface",
+    "properties": {
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "platform": {
+        "type": "\"mac\" | \"windows\" | \"linux\" | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "KbdSize | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "KbdSize": {
+    "kind": "type",
+    "signature": "'xs' | 'sm' | 'md'",
+    "properties": {},
+    "deprecated": false
+  },
+  "KeyboardShortcutProvider": {
+    "kind": "component",
+    "signature": "declare function KeyboardShortcutProvider(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "platform": {
+        "type": "\"mac\" | \"windows\" | \"linux\" | undefined",
+        "required": false
+      },
+      "onConflict": {
+        "type": "((conflicts: ShortcutConflict[]) => void) | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "KeyboardShortcutProviderProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "platform": {
+        "type": "\"mac\" | \"windows\" | \"linux\" | undefined",
+        "required": false
+      },
+      "onConflict": {
+        "type": "((conflicts: ShortcutConflict[]) => void) | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "LogoUploader": {
+    "kind": "component",
+    "signature": "declare function LogoUploader(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "currentLogoUrl": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onUpload": {
+        "type": "(file: File) => Promise<string | null>",
+        "required": true
+      },
+      "onRemove": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "accept": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "maxSizeBytes": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "LogoUploaderProps": {
+    "kind": "interface",
+    "properties": {
+      "currentLogoUrl": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onUpload": {
+        "type": "(file: File) => Promise<string | null>",
+        "required": true
+      },
+      "onRemove": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "accept": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "maxSizeBytes": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MenuContent": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "ariaLabel": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MenuContentProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "ariaLabel": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MenuContextValue": {
+    "kind": "interface",
+    "properties": {
+      "onItemSelect": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "closeOnSelect": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MenuGroup": {
+    "kind": "component",
+    "signature": "declare function MenuGroup(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MenuGroupProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MenuItem": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "trailing": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "destructive": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onClick": {
+        "type": "((e: React.MouseEvent<HTMLButtonElement>) => void) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MenuItemProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "trailing": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "destructive": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onClick": {
+        "type": "((e: React.MouseEvent<HTMLButtonElement>) => void) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MenuSeparator": {
+    "kind": "component",
+    "signature": "declare function MenuSeparator(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MenuSeparatorProps": {
+    "kind": "interface",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MonthField": {
+    "kind": "component",
+    "signature": "declare function MonthField(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "string | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((val: string | null) => void) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MonthFieldProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((val: string | null) => void) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "NativeSelect": {
+    "kind": "component",
+    "properties": {
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "helper": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "options": {
+        "type": "SelectOption$1[]",
+        "required": true
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "wrapperClassName": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "NativeSelectOption": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "NativeSelectProps": {
+    "kind": "interface",
+    "properties": {
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "helper": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "options": {
+        "type": "SelectOption$1[]",
+        "required": true
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "wrapperClassName": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "NotificationBar": {
+    "kind": "component",
+    "signature": "declare function NotificationBar(",
+    "returnType": "React.JSX.Element | null",
+    "properties": {
+      "type": {
+        "type": "NotificationType | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "message": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "code": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "duration": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "onClose": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "NotificationBarProps": {
+    "kind": "interface",
+    "properties": {
+      "type": {
+        "type": "NotificationType | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "message": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "code": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "duration": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "onClose": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "NotificationType": {
+    "kind": "type",
+    "signature": "'success' | 'error' | 'warning' | 'info' | 'neutral'",
+    "properties": {},
+    "deprecated": false
+  },
+  "NumberInput": {
+    "kind": "component",
+    "properties": {
+      "value": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "defaultValue": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "min": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "max": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "step": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "precision": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "showSteppers": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((value: number | undefined) => void) | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "NumberInputProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "defaultValue": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "min": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "max": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "step": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "precision": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "showSteppers": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((value: number | undefined) => void) | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "OverlayLoader": {
+    "kind": "component",
+    "signature": "declare function OverlayLoader(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "loading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "message": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "OverlayLoaderProps": {
+    "kind": "interface",
+    "properties": {
+      "loading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "message": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PageLoader": {
+    "kind": "component",
+    "signature": "declare function PageLoader(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "message": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PageLoaderProps": {
+    "kind": "interface",
+    "properties": {
+      "message": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Pagination": {
+    "kind": "component",
+    "properties": {
+      "page": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "pageCount": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "onPageChange": {
+        "type": "((page: number) => void) | undefined",
+        "required": false
+      },
+      "siblingCount": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "boundaryCount": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "showFirstLast": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "showPrevNext": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "variant": {
+        "type": "PaginationVariant | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "PaginationSize | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationContent": {
+    "kind": "component",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationContentProps": {
+    "kind": "interface",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationEllipsis": {
+    "kind": "component",
+    "properties": {
+      "size": {
+        "type": "PaginationSize | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationEllipsisProps": {
+    "kind": "interface",
+    "properties": {
+      "size": {
+        "type": "PaginationSize | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationFirst": {
+    "kind": "component",
+    "properties": {
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationFirstProps": {
+    "kind": "interface",
+    "properties": {
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationItem": {
+    "kind": "component",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationItemProps": {
+    "kind": "interface",
+    "properties": {
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationItemValue": {
+    "kind": "type",
+    "signature": "number | 'ellipsis'",
+    "properties": {},
+    "deprecated": false
+  },
+  "PaginationLast": {
+    "kind": "component",
+    "properties": {
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationLastProps": {
+    "kind": "interface",
+    "properties": {
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationLink": {
+    "kind": "component",
+    "properties": {
+      "isActive": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "PaginationSize | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationLinkProps": {
+    "kind": "interface",
+    "properties": {
+      "isActive": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "PaginationSize | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationNext": {
+    "kind": "component",
+    "properties": {
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationNextProps": {
+    "kind": "interface",
+    "properties": {
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationPrevious": {
+    "kind": "component",
+    "properties": {
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationPreviousProps": {
+    "kind": "interface",
+    "properties": {
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationProps": {
+    "kind": "interface",
+    "properties": {
+      "page": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "pageCount": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "onPageChange": {
+        "type": "((page: number) => void) | undefined",
+        "required": false
+      },
+      "siblingCount": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "boundaryCount": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "showFirstLast": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "showPrevNext": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "variant": {
+        "type": "PaginationVariant | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "PaginationSize | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationRangeOptions": {
+    "kind": "interface",
+    "properties": {
+      "page": {
+        "type": "number",
+        "required": true
+      },
+      "pageCount": {
+        "type": "number",
+        "required": true
+      },
+      "siblingCount": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "boundaryCount": {
+        "type": "number | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationSize": {
+    "kind": "type",
+    "signature": "'sm' | 'md' | 'lg'",
+    "properties": {},
+    "deprecated": false
+  },
+  "PaginationVariant": {
+    "kind": "type",
+    "signature": "'default' | 'outline' | 'compact'",
+    "properties": {},
+    "deprecated": false
+  },
+  "PasswordInput": {
+    "kind": "component",
+    "properties": {
+      "showToggle": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PasswordInputProps": {
+    "kind": "interface",
+    "properties": {
+      "showToggle": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PdfViewer": {
+    "kind": "component",
+    "signature": "declare function PdfViewer(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "title": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "src": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "totalPages": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "initialPage": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "initialZoom": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "renderPage": {
+        "type": "((page: number, zoom: number) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "onPageChange": {
+        "type": "((page: number) => void) | undefined",
+        "required": false
+      },
+      "onPrint": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "onDownload": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "loading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "height": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PdfViewerProps": {
+    "kind": "interface",
+    "properties": {
+      "title": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "src": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "totalPages": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "initialPage": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "initialZoom": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "renderPage": {
+        "type": "((page: number, zoom: number) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "onPageChange": {
+        "type": "((page: number) => void) | undefined",
+        "required": false
+      },
+      "onPrint": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "onDownload": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "loading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "height": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PhoneInputField": {
+    "kind": "component",
+    "signature": "declare function PhoneInputField(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "countryCode": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "onChange": {
+        "type": "(value: string) => void",
+        "required": true
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "helper": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PhoneInputFieldProps": {
+    "kind": "interface",
+    "properties": {
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "countryCode": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "onChange": {
+        "type": "(value: string) => void",
+        "required": true
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "helper": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Popover": {
+    "kind": "component",
+    "signature": "declare function Popover(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "trigger": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "content": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "open": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "defaultOpen": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onOpenChange": {
+        "type": "((open: boolean) => void) | undefined",
+        "required": false
+      },
+      "placement": {
+        "type": "FloatingPlacement | undefined",
+        "required": false
+      },
+      "align": {
+        "type": "FloatingAlign | undefined",
+        "required": false
+      },
+      "offset": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "viewportPadding": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "closeOnOutsideClick": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "closeOnEscape": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "width": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "maxWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "minWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "contentClassName": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "restoreFocus": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "ariaLabel": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PopoverProps": {
+    "kind": "interface",
+    "properties": {
+      "trigger": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "content": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "open": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "defaultOpen": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onOpenChange": {
+        "type": "((open: boolean) => void) | undefined",
+        "required": false
+      },
+      "placement": {
+        "type": "FloatingPlacement | undefined",
+        "required": false
+      },
+      "align": {
+        "type": "FloatingAlign | undefined",
+        "required": false
+      },
+      "offset": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "viewportPadding": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "closeOnOutsideClick": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "closeOnEscape": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "width": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "maxWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "minWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "contentClassName": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "restoreFocus": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "ariaLabel": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PrintButton": {
+    "kind": "component",
+    "signature": "declare function PrintButton(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "target": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onPrint": {
+        "type": "(() => void | Promise<void>) | undefined",
+        "required": false
+      },
+      "onBeforePrint": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "onAfterPrint": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PrintButtonProps": {
+    "kind": "interface",
+    "properties": {
+      "target": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onPrint": {
+        "type": "(() => void | Promise<void>) | undefined",
+        "required": false
+      },
+      "onBeforePrint": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "onAfterPrint": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Progress": {
+    "kind": "component",
+    "signature": "declare function Progress(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "max": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "\"sm\" | \"md\" | \"lg\" | undefined",
+        "required": false
+      },
+      "variant": {
+        "type": "\"danger\" | \"warning\" | \"primary\" | \"success\" | undefined",
+        "required": false
+      },
+      "showLabel": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ProgressProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "max": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "\"sm\" | \"md\" | \"lg\" | undefined",
+        "required": false
+      },
+      "variant": {
+        "type": "\"danger\" | \"warning\" | \"primary\" | \"success\" | undefined",
+        "required": false
+      },
+      "showLabel": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Radio": {
+    "kind": "component",
+    "properties": {
+      "label": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "RadioGroup": {
+    "kind": "component",
+    "signature": "declare function RadioGroup(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "onChange": {
+        "type": "(value: string) => void",
+        "required": true
+      },
+      "options": {
+        "type": "RadioGroupOption[]",
+        "required": true
+      },
+      "name": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "orientation": {
+        "type": "\"vertical\" | \"horizontal\" | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "RadioGroupOption": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "RadioGroupProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "onChange": {
+        "type": "(value: string) => void",
+        "required": true
+      },
+      "options": {
+        "type": "RadioGroupOption[]",
+        "required": true
+      },
+      "name": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "orientation": {
+        "type": "\"vertical\" | \"horizontal\" | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "RadioMenuItem": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "checked": {
+        "type": "boolean",
+        "required": true
+      },
+      "onSelect": {
+        "type": "() => void",
+        "required": true
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "RadioMenuItemProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "checked": {
+        "type": "boolean",
+        "required": true
+      },
+      "onSelect": {
+        "type": "() => void",
+        "required": true
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "shortcut": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "RadioProps": {
+    "kind": "interface",
+    "properties": {
+      "label": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "RegisteredShortcut": {
+    "kind": "interface",
+    "properties": {
+      "id": {
+        "type": "string",
+        "required": true
+      },
+      "shortcut": {
+        "type": "string",
+        "required": true
+      },
+      "normalized": {
+        "type": "string",
+        "required": true
+      },
+      "handler": {
+        "type": "() => void",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "SearchInput": {
+    "kind": "component",
+    "properties": {
+      "showSearchIcon": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onSearch": {
+        "type": "((query: string) => void) | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SearchInputProps": {
+    "kind": "interface",
+    "properties": {
+      "showSearchIcon": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onSearch": {
+        "type": "((query: string) => void) | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SelectOption": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ShortcutOptions": {
+    "kind": "interface",
+    "properties": {
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "group": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "enabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "allowInInput": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "preventDefault": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Skeleton": {
+    "kind": "component",
+    "signature": "declare function Skeleton(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "width": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "height": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "radius": {
+        "type": "\"sm\" | \"md\" | \"lg\" | \"full\" | \"none\" | undefined",
+        "required": false
+      },
+      "animation": {
+        "type": "\"none\" | \"shimmer\" | \"pulse\" | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SkeletonAvatar": {
+    "kind": "component",
+    "signature": "declare function SkeletonAvatar(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ size, className, }": {
+        "type": "{ size?: number; className?: string; }",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "SkeletonCard": {
+    "kind": "component",
+    "signature": "declare function SkeletonCard(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ className }": {
+        "type": "{ className?: string; }",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "SkeletonProps": {
+    "kind": "interface",
+    "properties": {
+      "width": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "height": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "radius": {
+        "type": "\"sm\" | \"md\" | \"lg\" | \"full\" | \"none\" | undefined",
+        "required": false
+      },
+      "animation": {
+        "type": "\"none\" | \"shimmer\" | \"pulse\" | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SkeletonTable": {
+    "kind": "component",
+    "signature": "declare function SkeletonTable(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ rows, columns, className, }": {
+        "type": "{ rows?: number; columns?: number; className?: string; }",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "SkeletonText": {
+    "kind": "component",
+    "signature": "declare function SkeletonText(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ lines, gap, className, }": {
+        "type": "{ lines?: number; gap?: string; className?: string; }",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "Spinner": {
+    "kind": "component",
+    "signature": "declare function Spinner(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "size": {
+        "type": "SpinnerSize | undefined",
+        "required": false
+      },
+      "color": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "showLabel": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "inline": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SpinnerProps": {
+    "kind": "interface",
+    "properties": {
+      "size": {
+        "type": "SpinnerSize | undefined",
+        "required": false
+      },
+      "color": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "showLabel": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "inline": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SpinnerSize": {
+    "kind": "type",
+    "signature": "'xs' | 'sm' | 'md' | 'lg' | 'xl'",
+    "properties": {},
+    "deprecated": false
+  },
+  "StatusBadge": {
+    "kind": "component",
+    "signature": "declare function StatusBadge(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "status": {
+        "type": "string",
+        "required": true
+      },
+      "statusMap": {
+        "type": "Record<string, StatusConfig>",
+        "required": true
+      },
+      "fallback": {
+        "type": "StatusConfig | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "StatusSize | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "StatusBadgeProps": {
+    "kind": "interface",
+    "properties": {
+      "status": {
+        "type": "string",
+        "required": true
+      },
+      "statusMap": {
+        "type": "Record<string, StatusConfig>",
+        "required": true
+      },
+      "fallback": {
+        "type": "StatusConfig | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "StatusSize | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "StatusConfig": {
+    "kind": "interface",
+    "properties": {
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "bg": {
+        "type": "string",
+        "required": true
+      },
+      "color": {
+        "type": "string",
+        "required": true
+      },
+      "border": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "StatusSize": {
+    "kind": "type",
+    "signature": "'sm' | 'md' | 'lg'",
+    "properties": {},
+    "deprecated": false
+  },
+  "Switch": {
+    "kind": "component",
+    "signature": "declare function Switch(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "checked": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "defaultChecked": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((checked: boolean) => void) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "loading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "variant": {
+        "type": "SwitchVariant | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "SwitchSize | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "name": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SwitchProps": {
+    "kind": "interface",
+    "properties": {
+      "checked": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "defaultChecked": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((checked: boolean) => void) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "loading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "variant": {
+        "type": "SwitchVariant | undefined",
+        "required": false
+      },
+      "size": {
+        "type": "SwitchSize | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "name": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SwitchSize": {
+    "kind": "type",
+    "signature": "'sm' | 'md' | 'lg'",
+    "properties": {},
+    "deprecated": false
+  },
+  "SwitchVariant": {
+    "kind": "type",
+    "signature": "'default' | 'compact' | 'labeled' | 'icon' | 'outline'",
+    "properties": {},
+    "deprecated": false
+  },
+  "Tabs": {
+    "kind": "component",
+    "signature": "declare function Tabs(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "defaultValue": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onValueChange": {
+        "type": "((value: string) => void) | undefined",
+        "required": false
+      },
+      "orientation": {
+        "type": "TabsOrientation | undefined",
+        "required": false
+      },
+      "activationMode": {
+        "type": "TabsActivationMode | undefined",
+        "required": false
+      },
+      "variant": {
+        "type": "TabsVariant | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "TabsActivationMode": {
+    "kind": "type",
+    "signature": "'automatic' | 'manual'",
+    "properties": {},
+    "deprecated": false
+  },
+  "TabsContent": {
+    "kind": "component",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "lazy": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "TabsContentProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "lazy": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "TabsContextValue": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "onValueChange": {
+        "type": "(value: string) => void",
+        "required": true
+      },
+      "orientation": {
+        "type": "TabsOrientation",
+        "required": true
+      },
+      "activationMode": {
+        "type": "TabsActivationMode",
+        "required": true
+      },
+      "variant": {
+        "type": "TabsVariant",
+        "required": true
+      },
+      "baseId": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "TabsList": {
+    "kind": "component",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "ariaLabel": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "TabsListProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "ariaLabel": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "TabsOrientation": {
+    "kind": "type",
+    "signature": "'horizontal' | 'vertical'",
+    "properties": {},
+    "deprecated": false
+  },
+  "TabsProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "defaultValue": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onValueChange": {
+        "type": "((value: string) => void) | undefined",
+        "required": false
+      },
+      "orientation": {
+        "type": "TabsOrientation | undefined",
+        "required": false
+      },
+      "activationMode": {
+        "type": "TabsActivationMode | undefined",
+        "required": false
+      },
+      "variant": {
+        "type": "TabsVariant | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "TabsTrigger": {
+    "kind": "component",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "TabsTriggerProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "TabsVariant": {
+    "kind": "type",
+    "signature": "'default' | 'line' | 'pill'",
+    "properties": {},
+    "deprecated": false
+  },
+  "Textarea": {
+    "kind": "component",
+    "properties": {
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "status": {
+        "type": "\"warning\" | \"success\" | \"default\" | \"error\" | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "minRows": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxRows": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "autoResize": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "resize": {
+        "type": "\"vertical\" | \"horizontal\" | \"none\" | \"both\" | undefined",
+        "required": false
+      },
+      "showCount": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "wrapperClassName": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "TextareaProps": {
+    "kind": "interface",
+    "properties": {
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "status": {
+        "type": "\"warning\" | \"success\" | \"default\" | \"error\" | undefined",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "minRows": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxRows": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "autoResize": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "resize": {
+        "type": "\"vertical\" | \"horizontal\" | \"none\" | \"both\" | undefined",
+        "required": false
+      },
+      "showCount": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "wrapperClassName": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "TimeField": {
+    "kind": "component",
+    "signature": "declare function TimeField(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((time: string) => void) | undefined",
+        "required": false
+      },
+      "format": {
+        "type": "\"12h\" | \"24h\" | undefined",
+        "required": false
+      },
+      "minuteStep": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "TimeFieldProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((time: string) => void) | undefined",
+        "required": false
+      },
+      "format": {
+        "type": "\"12h\" | \"24h\" | undefined",
+        "required": false
+      },
+      "minuteStep": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "TimeRangeField": {
+    "kind": "component",
+    "signature": "declare function TimeRangeField(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "[string, string] | TimeRangeValue | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((range: [string, string] | null) => void) | undefined",
+        "required": false
+      },
+      "format": {
+        "type": "\"12h\" | \"24h\" | undefined",
+        "required": false
+      },
+      "minuteStep": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "TimeRangeFieldProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "[string, string] | TimeRangeValue | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((range: [string, string] | null) => void) | undefined",
+        "required": false
+      },
+      "format": {
+        "type": "\"12h\" | \"24h\" | undefined",
+        "required": false
+      },
+      "minuteStep": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "TimeRangeValue": {
+    "kind": "interface",
+    "properties": {
+      "startTime": {
+        "type": "string",
+        "required": true
+      },
+      "endTime": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "ToastAction": {
+    "kind": "interface",
+    "properties": {
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "onClick": {
+        "type": "(e: React.MouseEvent<HTMLButtonElement>) => void",
+        "required": true
+      },
+      "altText": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ToastContextValue": {
+    "kind": "interface",
+    "properties": {
+      "toasts": {
+        "type": "ToastData[]",
+        "required": true
+      },
+      "toast": {
+        "type": "(options: ToastOptions) => string",
+        "required": true
+      },
+      "dismiss": {
+        "type": "(id: string) => void",
+        "required": true
+      },
+      "dismissAll": {
+        "type": "() => void",
+        "required": true
+      },
+      "update": {
+        "type": "(id: string, options: Partial<ToastOptions>) => void",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "ToastData": {
+    "kind": "interface",
+    "properties": {
+      "id": {
+        "type": "string",
+        "required": true
+      },
+      "createdAt": {
+        "type": "number",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "ToastOptions": {
+    "kind": "interface",
+    "properties": {
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "type": {
+        "type": "NotificationType | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "message": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "code": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "duration": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "persistent": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "action": {
+        "type": "ToastAction | undefined",
+        "required": false
+      },
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "onClose": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ToastPosition": {
+    "kind": "type",
+    "signature": "'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'",
+    "properties": {},
+    "deprecated": false
+  },
+  "ToastProvider": {
+    "kind": "component",
+    "signature": "declare function ToastProvider(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "maxVisible": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "position": {
+        "type": "ToastPosition | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "ToastProviderProps": {
+    "kind": "interface",
+    "properties": {
+      "maxVisible": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "position": {
+        "type": "ToastPosition | undefined",
+        "required": false
+      },
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "ToastViewport": {
+    "kind": "component",
+    "signature": "declare function ToastViewport(",
+    "returnType": "React.JSX.Element | null",
+    "properties": {
+      "position": {
+        "type": "ToastPosition | undefined",
+        "required": false
+      },
+      "toasts": {
+        "type": "ToastData[] | undefined",
+        "required": false
+      },
+      "onDismiss": {
+        "type": "((id: string) => void) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ToastViewportProps": {
+    "kind": "interface",
+    "properties": {
+      "position": {
+        "type": "ToastPosition | undefined",
+        "required": false
+      },
+      "toasts": {
+        "type": "ToastData[] | undefined",
+        "required": false
+      },
+      "onDismiss": {
+        "type": "((id: string) => void) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Tooltip": {
+    "kind": "component",
+    "signature": "declare function Tooltip(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "content": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "children": {
+        "type": "React.ReactElement<unknown, string | React.JSXElementConstructor<any>>",
+        "required": true
+      },
+      "placement": {
+        "type": "TooltipPlacement | undefined",
+        "required": false
+      },
+      "showDelay": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "hideDelay": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "TooltipPlacement": {
+    "kind": "type",
+    "signature": "'top' | 'bottom' | 'left' | 'right' | 'auto'",
+    "properties": {},
+    "deprecated": false
+  },
+  "TooltipProps": {
+    "kind": "interface",
+    "properties": {
+      "content": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "children": {
+        "type": "React.ReactElement<unknown, string | React.JSXElementConstructor<any>>",
+        "required": true
+      },
+      "placement": {
+        "type": "TooltipPlacement | undefined",
+        "required": false
+      },
+      "showDelay": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "hideDelay": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxWidth": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "UseFloatingPositionOptions": {
+    "kind": "interface",
+    "properties": {
+      "anchor": {
+        "type": "React.RefObject<HTMLElement | null> | VirtualAnchor | null",
+        "required": true
+      },
+      "floating": {
+        "type": "React.RefObject<HTMLElement | null>",
+        "required": true
+      },
+      "open": {
+        "type": "boolean",
+        "required": true
+      },
+      "placement": {
+        "type": "FloatingPlacement | undefined",
+        "required": false
+      },
+      "align": {
+        "type": "FloatingAlign | undefined",
+        "required": false
+      },
+      "offset": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "viewportPadding": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "onPlacementChange": {
+        "type": "((placement: FloatingPlacement) => void) | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "VirtualAnchor": {
+    "kind": "interface",
+    "properties": {
+      "x": {
+        "type": "number",
+        "required": true
+      },
+      "y": {
+        "type": "number",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "WeekField": {
+    "kind": "component",
+    "signature": "declare function WeekField(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "string | [string, string] | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((weekRange: [string, string] | null) => void) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "WeekFieldProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string | [string, string] | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((weekRange: [string, string] | null) => void) | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "YearField": {
+    "kind": "component",
+    "signature": "declare function YearField(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "value": {
+        "type": "string | number | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((year: number | null) => void) | undefined",
+        "required": false
+      },
+      "minYear": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxYear": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "YearFieldProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string | number | null | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((year: number | null) => void) | undefined",
+        "required": false
+      },
+      "minYear": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxYear": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helper": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "helperText": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "description": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "formatFileSize": {
+    "kind": "function",
+    "signature": "declare function formatFileSize(bytes: number): string;",
+    "returnType": "string",
+    "properties": {
+      "bytes": {
+        "type": "number",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "getPaginationRange": {
+    "kind": "function",
+    "signature": "declare function getPaginationRange(",
+    "returnType": "PaginationItemValue[]",
+    "properties": {
+      "{ page, pageCount, siblingCount, boundaryCount, }": {
+        "type": "PaginationRangeOptions",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "isAcceptedFileType": {
+    "kind": "function",
+    "signature": "declare function isAcceptedFileType(file: File, accept?: string): boolean;",
+    "returnType": "boolean",
+    "properties": {
+      "file": {
+        "type": "File",
+        "required": true
+      },
+      "accept": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "parseISODate": {
+    "kind": "function",
+    "signature": "declare function parseISODate(val?: string | Date | null): Date | null;",
+    "returnType": "Date | null",
+    "properties": {
+      "val": {
+        "type": "string | Date | null | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "toISODate": {
+    "kind": "function",
+    "signature": "declare function toISODate(d: Date): string;",
+    "returnType": "string",
+    "properties": {
+      "d": {
+        "type": "Date",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "toast": {
+    "kind": "function",
+    "signature": "declare function toast(options: ToastOptions): string;",
+    "returnType": "string",
+    "properties": {
+      "options": {
+        "type": "ToastOptions",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "useCommandRegistry": {
+    "kind": "function",
+    "signature": "declare function useCommandRegistry(): CommandRegistryContextValue;",
+    "returnType": "CommandRegistryContextValue",
+    "properties": {},
+    "deprecated": false
+  },
+  "useFloatingPosition": {
+    "kind": "function",
+    "signature": "declare function useFloatingPosition(",
+    "returnType": "FloatingPositionResult",
+    "properties": {
+      "{ anchor, floating, open, placement, align, offset, viewportPadding, onPlacementChange, }": {
+        "type": "UseFloatingPositionOptions",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "useKeyboardShortcut": {
+    "kind": "function",
+    "signature": "declare function useKeyboardShortcut(shortcut: string, handler: () => void, options?: ShortcutOptions): void;",
+    "returnType": "void",
+    "properties": {
+      "shortcut": {
+        "type": "string",
+        "required": true
+      },
+      "handler": {
+        "type": "() => void",
+        "required": true
+      },
+      "options": {
+        "type": "ShortcutOptions | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "useKeyboardShortcuts": {
+    "kind": "function",
+    "signature": "declare function useKeyboardShortcuts(): KeyboardShortcutContextValue;",
+    "returnType": "KeyboardShortcutContextValue",
+    "properties": {},
+    "deprecated": false
+  },
+  "useToast": {
+    "kind": "function",
+    "signature": "declare function useToast(): ToastContextValue;",
+    "returnType": "ToastContextValue",
+    "properties": {},
+    "deprecated": false
+  },
+  "validateFiles": {
+    "kind": "function",
+    "signature": "declare function validateFiles(files: File[], options?: ValidateFilesOptions): ValidateFilesResult;",
+    "returnType": "ValidateFilesResult",
+    "properties": {
+      "files": {
+        "type": "File[]",
+        "required": true
+      },
+      "options": {
+        "type": "ValidateFilesOptions | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  }
+}

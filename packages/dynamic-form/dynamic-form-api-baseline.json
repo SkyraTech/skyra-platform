@@ -1,0 +1,998 @@
+{
+  "CheckboxOption": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ConditionOperator": {
+    "kind": "type",
+    "signature": "'equals' | 'notEquals' | 'contains' | 'notContains' | 'isEmpty' | 'isNotEmpty' | 'greaterThan' | 'lessThan' | 'in' | 'notIn'",
+    "properties": {},
+    "deprecated": false
+  },
+  "ConditionPredicate": {
+    "kind": "type",
+    "signature": "(values: TValues) => boolean",
+    "properties": {},
+    "deprecated": false
+  },
+  "DynamicForm": {
+    "kind": "component",
+    "signature": "declare function DynamicForm<TValues extends FormValues = FormValues>(props: DynamicFormProps<TValues>): React.JSX.Element;",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "fields": {
+        "type": "FieldDef<TValues>[] | undefined",
+        "required": false
+      },
+      "fieldsets": {
+        "type": "FieldsetDef<TValues>[] | undefined",
+        "required": false
+      },
+      "initialValues": {
+        "type": "Partial<TValues> | undefined",
+        "required": false
+      },
+      "values": {
+        "type": "TValues | undefined",
+        "required": false
+      },
+      "onValuesChange": {
+        "type": "((values: TValues) => void) | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((key: string, value: unknown) => void) | undefined",
+        "required": false
+      },
+      "onSubmit": {
+        "type": "(values: TValues) => void | Promise<void>",
+        "required": true
+      },
+      "onCancel": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "isLoading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "isSubmitting": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "submitLabel": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "cancelLabel": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "validationMode": {
+        "type": "ValidationMode | undefined",
+        "required": false
+      },
+      "validate": {
+        "type": "((values: TValues) => FormErrors | Promise<FormErrors>) | undefined",
+        "required": false
+      },
+      "errors": {
+        "type": "FormErrors | undefined",
+        "required": false
+      },
+      "onErrorsChange": {
+        "type": "((errors: FormErrors) => void) | undefined",
+        "required": false
+      },
+      "serverErrors": {
+        "type": "FormErrors | undefined",
+        "required": false
+      },
+      "serverError": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "features": {
+        "type": "DynamicFormFeatures | undefined",
+        "required": false
+      },
+      "onDirtyChange": {
+        "type": "((isDirty: boolean) => void) | undefined",
+        "required": false
+      },
+      "formRef": {
+        "type": "React.Ref<DynamicFormHandle<TValues>> | undefined",
+        "required": false
+      },
+      "showDangerZone": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "dangerZoneTitle": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "dangerZoneLabel": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "dangerZoneDesc": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onDangerAction": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DynamicFormFeatures": {
+    "kind": "interface",
+    "properties": {
+      "validation": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "conditionalFields": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "dependencies": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "repeatableGroups": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "nestedFields": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "dirtyTracking": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "draftState": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "submissionState": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "validationSummary": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "serverErrors": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "unsavedChanges": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DynamicFormHandle": {
+    "kind": "interface",
+    "properties": {
+      "getValue": {
+        "type": "(name: string) => unknown",
+        "required": true
+      },
+      "getValues": {
+        "type": "() => TValues",
+        "required": true
+      },
+      "setValue": {
+        "type": "(name: string, value: unknown) => void",
+        "required": true
+      },
+      "setValues": {
+        "type": "(values: Partial<TValues>) => void",
+        "required": true
+      },
+      "reset": {
+        "type": "(newValues?: Partial<TValues>) => void",
+        "required": true
+      },
+      "resetField": {
+        "type": "(name: string) => void",
+        "required": true
+      },
+      "validate": {
+        "type": "() => Promise<boolean>",
+        "required": true
+      },
+      "submit": {
+        "type": "() => void",
+        "required": true
+      },
+      "getFormState": {
+        "type": "() => FormDraftState<TValues>",
+        "required": true
+      },
+      "restoreFormState": {
+        "type": "(state: FormDraftState<TValues>) => void",
+        "required": true
+      },
+      "isDirty": {
+        "type": "boolean",
+        "required": true
+      },
+      "dirtyFields": {
+        "type": "Record<string, boolean>",
+        "required": true
+      },
+      "isValid": {
+        "type": "boolean",
+        "required": true
+      },
+      "isSubmitting": {
+        "type": "boolean",
+        "required": true
+      },
+      "isSubmitted": {
+        "type": "boolean",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "DynamicFormProps": {
+    "kind": "interface",
+    "properties": {
+      "fields": {
+        "type": "FieldDef<TValues>[] | undefined",
+        "required": false
+      },
+      "fieldsets": {
+        "type": "FieldsetDef<TValues>[] | undefined",
+        "required": false
+      },
+      "initialValues": {
+        "type": "Partial<TValues> | undefined",
+        "required": false
+      },
+      "values": {
+        "type": "TValues | undefined",
+        "required": false
+      },
+      "onValuesChange": {
+        "type": "((values: TValues) => void) | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "((key: string, value: unknown) => void) | undefined",
+        "required": false
+      },
+      "onSubmit": {
+        "type": "(values: TValues) => void | Promise<void>",
+        "required": true
+      },
+      "onCancel": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "isLoading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "isSubmitting": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "submitLabel": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "cancelLabel": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "validationMode": {
+        "type": "ValidationMode | undefined",
+        "required": false
+      },
+      "validate": {
+        "type": "((values: TValues) => FormErrors | Promise<FormErrors>) | undefined",
+        "required": false
+      },
+      "errors": {
+        "type": "FormErrors | undefined",
+        "required": false
+      },
+      "onErrorsChange": {
+        "type": "((errors: FormErrors) => void) | undefined",
+        "required": false
+      },
+      "serverErrors": {
+        "type": "FormErrors | undefined",
+        "required": false
+      },
+      "serverError": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "features": {
+        "type": "DynamicFormFeatures | undefined",
+        "required": false
+      },
+      "onDirtyChange": {
+        "type": "((isDirty: boolean) => void) | undefined",
+        "required": false
+      },
+      "formRef": {
+        "type": "React.Ref<DynamicFormHandle<TValues>> | undefined",
+        "required": false
+      },
+      "showDangerZone": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "dangerZoneTitle": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "dangerZoneLabel": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "dangerZoneDesc": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onDangerAction": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FieldCondition": {
+    "kind": "interface",
+    "properties": {
+      "field": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "operator": {
+        "type": "ConditionOperator | undefined",
+        "required": false
+      },
+      "value": {
+        "type": "unknown",
+        "required": false
+      },
+      "equals": {
+        "type": "unknown",
+        "required": false
+      },
+      "notEquals": {
+        "type": "unknown",
+        "required": false
+      },
+      "contains": {
+        "type": "unknown",
+        "required": false
+      },
+      "notContains": {
+        "type": "unknown",
+        "required": false
+      },
+      "isEmpty": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "isNotEmpty": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "greaterThan": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "lessThan": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "in": {
+        "type": "unknown[] | undefined",
+        "required": false
+      },
+      "notIn": {
+        "type": "unknown[] | undefined",
+        "required": false
+      },
+      "and": {
+        "type": "FieldCondition<TValues>[] | undefined",
+        "required": false
+      },
+      "or": {
+        "type": "FieldCondition<TValues>[] | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FieldDef": {
+    "kind": "interface",
+    "properties": {
+      "name": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "key": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "type": {
+        "type": "FieldType",
+        "required": true
+      },
+      "required": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "placeholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "helper": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "helpText": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "full": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "readOnly": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "hidden": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "defaultValue": {
+        "type": "unknown",
+        "required": false
+      },
+      "options": {
+        "type": "SelectOption[] | undefined",
+        "required": false
+      },
+      "mode": {
+        "type": "\"single\" | \"multiple\" | undefined",
+        "required": false
+      },
+      "searchable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "selectAll": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "maxVisibleValues": {
+        "type": "number | \"auto\" | undefined",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "grouping": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "min": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "max": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "step": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "rows": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "minRows": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxRows": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "autoResize": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "maxLength": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "orientation": {
+        "type": "\"vertical\" | \"horizontal\" | undefined",
+        "required": false
+      },
+      "timeFormat": {
+        "type": "\"12h\" | \"24h\" | undefined",
+        "required": false
+      },
+      "accept": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "multiple": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "maxFileSize": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "visibleWhen": {
+        "type": "FieldCondition<TValues> | ConditionPredicate<TValues> | undefined",
+        "required": false
+      },
+      "dependsOn": {
+        "type": "FieldDependency<TValues> | undefined",
+        "required": false
+      },
+      "repeatable": {
+        "type": "RepeatableGroupConfig<TValues> | undefined",
+        "required": false
+      },
+      "repeatableConfig": {
+        "type": "RepeatableGroupConfig<TValues> | undefined",
+        "required": false
+      },
+      "validate": {
+        "type": "((value: unknown, allValues: TValues) => string | undefined | Promise<string | undefined>) | undefined",
+        "required": false
+      },
+      "render": {
+        "type": "((props: FieldRenderProps<TValues>) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FieldDependency": {
+    "kind": "interface",
+    "properties": {
+      "field": {
+        "type": "string",
+        "required": true
+      },
+      "value": {
+        "type": "unknown",
+        "required": false
+      },
+      "onChange": {
+        "type": "((newValue: unknown, currentValues: TValues) => Partial<TValues>) | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FieldRenderProps": {
+    "kind": "interface",
+    "properties": {
+      "field": {
+        "type": "FieldDef<TValues>",
+        "required": true
+      },
+      "value": {
+        "type": "unknown",
+        "required": true
+      },
+      "error": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "onChange": {
+        "type": "(value: unknown) => void",
+        "required": true
+      },
+      "onBlur": {
+        "type": "() => void",
+        "required": true
+      },
+      "allValues": {
+        "type": "TValues",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "FieldSchema": {
+    "kind": "type",
+    "signature": "FieldDef",
+    "properties": {},
+    "deprecated": false
+  },
+  "FieldType": {
+    "kind": "type",
+    "signature": "'text' | 'email' | 'tel' | 'url' | 'number' | 'password' | 'search' | 'select' | 'multi-select' | 'checkbox' | 'checkbox-group' | 'radio' | 'radio-group' | 'switch' | 'textarea' | 'date' | 'date-range' | 'time' | 'datetime' | 'file' | 'custom' | 'repeatable'",
+    "properties": {},
+    "deprecated": false
+  },
+  "FieldsetDef": {
+    "kind": "interface",
+    "properties": {
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "subtitle": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "collapsible": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "defaultCollapsed": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "fields": {
+        "type": "FieldDef<TValues>[]",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "FieldsetSchema": {
+    "kind": "type",
+    "signature": "FieldsetDef",
+    "properties": {},
+    "deprecated": false
+  },
+  "FormDraftState": {
+    "kind": "interface",
+    "properties": {
+      "values": {
+        "type": "TValues",
+        "required": true
+      },
+      "timestamp": {
+        "type": "number",
+        "required": true
+      },
+      "version": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "FormErrors": {
+    "kind": "type",
+    "signature": "Record<string, string>",
+    "properties": {},
+    "deprecated": false
+  },
+  "FormField": {
+    "kind": "component",
+    "signature": "declare function FormField<TValues extends Record<string, unknown>>(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ field, value, error, disabled: formDisabled, onChange, onBlur, allValues, }": {
+        "type": "FormFieldProps<TValues>",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "FormTouched": {
+    "kind": "type",
+    "signature": "Record<string, boolean>",
+    "properties": {},
+    "deprecated": false
+  },
+  "FormValues": {
+    "kind": "type",
+    "signature": "Record<string, unknown>",
+    "properties": {},
+    "deprecated": false
+  },
+  "RadioOption": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "RepeatableGroup": {
+    "kind": "component",
+    "signature": "declare function RepeatableGroup<TValues extends Record<string, unknown>>(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ groupName, label, config, items, errors, disabled, onItemChange, onItemBlur, onAddItem, onRemoveItem, allValues, }": {
+        "type": "RepeatableGroupProps<TValues>",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "RepeatableGroupConfig": {
+    "kind": "interface",
+    "properties": {
+      "fields": {
+        "type": "FieldDef<TValues>[]",
+        "required": true
+      },
+      "min": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "max": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "addButtonText": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "removeButtonText": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "itemTitle": {
+        "type": "((index: number, item: unknown) => string) | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SelectOption": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "group": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ValidationMode": {
+    "kind": "type",
+    "signature": "'onChange' | 'onBlur' | 'onSubmit'",
+    "properties": {},
+    "deprecated": false
+  },
+  "ValidationSummary": {
+    "kind": "component",
+    "signature": "declare function ValidationSummary(",
+    "returnType": "React.JSX.Element | null",
+    "properties": {
+      "{ errors, labels, title, onFocusField, className, }": {
+        "type": "ValidationSummaryProps",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "cloneDeep": {
+    "kind": "function",
+    "signature": "declare function cloneDeep<T>(value: T): T;",
+    "returnType": "T",
+    "properties": {
+      "value": {
+        "type": "T",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "evaluateCondition": {
+    "kind": "function",
+    "signature": "declare function evaluateCondition<TValues extends Record<string, unknown>>(condition: FieldCondition<TValues> | ConditionPredicate<TValues> | undefined, values: TValues): boolean;",
+    "returnType": "boolean",
+    "properties": {
+      "condition": {
+        "type": "FieldCondition<TValues> | ConditionPredicate<TValues> | undefined",
+        "required": true
+      },
+      "values": {
+        "type": "TValues",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "getIn": {
+    "kind": "function",
+    "signature": "declare function getIn(obj: unknown, path: string, defaultValue?: unknown): unknown;",
+    "returnType": "unknown",
+    "properties": {
+      "obj": {
+        "type": "unknown",
+        "required": true
+      },
+      "path": {
+        "type": "string",
+        "required": true
+      },
+      "defaultValue": {
+        "type": "unknown",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "isDeepEqual": {
+    "kind": "function",
+    "signature": "declare function isDeepEqual(a: unknown, b: unknown): boolean;",
+    "returnType": "boolean",
+    "properties": {
+      "a": {
+        "type": "unknown",
+        "required": true
+      },
+      "b": {
+        "type": "unknown",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "removeIn": {
+    "kind": "function",
+    "signature": "declare function removeIn<T extends Record<string, unknown>>(obj: T, path: string): T;",
+    "returnType": "T",
+    "properties": {
+      "obj": {
+        "type": "T",
+        "required": true
+      },
+      "path": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "setIn": {
+    "kind": "function",
+    "signature": "declare function setIn<T extends Record<string, unknown>>(obj: T, path: string, value: unknown): T;",
+    "returnType": "T",
+    "properties": {
+      "obj": {
+        "type": "T",
+        "required": true
+      },
+      "path": {
+        "type": "string",
+        "required": true
+      },
+      "value": {
+        "type": "unknown",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "useDynamicFormState": {
+    "kind": "function",
+    "signature": "declare function useDynamicFormState<TValues extends FormValues = FormValues>(options: UseDynamicFormStateOptions<TValues>):",
+    "returnType": "{ values: TValues; errors: { [x: string]: string; }; touched: FormTouched; isDirty: boolean; dirtyFields: Record<string, boolean>; isSubmitting: boolean; submitSuccess: boolean; submitError: string | undefined; mergedFeatures: { validation: boolean; conditionalFields: boolean; dependencies: boolean; repeatableGroups: boolean; nestedFields: boolean; dirtyTracking: boolean; draftState: boolean; submissionState: boolean; validationSummary: boolean; serverErrors: boolean; unsavedChanges: boolean; }; setFieldValue: (name: string, value: unknown) => void; handleFieldBlur: (name: string) => void; addRepeatableItem: (groupName: string) => void; removeRepeatableItem: (groupName: string, index: number) => void; reset: (newValues?: Partial<TValues>) => void; submit: () => Promise<void>; handle: DynamicFormHandle<TValues>; }",
+    "properties": {
+      "options": {
+        "type": "UseDynamicFormStateOptions<TValues>",
+        "required": true
+      }
+    },
+    "deprecated": false
+  }
+}

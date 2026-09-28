@@ -1,0 +1,149 @@
+{
+  "QRCodeErrorCorrectionLevel": {
+    "kind": "type",
+    "signature": "'L' | 'M' | 'Q' | 'H'",
+    "properties": {},
+    "deprecated": false
+  },
+  "QRCodeMatrix": {
+    "kind": "interface",
+    "properties": {
+      "size": {
+        "type": "number",
+        "required": true
+      },
+      "modules": {
+        "type": "boolean[][]",
+        "required": true
+      },
+      "version": {
+        "type": "number",
+        "required": true
+      },
+      "errorCorrectionLevel": {
+        "type": "QRCodeErrorCorrectionLevel",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "QRCodeOptions": {
+    "kind": "interface",
+    "properties": {
+      "errorCorrectionLevel": {
+        "type": "QRCodeErrorCorrectionLevel | undefined",
+        "required": false
+      },
+      "version": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maskPattern": {
+        "type": "number | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "QRCodeRenderOptions": {
+    "kind": "interface",
+    "properties": {
+      "scale": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "width": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "color": {
+        "type": "{ dark?: string; light?: string; } | undefined",
+        "required": false
+      },
+      "margin": {
+        "type": "number | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "QRCodeSVGOptions": {
+    "kind": "interface",
+    "properties": {
+      "responsive": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "QRCodeValidationError": {
+    "kind": "type",
+    "properties": {},
+    "deprecated": false
+  },
+  "buildSVGPath": {
+    "kind": "function",
+    "signature": "declare function buildSVGPath(matrix: QRCodeMatrix, margin?: number): string;",
+    "returnType": "string",
+    "properties": {
+      "matrix": {
+        "type": "QRCodeMatrix",
+        "required": true
+      },
+      "margin": {
+        "type": "number | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "generateQRCode": {
+    "kind": "function",
+    "signature": "declare function generateQRCode(payload: string, options?: QRCodeOptions): QRCodeMatrix;",
+    "returnType": "QRCodeMatrix",
+    "properties": {
+      "payload": {
+        "type": "string",
+        "required": true
+      },
+      "options": {
+        "type": "QRCodeOptions | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "renderToSVGString": {
+    "kind": "function",
+    "signature": "declare function renderToSVGString(matrix: QRCodeMatrix, options?: QRCodeSVGOptions): string;",
+    "returnType": "string",
+    "properties": {
+      "matrix": {
+        "type": "QRCodeMatrix",
+        "required": true
+      },
+      "options": {
+        "type": "QRCodeSVGOptions | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "validateQRCodeInput": {
+    "kind": "function",
+    "signature": "declare function validateQRCodeInput(payload: string, options?: QRCodeOptions): void;",
+    "returnType": "void",
+    "properties": {
+      "payload": {
+        "type": "string",
+        "required": true
+      },
+      "options": {
+        "type": "QRCodeOptions | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  }
+}

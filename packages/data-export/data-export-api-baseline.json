@@ -1,0 +1,172 @@
+{
+  "CsvDownloadOptions": {
+    "kind": "interface",
+    "properties": {
+      "filename": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "CsvExportOptions": {
+    "kind": "interface",
+    "properties": {
+      "columns": {
+        "type": "ExportColumn<T>[] | undefined",
+        "required": false
+      },
+      "delimiter": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "includeBom": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "headers": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ExcelDownloadOptions": {
+    "kind": "interface",
+    "properties": {
+      "filename": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ExcelExportOptions": {
+    "kind": "interface",
+    "properties": {
+      "columns": {
+        "type": "ExportColumn<T>[] | undefined",
+        "required": false
+      },
+      "sheetName": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "headers": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ExportColumn": {
+    "kind": "interface",
+    "properties": {
+      "key": {
+        "type": "string",
+        "required": true
+      },
+      "header": {
+        "type": "string",
+        "required": true
+      },
+      "formatter": {
+        "type": "((value: any, row: T) => string | number | boolean | null | undefined) | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "downloadCsv": {
+    "kind": "function",
+    "signature": "declare function downloadCsv<T = any>(data: T[], options?: CsvDownloadOptions<T>): void;",
+    "returnType": "void",
+    "properties": {
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "options": {
+        "type": "CsvDownloadOptions<T> | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "downloadExcel": {
+    "kind": "function",
+    "signature": "declare function downloadExcel<T = any>(data: T[], options?: ExcelDownloadOptions<T>): void;",
+    "returnType": "void",
+    "properties": {
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "options": {
+        "type": "ExcelDownloadOptions<T> | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "escapeCsvCell": {
+    "kind": "function",
+    "signature": "declare function escapeCsvCell(val: any, delimiter?: string): string;",
+    "returnType": "string",
+    "properties": {
+      "val": {
+        "type": "any",
+        "required": true
+      },
+      "delimiter": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "exportToCsv": {
+    "kind": "function",
+    "signature": "declare function exportToCsv<T = any>(data: T[], options?: CsvExportOptions<T>): string;",
+    "returnType": "string",
+    "properties": {
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "options": {
+        "type": "CsvExportOptions<T> | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "exportToExcel": {
+    "kind": "constant",
+    "signature": "typeof downloadExcel",
+    "properties": {},
+    "deprecated": false
+  },
+  "exportToExcelXml": {
+    "kind": "function",
+    "signature": "declare function exportToExcelXml<T = any>(data: T[], options?: ExcelExportOptions<T>): string;",
+    "returnType": "string",
+    "properties": {
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "options": {
+        "type": "ExcelExportOptions<T> | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "generateExcelXml": {
+    "kind": "constant",
+    "signature": "typeof exportToExcelXml",
+    "properties": {},
+    "deprecated": false
+  }
+}

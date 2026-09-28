@@ -1,0 +1,38 @@
+{
+  "QRCode": {
+    "kind": "component",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "'aria-label'": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "QRCodeProps": {
+    "kind": "interface",
+    "properties": {
+      "value": {
+        "type": "string",
+        "required": true
+      },
+      "'aria-label'": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  }
+}

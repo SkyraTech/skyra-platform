@@ -1,0 +1,158 @@
+{
+  "AddressInput": {
+    "kind": "type",
+    "signature": "z.infer<typeof addressSchema>",
+    "properties": {},
+    "deprecated": false
+  },
+  "BankAccountInput": {
+    "kind": "type",
+    "signature": "z.infer<typeof bankAccountSchema>",
+    "properties": {},
+    "deprecated": false
+  },
+  "ClientInput": {
+    "kind": "type",
+    "signature": "z.infer<typeof clientSchema>",
+    "properties": {},
+    "deprecated": false
+  },
+  "OrgInput": {
+    "kind": "type",
+    "signature": "z.infer<typeof orgSchema>",
+    "properties": {},
+    "deprecated": false
+  },
+  "OrgUpdateInput": {
+    "kind": "type",
+    "signature": "Partial<OrgInput>",
+    "properties": {},
+    "deprecated": false
+  },
+  "UserProfileInput": {
+    "kind": "type",
+    "signature": "z.infer<typeof userProfileSchema>",
+    "properties": {},
+    "deprecated": false
+  },
+  "addressSchema": {
+    "kind": "constant",
+    "signature": "z.ZodObject<{ line1: z.ZodString; line2: z.ZodOptional<z.ZodString>; city: z.ZodString; state: z.ZodString; country: z.ZodString; pinCode: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; }, \"strip\", z.ZodTypeAny, { line1: string; city: string; state: string; country: string; line2?: string | undefined; pinCode?: string | undefined; }, { line1: string; city: string; state: string; country: string; line2?: string | undefined; pinCode?: string | undefined; }>",
+    "properties": {},
+    "deprecated": false
+  },
+  "bankAccountSchema": {
+    "kind": "constant",
+    "signature": "z.ZodObject<{ bankName: z.ZodString; accountName: z.ZodString; accountNumber: z.ZodString; ifscCode: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; upiId: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; isDefault: z.ZodOptional<z.ZodBoolean>; }, \"strip\", z.ZodTypeAny, { bankName: string; accountName: string; accountNumber: string; ifscCode?: string | undefined; upiId?: string | undefined; isDefault?: boolean | undefined; }, { bankName: string; accountName: string; accountNumber: string; ifscCode?: string | undefined; upiId?: string | undefined; isDefault?: boolean | undefined; }>",
+    "properties": {},
+    "deprecated": false
+  },
+  "clientSchema": {
+    "kind": "constant",
+    "signature": "z.ZodObject<{ name: z.ZodString; email: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; phone: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; gstin: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; pan: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; address: z.ZodOptional<z.ZodObject<{ line1: z.ZodString; line2: z.ZodOptional<z.ZodString>; city: z.ZodString; state: z.ZodString; country: z.ZodString; pinCode: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; }, \"strip\", z.ZodTypeAny, { line1: string; city: string; state: string; country: string; line2?: string | undefined; pinCode?: string | undefined; }, { line1: string; city: string; state: string; country: string; line2?: string | undefined; pinCode?: string | undefined; }>>; notes: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; currency: z.ZodOptional<z.ZodEnum<[\"INR\", \"USD\", \"EUR\", \"GBP\", \"AED\", \"SGD\"]>>; paymentTerms: z.ZodOptional<z.ZodNumber>; }, \"strip\", z.ZodTypeAny, { name: string; email?: string | undefined; phone?: string | undefined; gstin?: string | undefined; pan?: string | undefined; currency?: \"INR\" | \"USD\" | \"EUR\" | \"GBP\" | \"AED\" | \"SGD\" | undefined; address?: { line1: string; city: string; state: string; country: string; line2?: string | undefined; pinCode?: string | undefined; } | undefined; notes?: string | undefined; paymentTerms?: number | undefined; }, { name: string; email?: string | undefined; phone?: string | undefined; gstin?: string | undefined; pan?: string | undefined; currency?: \"INR\" | \"USD\" | \"EUR\" | \"GBP\" | \"AED\" | \"SGD\" | undefined; address?: { line1: string; city: string; state: string; country: string; line2?: string | undefined; pinCode?: string | undefined; } | undefined; notes?: string | undefined; paymentTerms?: number | undefined; }>",
+    "properties": {},
+    "deprecated": false
+  },
+  "currencyCodeSchema": {
+    "kind": "constant",
+    "signature": "z.ZodEnum<[\"INR\", \"USD\", \"EUR\", \"GBP\", \"AED\", \"SGD\"]>",
+    "properties": {},
+    "deprecated": false
+  },
+  "emailSchema": {
+    "kind": "constant",
+    "signature": "z.ZodString",
+    "properties": {},
+    "deprecated": false
+  },
+  "gstinSchema": {
+    "kind": "constant",
+    "signature": "z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>",
+    "properties": {},
+    "deprecated": false
+  },
+  "hexColorSchema": {
+    "kind": "constant",
+    "signature": "z.ZodOptional<z.ZodString>",
+    "properties": {},
+    "deprecated": false
+  },
+  "isoDateSchema": {
+    "kind": "constant",
+    "signature": "z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>",
+    "properties": {},
+    "deprecated": false
+  },
+  "longTextSchema": {
+    "kind": "constant",
+    "signature": "(label?: string, maxLength?: number) => z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>",
+    "properties": {},
+    "deprecated": false
+  },
+  "nameSchema": {
+    "kind": "constant",
+    "signature": "z.ZodString",
+    "properties": {},
+    "deprecated": false
+  },
+  "nonNegativeIntSchema": {
+    "kind": "constant",
+    "signature": "z.ZodNumber",
+    "properties": {},
+    "deprecated": false
+  },
+  "orgSchema": {
+    "kind": "constant",
+    "signature": "z.ZodObject<{ name: z.ZodString; displayName: z.ZodOptional<z.ZodString>; email: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; phone: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; website: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; gstin: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; pan: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; currency: z.ZodEnum<[\"INR\", \"USD\", \"EUR\", \"GBP\", \"AED\", \"SGD\"]>; timezone: z.ZodOptional<z.ZodString>; address: z.ZodOptional<z.ZodObject<{ line1: z.ZodString; line2: z.ZodOptional<z.ZodString>; city: z.ZodString; state: z.ZodString; country: z.ZodString; pinCode: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; }, \"strip\", z.ZodTypeAny, { line1: string; city: string; state: string; country: string; line2?: string | undefined; pinCode?: string | undefined; }, { line1: string; city: string; state: string; country: string; line2?: string | undefined; pinCode?: string | undefined; }>>; logo: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; brandColor: z.ZodOptional<z.ZodString>; invoicePrefix: z.ZodOptional<z.ZodString>; invoiceFooter: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; }, \"strip\", z.ZodTypeAny, { name: string; currency: \"INR\" | \"USD\" | \"EUR\" | \"GBP\" | \"AED\" | \"SGD\"; displayName?: string | undefined; email?: string | undefined; phone?: string | undefined; website?: string | undefined; gstin?: string | undefined; pan?: string | undefined; timezone?: string | undefined; address?: { line1: string; city: string; state: string; country: string; line2?: string | undefined; pinCode?: string | undefined; } | undefined; logo?: string | undefined; brandColor?: string | undefined; invoicePrefix?: string | undefined; invoiceFooter?: string | undefined; }, { name: string; currency: \"INR\" | \"USD\" | \"EUR\" | \"GBP\" | \"AED\" | \"SGD\"; displayName?: string | undefined; email?: string | undefined; phone?: string | undefined; website?: string | undefined; gstin?: string | undefined; pan?: string | undefined; timezone?: string | undefined; address?: { line1: string; city: string; state: string; country: string; line2?: string | undefined; pinCode?: string | undefined; } | undefined; logo?: string | undefined; brandColor?: string | undefined; invoicePrefix?: string | undefined; invoiceFooter?: string | undefined; }>",
+    "properties": {},
+    "deprecated": false
+  },
+  "panSchema": {
+    "kind": "constant",
+    "signature": "z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>",
+    "properties": {},
+    "deprecated": false
+  },
+  "percentageSchema": {
+    "kind": "constant",
+    "signature": "z.ZodNumber",
+    "properties": {},
+    "deprecated": false
+  },
+  "phoneSchema": {
+    "kind": "constant",
+    "signature": "z.ZodString",
+    "properties": {},
+    "deprecated": false
+  },
+  "pinCodeSchema": {
+    "kind": "constant",
+    "signature": "z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>",
+    "properties": {},
+    "deprecated": false
+  },
+  "positiveAmountSchema": {
+    "kind": "constant",
+    "signature": "z.ZodNumber",
+    "properties": {},
+    "deprecated": false
+  },
+  "shortTextSchema": {
+    "kind": "constant",
+    "signature": "(label?: string) => z.ZodString",
+    "properties": {},
+    "deprecated": false
+  },
+  "urlSchema": {
+    "kind": "constant",
+    "signature": "z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>",
+    "properties": {},
+    "deprecated": false
+  },
+  "userProfileSchema": {
+    "kind": "constant",
+    "signature": "z.ZodObject<{ name: z.ZodString; email: z.ZodString; phone: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; role: z.ZodOptional<z.ZodString>; avatar: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<\"\">]>; }, \"strip\", z.ZodTypeAny, { name: string; email: string; phone?: string | undefined; role?: string | undefined; avatar?: string | undefined; }, { name: string; email: string; phone?: string | undefined; role?: string | undefined; avatar?: string | undefined; }>",
+    "properties": {},
+    "deprecated": false
+  }
+}

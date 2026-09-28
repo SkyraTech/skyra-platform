@@ -1,0 +1,696 @@
+{
+  "Column": {
+    "kind": "interface",
+    "properties": {
+      "key": {
+        "type": "string",
+        "required": true
+      },
+      "header": {
+        "type": "string",
+        "required": true
+      },
+      "accessor": {
+        "type": "keyof T | ((row: T) => React.ReactNode)",
+        "required": true
+      },
+      "sortable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "hideable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "width": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ColumnDef": {
+    "kind": "interface",
+    "properties": {
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "header": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "accessor": {
+        "type": "keyof TData | ((row: TData) => TValue)",
+        "required": true
+      },
+      "cell": {
+        "type": "((props: { row: TData; value: TValue; }) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "sortable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "filterable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "hideable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "resizable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "width": {
+        "type": "string | number | undefined",
+        "required": false
+      },
+      "minWidth": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "maxWidth": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "align": {
+        "type": "\"center\" | \"left\" | \"right\" | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ColumnFilter": {
+    "kind": "interface",
+    "properties": {
+      "id": {
+        "type": "string",
+        "required": true
+      },
+      "value": {
+        "type": "unknown",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "ColumnFiltersState": {
+    "kind": "type",
+    "signature": "ColumnFilter[]",
+    "properties": {},
+    "deprecated": false
+  },
+  "ColumnSizingState": {
+    "kind": "type",
+    "signature": "Record<string, number>",
+    "properties": {},
+    "deprecated": false
+  },
+  "DataTable": {
+    "kind": "component",
+    "signature": "declare function DataTable<TData extends",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "columns": {
+        "type": "ColumnDef<TData, any>[]",
+        "required": true
+      },
+      "data": {
+        "type": "TData[]",
+        "required": true
+      },
+      "features": {
+        "type": "DataTableFeatures | undefined",
+        "required": false
+      },
+      "sorting": {
+        "type": "SortingState[] | undefined",
+        "required": false
+      },
+      "onSortingChange": {
+        "type": "((sorting: SortingState[]) => void) | undefined",
+        "required": false
+      },
+      "pagination": {
+        "type": "PaginationState | undefined",
+        "required": false
+      },
+      "onPaginationChange": {
+        "type": "((pagination: PaginationState) => void) | undefined",
+        "required": false
+      },
+      "pageCount": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "totalRows": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "manualPagination": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "pageSizeOptions": {
+        "type": "number[] | undefined",
+        "required": false
+      },
+      "rowSelection": {
+        "type": "RowSelectionState | undefined",
+        "required": false
+      },
+      "onRowSelectionChange": {
+        "type": "((selection: RowSelectionState) => void) | undefined",
+        "required": false
+      },
+      "isRowDisabled": {
+        "type": "((row: TData) => boolean) | undefined",
+        "required": false
+      },
+      "globalFilter": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onGlobalFilterChange": {
+        "type": "((filter: string) => void) | undefined",
+        "required": false
+      },
+      "columnFilters": {
+        "type": "ColumnFiltersState | undefined",
+        "required": false
+      },
+      "onColumnFiltersChange": {
+        "type": "((filters: ColumnFiltersState) => void) | undefined",
+        "required": false
+      },
+      "columnVisibility": {
+        "type": "VisibilityState | undefined",
+        "required": false
+      },
+      "onColumnVisibilityChange": {
+        "type": "((visibility: VisibilityState) => void) | undefined",
+        "required": false
+      },
+      "columnSizing": {
+        "type": "ColumnSizingState | undefined",
+        "required": false
+      },
+      "onColumnSizingChange": {
+        "type": "((sizing: ColumnSizingState) => void) | undefined",
+        "required": false
+      },
+      "onRowClick": {
+        "type": "((row: TData) => void) | undefined",
+        "required": false
+      },
+      "rowActions": {
+        "type": "((row: TData) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "bulkActions": {
+        "type": "((selectedRows: TData[]) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "onProcessedDataChange": {
+        "type": "((data: TData[]) => void) | undefined",
+        "required": false
+      },
+      "isLoading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "emptyMessage": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "emptyIcon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "noResultsMessage": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "Error | null | undefined",
+        "required": false
+      },
+      "onErrorRetry": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DataTableFeatures": {
+    "kind": "interface",
+    "properties": {
+      "sorting": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "filtering": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "globalSearch": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "pagination": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "rowSelection": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "columnVisibility": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "columnResizing": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "stickyHeader": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "rowActions": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "bulkActions": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DataTableProps": {
+    "kind": "interface",
+    "properties": {
+      "columns": {
+        "type": "ColumnDef<TData, any>[]",
+        "required": true
+      },
+      "data": {
+        "type": "TData[]",
+        "required": true
+      },
+      "features": {
+        "type": "DataTableFeatures | undefined",
+        "required": false
+      },
+      "sorting": {
+        "type": "SortingState[] | undefined",
+        "required": false
+      },
+      "onSortingChange": {
+        "type": "((sorting: SortingState[]) => void) | undefined",
+        "required": false
+      },
+      "pagination": {
+        "type": "PaginationState | undefined",
+        "required": false
+      },
+      "onPaginationChange": {
+        "type": "((pagination: PaginationState) => void) | undefined",
+        "required": false
+      },
+      "pageCount": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "totalRows": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "manualPagination": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "pageSizeOptions": {
+        "type": "number[] | undefined",
+        "required": false
+      },
+      "rowSelection": {
+        "type": "RowSelectionState | undefined",
+        "required": false
+      },
+      "onRowSelectionChange": {
+        "type": "((selection: RowSelectionState) => void) | undefined",
+        "required": false
+      },
+      "isRowDisabled": {
+        "type": "((row: TData) => boolean) | undefined",
+        "required": false
+      },
+      "globalFilter": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onGlobalFilterChange": {
+        "type": "((filter: string) => void) | undefined",
+        "required": false
+      },
+      "columnFilters": {
+        "type": "ColumnFiltersState | undefined",
+        "required": false
+      },
+      "onColumnFiltersChange": {
+        "type": "((filters: ColumnFiltersState) => void) | undefined",
+        "required": false
+      },
+      "columnVisibility": {
+        "type": "VisibilityState | undefined",
+        "required": false
+      },
+      "onColumnVisibilityChange": {
+        "type": "((visibility: VisibilityState) => void) | undefined",
+        "required": false
+      },
+      "columnSizing": {
+        "type": "ColumnSizingState | undefined",
+        "required": false
+      },
+      "onColumnSizingChange": {
+        "type": "((sizing: ColumnSizingState) => void) | undefined",
+        "required": false
+      },
+      "onRowClick": {
+        "type": "((row: TData) => void) | undefined",
+        "required": false
+      },
+      "rowActions": {
+        "type": "((row: TData) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "bulkActions": {
+        "type": "((selectedRows: TData[]) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "onProcessedDataChange": {
+        "type": "((data: TData[]) => void) | undefined",
+        "required": false
+      },
+      "isLoading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "emptyMessage": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "emptyIcon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "noResultsMessage": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "error": {
+        "type": "Error | null | undefined",
+        "required": false
+      },
+      "onErrorRetry": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DynamicDataTable": {
+    "kind": "component",
+    "signature": "declare function DynamicDataTable<T extends",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "columns": {
+        "type": "Column<T>[]",
+        "required": true
+      },
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "isLoading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "emptyMessage": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "emptyIcon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "pageSize": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "searchPlaceholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "actionLabel": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onAction": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "onEdit": {
+        "type": "((row: T) => void) | undefined",
+        "required": false
+      },
+      "onDelete": {
+        "type": "((row: T) => void) | undefined",
+        "required": false
+      },
+      "onView": {
+        "type": "((row: T) => void) | undefined",
+        "required": false
+      },
+      "rowActions": {
+        "type": "((row: T) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "DynamicDataTableProps": {
+    "kind": "interface",
+    "properties": {
+      "columns": {
+        "type": "Column<T>[]",
+        "required": true
+      },
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "isLoading": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "emptyMessage": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "emptyIcon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "pageSize": {
+        "type": "number | undefined",
+        "required": false
+      },
+      "searchPlaceholder": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "actionLabel": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "onAction": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
+      "onEdit": {
+        "type": "((row: T) => void) | undefined",
+        "required": false
+      },
+      "onDelete": {
+        "type": "((row: T) => void) | undefined",
+        "required": false
+      },
+      "onView": {
+        "type": "((row: T) => void) | undefined",
+        "required": false
+      },
+      "rowActions": {
+        "type": "((row: T) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "PaginationState": {
+    "kind": "interface",
+    "properties": {
+      "pageIndex": {
+        "type": "number",
+        "required": true
+      },
+      "pageSize": {
+        "type": "number",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "ProcessTableDataOptions": {
+    "kind": "interface",
+    "properties": {
+      "columns": {
+        "type": "ColumnDef<TData, any>[]",
+        "required": true
+      },
+      "globalFilter": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "columnFilters": {
+        "type": "ColumnFiltersState | undefined",
+        "required": false
+      },
+      "sorting": {
+        "type": "SortingState[] | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "RowSelectionState": {
+    "kind": "type",
+    "signature": "Record<string, boolean>",
+    "properties": {},
+    "deprecated": false
+  },
+  "SortDirection": {
+    "kind": "type",
+    "signature": "'asc' | 'desc'",
+    "properties": {},
+    "deprecated": false
+  },
+  "SortingState": {
+    "kind": "interface",
+    "properties": {
+      "id": {
+        "type": "string",
+        "required": true
+      },
+      "desc": {
+        "type": "boolean",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "UseDataTableStateProps": {
+    "kind": "interface",
+    "properties": {
+      "initialSorting": {
+        "type": "SortingState[] | undefined",
+        "required": false
+      },
+      "initialPagination": {
+        "type": "PaginationState | undefined",
+        "required": false
+      },
+      "initialVisibility": {
+        "type": "VisibilityState | undefined",
+        "required": false
+      },
+      "initialSelection": {
+        "type": "RowSelectionState | undefined",
+        "required": false
+      },
+      "initialGlobalFilter": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "initialColumnFilters": {
+        "type": "ColumnFiltersState | undefined",
+        "required": false
+      },
+      "initialColumnSizing": {
+        "type": "ColumnSizingState | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "VisibilityState": {
+    "kind": "type",
+    "signature": "Record<string, boolean>",
+    "properties": {},
+    "deprecated": false
+  },
+  "processTableData": {
+    "kind": "function",
+    "signature": "declare function processTableData<TData>(data: TData[], options: ProcessTableDataOptions<TData>): TData[];",
+    "returnType": "TData[]",
+    "properties": {
+      "data": {
+        "type": "TData[]",
+        "required": true
+      },
+      "options": {
+        "type": "ProcessTableDataOptions<TData>",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "useDataTableState": {
+    "kind": "function",
+    "signature": "declare function useDataTableState(props?: UseDataTableStateProps):",
+    "returnType": "{ sorting: SortingState[]; onSortingChange: (newSorting: SortingState[]) => void; pagination: PaginationState; onPaginationChange: (newPagination: PaginationState) => void; visibility: VisibilityState; onVisibilityChange: (newVisibility: VisibilityState) => void; selection: RowSelectionState; onRowSelectionChange: (newSelection: RowSelectionState) => void; globalFilter: string; onGlobalFilterChange: (filter: string) => void; columnFilters: ColumnFiltersState; onColumnFiltersChange: (filters: ColumnFiltersState) => void; columnSizing: ColumnSizingState; onColumnSizingChange: (sizing: ColumnSizingState) => void; resetFilters: () => void; resetSorting: () => void; }",
+    "properties": {
+      "props": {
+        "type": "UseDataTableStateProps | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  }
+}

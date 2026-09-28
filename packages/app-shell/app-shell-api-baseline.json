@@ -1,0 +1,411 @@
+{
+  "ApplicationShell": {
+    "kind": "component",
+    "signature": "declare function ApplicationShell(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "defaultCollapsed": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ApplicationShellProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "defaultCollapsed": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Header": {
+    "kind": "component",
+    "signature": "declare function Header(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "leftNode": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "centerNode": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "rightNode": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "HeaderProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "leftNode": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "centerNode": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "rightNode": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MainContent": {
+    "kind": "component",
+    "signature": "declare function MainContent(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "MainContentProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ShellContextValue": {
+    "kind": "interface",
+    "properties": {
+      "isCollapsed": {
+        "type": "boolean",
+        "required": true
+      },
+      "setCollapsed": {
+        "type": "(collapsed: boolean | ((prev: boolean) => boolean)) => void",
+        "required": true
+      },
+      "isMobileOpen": {
+        "type": "boolean",
+        "required": true
+      },
+      "setMobileOpen": {
+        "type": "(open: boolean | ((prev: boolean) => boolean)) => void",
+        "required": true
+      },
+      "isMobile": {
+        "type": "boolean",
+        "required": true
+      },
+      "toggleSidebar": {
+        "type": "() => void",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "ShellProvider": {
+    "kind": "component",
+    "signature": "declare function ShellProvider(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "defaultCollapsed": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ShellProviderProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "defaultCollapsed": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "Sidebar": {
+    "kind": "component",
+    "signature": "declare function Sidebar(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "'aria-label'": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SidebarFooter": {
+    "kind": "component",
+    "signature": "declare function SidebarFooter(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ children, className, style }": {
+        "type": "{ children: ReactNode; className?: string; style?: React.CSSProperties; }",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "SidebarHeader": {
+    "kind": "component",
+    "signature": "declare function SidebarHeader(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ children, className, style }": {
+        "type": "{ children: ReactNode; className?: string; style?: React.CSSProperties; }",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "SidebarItem": {
+    "kind": "component",
+    "signature": "declare function SidebarItem(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "active": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "badge": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "as": {
+        "type": "React.ElementType<any, keyof React.JSX.IntrinsicElements> | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SidebarItemProps": {
+    "kind": "interface",
+    "properties": {
+      "icon": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "label": {
+        "type": "string",
+        "required": true
+      },
+      "active": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "badge": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "as": {
+        "type": "React.ElementType<any, keyof React.JSX.IntrinsicElements> | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SidebarNavigation": {
+    "kind": "component",
+    "signature": "declare function SidebarNavigation(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ children, className, style }": {
+        "type": "{ children: ReactNode; className?: string; style?: React.CSSProperties; }",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "SidebarProps": {
+    "kind": "interface",
+    "properties": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": true
+      },
+      "id": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "'aria-label'": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "className": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "style": {
+        "type": "React.CSSProperties | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "SidebarSection": {
+    "kind": "component",
+    "signature": "declare function SidebarSection(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ children, title, className, style }": {
+        "type": "{ children: ReactNode; title?: string; className?: string; style?: React.CSSProperties; }",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "SidebarToggle": {
+    "kind": "component",
+    "signature": "declare function SidebarToggle(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ iconDesktop, iconMobile, className, style, }": {
+        "type": "{ iconDesktop?: ReactNode; iconMobile?: ReactNode; className?: string; style?: React.CSSProperties; }",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "SkipLink": {
+    "kind": "component",
+    "signature": "declare function SkipLink(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ targetId, label }": {
+        "type": "{ targetId?: string; label?: string; }",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "useShell": {
+    "kind": "function",
+    "signature": "declare function useShell(): ShellContextValue;",
+    "returnType": "ShellContextValue",
+    "properties": {},
+    "deprecated": false
+  }
+}
