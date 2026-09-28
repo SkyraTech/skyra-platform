@@ -1,19 +1,34 @@
 import { Card } from '@skyra/ui';
+import Link from 'next/link';
+import { docsRegistry } from '../../docs-system/registry';
+import { bootstrapRegistry } from '../../docs-system/bootstrap';
 
 export const metadata = { title: 'Overview — Skyra Platform Dashboard' };
 
-const PACKAGES = [
-  { name: '@skyra/design-tokens', layer: 'Layer 1', desc: 'CSS custom properties, dark mode, reset', status: 'Ready' },
-  { name: '@skyra/utils',         layer: 'Layer 1', desc: 'Pure TS utilities — formatCurrency, amountInWords, date, string', status: 'Ready' },
-  { name: '@skyra/validation',    layer: 'Layer 1', desc: 'Zod schemas — org, client, bank, common fields', status: 'Ready' },
-  { name: '@skyra/ui',            layer: 'Layer 2', desc: '14 ERP-fidelity UI primitives', status: 'Ready' },
-  { name: '@skyra/data-table',    layer: 'Layer 2', desc: 'Typed, sortable, paginated DynamicDataTable', status: 'Ready' },
-  { name: '@skyra/dynamic-form',  layer: 'Layer 2', desc: 'Schema-driven DynamicForm, 2-col → 1-col mobile', status: 'Ready' },
-  { name: '@skyra/dialogs',       layer: 'Layer 2', desc: 'ConfirmDialog, Modal, Drawer with focus trap', status: 'Ready' },
-  { name: '@skyra/invoice',       layer: 'Layer 3', desc: 'Invoice engine, PDF, Email (OUT OF SCOPE this phase)', status: 'Planned' },
-];
-
 export default function OverviewPage() {
+  bootstrapRegistry();
+  const packages = docsRegistry.getPackages();
+
+  const getLayer = (id: string) => {
+    if (['@skyra/design-tokens', '@skyra/utils', '@skyra/validation'].includes(id)) return 'Layer 1';
+    if (['@skyra/ui', '@skyra/app-shell', '@skyra/dialogs', '@skyra/data-table', '@skyra/dynamic-form'].includes(id)) return 'Layer 2';
+    if (['@skyra/data-export', '@skyra/qr'].includes(id)) return 'Layer 3';
+    return 'Layer 3';
+  };
+
+  const layerOrder: Record<string, number> = { 'Layer 1': 1, 'Layer 2': 2, 'Layer 3': 3, 'Other': 4 };
+
+  const sortedPackages = packages
+    .filter(pkg => pkg.id !== '@skyra/invoice')
+    .sort((a, b) => {
+      const layerA = getLayer(a.id);
+      const layerB = getLayer(b.id);
+      if (layerOrder[layerA] !== layerOrder[layerB]) {
+        return layerOrder[layerA] - layerOrder[layerB];
+      }
+      return a.id.localeCompare(b.id);
+    });
+
   return (
     <div className="dash-page">
       <div style={{ marginBottom: '2rem' }}>
@@ -21,37 +36,45 @@ export default function OverviewPage() {
           Skyra Platform
         </h1>
         <p style={{ color: 'var(--skyra-text)', fontSize: '1rem', maxWidth: '640px', opacity: 0.8 }}>
-          Internal reusable UI foundation. All components are extracted from and visually
-          derived from <strong>skyra-erp</strong> — the primary visual source of truth.
+          Reusable UI foundation for Skyra applications. Visual behavior and design references are derived from the read-only <strong>skyra-erp</strong> source of truth.
         </p>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem' }}>
-        {PACKAGES.map((pkg) => (
-          <Card key={pkg.name} size="sm">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-              <span style={{
-                color: pkg.layer === 'Layer 1' ? 'var(--skyra-text)' : pkg.layer === 'Layer 2' ? 'var(--skyra-text)' : 'var(--skyra-text)',
-                background: pkg.layer === 'Layer 1' ? 'var(--skyra-success-light)' : pkg.layer === 'Layer 2' ? 'var(--skyra-primary-light)' : 'var(--skyra-border)',
-                padding: '0.15rem 0.5rem', borderRadius: 'var(--skyra-radius-full)',
-              }}>
-                {pkg.layer}
-              </span>
-              <span style={{
-                fontSize: '0.7rem', fontWeight: 600,
-                color: pkg.status === 'Ready' ? 'var(--skyra-text)' : 'var(--skyra-text)',
-              }}>
-                {pkg.status === 'Ready' ? '✓ ' : '○ '}{pkg.status}
-              </span>
-            </div>
-            <div style={{ fontFamily: 'var(--skyra-font-mono)', fontSize: '0.8rem', fontWeight: 600, color: 'var(--skyra-text)', marginBottom: '0.375rem' }}>
-              {pkg.name}
-            </div>
-            <div style={{ fontSize: '0.8125rem', color: 'var(--skyra-text-muted)' }}>
-              {pkg.desc}
-            </div>
-          </Card>
-        ))}
+        {sortedPackages.map((pkg) => {
+          const layer = getLayer(pkg.id);
+          const status = pkg.status === 'stable' ? 'Ready' : pkg.status;
+          const route = `/packages/${pkg.id.replace('@skyra/', '')}`;
+          
+          return (
+            <Link key={pkg.id} href={route} style={{ textDecoration: 'none', display: 'block' }}>
+              <Card size="sm" style={{ height: '100%', transition: 'border-color 0.15s', cursor: 'pointer' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                  <span style={{
+                    color: layer === 'Layer 1' ? 'var(--skyra-text)' : layer === 'Layer 2' ? 'var(--skyra-text)' : 'var(--skyra-text)',
+                    background: layer === 'Layer 1' ? 'var(--skyra-success-light)' : layer === 'Layer 2' ? 'var(--skyra-primary-light)' : 'var(--skyra-border)',
+                    padding: '0.15rem 0.5rem', borderRadius: 'var(--skyra-radius-full)', fontSize: '0.75rem', fontWeight: 600
+                  }}>
+                    {layer}
+                  </span>
+                  <span style={{
+                    fontSize: '0.7rem', fontWeight: 600,
+                    color: 'var(--skyra-text)',
+                    textTransform: 'capitalize'
+                  }}>
+                    {status === 'Ready' ? '✓ ' : '○ '}{status}
+                  </span>
+                </div>
+                <div style={{ fontFamily: 'var(--skyra-font-mono)', fontSize: '0.8rem', fontWeight: 600, color: 'var(--skyra-text)', marginBottom: '0.375rem' }}>
+                  {pkg.id} <span style={{ opacity: 0.6, fontSize: '0.7rem', marginLeft: '0.25rem' }}>v{pkg.version}</span>
+                </div>
+                <div style={{ fontSize: '0.8125rem', color: 'var(--skyra-text-muted)' }}>
+                  {pkg.description}
+                </div>
+              </Card>
+            </Link>
+          );
+        })}
       </div>
 
       <div style={{ marginTop: '2rem', padding: '1rem 1.25rem', background: 'var(--skyra-primary-light)', borderRadius: 'var(--skyra-radius-lg)', border: '1px solid var(--skyra-primary)', fontSize: '0.875rem', color: 'var(--skyra-text)' }}>

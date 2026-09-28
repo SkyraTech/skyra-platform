@@ -201,7 +201,8 @@ export function SearchDialog() {
             display: 'flex',
             alignItems: 'flex-start',
             justifyContent: 'center',
-            padding: '4rem 1rem',
+            padding: '1rem',
+            paddingTop: 'min(10vh, 4rem)',
             backgroundColor: 'rgba(0,0,0,0.4)',
             backdropFilter: 'blur(4px)',
           }}
@@ -217,7 +218,7 @@ export function SearchDialog() {
               boxShadow: 'var(--skyra-shadow-lg)',
               display: 'flex',
               flexDirection: 'column',
-              maxHeight: 'calc(100vh - 8rem)',
+              maxHeight: 'calc(100vh - 2rem)',
               border: '1px solid var(--skyra-border)',
               overflow: 'hidden'
             }}

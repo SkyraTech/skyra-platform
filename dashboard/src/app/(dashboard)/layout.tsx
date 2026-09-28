@@ -18,14 +18,15 @@ import {
   Header, 
   SidebarToggle, 
   MainContent, 
-  SkipLink 
+  SkipLink,
+  useShell
 } from '@skyra/app-shell';
 import '@skyra/app-shell/styles.css';
 import { SearchDialog } from '../../components/docs/SearchDialog';
 
 const NAV_ITEMS = [
   { href: '/overview',      label: 'Overview',             icon: LayoutDashboard },
-  { href: '/packages',      label: 'Packages (Layer A)',   icon: Package },
+  { href: '/packages',      label: 'Packages',             icon: Package },
   { href: '/design-system', label: 'Design System',        icon: Palette },
   { href: '/ui-components', label: 'UI Components',        icon: Component },
   { href: '/data-table',    label: 'Data Table',           icon: Table2 },
@@ -40,6 +41,52 @@ const NAV_ITEMS = [
   { href: '/docs',          label: 'Documentation',        icon: BookOpen },
   { href: '/releases',      label: 'Releases & Changelog', icon: History },
 ];
+
+function DashboardSidebarHeader() {
+  const { isCollapsed, isMobile } = useShell();
+  const collapsed = isCollapsed && !isMobile;
+
+  return (
+    <SidebarHeader>
+      <div style={{ padding: '0 0.5rem', width: '100%', display: 'flex', flexDirection: 'column', alignItems: collapsed ? 'center' : 'flex-start' }}>
+        <div style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 800, fontSize: collapsed ? '1.25rem' : '1.125rem', color: '#fff', letterSpacing: '-0.01em' }}>
+          {collapsed ? 'SP' : 'Skyra Platform'}
+        </div>
+        {!collapsed && (
+          <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)', marginTop: '2px' }}>
+            Design System v0.1.0
+          </div>
+        )}
+      </div>
+    </SidebarHeader>
+  );
+}
+
+function DashboardSidebarFooter({ dark, toggleDark }: { dark: boolean; toggleDark: () => void }) {
+  const { isCollapsed, isMobile } = useShell();
+  const collapsed = isCollapsed && !isMobile;
+
+  return (
+    <SidebarFooter>
+      <button
+        onClick={toggleDark}
+        aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+        title={collapsed ? (dark ? 'Light Mode' : 'Dark Mode') : undefined}
+        style={{
+          display: 'flex', alignItems: 'center', justifyContent: collapsed ? 'center' : 'flex-start', gap: '0.5rem',
+          background: 'rgba(255,255,255,0.08)', border: 'none',
+          borderRadius: 'var(--skyra-radius-md)', padding: collapsed ? '0.5rem' : '0.5rem 0.875rem',
+          color: 'rgba(255,255,255,0.8)', cursor: 'pointer',
+          fontFamily: 'inherit', fontSize: '0.8125rem', fontWeight: 500,
+          width: '100%', minHeight: '44px',
+        }}
+      >
+        {dark ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}
+        {!collapsed && (dark ? 'Light Mode' : 'Dark Mode')}
+      </button>
+    </SidebarFooter>
+  );
+}
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [dark, setDark] = useState(false);
@@ -64,16 +111,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <ApplicationShell defaultCollapsed={false}>
       <SkipLink />
       <Sidebar>
-        <SidebarHeader>
-          <div style={{ padding: '0 0.5rem', width: '100%' }}>
-            <div style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 800, fontSize: '1.125rem', color: '#fff', letterSpacing: '-0.01em' }}>
-              Skyra Platform
-            </div>
-            <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)', marginTop: '2px' }}>
-              Design System v0.1.0
-            </div>
-          </div>
-        </SidebarHeader>
+        <DashboardSidebarHeader />
 
         <SidebarNavigation>
           {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
@@ -91,29 +129,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           })}
         </SidebarNavigation>
 
-        <SidebarFooter>
-          <button
-            onClick={toggleDark}
-            aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-            style={{
-              display: 'flex', alignItems: 'center', gap: '0.5rem',
-              background: 'rgba(255,255,255,0.08)', border: 'none',
-              borderRadius: 'var(--skyra-radius-md)', padding: '0.5rem 0.875rem',
-              color: 'rgba(255,255,255,0.8)', cursor: 'pointer',
-              fontFamily: 'inherit', fontSize: '0.8125rem', fontWeight: 500,
-              width: '100%', minHeight: '44px',
-            }}
-          >
-            {dark ? <Sun size={15} aria-hidden="true" /> : <Moon size={15} aria-hidden="true" />}
-            {dark ? 'Light Mode' : 'Dark Mode'}
-          </button>
-        </SidebarFooter>
+        <DashboardSidebarFooter dark={dark} toggleDark={toggleDark} />
       </Sidebar>
 
       <MainContent>
         <Header 
           leftNode={
             <SidebarToggle 
+              aria-label="Toggle Navigation"
               iconDesktop={<LayoutDashboard size={20} />} 
               iconMobile={<LayoutDashboard size={20} />}
             />
