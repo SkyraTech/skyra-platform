@@ -2216,3 +2216,15 @@
 .skyra-switch-container {
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
+
+/* UI-02 Basic Controls Focus Ring Fixes */
+.skyra-sr-only-peer:focus-visible + span {
+  box-shadow: var(--skyra-focus-ring);
+  outline: 2px solid var(--skyra-focus, #3b82f6);
+  outline-offset: 2px;
+}
+.skyra-switch-btn:focus-visible {
+  box-shadow: var(--skyra-focus-ring);
+  outline: 2px solid var(--skyra-focus, #3b82f6);
+  outline-offset: 2px;
+}

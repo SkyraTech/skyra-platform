@@ -78,7 +78,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             position: 'relative' }}
         >
           {/* Hidden native checkbox input */}
-          <input
+          <input className="skyra-sr-only-peer"
             ref={(node) => {
               (innerRef as React.MutableRefObject<HTMLInputElement | HTMLTextAreaElement | null>).current = node;
               if (typeof forwardedRef === 'function') {

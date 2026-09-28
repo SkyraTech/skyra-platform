@@ -64,7 +64,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
             position: 'relative' }}
         >
           {/* Native Radio Input */}
-          <input
+          <input className="skyra-sr-only-peer"
             ref={ref}
             id={inputId}
             type="radio"

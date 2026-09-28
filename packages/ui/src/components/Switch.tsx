@@ -148,7 +148,7 @@ export function Switch({
         onClick={handleToggle}
       >
         {/* Toggle Track */}
-        <button
+        <button className="skyra-switch-btn"
           id={switchId}
           type="button"
           role="switch"
