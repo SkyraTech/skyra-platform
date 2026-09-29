@@ -42,7 +42,7 @@ export default function DateFieldsShowcasePage() {
         <h1 style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 800, fontSize: '1.75rem', color: 'var(--skyra-text)', margin: 0 }}>
           Date &amp; Time Suite (10 Reusable Controls)
         </h1>
-        <p style={{ color: 'var(--skyra-text-muted)', fontSize: '0.95rem', marginTop: '0.5rem' }}>
+        <p style={{ color: 'var(--skyra-text)', fontSize: '0.95rem', marginTop: '0.5rem' }}>
           Enterprise date and time components with calendar popovers, range highlight, min/max bounds, 12h/24h modes, and responsive mobile behavior.
         </p>
       </div>

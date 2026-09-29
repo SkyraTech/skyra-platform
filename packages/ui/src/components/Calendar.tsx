@@ -246,7 +246,7 @@ export function Calendar({
             style={{
               fontSize: '0.72rem',
               fontWeight: 600,
-              color: 'var(--skyra-text-subtle)',
+              color: 'var(--skyra-text)',
               padding: '4px 0' }}
           >
             {name}
@@ -291,7 +291,7 @@ export function Calendar({
                   ? '#ffffff'
                   : isCurrentMonth
                   ? 'var(--skyra-text)'
-                  : 'var(--skyra-text-subtle)',
+                  : 'var(--skyra-text-muted)',
                 background: isSelected
                   ? 'var(--skyra-primary)'
                   : inRange
@@ -302,7 +302,7 @@ export function Calendar({
                 borderRadius: isSelected ? 'var(--skyra-radius-sm)' : inRange ? '0' : 'var(--skyra-radius-sm)',
                 border: isToday && !isSelected ? '1px solid var(--skyra-primary)' : 'none',
                 cursor: isDisabled ? 'not-allowed' : 'pointer',
-                opacity: !isCurrentMonth && !isSelected && !inRange ? 0.4 : isDisabled ? 0.35 : 1 }}
+                opacity: isDisabled ? 0.35 : 1 }}
             >
               {date.getDate()}
             </button>

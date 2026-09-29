@@ -114,9 +114,9 @@ export function YearField({
       )}
 
       {/* Input Trigger */}
-      <div
+      <button
+        type="button"
         id={fieldId}
-        role="button"
         tabIndex={disabled ? -1 : 0}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
@@ -142,7 +142,10 @@ export function YearField({
           boxShadow: isOpen ? 'var(--skyra-shadow-glow)' : 'none',
           cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'pointer',
           outline: 'none',
-          boxSizing: 'border-box' }}
+          boxSizing: 'border-box',
+          textAlign: 'left',
+          fontFamily: 'inherit',
+          color: 'inherit' }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1, overflow: 'hidden' }}>
           <CalendarIcon size={16} style={{ color: 'var(--skyra-text-muted)', flexShrink: 0 }} />
@@ -160,10 +163,9 @@ export function YearField({
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', flexShrink: 0 }}>
           {clearable && value && !disabled && !readOnly && (
-            <button
-              type="button"
-              aria-label="Clear year"
-              onClick={handleClear}
+            <span
+              aria-hidden="true"
+              onClick={(e) => { e.stopPropagation(); handleClear(e as any); }}
               style={{
                 background: 'none',
                 border: 'none',
@@ -174,10 +176,10 @@ export function YearField({
                 alignItems: 'center' }}
             >
               <X size={14} />
-            </button>
+            </span>
           )}
         </div>
-      </div>
+      </button>
 
       {/* Popover Grid */}
       {isOpen && (

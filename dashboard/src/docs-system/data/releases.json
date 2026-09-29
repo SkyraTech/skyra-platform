@@ -2,7 +2,7 @@
   "pending-app-shell-distribution-fix": {
     "id": "pending-app-shell-distribution-fix",
     "version": "Pending Release",
-    "date": "2026-09-28",
+    "date": "2026-09-29",
     "summary": "fix(app-shell): migrate distribution architecture to tsup",
     "packages": [
       {
@@ -10,25 +10,25 @@
         "packageName": "@skyra/app-shell",
         "changes": [
           {
-            "id": "change-i7ef56z",
+            "id": "change-ar5suaj",
             "type": "changed",
             "title": "Migrated package build system from raw `tsc` to `tsup` to match the Platform's standard distribution architecture.",
             "breaking": false
           },
           {
-            "id": "change-il5hpz8",
+            "id": "change-fgbzq85",
             "type": "changed",
             "title": "Remapped public `exports`, `main`, `module`, and `types` to target the compiled `./dist` artifacts instead of raw `./src` TypeScript files.",
             "breaking": false
           },
           {
-            "id": "change-x0zorpb",
+            "id": "change-fle5gsd",
             "type": "fixed",
             "title": "Resolved missing local `@types/react` dependencies that caused isolated build failures.",
             "breaking": false
           },
           {
-            "id": "change-nk65jwn",
+            "id": "change-sez3gv8",
             "type": "changed",
             "title": "Packages are now properly isolated, independently consumable, and fully resolvable without requiring consumers to transpile workspace source.",
             "breaking": false
@@ -40,7 +40,7 @@
   "pending-phase-9-4-style-isolation": {
     "id": "pending-phase-9-4-style-isolation",
     "version": "Pending Release",
-    "date": "2026-09-28",
+    "date": "2026-09-29",
     "summary": "fix: Scope reduced-motion accessibility styles to explicitly target Skyra components",
     "packages": [
       {
@@ -48,7 +48,7 @@
         "packageName": "@skyra/ui",
         "changes": [
           {
-            "id": "change-tie1nc0",
+            "id": "change-gsjcmuy",
             "type": "fixed",
             "title": "fix: Scope reduced-motion accessibility styles to explicitly target Skyra components",
             "breaking": false
@@ -60,7 +60,7 @@
   "pending-phase-9-5-type-safety-fixes": {
     "id": "pending-phase-9-5-type-safety-fixes",
     "version": "Pending Release",
-    "date": "2026-09-28",
+    "date": "2026-09-29",
     "summary": "fix: Strengthen internal and public type safety across Platform components",
     "packages": [
       {
@@ -68,7 +68,7 @@
         "packageName": "@skyra/ui",
         "changes": [
           {
-            "id": "change-d9l2xjh",
+            "id": "change-wpebaw7",
             "type": "fixed",
             "title": "fix: Strengthen internal and public type safety across Platform components",
             "breaking": false
@@ -80,7 +80,7 @@
         "packageName": "@skyra/dynamic-form",
         "changes": [
           {
-            "id": "change-d9l2xjh",
+            "id": "change-wpebaw7",
             "type": "fixed",
             "title": "fix: Strengthen internal and public type safety across Platform components",
             "breaking": false

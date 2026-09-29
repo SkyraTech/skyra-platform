@@ -247,7 +247,7 @@ export function DateField({
           disabled={disabled}
           onChange={handleInputChange}
           aria-haspopup="dialog"
-          aria-expanded={isOpen}
+          
           aria-invalid={hasError}
           aria-describedby={hasError ? errorId : description || helper ? descId : undefined}
           style={{

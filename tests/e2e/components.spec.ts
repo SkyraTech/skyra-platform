@@ -8,6 +8,7 @@ const testPages = [
   { path: '/packages/dialogs', name: 'dialogs' },
   { path: '/packages/app-shell', name: 'app-shell' },
   { path: '/packages/qr', name: 'qr' },
+  { path: '/ui-components/date-fields', name: 'date-fields' },
 ];
 
 test.describe('Platform Component Visual and A11y Tests', () => {

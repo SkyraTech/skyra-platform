@@ -92,24 +92,25 @@ export function Switch({
 
   // Dimensions based on size and variant
   const isCompact = variant === 'compact';
+  const isLabeled = variant === 'labeled';
   const dimensions = {
     sm: {
-      trackW: isCompact ? '28px' : '34px',
+      trackW: isCompact ? '28px' : isLabeled ? '42px' : '34px',
       trackH: isCompact ? '16px' : '18px',
       thumbS: isCompact ? '12px' : '14px',
-      translate: isCompact ? '12px' : '16px',
+      translate: isCompact ? '12px' : isLabeled ? '24px' : '16px',
     },
     md: {
-      trackW: isCompact ? '34px' : '44px',
+      trackW: isCompact ? '34px' : isLabeled ? '52px' : '44px',
       trackH: isCompact ? '18px' : '24px',
       thumbS: isCompact ? '14px' : '18px',
-      translate: isCompact ? '16px' : '20px',
+      translate: isCompact ? '16px' : isLabeled ? '28px' : '20px',
     },
     lg: {
-      trackW: isCompact ? '42px' : '54px',
+      trackW: isCompact ? '42px' : isLabeled ? '64px' : '54px',
       trackH: isCompact ? '22px' : '28px',
       thumbS: isCompact ? '18px' : '22px',
-      translate: isCompact ? '20px' : '26px',
+      translate: isCompact ? '20px' : isLabeled ? '36px' : '26px',
     },
   }[size];
 
