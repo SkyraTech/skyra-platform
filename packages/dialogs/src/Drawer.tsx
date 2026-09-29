@@ -79,7 +79,6 @@ export function Drawer({
           boxShadow: 'var(--skyra-shadow-lg)',
           zIndex: 200,
           display: 'flex', flexDirection: 'column',
-          overflow: 'hidden',
           animation: `skyra-drawer-${side} 0.25s cubic-bezier(0.16, 1, 0.3, 1)`,
         }}
       >

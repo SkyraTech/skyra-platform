@@ -44,6 +44,20 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const errorId = `${inputId}-error`;
 
     const innerRef = useRef<HTMLInputElement>(null);
+    const [internalChecked, setInternalChecked] = React.useState(Boolean(checked ?? defaultChecked));
+
+    useEffect(() => {
+      if (checked !== undefined) {
+        setInternalChecked(Boolean(checked));
+      }
+    }, [checked]);
+
+    const handleChange = (e) => {
+      if (checked === undefined) {
+        setInternalChecked(e.target.checked);
+      }
+      onChange?.(e);
+    };
 
     // Sync indeterminate property on real DOM node
     useEffect(() => {
@@ -53,7 +67,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     }, [indeterminate, forwardedRef]);
 
-    const isChecked = Boolean(checked ?? defaultChecked);
+    const isChecked = checked !== undefined ? Boolean(checked) : internalChecked;
     const hasError = !!error;
 
     return (
@@ -96,7 +110,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             defaultChecked={defaultChecked}
             disabled={disabled}
             required={required}
-            onChange={onChange}
+            onChange={handleChange}
             aria-invalid={hasError}
             aria-describedby={hasError ? errorId : description || helper ? descId : undefined}
             style={{

@@ -140,6 +140,8 @@ export function ConfirmDialog({
           transform: 'translate(-50%, -50%)',
           width: '440px',                          // [CONFIRMED]
           maxWidth: 'calc(100vw - 2rem)',          // [CONFIRMED]
+          maxHeight: 'calc(100dvh - 2rem)',        // Prevent vertical clipping
+          overflowY: 'auto',                       // Allow scrolling if content is huge
           background: 'var(--skyra-surface)',
           borderRadius: 'var(--skyra-radius-lg)', // [CONFIRMED: radius-lg = 14px]
           boxShadow: 'var(--skyra-shadow-lg)',
@@ -184,7 +186,7 @@ export function ConfirmDialog({
         </div>
 
         {/* Actions */}
-        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
           <button
             type="button"
             onClick={onCancel}

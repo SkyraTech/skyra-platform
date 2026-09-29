@@ -82,7 +82,6 @@ export function Modal({
           boxShadow: 'var(--skyra-shadow-lg)',
           zIndex: 200,
           display: 'flex', flexDirection: 'column',
-          overflow: 'hidden',
           animation: 'skyra-dialog-in 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { ConfirmDialog, Modal, Drawer } from '@skyra/dialogs';
-import { Button, Input, Checkbox } from '@skyra/ui';
+import { Button, Input, Checkbox, DynamicSelect } from '@skyra/ui';
 import { AlertCircle, Trash2, CheckCircle2 } from 'lucide-react';
 
 export default function DialogsPage() {
@@ -100,15 +100,37 @@ export default function DialogsPage() {
       </Modal>
 
       <Modal open={modalMd} onClose={() => setModalMd(false)} title="Standard Form Modal" size="md">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <Input label="Email Address" required />
-          <Input label="Full Name" required />
-          <Checkbox label="Send invitation email" />
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.currentTarget);
+            const data = {
+              email: formData.get('email'),
+              fullName: formData.get('fullName'),
+              sendEmail: formData.get('sendEmail') === 'on',
+            };
+            alert(`Submitted: ${JSON.stringify(data, null, 2)}`);
+            setModalMd(false);
+          }}
+          style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+        >
+          <Input name="email" type="email" label="Email Address" required />
+          <Input name="fullName" type="text" label="Full Name" required />
+          <DynamicSelect
+            name="role"
+            label="Role"
+            options={[
+              { value: 'admin', label: 'Administrator' },
+              { value: 'editor', label: 'Editor' },
+              { value: 'viewer', label: 'Viewer' },
+            ]}
+          />
+          <Checkbox name="sendEmail" label="Send invitation email" />
           <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '1rem' }}>
-            <Button variant="outline" onClick={() => setModalMd(false)}>Cancel</Button>
-            <Button onClick={() => setModalMd(false)}>Submit</Button>
+            <Button type="button" variant="outline" onClick={() => setModalMd(false)}>Cancel</Button>
+            <Button type="submit">Submit</Button>
           </div>
-        </div>
+        </form>
       </Modal>
 
       <Modal open={modalLg} onClose={() => setModalLg(false)} title="Large Data View" size="lg">
