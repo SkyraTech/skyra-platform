@@ -10,25 +10,25 @@
         "packageName": "@skyra/app-shell",
         "changes": [
           {
-            "id": "change-ar5suaj",
+            "id": "change-5yst9ns",
             "type": "changed",
             "title": "Migrated package build system from raw `tsc` to `tsup` to match the Platform's standard distribution architecture.",
             "breaking": false
           },
           {
-            "id": "change-fgbzq85",
+            "id": "change-0eey9o0",
             "type": "changed",
             "title": "Remapped public `exports`, `main`, `module`, and `types` to target the compiled `./dist` artifacts instead of raw `./src` TypeScript files.",
             "breaking": false
           },
           {
-            "id": "change-fle5gsd",
+            "id": "change-lmlvuo4",
             "type": "fixed",
             "title": "Resolved missing local `@types/react` dependencies that caused isolated build failures.",
             "breaking": false
           },
           {
-            "id": "change-sez3gv8",
+            "id": "change-l7en3qx",
             "type": "changed",
             "title": "Packages are now properly isolated, independently consumable, and fully resolvable without requiring consumers to transpile workspace source.",
             "breaking": false
@@ -48,7 +48,7 @@
         "packageName": "@skyra/ui",
         "changes": [
           {
-            "id": "change-gsjcmuy",
+            "id": "change-1z7ywno",
             "type": "fixed",
             "title": "fix: Scope reduced-motion accessibility styles to explicitly target Skyra components",
             "breaking": false
@@ -68,7 +68,7 @@
         "packageName": "@skyra/ui",
         "changes": [
           {
-            "id": "change-wpebaw7",
+            "id": "change-zcubtsw",
             "type": "fixed",
             "title": "fix: Strengthen internal and public type safety across Platform components",
             "breaking": false
@@ -80,7 +80,7 @@
         "packageName": "@skyra/dynamic-form",
         "changes": [
           {
-            "id": "change-wpebaw7",
+            "id": "change-zcubtsw",
             "type": "fixed",
             "title": "fix: Strengthen internal and public type safety across Platform components",
             "breaking": false

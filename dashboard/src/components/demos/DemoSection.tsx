@@ -10,7 +10,7 @@ export function DemoSection({ title, desc, children, erpSource }: { title: strin
         </h2>
         <p style={{ color: 'var(--skyra-text)', fontSize: '0.95rem', marginBottom: '0.5rem' }}>{desc}</p>
         {erpSource && (
-          <div style={{ fontSize: '0.75rem', color: 'var(--skyra-primary)', fontWeight: 600, display: 'inline-block', background: 'var(--skyra-primary-light)', padding: '0.2rem 0.6rem', borderRadius: 'var(--skyra-radius-full)' }}>
+          <div style={{ fontSize: '0.75rem', color: 'var(--skyra-viewed-color, var(--skyra-primary))', fontWeight: 600, display: 'inline-block', background: 'var(--skyra-viewed-bg, var(--skyra-primary-light))', padding: '0.2rem 0.6rem', borderRadius: 'var(--skyra-radius-full)' }}>
             ERP Source: {erpSource}
           </div>
         )}

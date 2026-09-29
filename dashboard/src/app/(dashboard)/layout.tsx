@@ -88,6 +88,27 @@ function DashboardSidebarFooter({ dark, toggleDark }: { dark: boolean; toggleDar
   );
 }
 
+function DashboardSidebarNavigationComponent({ pathname }: { pathname: string }) {
+  const { setMobileOpen } = useShell();
+  return (
+    <SidebarNavigation>
+      {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
+        const active = pathname === href || pathname.startsWith(href + '/');
+        return (
+          <SidebarItem
+            key={href}
+            href={href}
+            label={label}
+            icon={<Icon size={17} />}
+            active={active}
+            as={Link}
+            onClick={() => setMobileOpen(false)}
+          />
+        );
+      })}
+    </SidebarNavigation>
+  );
+}
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [dark, setDark] = useState(false);
   const pathname = usePathname();
@@ -113,21 +134,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <Sidebar>
         <DashboardSidebarHeader />
 
-        <SidebarNavigation>
-          {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
-            const active = pathname === href || pathname.startsWith(href + '/');
-            return (
-              <SidebarItem
-                key={href}
-                href={href}
-                label={label}
-                icon={<Icon size={17} />}
-                active={active}
-                as={Link}
-              />
-            );
-          })}
-        </SidebarNavigation>
+        <DashboardSidebarNavigationComponent pathname={pathname} />
 
         <DashboardSidebarFooter dark={dark} toggleDark={toggleDark} />
       </Sidebar>

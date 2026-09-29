@@ -462,7 +462,7 @@ export function DateField({
               style={{
                 background: 'none',
                 border: 'none',
-                color: 'var(--skyra-primary)',
+                color: 'var(--skyra-text)',
                 fontSize: '0.78rem',
                 fontWeight: 600,
                 cursor: 'pointer',
