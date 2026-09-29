@@ -99,8 +99,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             description={field.description ?? field.helper ?? field.helpText}
             error={error}
             onChange={handleValueChange}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -119,8 +117,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             error={error}
             onChange={(e) => handleValueChange(e.target.checked)}
             onBlur={handleBlur}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -138,8 +134,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             required={field.required}
             error={error}
             onChange={handleValueChange}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -159,8 +153,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             required={field.required}
             error={error}
             onChange={handleValueChange}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -177,8 +169,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             required={field.required}
             error={error}
             onChange={handleValueChange}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -205,8 +195,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             error={error}
             onChange={(e) => handleValueChange(e.target.value)}
             onBlur={handleBlur}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -227,8 +215,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             error={error}
             onChange={(e) => handleValueChange(e.target.value)}
             onBlur={handleBlur}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -249,8 +235,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             error={error}
             onChange={(e) => handleValueChange(e.target.value)}
             onBlur={handleBlur}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -273,8 +257,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             error={error}
             onChange={handleValueChange}
             onBlur={handleBlur}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -292,8 +274,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             description={field.description ?? field.helper ?? field.helpText}
             error={error}
             onChange={handleValueChange}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -310,8 +290,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             description={field.description ?? field.helper ?? field.helpText}
             error={error}
             onChange={handleValueChange}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -329,8 +307,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             description={field.description ?? field.helper ?? field.helpText}
             error={error}
             onChange={handleValueChange}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -347,8 +323,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             description={field.description ?? field.helper ?? field.helpText}
             error={error}
             onChange={handleValueChange}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );
@@ -429,8 +403,6 @@ export function FormField<TValues extends Record<string, unknown>>({
             error={error}
             onChange={(e) => handleValueChange(e.target.value)}
             onBlur={handleBlur}
-            aria-invalid={Boolean(error)}
-            aria-describedby={describedBy}
           />
         </div>
       );

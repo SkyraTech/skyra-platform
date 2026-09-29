@@ -177,7 +177,7 @@ export function DynamicForm<TValues extends FormValues = FormValues>(
         const isFramedCard = Boolean(fieldset.title || fieldset.subtitle);
 
         return (
-          <fieldset
+            <fieldset
             key={fieldset.id ?? fieldset.title ?? `fieldset-${fsIndex}`}
             className="skyra-fieldset-card"
             style={{
@@ -186,7 +186,6 @@ export function DynamicForm<TValues extends FormValues = FormValues>(
               border: isFramedCard ? '1px solid var(--skyra-border)' : 'none',
               borderRadius: isFramedCard ? 'var(--skyra-radius-xl)' : '0',
               background: isFramedCard ? 'var(--skyra-surface)' : 'transparent',
-              overflow: 'hidden',
               boxShadow: isFramedCard ? 'var(--skyra-shadow-sm)' : 'none',
             }}
           >
@@ -202,6 +201,8 @@ export function DynamicForm<TValues extends FormValues = FormValues>(
                   borderBottom: '1px solid var(--skyra-border)',
                   background: 'var(--skyra-bg)',
                   boxSizing: 'border-box',
+                  borderTopLeftRadius: 'calc(var(--skyra-radius-xl) - 1px)',
+                  borderTopRightRadius: 'calc(var(--skyra-radius-xl) - 1px)',
                 }}
               >
                 <span
@@ -252,7 +253,7 @@ export function DynamicForm<TValues extends FormValues = FormValues>(
               style={{
                 padding: isFramedCard ? '1.25rem' : '0',
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
                 gap: '1.25rem',
                 clear: 'both',
               }}

@@ -38,7 +38,6 @@ export function ValidationSummary({
   return (
     <div
       role="alert"
-      aria-live="polite"
       className={`skyra-validation-summary ${className}`.trim()}
       style={{
         background: 'var(--skyra-danger-light, rgba(239, 68, 68, 0.08))',
