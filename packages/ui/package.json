@@ -21,6 +21,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@skyra-tech-platform/button": "workspace:^",
     "@skyra/data-export": "workspace:*",
     "@skyra/design-tokens": "workspace:*",
     "@skyra/utils": "workspace:*",

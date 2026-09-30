@@ -1,49 +1,43 @@
 'use client';
 
-import React from 'react';
-import { Loader2 } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { SkyraTechButton } from '@skyra-tech-platform/button';
+import '@skyra-tech-platform/button';
+
+declare module 'react' {
+  namespace JSX {
+    interface IntrinsicElements {
+      'skyra-tech-button': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+        variant?: string;
+        size?: string;
+        loading?: string;
+        'loading-text'?: string;
+        'full-width'?: string;
+        'icon-only'?: string;
+        disabled?: string;
+        type?: string;
+        class?: string;
+      };
+    }
+  }
+}
 
 export type ButtonVariant = 'primary' | 'orange' | 'outline' | 'ghost' | 'danger' | 'destructive' | 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
-  /** Visual variant. [CONFIRMED from ERP: ui.css .btn-*] */
   variant?: ButtonVariant;
-  /** Size preset */
   size?: ButtonSize;
-  /** Show a loading spinner and disable the button */
   isLoading?: boolean;
-  /** Loading state text shown to screen readers */
   loadingText?: string;
-  /** Render as full-width block */
   fullWidth?: boolean;
-  /** Icon-only button (square, no label) */
   iconOnly?: boolean;
-  /** Left-side icon */
   leftIcon?: React.ReactNode;
-  /** Right-side icon */
   rightIcon?: React.ReactNode;
   children?: React.ReactNode;
 }
 
-/**
- * @skyra/ui Button
- *
- * [B] PLATFORM EXTRACTION from skyra-erp/src/styles/ui.css .btn-*
- *
- * Preserves ERP visual characteristics:
- *   - Primary: #0A58CA → hover #0847a8, shadow rgba(10,88,202,0.25), translateY(-1px) hover
- *   - Orange:  #FF6B00 → hover #e05e00, shadow rgba(255,107,0,0.25)
- *   - Outline: border var(--skyra-primary), hover primary-light bg
- *   - Ghost:   border var(--skyra-border), hover bg-color bg
- *
- * [C] PLATFORM ENHANCEMENTS vs ERP:
- *   - `danger` variant added for dialog confirm buttons (documented)
- *   - `isLoading` + spinner state (ERP uses custom implementations per form)
- *   - `leftIcon` / `rightIcon` slots
- *   - `iconOnly` square mode
- */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -59,53 +53,58 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className = '',
       disabled,
       type = 'button',
+      onClick,
       ...rest
     },
     ref
   ) => {
-    const isDisabled = disabled || isLoading;
+    const internalRef = useRef<any>(null);
 
-    const classes = [
-      'skyra-btn',
-      `skyra-btn--${variant === 'destructive' ? 'danger' : variant}`,
-      `skyra-btn--${size}`,
-      isLoading ? 'skyra-btn--loading' : '',
-      fullWidth ? 'skyra-btn--full' : '',
-      iconOnly ? 'skyra-btn--icon' : '',
-      className,
-    ]
-      .filter(Boolean)
-      .join(' ');
+    // Sync refs
+    useEffect(() => {
+      if (typeof ref === 'function') {
+        ref(internalRef.current);
+      } else if (ref) {
+        (ref as any).current = internalRef.current;
+      }
+    }, [ref]);
+
+    // Attach click handler natively since React's synthetic events sometimes have trouble with Custom Elements
+    useEffect(() => {
+      const el = internalRef.current;
+      if (!el || !onClick) return;
+      
+      const clickHandler = (e: any) => {
+        // If the custom element is disabled, standard DOM usually stops clicks, but we can ensure it here
+        if (!el.disabled && !el.hasAttribute('loading')) {
+          onClick(e);
+        }
+      };
+
+      el.addEventListener('click', clickHandler);
+      return () => {
+        el.removeEventListener('click', clickHandler);
+      };
+    }, [onClick]);
 
     return (
-      <button
-        ref={ref}
+      <skyra-tech-button
+        ref={internalRef}
+        class={className || undefined}
+        variant={variant === 'destructive' ? 'danger' : variant}
+        size={size}
+        loading={isLoading ? 'true' : undefined}
+        loading-text={loadingText}
+        full-width={fullWidth ? 'true' : undefined}
+        icon-only={iconOnly ? 'true' : undefined}
+        disabled={disabled || isLoading ? true : undefined}
         type={type}
-        className={classes}
-        disabled={isDisabled}
-        aria-disabled={isDisabled}
-        aria-busy={isLoading}
         {...rest}
       >
-        {isLoading && (
-          <Loader2
-            size={size === 'sm' ? 13 : size === 'lg' ? 17 : 15}
-            className="skyra-spinner"
-            aria-hidden="true"
-            
-          />
-        )}
-        {!isLoading && leftIcon && <span aria-hidden="true">{leftIcon}</span>}
-        {isLoading && loadingText ? (
-          <>
-            <span className="sr-only">{loadingText}</span>
-            <span aria-hidden="true">{children}</span>
-          </>
-        ) : (
-          children
-        )}
-        {!isLoading && rightIcon && <span aria-hidden="true">{rightIcon}</span>}
-      </button>
+        {leftIcon && <span slot="left-icon" aria-hidden="true">{leftIcon}</span>}
+        {children}
+        {rightIcon && <span slot="right-icon" aria-hidden="true">{rightIcon}</span>}
+      </skyra-tech-button>
     );
   }
 );
