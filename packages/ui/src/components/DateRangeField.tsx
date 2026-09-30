@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useId } from 'react';
+import { useFloatingPosition } from '../hooks/useFloatingPosition';
 import { Calendar, ChevronLeft, ChevronRight, X, AlertCircle } from 'lucide-react';
 
 export interface DateRangeValue {
@@ -99,6 +100,9 @@ export function DateRangeField({
   );
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const triggerWrapperRef = useRef<HTMLDivElement>(null);
+  const { top, left, actualPlacement } = useFloatingPosition({ anchor: triggerWrapperRef, floating: popoverRef, open: isOpen, placement: 'bottom', align: 'start', viewportPadding: 16 });
 
   const startIso = value.startDate;
   const endIso = value.endDate;
@@ -108,7 +112,9 @@ export function DateRangeField({
   // Close on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      if (triggerWrapperRef.current?.contains(target) || popoverRef.current?.contains(target)) return;
+      if (containerRef.current && !containerRef.current.contains(target)) {
         setIsOpen(false);
       }
     };
@@ -253,14 +259,11 @@ export function DateRangeField({
 
       {/* Popover Calendar */}
       {isOpen && (
-        <div className="skyra-motion-fade-in-up"
-          role="dialog"
+        <div className={`skyra-motion-fade-in-up skyra-popover--${actualPlacement}`}
+          ref={popoverRef} role="dialog"
           aria-label="Date range calendar picker"
           style={{
-            position: 'absolute',
-            top: 'calc(100% + 4px)',
-            left: 0,
-            zIndex: 250,
+            position: 'fixed', top: `${top}px`, left: `${left}px`, zIndex: 'var(--skyra-z-popover, 1000)',
             background: 'var(--skyra-surface)',
             border: '1px solid var(--skyra-border)',
             borderRadius: 'var(--skyra-radius-md)',

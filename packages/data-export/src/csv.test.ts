@@ -18,6 +18,23 @@ describe('CSV Export Engine', () => {
     expect(escapeCsvCell(12345)).toBe('12345');
   });
 
+  it('protects against formula injection by default', () => {
+    expect(escapeCsvCell('=1+1')).toBe("'=" + '1+1');
+    expect(escapeCsvCell('+SUM(A1:A2)')).toBe("'+SUM(A1:A2)");
+    expect(escapeCsvCell('-100')).toBe("'-100");
+    expect(escapeCsvCell('@foo')).toBe("'@foo");
+  });
+
+  it('can disable formula protection', () => {
+    expect(escapeCsvCell('=1+1', ',', false)).toBe('=1+1');
+    expect(escapeCsvCell('+SUM', ',', false)).toBe('+SUM');
+  });
+
+  it('uses custom nullValue if provided', () => {
+    expect(escapeCsvCell(null, ',', true, 'NULL')).toBe('NULL');
+    expect(escapeCsvCell(undefined, ',', true, 'N/A')).toBe('N/A');
+  });
+
   it('exports dataset to CSV with inferred columns', () => {
     const csv = exportToCsv(sampleData, { includeBom: false });
     expect(csv).toContain('Id,Name,Role,Salary');

@@ -17,6 +17,24 @@ export interface DataTableFeatures {
   bulkActions?: boolean;
 }
 
+export type FilterType = 'text' | 'select' | 'multiSelect' | 'number' | 'date' | 'dateRange' | 'boolean' | 'custom';
+
+export type FilterOperator = 
+  | 'contains' | 'equals' | 'startsWith' | 'endsWith' | 'doesNotContain' | 'isEmpty' | 'isNotEmpty'
+  | 'greaterThan' | 'greaterThanOrEqual' | 'lessThan' | 'lessThanOrEqual' | 'between' | 'notEquals'
+  | 'before' | 'after' | 'onOrBefore' | 'onOrAfter';
+
+export interface ColumnFilterConfig {
+  type?: FilterType;
+  options?: { value: string | number | boolean; label: string }[];
+  customComponent?: React.ReactNode;
+}
+
+export interface ColumnVisualConfig {
+  variant?: 'accent' | 'subtle';
+  tone?: 'primary' | 'danger' | 'warning' | 'success' | 'info';
+}
+
 /**
  * Column definition.
  */
@@ -27,6 +45,7 @@ export interface ColumnDef<TData, TValue = unknown> {
   cell?: (props: { row: TData; value: TValue }) => React.ReactNode;
   sortable?: boolean;
   filterable?: boolean;
+  filterConfig?: ColumnFilterConfig;
   hideable?: boolean;
   resizable?: boolean;
   width?: string | number;
@@ -34,6 +53,7 @@ export interface ColumnDef<TData, TValue = unknown> {
   maxWidth?: number;
   align?: 'left' | 'center' | 'right';
   className?: string;
+  visual?: ColumnVisualConfig;
 }
 
 /**
@@ -64,6 +84,7 @@ export type VisibilityState = Record<string, boolean>;
 export interface ColumnFilter {
   id: string;
   value: unknown;
+  operator?: FilterOperator;
 }
 export type ColumnFiltersState = ColumnFilter[];
 
@@ -116,6 +137,7 @@ export interface DataTableProps<TData extends { id: string | number }> {
   onRowClick?: (row: TData) => void;
   rowActions?: (row: TData) => React.ReactNode;
   bulkActions?: (selectedRows: TData[]) => React.ReactNode;
+  onAdd?: () => void;
 
   // -- Observers --
   onProcessedDataChange?: (data: TData[]) => void;

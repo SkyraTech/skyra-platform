@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useId } from 'react';
-import { Clock, X, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect, useId, useRef } from 'react';
+import { Clock, X, AlertCircle, ChevronDown } from 'lucide-react';
+import { Popover } from './Popover';
 
 export interface TimeFieldProps {
   /** Time string (e.g., "14:30" for 24h, or "02:30 PM" for 12h) */
@@ -30,6 +31,142 @@ export interface TimeFieldProps {
   id?: string;
   /** Additional CSS class */
   className?: string;
+}
+
+function TimeSelectDropdown({ value, options, onChange, ariaLabel, disabled }: { value: string, options: string[], onChange: (v: string) => void, ariaLabel: string, disabled?: boolean }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && listRef.current) {
+      const idx = options.indexOf(value);
+      if (idx >= 0) {
+        const el = listRef.current.children[idx] as HTMLElement;
+        if (el) {
+          el.scrollIntoView({ block: 'nearest' });
+          el.focus();
+        }
+      }
+    }
+  }, [isOpen, value, options]);
+
+  return (
+    <Popover
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      disabled={disabled}
+      ariaLabel={ariaLabel}
+      placement="bottom"
+      align="center"
+      trigger={
+        <button
+          type="button"
+          disabled={disabled}
+          aria-label={ariaLabel}
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          style={{
+            background: 'transparent',
+            border: 'none',
+            outline: 'none',
+            fontSize: '0.875rem',
+            color: 'var(--skyra-text)',
+            fontFamily: 'inherit',
+            fontWeight: 500,
+            cursor: disabled ? 'not-allowed' : 'pointer',
+            padding: '2px 4px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '2px',
+            borderRadius: 'var(--skyra-radius-sm)',
+            transition: 'box-shadow 0.2s',
+          }}
+          onFocus={(e) => { if (!disabled) e.currentTarget.style.boxShadow = 'var(--skyra-focus-ring)'; }}
+          onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}
+        >
+          {value} <ChevronDown size={12} style={{ color: 'var(--skyra-text-muted)' }}/>
+        </button>
+      }
+      content={
+        <div
+          ref={listRef}
+          role="listbox"
+          tabIndex={-1}
+          style={{
+            background: 'var(--skyra-surface)',
+            border: '1px solid var(--skyra-border)',
+            borderRadius: 'var(--skyra-radius-md)',
+            boxShadow: 'var(--skyra-shadow-lg)',
+            maxHeight: '220px',
+            overflowY: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '4px',
+            minWidth: '60px',
+            outline: 'none'
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'ArrowDown') {
+              e.preventDefault();
+              if (document.activeElement?.nextElementSibling) {
+                (document.activeElement.nextElementSibling as HTMLElement).focus();
+              } else if (listRef.current?.firstElementChild) {
+                (listRef.current.firstElementChild as HTMLElement).focus();
+              }
+            } else if (e.key === 'ArrowUp') {
+              e.preventDefault();
+              if (document.activeElement?.previousElementSibling) {
+                (document.activeElement.previousElementSibling as HTMLElement).focus();
+              } else if (listRef.current?.lastElementChild) {
+                (listRef.current.lastElementChild as HTMLElement).focus();
+              }
+            }
+          }}
+        >
+          {options.map((opt: string) => (
+            <button
+              key={opt}
+              type="button"
+              role="option"
+              aria-selected={opt === value}
+              onClick={() => { onChange(opt); setIsOpen(false); }}
+              onKeyDown={(e) => {
+                 if (e.key === 'Enter' || e.key === ' ') {
+                   e.preventDefault();
+                   onChange(opt);
+                   setIsOpen(false);
+                 }
+              }}
+              style={{
+                padding: '6px 8px',
+                background: opt === value ? 'var(--skyra-primary)' : 'transparent',
+                color: opt === value ? '#ffffff' : 'var(--skyra-text)',
+                border: 'none',
+                borderRadius: 'var(--skyra-radius-sm)',
+                textAlign: 'center',
+                cursor: 'pointer',
+                fontSize: '0.85rem',
+                fontWeight: opt === value ? 600 : 400,
+                outline: 'none'
+              }}
+              onFocus={(e) => {
+                if (opt !== value) {
+                  e.currentTarget.style.background = 'var(--skyra-bg)';
+                }
+              }}
+              onBlur={(e) => {
+                if (opt !== value) {
+                  e.currentTarget.style.background = 'transparent';
+                }
+              }}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      }
+    />
+  );
 }
 
 /**
@@ -91,14 +228,12 @@ export function TimeField({
     onChange?.(result);
   };
 
-  const handleHourChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const next = e.target.value;
+  const handleHourChange = (next: string) => {
     setHours(next);
     updateTime(next, minutes, period);
   };
 
-  const handleMinuteChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const next = e.target.value;
+  const handleMinuteChange = (next: string) => {
     setMinutes(next);
     updateTime(hours, next, period);
   };
@@ -158,6 +293,7 @@ export function TimeField({
 
       {/* Selects Container */}
       <div
+        id={inputId}
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -171,54 +307,23 @@ export function TimeField({
       >
         <Clock size={16} style={{ color: 'var(--skyra-text-muted)', flexShrink: 0 }} />
 
-        {/* Hours Select */}
-        <select
-          id={inputId}
+        <TimeSelectDropdown
           value={hours}
-          disabled={disabled}
+          options={hourOptions}
           onChange={handleHourChange}
-          aria-label="Hour"
-          style={{
-            background: 'transparent',
-            border: 'none',
-            outline: 'none',
-            fontSize: '0.875rem',
-            color: 'var(--skyra-text)',
-            fontFamily: 'inherit',
-            fontWeight: 500,
-            cursor: disabled ? 'not-allowed' : 'pointer' }}
-        >
-          {hourOptions.map((h) => (
-            <option key={h} value={h}>
-              {h}
-            </option>
-          ))}
-        </select>
+          ariaLabel="Hour"
+          disabled={disabled}
+        />
 
         <span style={{ color: 'var(--skyra-text-muted)', fontWeight: 600 }}>:</span>
 
-        {/* Minutes Select */}
-        <select
+        <TimeSelectDropdown
           value={minutes}
-          disabled={disabled}
+          options={minuteOptions}
           onChange={handleMinuteChange}
-          aria-label="Minute"
-          style={{
-            background: 'transparent',
-            border: 'none',
-            outline: 'none',
-            fontSize: '0.875rem',
-            color: 'var(--skyra-text)',
-            fontFamily: 'inherit',
-            fontWeight: 500,
-            cursor: disabled ? 'not-allowed' : 'pointer' }}
-        >
-          {minuteOptions.map((m) => (
-            <option key={m} value={m}>
-              {m}
-            </option>
-          ))}
-        </select>
+          ariaLabel="Minute"
+          disabled={disabled}
+        />
 
         {/* AM / PM Toggle in 12h mode */}
         {format === '12h' && (

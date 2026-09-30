@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useId } from 'react';
-import { Calendar as CalendarIcon, X, AlertCircle } from 'lucide-react';
+import {  Calendar as CalendarIcon, X, AlertCircle  } from 'lucide-react';
+import { useFloatingPosition } from '../hooks/useFloatingPosition';
 import { Calendar } from './Calendar';
 
 export interface WeekFieldProps {
@@ -51,18 +52,40 @@ export function WeekField({
 
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const triggerWrapperRef = useRef<HTMLDivElement>(null);
+
+  const { top, left, actualPlacement } = useFloatingPosition({
+    anchor: triggerWrapperRef,
+    floating: popoverRef,
+    open: isOpen,
+    placement: 'bottom',
+    align: 'start',
+    viewportPadding: 16
+  });
 
   const startVal = Array.isArray(value) ? value[0] : typeof value === 'string' ? value.split(' to ')[0] : '';
   const endVal = Array.isArray(value) ? value[1] : typeof value === 'string' ? value.split(' to ')[1] : '';
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node;
+      if (
+        triggerWrapperRef.current?.contains(target) ||
+        popoverRef.current?.contains(target)
+      ) {
+        return;
+      }
+      if (containerRef.current && !containerRef.current.contains(target)) {
         setIsOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
   }, []);
 
   const handleClear = (e: React.MouseEvent) => {
@@ -102,6 +125,7 @@ export function WeekField({
       )}
 
       {/* Input Trigger */}
+      <div ref={triggerWrapperRef} style={{ width: '100%', position: 'relative' }}>
       <button
         type="button"
         id={fieldId}
@@ -167,16 +191,18 @@ export function WeekField({
           )}
         </div>
       </button>
+      </div>
 
       {/* Popover Calendar */}
       {isOpen && (
-        <div className="skyra-motion-fade-in-up"
+        <div className={`skyra-motion-fade-in-up skyra-popover--${actualPlacement}`}
           id={popoverId}
+          ref={popoverRef}
           style={{
-            position: 'absolute',
-            top: 'calc(100% + 4px)',
-            left: 0,
-            zIndex: 200,
+            position: 'fixed',
+            top: `${top}px`,
+            left: `${left}px`,
+            zIndex: 'var(--skyra-z-popover, 1000)',
             boxShadow: 'var(--skyra-shadow-lg)',
             borderRadius: 'var(--skyra-radius-md)' }}
         >

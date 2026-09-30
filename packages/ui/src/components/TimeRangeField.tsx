@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useId } from 'react';
-import { Clock, X, AlertCircle } from 'lucide-react';
+import {  Clock, X, AlertCircle  } from 'lucide-react';
+import { useFloatingPosition } from '../hooks/useFloatingPosition';
 
 export interface TimeRangeValue {
   startTime: string; // "09:00" or "09:00 AM"
@@ -60,18 +61,40 @@ export function TimeRangeField({
 
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const triggerWrapperRef = useRef<HTMLDivElement>(null);
+
+  const { top, left, actualPlacement } = useFloatingPosition({
+    anchor: triggerWrapperRef,
+    floating: popoverRef,
+    open: isOpen,
+    placement: 'bottom',
+    align: 'start',
+    viewportPadding: 16
+  });
 
   const startVal = Array.isArray(value) ? value[0] : value?.startTime ?? '';
   const endVal = Array.isArray(value) ? value[1] : value?.endTime ?? '';
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node;
+      if (
+        triggerWrapperRef.current?.contains(target) ||
+        popoverRef.current?.contains(target)
+      ) {
+        return;
+      }
+      if (containerRef.current && !containerRef.current.contains(target)) {
         setIsOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
   }, []);
 
   const handleClear = (e: React.MouseEvent) => {
@@ -124,6 +147,7 @@ export function TimeRangeField({
       )}
 
       {/* Input Trigger */}
+      <div ref={triggerWrapperRef} style={{ width: '100%', position: 'relative' }}>
       <button
         type="button"
         id={fieldId}
@@ -190,11 +214,13 @@ export function TimeRangeField({
           )}
         </div>
       </button>
+      </div>
 
-        {/* Popover */}
+      {/* Popover */}
       {isOpen && (
-        <div className="skyra-motion-fade-in-up"
+        <div className={`skyra-motion-fade-in-up skyra-popover--${actualPlacement}`}
           id={popoverId}
+          ref={popoverRef}
           style={{
             position: 'absolute',
             top: 'calc(100% + 4px)',

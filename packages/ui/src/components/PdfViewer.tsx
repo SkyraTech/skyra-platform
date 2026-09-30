@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import {
   ZoomIn,
   ZoomOut,
@@ -14,93 +14,103 @@ import {
   FileText,
   AlertCircle,
   Loader2,
-  Minimize,
   Maximize,
+  Sidebar,
 } from 'lucide-react';
+import { usePdfDocument } from './pdfHooks';
+import { PdfPage } from './PdfPage';
+import { ThumbnailItem } from './PdfThumbnail';
 
 export interface PdfViewerProps {
-  /** Document title */
   title?: string;
-  /** PDF URL or Blob string */
-  src?: string;
-  /** Total pages count */
+  src?: string | Blob | ArrayBuffer;
   totalPages?: number;
-  /** Initial page index (1-based) */
   initialPage?: number;
-  /** Initial zoom level in percentage (e.g. 100) */
   initialZoom?: number;
-  /** Custom page renderer for custom preview layouts */
-  renderPage?: (page: number, zoom: number) => React.ReactNode;
-  /** Page change callback */
   onPageChange?: (page: number) => void;
-  /** Print action callback */
   onPrint?: () => void;
-  /** Download action callback */
   onDownload?: () => void;
-  /** Loading state indicator */
   loading?: boolean;
-  /** Error state message */
   error?: string;
-  /** Height of viewer container */
   height?: string | number;
-  /** Additional CSS class */
   className?: string;
 }
 
-/**
- * @skyra/ui PdfViewer
- *
- * Production-ready document viewer UI with toolbar (zoom, fit width/page, fullscreen, print, download),
- * page navigation, dark chrome, accessible controls, and responsive layout.
- */
 export function PdfViewer({
   title = 'Document Preview',
   src,
-  totalPages = 1,
+  totalPages: propTotalPages,
   initialPage = 1,
   initialZoom = 100,
-  renderPage,
   onPageChange,
   onPrint,
   onDownload,
-  loading = false,
-  error,
+  loading: propLoading = false,
+  error: propError,
   height = '520px',
   className = '',
 }: PdfViewerProps) {
+  const { pdf, loading: pdfLoading, error: pdfError } = usePdfDocument(src);
+  const totalPages = propTotalPages ?? (pdf?.numPages || 1);
+  const loading = propLoading || pdfLoading;
+  const error = propError || (pdfError ? 'Failed to load document' : undefined);
+
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [zoom, setZoom] = useState(initialZoom);
   const [rotation, setRotation] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const printAreaRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Sync currentPage with initialPage but ensure it doesn't exceed totalPages
+  useEffect(() => {
+    if (pdf) {
+      setCurrentPage((prev) => Math.min(Math.max(1, prev), pdf.numPages));
+    }
+  }, [pdf]);
+
+  // Responsive sidebar
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth >= 1024) {
+        setSidebarOpen(true);
+      } else {
+        setSidebarOpen(false);
+      }
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > totalPages) return;
     setCurrentPage(newPage);
     onPageChange?.(newPage);
+    if (isMobile) {
+      setSidebarOpen(false); // Close sidebar on mobile after selection
+    }
   };
 
-  const handleZoomIn = () => {
-    setZoom((prev) => Math.min(prev + 25, 250));
-  };
-
-  const handleZoomOut = () => {
-    setZoom((prev) => Math.max(prev - 25, 50));
-  };
-
-  const handleResetZoom = () => {
-    setZoom(100);
-  };
-
+  const handleZoomIn = () => setZoom((prev) => Math.min(prev + 25, 300));
+  const handleZoomOut = () => setZoom((prev) => Math.max(prev - 25, 50));
+  const handleResetZoom = () => setZoom(100);
   const handleFitWidth = () => {
-    setZoom(125);
+    if (scrollContainerRef.current) {
+      // Approximate fit width based on container
+      const containerWidth = scrollContainerRef.current.clientWidth - 48; // padding
+      const standardPdfWidth = 595; // A4 approx
+      const newZoom = Math.floor((containerWidth / standardPdfWidth) * 100);
+      setZoom(Math.min(Math.max(newZoom, 50), 300));
+    }
   };
 
-  const handleRotate = () => {
-    setRotation((prev) => (prev + 90) % 360);
-  };
+  const handleRotate = () => setRotation((prev) => (prev + 90) % 360);
 
   const toggleFullscreen = () => {
     if (!containerRef.current) return;
@@ -113,36 +123,55 @@ export function PdfViewer({
     }
   };
 
-  const handlePrint = () => {
+  useEffect(() => {
+    const handleFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', handleFsChange);
+    return () => document.removeEventListener('fullscreenchange', handleFsChange);
+  }, []);
+
+  const getBlobUrl = async () => {
+    if (typeof src === 'string') return src;
+    if (src instanceof Blob) return URL.createObjectURL(src);
+    if (src instanceof ArrayBuffer) return URL.createObjectURL(new Blob([src], { type: 'application/pdf' }));
+    return null;
+  };
+
+  const handlePrint = async () => {
     if (onPrint) {
       onPrint();
-    } else if (src && typeof window !== 'undefined') {
+      return;
+    }
+    const url = await getBlobUrl();
+    if (url && typeof window !== 'undefined') {
       const iframe = document.createElement('iframe');
       iframe.style.display = 'none';
-      iframe.src = src;
+      iframe.src = url;
       document.body.appendChild(iframe);
       iframe.onload = () => {
         iframe.contentWindow?.print();
+        // Cleanup blob if we created it
+        if (url !== src) setTimeout(() => URL.revokeObjectURL(url), 10000);
       };
-    } else if (typeof window !== 'undefined') {
-      window.print();
     }
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (onDownload) {
       onDownload();
-    } else if (src && typeof window !== 'undefined') {
+      return;
+    }
+    const url = await getBlobUrl();
+    if (url && typeof window !== 'undefined') {
       const a = document.createElement('a');
-      a.href = src;
+      a.href = url;
       a.download = `${title.toLowerCase().replace(/\s+/g, '-')}.pdf`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+      if (url !== src) URL.revokeObjectURL(url);
     }
   };
 
-  // Keyboard controls
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowRight' || e.key === 'PageDown') {
       e.preventDefault();
@@ -178,7 +207,8 @@ export function PdfViewer({
         overflow: 'hidden',
         boxShadow: 'var(--skyra-shadow-md)',
         fontFamily: 'var(--skyra-font-body)',
-        outline: 'none' }}
+        outline: 'none'
+      }}
     >
       {/* ── Top Toolbar ── */}
       <div
@@ -191,11 +221,21 @@ export function PdfViewer({
           borderBottom: '1px solid var(--skyra-border)',
           gap: '0.75rem',
           flexWrap: 'wrap',
-          zIndex: 10 }}
+          zIndex: 20
+        }}
       >
-        {/* Title */}
+        {/* Title and Sidebar Toggle */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: '160px' }}>
-          <FileText size={18} style={{ color: 'var(--skyra-primary)' }} />
+          <button
+            type="button"
+            aria-label="Toggle sidebar"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            style={toolbarBtnStyle}
+            disabled={!pdf}
+          >
+            <Sidebar size={18} />
+          </button>
+          <FileText size={18} style={{ color: 'var(--skyra-primary)', marginLeft: '0.25rem' }} />
           <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--skyra-text)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {title}
           </span>
@@ -203,12 +243,7 @@ export function PdfViewer({
 
         {/* Zoom & View Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-          <button
-            type="button"
-            aria-label="Zoom out"
-            onClick={handleZoomOut}
-            style={toolbarBtnStyle}
-          >
+          <button type="button" aria-label="Zoom out" onClick={handleZoomOut} style={toolbarBtnStyle} disabled={!pdf}>
             <ZoomOut size={16} />
           </button>
 
@@ -216,62 +251,39 @@ export function PdfViewer({
             type="button"
             aria-label="Reset zoom"
             onClick={handleResetZoom}
+            disabled={!pdf}
             style={{
               ...toolbarBtnStyle,
               fontSize: '0.78rem',
               fontWeight: 600,
-              minWidth: '48px' }}
+              minWidth: '48px'
+            }}
           >
             {zoom}%
           </button>
 
-          <button
-            type="button"
-            aria-label="Zoom in"
-            onClick={handleZoomIn}
-            style={toolbarBtnStyle}
-          >
+          <button type="button" aria-label="Zoom in" onClick={handleZoomIn} style={toolbarBtnStyle} disabled={!pdf}>
             <ZoomIn size={16} />
           </button>
 
           <div style={{ width: '1px', height: '18px', background: 'var(--skyra-border)', margin: '0 4px' }} />
 
-          <button
-            type="button"
-            aria-label="Rotate clockwise"
-            onClick={handleRotate}
-            style={toolbarBtnStyle}
-          >
+          <button type="button" aria-label="Rotate clockwise" onClick={handleRotate} style={toolbarBtnStyle} disabled={!pdf}>
             <RotateCw size={16} />
           </button>
 
-          <button
-            type="button"
-            aria-label="Fit width"
-            onClick={handleFitWidth}
-            style={toolbarBtnStyle}
-          >
+          <button type="button" aria-label="Fit width" onClick={handleFitWidth} style={toolbarBtnStyle} disabled={!pdf}>
             <Maximize size={16} />
           </button>
         </div>
 
-        {/* Action Controls: Fullscreen, Print, Download */}
+        {/* Action Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-          <button
-            type="button"
-            aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
-            onClick={toggleFullscreen}
-            style={toolbarBtnStyle}
-          >
+          <button type="button" aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'} onClick={toggleFullscreen} style={toolbarBtnStyle}>
             {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
           </button>
 
-          <button
-            type="button"
-            aria-label="Print document"
-            onClick={handlePrint}
-            style={toolbarBtnStyle}
-          >
+          <button type="button" aria-label="Print document" onClick={handlePrint} style={toolbarBtnStyle} disabled={!pdf && !src}>
             <Printer size={16} />
           </button>
 
@@ -279,65 +291,89 @@ export function PdfViewer({
             type="button"
             aria-label="Download document"
             onClick={handleDownload}
+            disabled={!pdf && !src}
             style={{
               ...toolbarBtnStyle,
               background: 'var(--skyra-primary)',
-              color: '#ffffff' }}
+              color: '#ffffff'
+            }}
           >
             <Download size={16} />
           </button>
         </div>
       </div>
 
-      {/* ── Document View Area ── */}
-      <div
-        style={{
-          flex: 1,
-          overflow: 'auto',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '1.5rem',
-          background: 'var(--skyra-bg)',
-          position: 'relative' }}
-      >
-        {loading ? (
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: 'var(--skyra-text-muted)' }}>
-            <Loader2 size={32} className="skyra-spin" style={{ color: 'var(--skyra-primary)' }} />
-            <span style={{ fontSize: '0.875rem' }}>Loading document...</span>
-          </div>
-        ) : error ? (
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: 'var(--skyra-danger)' }}>
-            <AlertCircle size={32} />
-            <span style={{ fontSize: '0.875rem', fontWeight: 500 }}>{error}</span>
-          </div>
-        ) : (
-          <div className="skyra-motion-transition-transform"
-            ref={printAreaRef}
+      {/* ── Main Body ── */}
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden', position: 'relative' }}>
+        
+        {/* Sidebar */}
+        {sidebarOpen && pdf && (
+          <div
             style={{
-              transform: `scale(${zoom / 100}) rotate(${rotation}deg)`,
-              transformOrigin: 'center center',
-              
+              width: isMobile ? '240px' : '220px',
+              height: '100%',
+              background: 'var(--skyra-surface)',
+              borderRight: '1px solid var(--skyra-border)',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center' }}
+              overflowY: 'auto',
+              position: isMobile ? 'absolute' : 'relative',
+              left: 0,
+              top: 0,
+              zIndex: 15,
+              boxShadow: isMobile ? 'var(--skyra-shadow-lg)' : 'none',
+              padding: '1rem',
+              gap: '1rem'
+            }}
           >
-            {renderPage ? (
-              renderPage(currentPage, zoom)
-            ) : src ? (
-              <iframe
-                src={src}
-                title={title}
-                style={{
-                  width: '595px',
-                  height: '842px',
-                  border: 'none',
-                  background: '#ffffff',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-                  borderRadius: '4px' }}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <ThumbnailItem
+                key={page}
+                pdf={pdf}
+                pageNumber={page}
+                isActive={currentPage === page}
+                onClick={handlePageChange}
               />
-            ) : (
-              /* High fidelity document page preview mockup */
+            ))}
+          </div>
+        )}
+
+        {/* Document Area */}
+        <div
+          ref={scrollContainerRef}
+          style={{
+            flex: 1,
+            overflow: 'auto',
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            padding: '1.5rem',
+            background: 'var(--skyra-bg)',
+            position: 'relative'
+          }}
+        >
+          {loading ? (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: 'var(--skyra-text-muted)', margin: 'auto' }}>
+              <Loader2 size={32} className="skyra-spin" style={{ color: 'var(--skyra-primary)' }} />
+              <span style={{ fontSize: '0.875rem' }}>Loading document...</span>
+            </div>
+          ) : error ? (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', color: 'var(--skyra-danger)', margin: 'auto' }}>
+              <AlertCircle size={32} />
+              <span style={{ fontSize: '0.875rem', fontWeight: 500 }}>{error}</span>
+            </div>
+          ) : !src ? (
+            <div
+              className="skyra-motion-transition-transform"
+              style={{
+                transform: `scale(${zoom / 100}) rotate(${rotation}deg)`,
+                transformOrigin: 'center center',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                margin: 'auto'
+              }}
+            >
               <div
                 style={{
                   width: '560px',
@@ -350,7 +386,8 @@ export function PdfViewer({
                   flexDirection: 'column',
                   gap: '1.25rem',
                   color: 'var(--skyra-text)',
-                  boxSizing: 'border-box' }}
+                  boxSizing: 'border-box'
+                }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '2px solid var(--skyra-border)', paddingBottom: '1rem' }}>
                   <div>
@@ -374,9 +411,26 @@ export function PdfViewer({
                   <span>Page {currentPage}</span>
                 </div>
               </div>
-            )}
-          </div>
-        )}
+            </div>
+          ) : pdf ? (
+            <div
+              className="skyra-motion-transition-transform"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                margin: 'auto',
+              }}
+            >
+              <PdfPage
+                pdf={pdf}
+                pageNumber={currentPage}
+                scale={zoom / 100}
+                rotation={rotation}
+              />
+            </div>
+          ) : null}
+        </div>
       </div>
 
       {/* ── Bottom Page Navigation Bar ── */}
@@ -389,7 +443,8 @@ export function PdfViewer({
           padding: '0.5rem 1rem',
           background: 'var(--skyra-surface)',
           borderTop: '1px solid var(--skyra-border)',
-          zIndex: 10 }}
+          zIndex: 20
+        }}
       >
         <button
           type="button"
@@ -429,6 +484,4 @@ const toolbarBtnStyle: React.CSSProperties = {
   alignItems: 'center',
   justifyContent: 'center',
   color: 'var(--skyra-text)',
-  
 };
-

@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useId } from 'react';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, X, AlertCircle } from 'lucide-react';
+import {  Calendar as CalendarIcon, ChevronLeft, ChevronRight, X, AlertCircle  } from 'lucide-react';
+import { useFloatingPosition } from '../hooks/useFloatingPosition';
 
 export interface YearFieldProps {
   /** Selected year as number or string */
@@ -57,18 +58,40 @@ export function YearField({
 
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const triggerWrapperRef = useRef<HTMLDivElement>(null);
+
+  const { top, left, actualPlacement } = useFloatingPosition({
+    anchor: triggerWrapperRef,
+    floating: popoverRef,
+    open: isOpen,
+    placement: 'bottom',
+    align: 'start',
+    viewportPadding: 16
+  });
 
   const parsedYear = typeof value === 'number' ? value : value ? parseInt(String(value), 10) : new Date().getFullYear();
   const [decadeStart, setDecadeStart] = useState<number>(Math.floor(parsedYear / 10) * 10);
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node;
+      if (
+        triggerWrapperRef.current?.contains(target) ||
+        popoverRef.current?.contains(target)
+      ) {
+        return;
+      }
+      if (containerRef.current && !containerRef.current.contains(target)) {
         setIsOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
   }, []);
 
   const handleSelectYear = (yr: number) => {
@@ -114,6 +137,7 @@ export function YearField({
       )}
 
       {/* Input Trigger */}
+      <div ref={triggerWrapperRef} style={{ width: '100%', position: 'relative' }}>
       <button
         type="button"
         id={fieldId}
@@ -180,11 +204,13 @@ export function YearField({
           )}
         </div>
       </button>
+      </div>
 
       {/* Popover Grid */}
       {isOpen && (
-        <div className="skyra-motion-fade-in-up"
+        <div className={`skyra-motion-fade-in-up skyra-popover--${actualPlacement}`}
           id={popoverId}
+          ref={popoverRef}
           style={{
             position: 'absolute',
             top: 'calc(100% + 4px)',

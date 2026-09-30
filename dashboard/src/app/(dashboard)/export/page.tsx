@@ -4,6 +4,7 @@ import React from 'react';
 import { ExportButton, ExportMenu } from '@skyra/ui';
 import { exportToCsv, exportToExcel } from '@skyra/data-export';
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
+import { ExportWorkbench } from './ExportWorkbench';
 
 const AUDIT_DATA = [
   { id: 'TX-1001', customer: 'Acme Global Corp', amount: 14250.00, status: 'Paid', date: '2026-09-01' },
@@ -33,47 +34,14 @@ export default function ExportShowcasePage() {
         </p>
       </div>
 
-      <DemoSection title="1. Export UI Controls" desc="ExportButton and ExportMenu dropdown integrating seamlessly with dataset collections." erpSource="Platform Extension [C]">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
-          <DemoBlock title="Direct CSV & Excel Buttons">
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <ExportButton
-                data={AUDIT_DATA}
-                columns={COLUMNS}
-                format="csv"
-                filename="transaction-ledger.csv"
-              >
-                Export CSV
-              </ExportButton>
-
-              <ExportButton
-                data={AUDIT_DATA}
-                columns={COLUMNS}
-                format="xlsx"
-                filename="transaction-ledger.xlsx"
-                variant="outline"
-              >
-                Export Excel (.xlsx)
-              </ExportButton>
-            </div>
-          </DemoBlock>
-
-          <DemoBlock title="ExportMenu Dropdown">
-            <ExportMenu
-              data={AUDIT_DATA}
-              columns={COLUMNS}
-              filename="enterprise-transactions"
-              onExportPdf={() => alert('PDF export callback triggered!')}
-              onPrint={() => alert('Print preview callback triggered!')}
-            />
-          </DemoBlock>
-        </div>
+      <DemoSection title="1. Enterprise Export Configuration UI" desc="A complete export workbench demonstrating Format, Scope, Column Selection, and specialized options." erpSource="Platform Capability">
+        <ExportWorkbench />
       </DemoSection>
 
-      <DemoSection title="2. Sample Export Dataset Preview" desc="The table below contains quotes, commas, and newlines to demonstrate RFC-4180 robust escaping." erpSource="Platform Architecture">
+      <DemoSection title="2. Sample Export Dataset Preview" desc="The table below contains quotes, commas, and newlines to demonstrate RFC-4180 robust escaping." erpSource="Platform Capability">
         <DemoBlock title="Live Dataset">
-          <div style={{ width: '100%', overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
+          <div style={{ width: '100%', maxWidth: '100%', overflowX: 'auto', display: 'block' }}>
+            <table style={{ minWidth: '800px', width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
               <thead>
                 <tr style={{ background: 'var(--skyra-surface)', textAlign: 'left' }}>
                   {COLUMNS.map((col) => (
@@ -125,7 +93,7 @@ export default function ExportShowcasePage() {
           <div><strong>20. Code:</strong> Zero server dependencies; pure client-side Blob creation</div>
           <div><strong>21. Do/Don&apos;t:</strong> Don&apos;t put CSV formatting code directly in UI components</div>
           <div><strong>22. Related:</strong> DataTable, PrintButton, PdfViewer</div>
-          <div><strong>23. ERP Source:</strong> ERP Table Export Actions</div>
+          <div><strong>23. Platform Source:</strong> Platform Data Export Module</div>
           <div><strong>24. Testing:</strong> 7 unit test suites with 100% pass rate across engines &amp; UI</div>
         </div>
       </div>

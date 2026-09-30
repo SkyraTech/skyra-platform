@@ -1,4 +1,18 @@
 {
+  "BaseExportOptions": {
+    "kind": "interface",
+    "properties": {
+      "columns": {
+        "type": "ExportColumn<T>[] | undefined",
+        "required": false
+      },
+      "headers": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
   "CsvDownloadOptions": {
     "kind": "interface",
     "properties": {
@@ -12,10 +26,6 @@
   "CsvExportOptions": {
     "kind": "interface",
     "properties": {
-      "columns": {
-        "type": "ExportColumn<T>[] | undefined",
-        "required": false
-      },
       "delimiter": {
         "type": "string | undefined",
         "required": false
@@ -24,8 +34,12 @@
         "type": "boolean | undefined",
         "required": false
       },
-      "headers": {
+      "protectFormulas": {
         "type": "boolean | undefined",
+        "required": false
+      },
+      "nullValue": {
+        "type": "string | undefined",
         "required": false
       }
     },
@@ -44,16 +58,30 @@
   "ExcelExportOptions": {
     "kind": "interface",
     "properties": {
-      "columns": {
-        "type": "ExportColumn<T>[] | undefined",
-        "required": false
-      },
       "sheetName": {
         "type": "string | undefined",
         "required": false
       },
-      "headers": {
-        "type": "boolean | undefined",
+      "sheets": {
+        "type": "ExcelSheetConfig<any>[] | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ExcelSheetConfig": {
+    "kind": "interface",
+    "properties": {
+      "name": {
+        "type": "string",
+        "required": true
+      },
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "columns": {
+        "type": "ExportColumn<T>[] | undefined",
         "required": false
       }
     },
@@ -70,11 +98,62 @@
         "type": "string",
         "required": true
       },
+      "exportable": {
+        "type": "boolean | undefined",
+        "required": false
+      },
       "formatter": {
         "type": "((value: any, row: T) => string | number | boolean | null | undefined) | undefined",
         "required": false
       }
     },
+    "deprecated": false
+  },
+  "ExportFormat": {
+    "kind": "type",
+    "signature": "'csv' | 'xlsx' | 'json' | 'tsv'",
+    "properties": {},
+    "deprecated": false
+  },
+  "ExportScope": {
+    "kind": "type",
+    "signature": "'all' | 'page' | 'filtered' | 'selected'",
+    "properties": {},
+    "deprecated": false
+  },
+  "JsonDownloadOptions": {
+    "kind": "interface",
+    "properties": {
+      "filename": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "JsonExportOptions": {
+    "kind": "interface",
+    "properties": {
+      "pretty": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "TsvDownloadOptions": {
+    "kind": "interface",
+    "properties": {
+      "filename": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "TsvExportOptions": {
+    "kind": "interface",
+    "properties": {},
     "deprecated": false
   },
   "downloadCsv": {
@@ -109,9 +188,41 @@
     },
     "deprecated": false
   },
+  "downloadJson": {
+    "kind": "function",
+    "signature": "declare function downloadJson<T = any>(data: T[], options?: JsonDownloadOptions<T>): void;",
+    "returnType": "void",
+    "properties": {
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "options": {
+        "type": "JsonDownloadOptions<T> | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "downloadTsv": {
+    "kind": "function",
+    "signature": "declare function downloadTsv<T = any>(data: T[], options?: TsvDownloadOptions<T>): void;",
+    "returnType": "void",
+    "properties": {
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "options": {
+        "type": "TsvDownloadOptions<T> | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
   "escapeCsvCell": {
     "kind": "function",
-    "signature": "declare function escapeCsvCell(val: any, delimiter?: string): string;",
+    "signature": "declare function escapeCsvCell(val: any, delimiter?: string, protectFormulas?: boolean, nullValue?: string): string;",
     "returnType": "string",
     "properties": {
       "val": {
@@ -119,6 +230,14 @@
         "required": true
       },
       "delimiter": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "protectFormulas": {
+        "type": "boolean | undefined",
+        "required": false
+      },
+      "nullValue": {
         "type": "string | undefined",
         "required": false
       }
@@ -158,6 +277,38 @@
       },
       "options": {
         "type": "ExcelExportOptions<T> | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "exportToJson": {
+    "kind": "function",
+    "signature": "declare function exportToJson<T = any>(data: T[], options?: JsonExportOptions<T>): string;",
+    "returnType": "string",
+    "properties": {
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "options": {
+        "type": "JsonExportOptions<T> | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "exportToTsv": {
+    "kind": "function",
+    "signature": "declare function exportToTsv<T = any>(data: T[], options?: TsvExportOptions<T>): string;",
+    "returnType": "string",
+    "properties": {
+      "data": {
+        "type": "T[]",
+        "required": true
+      },
+      "options": {
+        "type": "TsvExportOptions<T> | undefined",
         "required": false
       }
     },

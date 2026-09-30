@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Download, FileSpreadsheet } from 'lucide-react';
-import { downloadCsv, downloadExcel, ExportColumn } from '@skyra/data-export';
+import { Download, FileSpreadsheet, FileJson, FileText } from 'lucide-react';
+import { downloadCsv, downloadExcel, downloadJson, downloadTsv, ExportColumn } from '@skyra/data-export';
 import { Button, ButtonProps } from './Button';
 
 export interface ExportButtonProps<T extends Record<string, unknown> = Record<string, unknown>> extends Omit<ButtonProps, 'onClick'> {
   /** Target export format */
-  format: 'csv' | 'xlsx' | 'xls';
+  format: 'csv' | 'xlsx' | 'xls' | 'json' | 'tsv';
   /** Array of data objects to export */
   data: T[];
   /** Optional custom column definitions */
@@ -40,9 +40,17 @@ export function ExportButton<T extends Record<string, unknown> = Record<string, 
   const [isExporting, setIsExporting] = useState(false);
 
   const defaultIcon =
-    format === 'csv' ? <Download size={16} /> : <FileSpreadsheet size={16} />;
+    format === 'csv' ? <Download size={16} /> : 
+    format === 'json' ? <FileJson size={16} /> :
+    format === 'tsv' ? <FileText size={16} /> :
+    <FileSpreadsheet size={16} />;
   const defaultLabel =
-    children ?? (format === 'csv' ? 'Export CSV' : 'Export Excel');
+    children ?? (
+      format === 'csv' ? 'Export CSV' : 
+      format === 'json' ? 'Export JSON' :
+      format === 'tsv' ? 'Export TSV' :
+      'Export Excel'
+    );
 
   const handleExport = async () => {
     setIsExporting(true);
@@ -51,6 +59,10 @@ export function ExportButton<T extends Record<string, unknown> = Record<string, 
         await onExport();
       } else if (format === 'csv') {
         downloadCsv(data, { columns, filename });
+      } else if (format === 'json') {
+        downloadJson(data, { columns, filename });
+      } else if (format === 'tsv') {
+        downloadTsv(data, { columns, filename });
       } else {
         downloadExcel(data, { columns, filename, sheetName });
       }

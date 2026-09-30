@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useId } from 'react';
+import { useFloatingPosition } from '../hooks/useFloatingPosition';
 import { Calendar, ChevronLeft, ChevronRight, X, AlertCircle } from 'lucide-react';
 
 export interface DateFieldProps {
@@ -108,6 +109,8 @@ export function DateField({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
+  const triggerWrapperRef = useRef<HTMLDivElement>(null);
+  const { top, left, actualPlacement } = useFloatingPosition({ anchor: triggerWrapperRef, floating: popoverRef, open: isOpen, placement: 'bottom', align: 'start', viewportPadding: 16 });
 
   useEffect(() => {
     if (selectedDate) {
@@ -121,7 +124,9 @@ export function DateField({
   // Click outside to close
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      if (triggerWrapperRef.current?.contains(target) || popoverRef.current?.contains(target)) return;
+      if (containerRef.current && !containerRef.current.contains(target)) {
         setIsOpen(false);
       }
     };
@@ -238,7 +243,7 @@ export function DateField({
       )}
 
       {/* Input row */}
-      <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+      <div ref={triggerWrapperRef} style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
         <input
           id={inputId}
           type="text"
@@ -310,17 +315,14 @@ export function DateField({
 
       {/* Calendar Popover */}
       {isOpen && (
-        <div className="skyra-motion-fade-in-up"
+        <div className={`skyra-motion-fade-in-up skyra-popover--${actualPlacement}`}
           id={popoverId}
           ref={popoverRef}
           role="dialog"
           aria-modal="true"
           aria-label="Calendar date picker"
           style={{
-            position: 'absolute',
-            top: 'calc(100% + 4px)',
-            left: 0,
-            zIndex: 250,
+            position: 'fixed', top: `${top}px`, left: `${left}px`, zIndex: 'var(--skyra-z-popover, 1000)',
             background: 'var(--skyra-surface)',
             border: '1px solid var(--skyra-border)',
             borderRadius: 'var(--skyra-radius-md)',

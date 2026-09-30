@@ -91,7 +91,7 @@ describe('DynamicSelect', () => {
     );
 
     fireEvent.click(screen.getByRole('button'));
-    const searchInput = screen.getByRole('textbox');
+    const searchInput = screen.getByRole('combobox');
     fireEvent.change(searchInput, { target: { value: 'Market' } });
 
     expect(onSearch).toHaveBeenCalledWith('Market');
@@ -174,7 +174,7 @@ describe('DynamicSelect', () => {
     );
 
     fireEvent.click(screen.getByRole('button'));
-    const searchInput = screen.getByRole('textbox');
+    const searchInput = screen.getByRole('combobox');
     fireEvent.change(searchInput, { target: { value: 'New Team' } });
 
     const createBtn = screen.getByRole('button', { name: /create "new team"/i });
@@ -222,7 +222,7 @@ describe('DynamicSelect', () => {
     );
 
     fireEvent.click(screen.getByRole('button'));
-    const searchInput = screen.getByRole('textbox');
+    const searchInput = screen.getByRole('combobox');
     
     // Filter down to "Business" options or "Marketing"
     fireEvent.change(searchInput, { target: { value: 'Market' } });
@@ -252,7 +252,7 @@ describe('DynamicSelect', () => {
     );
 
     fireEvent.click(screen.getAllByRole('button')[0]!);
-    const searchInput = screen.getByRole('textbox');
+    const searchInput = screen.getByRole('combobox');
 
     // Filter to 'Market'
     fireEvent.change(searchInput, { target: { value: 'Market' } });

@@ -56,6 +56,10 @@
         "type": "boolean | undefined",
         "required": false
       },
+      "filterConfig": {
+        "type": "ColumnFilterConfig | undefined",
+        "required": false
+      },
       "hideable": {
         "type": "boolean | undefined",
         "required": false
@@ -83,6 +87,10 @@
       "className": {
         "type": "string | undefined",
         "required": false
+      },
+      "visual": {
+        "type": "ColumnVisualConfig | undefined",
+        "required": false
       }
     },
     "deprecated": false
@@ -96,6 +104,40 @@
       },
       "value": {
         "type": "unknown",
+        "required": true
+      },
+      "operator": {
+        "type": "FilterOperator | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ColumnFilterConfig": {
+    "kind": "interface",
+    "properties": {
+      "type": {
+        "type": "FilterType | undefined",
+        "required": false
+      },
+      "options": {
+        "type": "{ value: string | number | boolean; label: string; }[] | undefined",
+        "required": false
+      },
+      "customComponent": {
+        "type": "React.ReactNode",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "ColumnFilterUI": {
+    "kind": "component",
+    "signature": "declare function ColumnFilterUI<TData>(",
+    "returnType": "React.JSX.Element",
+    "properties": {
+      "{ column, filterState, onFilterChange }": {
+        "type": "ColumnFilterUIProps<TData>",
         "required": true
       }
     },
@@ -111,6 +153,20 @@
     "kind": "type",
     "signature": "Record<string, number>",
     "properties": {},
+    "deprecated": false
+  },
+  "ColumnVisualConfig": {
+    "kind": "interface",
+    "properties": {
+      "variant": {
+        "type": "\"accent\" | \"subtle\" | undefined",
+        "required": false
+      },
+      "tone": {
+        "type": "\"primary\" | \"danger\" | \"warning\" | \"success\" | \"info\" | undefined",
+        "required": false
+      }
+    },
     "deprecated": false
   },
   "DataTable": {
@@ -216,6 +272,10 @@
       },
       "bulkActions": {
         "type": "((selectedRows: TData[]) => React.ReactNode) | undefined",
+        "required": false
+      },
+      "onAdd": {
+        "type": "(() => void) | undefined",
         "required": false
       },
       "onProcessedDataChange": {
@@ -402,6 +462,10 @@
         "type": "((selectedRows: TData[]) => React.ReactNode) | undefined",
         "required": false
       },
+      "onAdd": {
+        "type": "(() => void) | undefined",
+        "required": false
+      },
       "onProcessedDataChange": {
         "type": "((data: TData[]) => void) | undefined",
         "required": false
@@ -561,6 +625,18 @@
         "required": false
       }
     },
+    "deprecated": false
+  },
+  "FilterOperator": {
+    "kind": "type",
+    "signature": "'contains' | 'equals' | 'startsWith' | 'endsWith' | 'doesNotContain' | 'isEmpty' | 'isNotEmpty' | 'greaterThan' | 'greaterThanOrEqual' | 'lessThan' | 'lessThanOrEqual' | 'between' | 'notEquals' | 'before' | 'after' | 'onOrBefore' | 'onOrAfter'",
+    "properties": {},
+    "deprecated": false
+  },
+  "FilterType": {
+    "kind": "type",
+    "signature": "'text' | 'select' | 'multiSelect' | 'number' | 'date' | 'dateRange' | 'boolean' | 'custom'",
+    "properties": {},
     "deprecated": false
   },
   "PaginationState": {

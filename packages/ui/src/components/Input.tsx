@@ -95,7 +95,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const describedBy = [
       hasError ? errorId : '',
-      helper && !hasError ? helperId : '',
+      effectiveHelper ? helperId : '',
     ]
       .filter(Boolean)
       .join(' ') || undefined;

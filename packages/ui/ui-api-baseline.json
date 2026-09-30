@@ -1148,7 +1148,7 @@
         "required": false
       },
       "variant": {
-        "type": "\"danger\" | \"warning\" | \"primary\" | \"success\" | undefined",
+        "type": "\"primary\" | \"danger\" | \"warning\" | \"success\" | undefined",
         "required": false
       },
       "showValue": {
@@ -1178,7 +1178,7 @@
         "required": false
       },
       "variant": {
-        "type": "\"danger\" | \"warning\" | \"primary\" | \"success\" | undefined",
+        "type": "\"primary\" | \"danger\" | \"warning\" | \"success\" | undefined",
         "required": false
       },
       "showValue": {
@@ -3768,7 +3768,7 @@
     "returnType": "React.JSX.Element",
     "properties": {
       "format": {
-        "type": "\"csv\" | \"xlsx\" | \"xls\"",
+        "type": "\"csv\" | \"xlsx\" | \"xls\" | \"json\" | \"tsv\"",
         "required": true
       },
       "data": {
@@ -3798,7 +3798,7 @@
     "kind": "interface",
     "properties": {
       "format": {
-        "type": "\"csv\" | \"xlsx\" | \"xls\"",
+        "type": "\"csv\" | \"xlsx\" | \"xls\" | \"json\" | \"tsv\"",
         "required": true
       },
       "data": {
@@ -5675,7 +5675,7 @@
         "required": false
       },
       "src": {
-        "type": "string | undefined",
+        "type": "string | Blob | ArrayBuffer | undefined",
         "required": false
       },
       "totalPages": {
@@ -5688,10 +5688,6 @@
       },
       "initialZoom": {
         "type": "number | undefined",
-        "required": false
-      },
-      "renderPage": {
-        "type": "((page: number, zoom: number) => React.ReactNode) | undefined",
         "required": false
       },
       "onPageChange": {
@@ -5733,7 +5729,7 @@
         "required": false
       },
       "src": {
-        "type": "string | undefined",
+        "type": "string | Blob | ArrayBuffer | undefined",
         "required": false
       },
       "totalPages": {
@@ -5746,10 +5742,6 @@
       },
       "initialZoom": {
         "type": "number | undefined",
-        "required": false
-      },
-      "renderPage": {
-        "type": "((page: number, zoom: number) => React.ReactNode) | undefined",
         "required": false
       },
       "onPageChange": {
@@ -6115,7 +6107,7 @@
         "required": false
       },
       "variant": {
-        "type": "\"danger\" | \"warning\" | \"primary\" | \"success\" | undefined",
+        "type": "\"primary\" | \"danger\" | \"warning\" | \"success\" | undefined",
         "required": false
       },
       "showLabel": {
@@ -6153,7 +6145,7 @@
         "required": false
       },
       "variant": {
-        "type": "\"danger\" | \"warning\" | \"primary\" | \"success\" | undefined",
+        "type": "\"primary\" | \"danger\" | \"warning\" | \"success\" | undefined",
         "required": false
       },
       "showLabel": {

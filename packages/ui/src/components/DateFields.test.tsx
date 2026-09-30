@@ -58,8 +58,11 @@ describe('Date & Time Fields', () => {
       const onChange = vi.fn();
       render(<TimeField label="Appointment Time" value="10:30 AM" onChange={onChange} />);
 
-      const hourSelect = screen.getByLabelText(/hour/i);
-      fireEvent.change(hourSelect, { target: { value: '11' } });
+      const hourTrigger = screen.getByLabelText(/hour/i);
+      fireEvent.click(hourTrigger);
+
+      const hourOption = screen.getByRole('option', { name: '11' });
+      fireEvent.click(hourOption);
 
       expect(onChange).toHaveBeenCalledWith('11:30 AM');
     });

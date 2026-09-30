@@ -117,8 +117,8 @@ export default function DialogsPage() {
           <Input name="email" type="email" label="Email Address" required />
           <Input name="fullName" type="text" label="Full Name" required />
           <DynamicSelect
-            name="role"
             label="Role"
+            onChange={() => {}}
             options={[
               { value: 'admin', label: 'Administrator' },
               { value: 'editor', label: 'Editor' },

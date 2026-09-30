@@ -1,3 +1,4 @@
+import { formatDate } from './formatUtils';
 import { ExcelExportOptions, ExcelDownloadOptions, ExportColumn } from './types';
 
 function escapeXml(val: any): string {
@@ -22,6 +23,7 @@ export function exportToExcelXml<T = any>(
     columns: userColumns,
     sheetName = 'Sheet1',
     headers = true,
+    dateFormat,
   } = options;
 
   let effectiveColumns: ExportColumn<T>[] = [];
@@ -39,7 +41,35 @@ export function exportToExcelXml<T = any>(
 
   const safeSheetName = escapeXml(sheetName.substring(0, 31));
 
+  
+  // Calculate column widths
+  const colWidths = new Map<string, number>();
+  for (const col of effectiveColumns) {
+    colWidths.set(col.key, Math.max(10, col.header.length));
+  }
+
+  if (Array.isArray(data)) {
+    for (const row of data) {
+      for (const col of effectiveColumns) {
+        const rawValue = (row as any)[col.key];
+        const formatted = col.formatter ? col.formatter(rawValue, row) : formatDate(rawValue, dateFormat);
+        const len = String(formatted).length;
+        if (len > colWidths.get(col.key)!) {
+          colWidths.set(col.key, len);
+        }
+      }
+    }
+  }
+
+  let columnsXml = '';
+  for (const col of effectiveColumns) {
+    // Width approximation: char count * 6.5, capped at 400
+    const w = Math.min(400, colWidths.get(col.key)! * 6.5 + 20);
+    columnsXml += `\n      <Column ss:AutoFitWidth="0" ss:Width="${w}"/>`;
+  }
+
   let rowsXml = '';
+
 
   // Header row
   if (headers && effectiveColumns.length > 0) {
@@ -62,7 +92,7 @@ export function exportToExcelXml<T = any>(
       let cells = '';
       for (const col of effectiveColumns) {
         const rawValue = (row as any)[col.key];
-        const formatted = col.formatter ? col.formatter(rawValue, row) : rawValue;
+        const formatted = col.formatter ? col.formatter(rawValue, row) : formatDate(rawValue, dateFormat);
 
         if (typeof formatted === 'number') {
           cells += `
@@ -105,7 +135,7 @@ export function exportToExcelXml<T = any>(
     </Style>
   </Styles>
   <Worksheet ss:Name="${safeSheetName}">
-    <Table>
+    <Table>${columnsXml}
       ${rowsXml}
     </Table>
   </Worksheet>

@@ -1,19 +1,21 @@
+import { formatDate } from './formatUtils';
 import { CsvExportOptions, CsvDownloadOptions, ExportColumn } from './types';
 
 /**
  * Escapes a single cell value for CSV formatting.
  * Quotes containing strings, strings with delimiter, or newlines are wrapped in quotes.
+ * Optional protection against CSV formula injection.
  */
-export function escapeCsvCell(val: any, delimiter = ','): string {
+export function escapeCsvCell(val: any, delimiter = ',', protectFormulas = true, nullValue = ''): string {
   if (val === null || val === undefined) {
-    return '';
+    return nullValue;
   }
 
   if (val instanceof Date) {
     return val.toISOString();
   }
 
-  const str = typeof val === 'object' ? JSON.stringify(val) : String(val);
+  let str = typeof val === 'object' ? JSON.stringify(val) : String(val);
 
   // Check if string contains quotes, delimiter, or newlines
   const needsQuotes =
@@ -24,7 +26,14 @@ export function escapeCsvCell(val: any, delimiter = ','): string {
 
   if (needsQuotes) {
     // Escape double quotes by doubling them
-    return `"${str.replace(/"/g, '""')}"`;
+    str = `"${str.replace(/"/g, '""')}"`;
+  }
+
+  // Formula injection protection
+  if (protectFormulas) {
+    if (str.startsWith('=') || str.startsWith('+') || str.startsWith('-') || str.startsWith('@')) {
+      str = `'${str}`;
+    }
   }
 
   return str;
@@ -42,11 +51,14 @@ export function exportToCsv<T = any>(
     delimiter = ',',
     includeBom = true,
     headers = true,
+    protectFormulas = true,
+    nullValue = '',
+    dateFormat,
   } = options;
 
   if (!Array.isArray(data) || data.length === 0) {
     if (userColumns && userColumns.length > 0 && headers) {
-      const headerRow = userColumns.map((c) => escapeCsvCell(c.header, delimiter)).join(delimiter);
+      const headerRow = userColumns.map((c) => escapeCsvCell(c.header, delimiter, protectFormulas, nullValue)).join(delimiter);
       return (includeBom ? '\uFEFF' : '') + headerRow;
     }
     return includeBom ? '\uFEFF' : '';
@@ -72,7 +84,7 @@ export function exportToCsv<T = any>(
   // Add header row
   if (headers && effectiveColumns.length > 0) {
     const headerRow = effectiveColumns
-      .map((c) => escapeCsvCell(c.header, delimiter))
+      .map((c) => escapeCsvCell(c.header, delimiter, protectFormulas, nullValue))
       .join(delimiter);
     lines.push(headerRow);
   }
@@ -81,8 +93,8 @@ export function exportToCsv<T = any>(
   for (const row of data) {
     const rowValues = effectiveColumns.map((col) => {
       const rawValue = (row as any)[col.key];
-      const formatted = col.formatter ? col.formatter(rawValue, row) : rawValue;
-      return escapeCsvCell(formatted, delimiter);
+      const formatted = col.formatter ? col.formatter(rawValue, row) : formatDate(rawValue, dateFormat);
+      return escapeCsvCell(formatted, delimiter, protectFormulas, nullValue);
     });
     lines.push(rowValues.join(delimiter));
   }

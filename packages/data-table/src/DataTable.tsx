@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import {
   Search, X, SlidersHorizontal,
-  ChevronUp, ChevronDown, ChevronLeft, ChevronRight, Inbox, FilterX
+  ChevronUp, ChevronDown, ChevronLeft, ChevronRight, Inbox, FilterX, Plus
 } from 'lucide-react';
 import { 
   DataTableProps, 
@@ -12,10 +12,12 @@ import {
   PaginationState,
   VisibilityState,
   RowSelectionState,
-  ColumnSizingState
+  ColumnSizingState,
+  ColumnFilter
 } from './types';
 import { useDataTableState } from './useDataTableState';
 import { processTableData } from './processTableData';
+import { ColumnFilterUI } from './ColumnFilterUI';
 
 /* ─── Skeleton Loading ─── */
 function SkeletonRows({ cols }: { cols: number }) {
@@ -592,8 +594,83 @@ export function DataTable<TData extends { id: string | number }>(props: DataTabl
                   </div>
                 </div>
               )}
+
+              {props.onAdd && (
+                <div style={{ marginLeft: !mergedFeatures.columnVisibility && !mergedFeatures.globalSearch ? 'auto' : '0.5rem' }}>
+                  <button
+                    onClick={props.onAdd}
+                    aria-label="Add record"
+                    style={{
+                      ...s.iconBtn,
+                      padding: '0 0.85rem',
+                      width: 'auto',
+                      gap: '0.45rem',
+                      fontSize: '0.8125rem',
+                      fontWeight: 600,
+                      background: 'var(--skyra-primary)',
+                      color: 'var(--skyra-primary-foreground, #fff)',
+                      border: 'none',
+                    }}
+                  >
+                    <Plus size={14} aria-hidden="true" />
+                    Add
+                  </button>
+                </div>
+              )}
             </>
           )}
+        </div>
+      )}
+
+      {/* ── Active Filters Bar ── */}
+      {mergedFeatures.filtering && columnFilters.length > 0 && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.25rem', borderBottom: '1px solid var(--skyra-border)', background: 'var(--skyra-bg)', flexWrap: 'wrap' }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginRight: '0.25rem' }}>
+            Active Filters:
+          </span>
+          {columnFilters.map((f) => {
+            const col = columns.find((c) => (c.id || c.accessor) === f.id);
+            const colName = col ? col.header : f.id;
+            let valLabel = String(f.value);
+            if (f.operator === 'isEmpty') valLabel = '(Empty)';
+            if (f.operator === 'isNotEmpty') valLabel = '(Not Empty)';
+
+            return (
+              <div 
+                key={f.id} 
+                style={{ 
+                  display: 'inline-flex', alignItems: 'center', gap: '0.35rem', 
+                  padding: '0.2rem 0.5rem', borderRadius: 'var(--skyra-radius-sm)', 
+                  background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', 
+                  fontSize: '0.75rem', color: 'var(--skyra-text)', fontWeight: 500 
+                }}
+              >
+                <span>{colName} {f.operator && f.operator !== 'contains' && f.operator !== 'equals' ? `[${f.operator}]` : ''}: <span style={{ color: 'var(--skyra-primary)' }}>{valLabel}</span></span>
+                <button 
+                  onClick={() => {
+                    const newFilters = columnFilters.filter(cf => cf.id !== f.id);
+                    onColumnFiltersChange(newFilters);
+                    if (mergedFeatures.pagination && !manualPagination) {
+                      onPaginationChange({ ...pagination, pageIndex: 0 });
+                    }
+                  }}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', color: 'var(--skyra-text-muted)' }}
+                  aria-label={`Remove filter for ${colName}`}
+                >
+                  <X size={12} />
+                </button>
+              </div>
+            );
+          })}
+          <button
+            onClick={handleClearFilters}
+            style={{ 
+              background: 'none', border: 'none', cursor: 'pointer', 
+              fontSize: '0.75rem', color: 'var(--skyra-primary)', fontWeight: 500, marginLeft: '0.5rem' 
+            }}
+          >
+            Clear all
+          </button>
         </div>
       )}
 
@@ -665,6 +742,8 @@ export function DataTable<TData extends { id: string | number }>(props: DataTabl
                       textAlign: col.align || 'left',
                       cursor: isSortable ? 'pointer' : 'default',
                       position: 'relative',
+                      background: col.visual?.variant === 'accent' ? 'var(--skyra-primary-light)' : s.th.background,
+                      borderBottom: col.visual?.variant === 'accent' ? '2px solid var(--skyra-primary)' : undefined
                     }}
                     onClick={() => handleSort(colId, col.sortable)}
                     aria-sort={sortState ? (sortState.desc ? 'descending' : 'ascending') : (isSortable ? 'none' : undefined)}
@@ -692,6 +771,29 @@ export function DataTable<TData extends { id: string | number }>(props: DataTabl
                           ) : (
                             <div style={{ width: 13, height: 13 }} />
                           )}
+                        </span>
+                      )}
+                      
+                      {mergedFeatures.filtering && col.filterable !== false && (
+                        <span onClick={(e) => e.stopPropagation()} style={{ marginLeft: 'auto', display: 'flex' }}>
+                          <ColumnFilterUI 
+                            column={col} 
+                            filterState={columnFilters.find(f => f.id === colId)}
+                            onFilterChange={(filter) => {
+                              let newFilters = [...columnFilters];
+                              if (filter) {
+                                const idx = newFilters.findIndex(f => f.id === filter.id);
+                                if (idx >= 0) newFilters[idx] = filter;
+                                else newFilters.push(filter);
+                              } else {
+                                newFilters = newFilters.filter(f => f.id !== colId);
+                              }
+                              onColumnFiltersChange(newFilters);
+                              if (mergedFeatures.pagination && !manualPagination) {
+                                onPaginationChange({ ...pagination, pageIndex: 0 });
+                              }
+                            }}
+                          />
                         </span>
                       )}
                     </div>
@@ -906,6 +1008,7 @@ export function DataTable<TData extends { id: string | number }>(props: DataTabl
                             maxWidth: col.maxWidth,
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
+                            background: col.visual?.variant === 'accent' ? 'var(--skyra-primary-light)' : 'inherit',
                           }} 
                           className={col.className}
                         >

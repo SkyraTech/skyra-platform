@@ -15,8 +15,24 @@ const STATUS_MAP: Record<string, StatusConfig> = {
 };
 
 const columns: ColumnDef<MockTransaction>[] = [
-  { id: 'reference', header: 'Reference', accessor: 'reference', sortable: true, resizable: true, minWidth: 120 },
-  { id: 'client', header: 'Client Name', accessor: 'client', sortable: true, resizable: true, minWidth: 160 },
+  { 
+    id: 'reference', 
+    header: 'Reference', 
+    accessor: 'reference', 
+    sortable: true, 
+    resizable: true, 
+    minWidth: 120,
+    filterConfig: { type: 'text' }
+  },
+  { 
+    id: 'client', 
+    header: 'Client Name', 
+    accessor: 'client', 
+    sortable: true, 
+    resizable: true, 
+    minWidth: 160,
+    filterConfig: { type: 'text' }
+  },
   { 
     id: 'amount', 
     header: 'Amount', 
@@ -25,8 +41,18 @@ const columns: ColumnDef<MockTransaction>[] = [
     sortable: true,
     resizable: true,
     minWidth: 110,
+    filterConfig: { type: 'number' },
+    visual: { variant: 'accent', tone: 'primary' }
   },
-  { id: 'date', header: 'Date', accessor: 'date', sortable: true, resizable: true, minWidth: 110 },
+  { 
+    id: 'date', 
+    header: 'Date', 
+    accessor: 'date', 
+    sortable: true, 
+    resizable: true, 
+    minWidth: 110,
+    filterConfig: { type: 'date' }
+  },
   { 
     id: 'status', 
     header: 'Status', 
@@ -36,6 +62,15 @@ const columns: ColumnDef<MockTransaction>[] = [
     hideable: true,
     resizable: true,
     minWidth: 110,
+    filterConfig: { 
+      type: 'select', 
+      options: [
+        { value: 'PAID', label: 'Paid' },
+        { value: 'PENDING', label: 'Pending' },
+        { value: 'OVERDUE', label: 'Overdue' },
+        { value: 'DRAFT', label: 'Draft' }
+      ] 
+    }
   }
 ];
 
@@ -278,9 +313,12 @@ export default function DataTablePage() {
         onGlobalFilterChange={tableState.onGlobalFilterChange}
         columnVisibility={tableState.visibility}
         onColumnVisibilityChange={tableState.onVisibilityChange}
+        columnFilters={tableState.columnFilters}
+        onColumnFiltersChange={tableState.onColumnFiltersChange}
         columnSizing={tableState.columnSizing}
         onColumnSizingChange={tableState.onColumnSizingChange}
         pageSizeOptions={[5, 10, 20]}
+        onAdd={() => alert('Add Record clicked!')}
         rowActions={(item) => (
           <div style={{ display: 'flex', gap: '0.4rem', justifyContent: 'flex-end' }}>
             <button 

@@ -65,6 +65,27 @@ export default defineConfig({
         colorScheme: 'light',
         reducedMotion: 'reduce',
       },
+    },
+    {
+      name: 'mobile-375',
+      use: {
+        ...devices['iPhone 12'],
+        viewport: { width: 375, height: 812 },
+      }
+    },
+    {
+      name: 'mobile-640',
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 640, height: 800 },
+      }
+    },
+    {
+      name: 'desktop-1536',
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1536, height: 864 },
+      }
     }
   ],
 
