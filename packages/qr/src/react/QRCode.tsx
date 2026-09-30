@@ -71,15 +71,16 @@ export const QRCode = React.forwardRef<HTMLDivElement, QRCodeProps>((props, ref)
         maxWidth: '100%',
         ...style,
       }}
-      role="img"
-      aria-label={ariaLabel || 'QR Code'}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox={`0 0 ${totalSize} ${totalSize}`}
-        style={{ width: '100%', height: 'auto' }}
+        style={{ width: '100%', height: 'auto', display: 'block' }}
         shapeRendering="crispEdges"
+        role="img"
+        aria-label={ariaLabel || 'QR Code'}
       >
+        <title>{ariaLabel || 'QR Code'}</title>
         {lightColor.toLowerCase() !== 'transparent' && (
           <rect width="100%" height="100%" fill={lightColor} />
         )}

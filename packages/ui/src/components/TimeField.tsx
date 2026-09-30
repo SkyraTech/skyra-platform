@@ -159,6 +159,16 @@ function TimeSelectDropdown({ value, options, onChange, ariaLabel, disabled }: {
                   e.currentTarget.style.background = 'transparent';
                 }
               }}
+              onMouseEnter={(e) => {
+                if (opt !== value) {
+                  e.currentTarget.style.background = 'var(--skyra-bg)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (opt !== value && document.activeElement !== e.currentTarget) {
+                  e.currentTarget.style.background = 'transparent';
+                }
+              }}
             >
               {opt}
             </button>
