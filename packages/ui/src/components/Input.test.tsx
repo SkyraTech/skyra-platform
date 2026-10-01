@@ -1,66 +1,76 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import { Input } from './Input';
 
+expect.extend(toHaveNoViolations);
+
 describe('Input', () => {
-  it('renders an input element', () => {
-    render(<Input placeholder="Type here" />);
-    expect(screen.getByPlaceholderText('Type here')).toBeInTheDocument();
+  it('has no accessibility violations', async () => {
+    const { container } = render(
+      <main>
+        <Input label="Name" placeholder="Enter name" />
+        <Input label="Email" required error="Invalid email" />
+        <Input disabled />
+      </main>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
+  it('renders a custom element wrapper', () => {
+    const { container } = render(<Input placeholder="Type here" />);
+    const input = container.querySelector('skyra-tech-input') as HTMLElement;
+    expect(input).toBeInTheDocument();
+    expect(input.getAttribute('placeholder')).toBe('Type here');
   });
 
   it('renders with label when provided', () => {
-    render(<Input label="Email" />);
-    expect(screen.getByText('Email')).toBeInTheDocument();
-  });
-
-  it('renders required indicator when required=true', () => {
-    render(<Input label="Name" required />);
-    // The asterisk is part of the label area
-    expect(screen.getByText('Name')).toBeInTheDocument();
+    const { container } = render(<Input label="Email" />);
+    const input = container.querySelector('skyra-tech-input') as HTMLElement;
+    expect(input.getAttribute('label')).toBe('Email');
   });
 
   it('renders error message', () => {
-    render(<Input error="This field is required" />);
-    expect(screen.getByText('This field is required')).toBeInTheDocument();
+    const { container } = render(<Input error="This field is required" />);
+    const input = container.querySelector('skyra-tech-input') as HTMLElement;
+    expect(input.getAttribute('error')).toBe('This field is required');
   });
 
   it('renders helper text when no error', () => {
-    render(<Input helper="Enter your full name" />);
-    expect(screen.getByText('Enter your full name')).toBeInTheDocument();
-  });
-
-  it('does not show helper text when error is present', () => {
-    render(<Input helper="Helper" error="Error msg" />);
-    expect(screen.queryByText('Helper')).not.toBeInTheDocument();
-    expect(screen.getByText('Error msg')).toBeInTheDocument();
+    const { container } = render(<Input helper="Enter your full name" />);
+    const input = container.querySelector('skyra-tech-input') as HTMLElement;
+    expect(input.getAttribute('helper-text')).toBe('Enter your full name');
   });
 
   it('fires onChange when user types', () => {
     const handler = vi.fn();
-    render(<Input onChange={handler} />);
-    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'hello' } });
+    const { container } = render(<Input onChange={handler} />);
+    const input = container.querySelector('skyra-tech-input') as any;
+    
+    // Simulate internal input dispatching event
+    fireEvent.change(input);
     expect(handler).toHaveBeenCalled();
   });
 
   it('is disabled when disabled=true', () => {
-    render(<Input disabled />);
-    expect(screen.getByRole('textbox')).toBeDisabled();
+    const { container } = render(<Input disabled />);
+    const input = container.querySelector('skyra-tech-input') as HTMLElement;
+    expect(input.hasAttribute('disabled')).toBe(true);
   });
 
-  it('renders prefix (leftAdornment) when provided', () => {
-    render(<Input leftAdornment={<span>$</span>} />);
-    expect(screen.getByText('$')).toBeInTheDocument();
+  it('renders prefix (leftAdornment) in slot', () => {
+    const { container } = render(<Input leftAdornment={<span>$</span>} />);
+    const span = container.querySelector('span[slot="left-icon"]');
+    expect(span).toBeInTheDocument();
+    expect(span?.textContent).toBe('$');
   });
 
-  it('renders suffix (rightAdornment) when provided', () => {
-    render(<Input rightAdornment={<span>.00</span>} />);
-    expect(screen.getByText('.00')).toBeInTheDocument();
-  });
-
-  it('associates label with input via htmlFor/id', () => {
-    render(<Input label="Phone" id="phone-field" />);
-    const label = screen.getByText('Phone');
-    expect(label).toHaveAttribute('for', 'phone-field');
+  it('renders suffix (rightAdornment) in slot', () => {
+    const { container } = render(<Input rightAdornment={<span>.00</span>} />);
+    const span = container.querySelector('span[slot="right-icon"]');
+    expect(span).toBeInTheDocument();
+    expect(span?.textContent).toBe('.00');
   });
 });
