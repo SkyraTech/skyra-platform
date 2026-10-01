@@ -22,7 +22,9 @@
   },
   "dependencies": {
     "@skyra-tech-platform/button": "workspace:^",
+    "@skyra-tech-platform/checkbox": "workspace:^",
     "@skyra-tech-platform/input": "workspace:^",
+    "@skyra-tech-platform/textarea": "workspace:^",
     "@skyra/data-export": "workspace:*",
     "@skyra/design-tokens": "workspace:*",
     "@skyra/utils": "workspace:*",

@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef, useId } from 'react';
-import { AlertCircle } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import '@skyra-tech-platform/textarea';
 
 export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -20,13 +20,14 @@ export interface TextareaProps
   wrapperClassName?: string;
 }
 
-/**
- * @skyra/ui Textarea
- *
- * [B] PLATFORM EXTRACTION + [C] ENHANCEMENT
- * Multi-line text input with auto-resize, minRows/maxRows bounds,
- * character counter, resize options, status states, dark mode, and ERP styling.
- */
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'skyra-tech-textarea': any;
+    }
+  }
+}
+
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
@@ -52,168 +53,83 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       disabled,
       readOnly,
       rows = 3,
+      name,
+      placeholder,
       ...rest
     },
-    forwardedRef
+    ref
   ) => {
-    const uid = useId();
-    const textareaId = id ?? `skyra-textarea-${uid}`;
+    const internalRef = useRef<any>(null);
     const effectiveHelper = helperText ?? helper ?? description;
-    const errorId = `${textareaId}-error`;
-    const helperId = `${textareaId}-helper`;
-    const descId = `${textareaId}-desc`;
     const effectiveStatus = error ? 'error' : status;
-    const hasError = effectiveStatus === 'error';
 
-    const innerRef = useRef<HTMLTextAreaElement>(null);
-
-    const currentLength = typeof value === 'string' ? value.length : 0;
-
-    // Handle auto-resize
     useEffect(() => {
-      const el = (forwardedRef && 'current' in forwardedRef && forwardedRef.current) || innerRef.current;
-      if (!el || !autoResize) return;
+      const el = internalRef.current;
+      if (!el) return;
 
-      el.style.height = 'auto';
-      const lineHeight = 20;
-      const minHeight = minRows * lineHeight + 20;
-      const calculatedHeight = Math.max(el.scrollHeight, minHeight);
+      const handleChange = (e: Event) => {
+        if (onChange) {
+          const synthEvent = Object.create(e);
+          synthEvent.target = el;
+          synthEvent.currentTarget = el;
+          onChange(synthEvent as any);
+        }
+      };
 
-      if (maxRows) {
-        const maxHeight = maxRows * lineHeight + 20;
-        el.style.height = `${Math.min(calculatedHeight, maxHeight)}px`;
-        el.style.overflowY = calculatedHeight > maxHeight ? 'auto' : 'hidden';
-      } else {
-        el.style.height = `${calculatedHeight}px`;
-      }
-    }, [value, autoResize, minRows, maxRows, forwardedRef]);
+      const handleInput = (e: Event) => {
+        if (rest.onInput) {
+          const synthEvent = Object.create(e);
+          synthEvent.target = el;
+          synthEvent.currentTarget = el;
+          rest.onInput(synthEvent as any);
+        }
+      };
 
-    const describedBy = [
-      hasError ? errorId : '',
-      description ? descId : '',
-      helper && !hasError ? helperId : '',
-    ]
-      .filter(Boolean)
-      .join(' ') || undefined;
+      el.addEventListener('change', handleChange);
+      el.addEventListener('input', handleInput);
+
+      return () => {
+        el.removeEventListener('change', handleChange);
+        el.removeEventListener('input', handleInput);
+      };
+    }, [onChange, rest.onInput]);
 
     return (
-      <div
-        className={`skyra-field ${wrapperClassName}`}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.375rem',
-          width: '100%',
-          fontFamily: 'var(--skyra-font-body)' }}
+      <skyra-tech-textarea
+        ref={(el: any) => {
+          internalRef.current = el;
+          if (typeof ref === 'function') ref(el);
+          else if (ref) (ref as any).current = el;
+        }}
+        class={className || undefined}
+        id={id}
+        value={value ?? defaultValue}
+        label={typeof label === 'string' ? label : undefined}
+        error={error}
+        helper-text={typeof effectiveHelper === 'string' ? effectiveHelper : undefined}
+        status={effectiveStatus}
+        required={required ? 'true' : undefined}
+        show-count={showCount ? 'true' : undefined}
+        auto-resize={autoResize ? 'true' : undefined}
+        resize={resize}
+        min-rows={minRows}
+        max-rows={maxRows}
+        disabled={disabled ? true : undefined}
+        readonly={readOnly ? true : undefined}
+        maxlength={maxLength}
+        rows={rows}
+        placeholder={placeholder}
+        name={name}
+        {...rest}
       >
-        {label && (
-          <label
-            htmlFor={textareaId}
-            style={{
-              fontSize: '0.875rem',
-              fontWeight: 500,
-              color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)' }}
-          >
-            {label}
-            {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
-          </label>
-        )}
-
-        <textarea
-          ref={(node) => {
-            (innerRef as React.MutableRefObject<HTMLInputElement | HTMLTextAreaElement | null>).current = node;
-            if (typeof forwardedRef === 'function') {
-              forwardedRef(node);
-            } else if (forwardedRef) {
-              (forwardedRef as React.MutableRefObject<HTMLInputElement | HTMLTextAreaElement | null>).current = node;
-            }
-          }}
-          id={textareaId}
-          rows={rows}
-          value={value}
-          defaultValue={defaultValue}
-          onChange={onChange}
-          disabled={disabled}
-          maxLength={maxLength}
-          aria-invalid={hasError}
-          aria-describedby={describedBy}
-          aria-required={required}
-          className={`skyra-textarea ${hasError ? 'skyra-input--error' : ''} ${className}`}
-          style={{
-            width: '100%',
-            padding: '0.65rem 0.875rem',
-            background: disabled
-              ? 'var(--skyra-border)'
-              : readOnly
-              ? 'var(--skyra-surface)'
-              : 'var(--skyra-bg)',
-            border: hasError
-              ? '1.5px solid var(--skyra-danger)'
-              : effectiveStatus === 'success'
-              ? '1.5px solid var(--skyra-success)'
-              : effectiveStatus === 'warning'
-              ? '1.5px solid var(--skyra-warning)'
-              : '1px solid var(--skyra-border)',
-            borderRadius: 'var(--skyra-radius-md)',
-            color: disabled
-              ? 'var(--skyra-text-subtle)'
-              : readOnly
-              ? 'var(--skyra-text-muted)'
-              : 'var(--skyra-text)',
-            fontSize: '0.875rem',
-            lineHeight: '1.5',
-            outline: 'none',
-            boxSizing: 'border-box',
-            resize: autoResize ? 'none' : resize,
-            cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'text',
-            fontFamily: 'inherit' }}
-          readOnly={readOnly}
-          {...rest}
-        />
-
-        {/* Footer: Error / Helper and Character Count */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
-          <div>
-            {hasError && (
-              <span
-                id={errorId}
-                role="alert"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  fontSize: '0.78rem',
-                  color: 'var(--skyra-danger)' }}
-              >
-                <AlertCircle size={12} aria-hidden="true" />
-                {error}
-              </span>
-            )}
-            {(description || helper) && !hasError && (
-              <span
-                id={helper ? helperId : descId}
-                style={{
-                  fontSize: '0.78rem',
-                  color: 'var(--skyra-text-muted)' }}
-              >
-                {description || helper}
-              </span>
-            )}
-          </div>
-
-          {showCount && maxLength && (
-            <span
-              style={{
-                fontSize: '0.75rem',
-                color: currentLength >= maxLength ? 'var(--skyra-danger)' : 'var(--skyra-text-subtle)',
-                marginLeft: 'auto',
-                flexShrink: 0 }}
-            >
-              {currentLength} / {maxLength}
-            </span>
-          )}
-        </div>
-      </div>
+        {typeof label !== 'string' && label ? (
+          <span slot="label">{label}</span>
+        ) : null}
+        
+        {typeof effectiveHelper !== 'string' && effectiveHelper ? (
+          <span slot="helper">{effectiveHelper}</span>
+        ) : null}
+      </skyra-tech-textarea>
     );
   }
 );

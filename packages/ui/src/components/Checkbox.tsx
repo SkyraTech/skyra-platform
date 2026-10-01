@@ -1,23 +1,25 @@
 'use client';
 
-import React, { useId, useEffect, useRef } from 'react';
-import { Check, Minus } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import '@skyra-tech-platform/checkbox';
 
-export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
-  label: React.ReactNode;
+export interface CheckboxProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+  label?: React.ReactNode;
   description?: React.ReactNode;
   helper?: React.ReactNode;
   error?: string;
   indeterminate?: boolean;
 }
 
-/**
- * @skyra/ui Checkbox
- *
- * [B] PLATFORM EXTRACTION + [C] ENHANCEMENT
- * Supports checked, unchecked, indeterminate, disabled, focus-visible,
- * min 44x44px touch target, descriptions, and accessible ARIA states.
- */
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'skyra-tech-checkbox': any;
+    }
+  }
+}
+
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
@@ -30,178 +32,88 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       required = false,
       id,
       className = '',
-      style,
       checked,
       defaultChecked,
       onChange,
+      name,
+      value,
       ...rest
     },
-    forwardedRef
+    ref
   ) => {
-    const uid = useId();
-    const inputId = id ?? `skyra-checkbox-${uid}`;
-    const descId = `${inputId}-desc`;
-    const errorId = `${inputId}-error`;
-
-    const innerRef = useRef<HTMLInputElement>(null);
-    const [internalChecked, setInternalChecked] = React.useState(Boolean(checked ?? defaultChecked));
+    const internalRef = useRef<any>(null);
+    const effectiveHelper = helper ?? description;
 
     useEffect(() => {
-      if (checked !== undefined) {
-        setInternalChecked(Boolean(checked));
-      }
-    }, [checked]);
+      const el = internalRef.current;
+      if (!el) return;
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (checked === undefined) {
-        setInternalChecked(e.target.checked);
-      }
-      onChange?.(e);
-    };
+      const handleChange = (e: Event) => {
+        if (onChange) {
+          const synthEvent = Object.create(e);
+          synthEvent.target = el;
+          synthEvent.currentTarget = el;
+          
+          // Shim for React expecting event.target.checked
+          Object.defineProperty(synthEvent.target, 'checked', {
+            get: () => el.checked,
+            configurable: true
+          });
+          
+          onChange(synthEvent as any);
+        }
+      };
 
-    // Sync indeterminate property on real DOM node
+      el.addEventListener('change', handleChange);
+
+      return () => {
+        el.removeEventListener('change', handleChange);
+      };
+    }, [onChange]);
+
+    // Handle React controlled/uncontrolled paradigm
+    // For Checkbox, we must actively sync indeterminate via JS property since it's not a true DOM attribute natively,
+    // although our web component maps it to an attribute, doing both is safe.
     useEffect(() => {
-      const el = (forwardedRef && 'current' in forwardedRef && forwardedRef.current) || innerRef.current;
+      const el = internalRef.current;
       if (el) {
         el.indeterminate = indeterminate;
+        if (checked !== undefined) {
+          el.checked = checked;
+        }
       }
-    }, [indeterminate, forwardedRef]);
-
-    const isChecked = checked !== undefined ? Boolean(checked) : internalChecked;
-    const hasError = !!error;
+    }, [indeterminate, checked]);
 
     return (
-      <div
-        className={`skyra-checkbox-container ${className}`}
-        style={{
-          minWidth: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.25rem',
-          ...style }}
+      <skyra-tech-checkbox
+        ref={(el: any) => {
+          internalRef.current = el;
+          if (typeof ref === 'function') ref(el);
+          else if (ref) (ref as any).current = el;
+        }}
+        class={className || undefined}
+        id={id}
+        name={name}
+        value={value}
+        checked={checked ?? defaultChecked ? 'true' : undefined}
+        indeterminate={indeterminate ? 'true' : undefined}
+        label={typeof label === 'string' ? label : undefined}
+        error={error}
+        helper-text={typeof effectiveHelper === 'string' ? effectiveHelper : undefined}
+        required={required ? 'true' : undefined}
+        disabled={disabled ? true : undefined}
+        {...rest}
       >
-        <label
-          htmlFor={inputId}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'flex-start',
-            gap: '0.625rem',
-            cursor: disabled ? 'not-allowed' : 'pointer',
-            userSelect: 'none',
-            minHeight: '44px',
-            padding: '4px 0',
-            position: 'relative',
-            minWidth: 0,
-            maxWidth: '100%' }}
-        >
-          {/* Hidden native checkbox input */}
-          <input className="skyra-sr-only-peer"
-            ref={(node) => {
-              (innerRef as React.MutableRefObject<HTMLInputElement | HTMLTextAreaElement | null>).current = node;
-              if (typeof forwardedRef === 'function') {
-                forwardedRef(node);
-              } else if (forwardedRef) {
-                (forwardedRef as React.MutableRefObject<HTMLInputElement | HTMLTextAreaElement | null>).current = node;
-              }
-            }}
-            id={inputId}
-            type="checkbox"
-            checked={checked}
-            defaultChecked={defaultChecked}
-            disabled={disabled}
-            required={required}
-            onChange={handleChange}
-            aria-invalid={hasError}
-            aria-describedby={hasError ? errorId : description || helper ? descId : undefined}
-            style={{
-              position: 'absolute',
-              opacity: 0,
-              width: '44px',
-              height: '44px',
-              top: 0,
-              left: 0,
-              margin: 0,
-              cursor: disabled ? 'not-allowed' : 'pointer',
-              zIndex: 1 }}
-            {...rest}
-          />
-
-          {/* Custom Styled Box */}
-          <span className="skyra-motion-transition-all"
-            aria-hidden="true"
-            style={{
-              width: '18px',
-              height: '18px',
-              marginTop: '3px',
-              borderRadius: 'var(--skyra-radius-sm, 4px)',
-              border: hasError
-                ? '1.5px solid var(--skyra-danger)'
-                : isChecked || indeterminate
-                ? '1.5px solid var(--skyra-primary)'
-                : '1.5px solid var(--skyra-border)',
-              background: disabled
-                ? isChecked || indeterminate
-                  ? 'var(--skyra-border)'
-                  : 'var(--skyra-bg)'
-                : isChecked || indeterminate
-                ? 'var(--skyra-primary)'
-                : 'var(--skyra-surface)',
-              color: '#ffffff',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              
-              boxShadow: 'none' }}
-          >
-            {indeterminate ? (
-              <Minus size={12} strokeWidth={3} />
-            ) : isChecked ? (
-              <Check size={12} strokeWidth={3} />
-            ) : null}
-          </span>
-
-          {/* Label + Description */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-            <span
-              style={{
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-                lineHeight: '1.4' }}
-            >
-              {label}
-              {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
-            </span>
-            {(description || helper) && (
-              <span
-                id={descId}
-                style={{
-                  fontSize: '0.78rem',
-                  color: 'var(--skyra-text-muted)',
-                  lineHeight: '1.35' }}
-              >
-                {description || helper}
-              </span>
-            )}
-          </div>
-        </label>
-
-        {/* Error message */}
-        {hasError && (
-          <span
-            id={errorId}
-            role="alert"
-            style={{
-              fontSize: '0.78rem',
-              color: 'var(--skyra-danger)',
-              marginLeft: '28px' }}
-          >
-            {error}
-          </span>
-        )}
-      </div>
+        {typeof label !== 'string' && label ? (
+          <span slot="label">{label}</span>
+        ) : null}
+        
+        {typeof effectiveHelper !== 'string' && effectiveHelper ? (
+          <span slot="helper">{effectiveHelper}</span>
+        ) : null}
+      </skyra-tech-checkbox>
     );
   }
 );
+
 Checkbox.displayName = 'Checkbox';
