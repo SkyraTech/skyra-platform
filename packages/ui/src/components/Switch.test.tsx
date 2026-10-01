@@ -1,59 +1,68 @@
 import { describe, it, expect, vi } from 'vitest';
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import { Switch } from './Switch';
 
+expect.extend(toHaveNoViolations);
+
 describe('Switch', () => {
-  it('renders switch with role and toggles on click', () => {
-    const onChange = vi.fn();
-    render(<Switch label="Enable notifications" checked={false} onChange={onChange} />);
-
-    const toggle = screen.getByRole('switch', { name: /enable notifications/i });
-    expect(toggle).toHaveAttribute('aria-checked', 'false');
-
-    fireEvent.click(toggle);
-    expect(onChange).toHaveBeenCalledWith(true);
-  });
-
-  it('supports keyboard Space and Enter toggling', () => {
-    const onChange = vi.fn();
-    render(<Switch label="Dark Mode" checked={false} onChange={onChange} />);
-
-    const toggle = screen.getByRole('switch', { name: /dark mode/i });
-    fireEvent.keyDown(toggle, { key: ' ' });
-    expect(onChange).toHaveBeenCalledWith(true);
-
-    fireEvent.keyDown(toggle, { key: 'Enter' });
-    expect(onChange).toHaveBeenCalledWith(true);
-  });
-
-  it('handles disabled state and prevents onChange', () => {
-    const onChange = vi.fn();
-    render(<Switch label="Disabled Option" disabled checked={false} onChange={onChange} />);
-
-    const toggle = screen.getByRole('switch', { name: /disabled option/i });
-    expect(toggle).toBeDisabled();
-
-    fireEvent.click(toggle);
-    expect(onChange).not.toHaveBeenCalled();
-  });
-
-  it('renders different visual variants (labeled, icon, compact, outline)', () => {
+  it('has no accessibility violations', async () => {
     const { container } = render(
-      <div>
-        <Switch label="Labeled" variant="labeled" checked={true} />
-        <Switch label="Icon" variant="icon" checked={true} />
-        <Switch label="Compact" variant="compact" checked={false} />
-        <Switch label="Outline" variant="outline" checked={true} />
-      </div>
+      <main>
+        <Switch label="Settings" description="Toggle app settings" />
+        <Switch label="Disabled Option" disabled />
+        <Switch label="Terms" required error="Must accept" />
+      </main>
     );
-    expect(screen.getByText('ON')).toBeInTheDocument();
-    expect(screen.getByText('Labeled')).toBeInTheDocument();
-    expect(screen.getByText('Icon')).toBeInTheDocument();
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 
-  it('displays error message when provided', () => {
-    render(<Switch label="Terms" error="You must accept the terms" />);
-    expect(screen.getByRole('alert')).toHaveTextContent(/you must accept the terms/i);
+  it('renders a custom element wrapper', () => {
+    const { container } = render(<Switch label="Test Label" />);
+    const wc = container.querySelector('skyra-tech-switch') as HTMLElement;
+    expect(wc).toBeInTheDocument();
+    expect(wc.getAttribute('label')).toBe('Test Label');
+  });
+
+  it('renders with label and helper slots when react nodes are provided', () => {
+    const { container } = render(<Switch label={<span>JSX Label</span>} description={<span>JSX Desc</span>} />);
+    const wc = container.querySelector('skyra-tech-switch') as HTMLElement;
+    const labelSpan = container.querySelector('span[slot="label"]');
+    const descSpan = container.querySelector('span[slot="helper"]');
+    
+    expect(labelSpan).toBeInTheDocument();
+    expect(labelSpan?.textContent).toBe('JSX Label');
+    expect(descSpan).toBeInTheDocument();
+    expect(descSpan?.textContent).toBe('JSX Desc');
+  });
+
+  it('passes disabled, readonly, loading, and checked properties correctly', () => {
+    const { container } = render(<Switch disabled readOnly loading checked={true} />);
+    const wc = container.querySelector('skyra-tech-switch') as HTMLElement;
+    expect(wc.hasAttribute('disabled')).toBe(true);
+    expect(wc.hasAttribute('readonly')).toBe(true);
+    expect(wc.hasAttribute('loading')).toBe(true);
+    expect(wc.hasAttribute('checked')).toBe(true);
+  });
+
+  it('fires onChange when the internal element dispatches a change event', () => {
+    const onChange = vi.fn();
+    const { container } = render(<Switch label="Enable notifications" checked={false} onChange={onChange} />);
+    const wc = container.querySelector('skyra-tech-switch') as any;
+
+    // Simulate internal element state update & event firing
+    wc.checked = true;
+    fireEvent.change(wc);
+
+    expect(onChange).toHaveBeenCalledWith(true);
+  });
+
+  it('passes variants and sizes correctly', () => {
+    const { container } = render(<Switch variant="outline" size="lg" />);
+    const wc = container.querySelector('skyra-tech-switch') as HTMLElement;
+    expect(wc.getAttribute('variant')).toBe('outline');
+    expect(wc.getAttribute('size')).toBe('lg');
   });
 });

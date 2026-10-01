@@ -97,7 +97,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         loading-text={loadingText}
         full-width={fullWidth ? 'true' : undefined}
         icon-only={iconOnly ? 'true' : undefined}
-        disabled={disabled || isLoading ? true : undefined}
+        disabled={disabled || isLoading ? 'true' : undefined}
         type={type}
         {...rest}
       >

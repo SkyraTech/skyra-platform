@@ -1,312 +1,129 @@
 import { describe, it, expect, vi } from 'vitest';
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import { DynamicSelect } from './DynamicSelect';
 
+expect.extend(toHaveNoViolations);
+
 const sampleOptions = [
-  { value: 'eng', label: 'Engineering', description: 'Tech & Dev', group: 'Tech' },
-  { value: 'mkt', label: 'Marketing', description: 'Brand & Growth', group: 'Business' },
-  { value: 'fin', label: 'Finance', description: 'Accounting', group: 'Business' },
-  { value: 'hr', label: 'Human Resources', description: 'People Ops', group: 'People' },
-  { value: 'dis', label: 'Disabled Option', disabled: true, group: 'Tech' },
+  { value: 'eng', label: 'Engineering' },
+  { value: 'mkt', label: 'Marketing' }
 ];
 
 describe('DynamicSelect', () => {
-  it('renders with placeholder and opens menu on click', () => {
-    const onChange = vi.fn();
-    render(<DynamicSelect options={sampleOptions} onChange={onChange} placeholder="Choose dept" />);
-
-    const trigger = screen.getByRole('button', { name: /choose dept/i });
-    expect(trigger).toBeInTheDocument();
-    expect(trigger).toHaveAttribute('aria-expanded', 'false');
-
-    fireEvent.click(trigger);
-    expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByRole('listbox')).toBeInTheDocument();
-    expect(screen.getByText('Engineering')).toBeInTheDocument();
+  it('has no accessibility violations across states', async () => {
+    const { container } = render(
+      <main>
+        <DynamicSelect options={sampleOptions} label="Dept" onChange={() => {}} />
+        <DynamicSelect options={sampleOptions} label="Dept (Search)" searchable onChange={() => {}} />
+        <DynamicSelect options={sampleOptions} label="Dept (Multi)" mode="multiple" value={['eng']} onChange={() => {}} />
+        <DynamicSelect options={sampleOptions} label="Dept (Disabled)" disabled onChange={() => {}} />
+        <DynamicSelect options={sampleOptions} label="Dept (Error)" error="Invalid selection" onChange={() => {}} />
+      </main>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
-
-  it('handles single selection and fires onChange', () => {
-    const onChange = vi.fn();
-    render(<DynamicSelect options={sampleOptions} onChange={onChange} />);
-
-    fireEvent.click(screen.getByRole('button'));
-    fireEvent.click(screen.getByText('Engineering'));
-
-    expect(onChange).toHaveBeenCalledWith(sampleOptions[0]);
-  });
-
-  it('renders selected value in single mode', () => {
-    render(<DynamicSelect options={sampleOptions} value="eng" onChange={() => {}} />);
-    expect(screen.getByText('Engineering')).toBeInTheDocument();
-  });
-
-  it('handles multi selection with chips and +N overflow', () => {
-    const onChange = vi.fn();
-    render(
+  it('renders a custom element wrapper', () => {
+    const { container } = render(
       <DynamicSelect
-        mode="multiple"
         options={sampleOptions}
-        value={['eng', 'mkt', 'fin', 'hr']}
-        maxVisibleValues={2}
-        onChange={onChange}
+        placeholder="Choose dept"
+        label="Department"
       />
     );
-
-    expect(screen.getByText('Engineering')).toBeInTheDocument();
-    expect(screen.getByText('Marketing')).toBeInTheDocument();
-    expect(screen.getByText('+2')).toBeInTheDocument();
-
-    // Click +2 opens listbox
-    fireEvent.click(screen.getByText('+2'));
-    expect(screen.getByRole('listbox')).toBeInTheDocument();
+    const wc = container.querySelector('skyra-tech-dynamic-select') as any;
+    expect(wc).toBeInTheDocument();
+    expect(wc.getAttribute('placeholder')).toBe('Choose dept');
+    expect(wc.getAttribute('label')).toBe('Department');
+    expect(wc.getAttribute('mode')).toBe('single');
   });
 
-  it('removes individual token in multi-select mode', () => {
-    const onChange = vi.fn();
-    render(
+  it('passes options and value properties correctly', () => {
+    const { container } = render(
       <DynamicSelect
-        mode="multiple"
         options={sampleOptions}
-        value={['eng', 'mkt']}
-        onChange={onChange}
+        value={sampleOptions[0]}
+        onChange={() => {}}
       />
     );
-
-    const removeBtn = screen.getByRole('button', { name: /remove engineering/i });
-    fireEvent.click(removeBtn);
-
-    expect(onChange).toHaveBeenCalled();
+    const wc = container.querySelector('skyra-tech-dynamic-select') as any;
+    expect(wc.options).toEqual(sampleOptions);
+    expect(wc.value).toEqual(sampleOptions[0]);
   });
 
-  it('supports search filtering and onSearch callback', () => {
+  it('handles skyra-change event', () => {
+    const onChange = vi.fn();
+    const { container } = render(
+      <DynamicSelect options={sampleOptions} onChange={onChange} />
+    );
+    
+    const wc = container.querySelector('skyra-tech-dynamic-select') as any;
+    
+    const event = new CustomEvent('skyra-change', { detail: { value: sampleOptions[1] } });
+    wc.dispatchEvent(event);
+    
+    expect(onChange).toHaveBeenCalledWith(sampleOptions[1]);
+  });
+
+  it('handles skyra-search event', () => {
     const onSearch = vi.fn();
-    render(
-      <DynamicSelect
-        options={sampleOptions}
-        searchable
-        onSearch={onSearch}
-        onChange={() => {}}
-      />
+    const { container } = render(
+      <DynamicSelect options={sampleOptions} searchable onSearch={onSearch} onChange={() => {}} />
     );
-
-    fireEvent.click(screen.getByRole('button'));
-    const searchInput = screen.getByRole('combobox');
-    fireEvent.change(searchInput, { target: { value: 'Market' } });
-
-    expect(onSearch).toHaveBeenCalledWith('Market');
-    expect(screen.getByText('Marketing')).toBeInTheDocument();
-    expect(screen.queryByText('Engineering')).not.toBeInTheDocument();
+    
+    const wc = container.querySelector('skyra-tech-dynamic-select') as any;
+    expect(wc.getAttribute('searchable')).toBe('');
+    
+    const event = new CustomEvent('skyra-search', { detail: { query: 'Eng' } });
+    wc.dispatchEvent(event);
+    
+    expect(onSearch).toHaveBeenCalledWith('Eng');
   });
 
-  it('handles clear button', () => {
-    const onChange = vi.fn();
-    render(
-      <DynamicSelect
-        options={sampleOptions}
-        value="eng"
-        clearable
-        onChange={onChange}
-      />
-    );
-
-    const clearBtn = screen.getByRole('button', { name: /clear selection/i });
-    fireEvent.click(clearBtn);
-
-    expect(onChange).toHaveBeenCalledWith(null);
-  });
-
-  it('supports select all in multi mode', () => {
-    const onChange = vi.fn();
-    render(
-      <DynamicSelect
-        mode="multiple"
-        selectAll
-        options={sampleOptions}
-        value={[]}
-        onChange={onChange}
-      />
-    );
-
-    fireEvent.click(screen.getByRole('button'));
-    const selectAllBtn = screen.getByText(/select all/i);
-    fireEvent.click(selectAllBtn);
-
-    // Excludes disabled option
-    expect(onChange).toHaveBeenCalledWith(sampleOptions.filter((o) => !o.disabled));
-  });
-
-  it('supports grouping options', () => {
-    render(
-      <DynamicSelect
-        grouping
-        options={sampleOptions}
-        onChange={() => {}}
-      />
-    );
-
-    fireEvent.click(screen.getByRole('button'));
-    expect(screen.getByText('Tech')).toBeInTheDocument();
-    expect(screen.getByText('Business')).toBeInTheDocument();
-    expect(screen.getByText('People')).toBeInTheDocument();
-  });
-
-  it('displays loading state', () => {
-    render(<DynamicSelect options={[]} loading onChange={() => {}} />);
-    expect(screen.getByLabelText(/loading options/i)).toBeInTheDocument();
-  });
-
-  it('displays error state', () => {
-    render(<DynamicSelect options={sampleOptions} error="This field is required" onChange={() => {}} />);
-    expect(screen.getByRole('alert')).toHaveTextContent('This field is required');
-  });
-
-  it('handles creatable options', () => {
+  it('handles skyra-create event', () => {
     const onCreateOption = vi.fn();
-    render(
+    const { container } = render(
+      <DynamicSelect options={sampleOptions} allowCreate onCreateOption={onCreateOption} onChange={() => {}} />
+    );
+    
+    const wc = container.querySelector('skyra-tech-dynamic-select') as any;
+    expect(wc.getAttribute('allow-create')).toBe('');
+    
+    const event = new CustomEvent('skyra-create', { detail: { query: 'HR' } });
+    wc.dispatchEvent(event);
+    
+    expect(onCreateOption).toHaveBeenCalledWith('HR');
+  });
+
+  it('passes attributes based on props correctly', () => {
+    const { container } = render(
       <DynamicSelect
         options={sampleOptions}
-        searchable
-        allowCreate
-        onCreateOption={onCreateOption}
         onChange={() => {}}
-      />
-    );
-
-    fireEvent.click(screen.getByRole('button'));
-    const searchInput = screen.getByRole('combobox');
-    fireEvent.change(searchInput, { target: { value: 'New Team' } });
-
-    const createBtn = screen.getByRole('button', { name: /create "new team"/i });
-    fireEvent.click(createBtn);
-
-    expect(onCreateOption).toHaveBeenCalledWith('New Team');
-  });
-
-  it('handles keyboard navigation (Enter, ArrowDown, Escape)', () => {
-    const onChange = vi.fn();
-    render(<DynamicSelect options={sampleOptions} onChange={onChange} />);
-
-    const trigger = screen.getByRole('button');
-    trigger.focus();
-
-    // Open on Enter
-    fireEvent.keyDown(trigger, { key: 'Enter' });
-    expect(screen.getByRole('listbox')).toBeInTheDocument();
-
-    // Arrow down
-    fireEvent.keyDown(trigger, { key: 'ArrowDown' });
-
-    // Select with Enter
-    fireEvent.keyDown(trigger, { key: 'Enter' });
-    expect(onChange).toHaveBeenCalled();
-
-    // Escape closes
-    fireEvent.click(trigger);
-    expect(screen.getByRole('listbox')).toBeInTheDocument();
-    fireEvent.keyDown(trigger, { key: 'Escape' });
-    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
-  });
-
-  it('operates Select All strictly on currently filtered options when search filter is active', () => {
-    const onChange = vi.fn();
-    render(
-      <DynamicSelect
-        mode="multiple"
-        searchable
-        selectAll
-        options={sampleOptions}
-        value={[]}
-        onChange={onChange}
-      />
-    );
-
-    fireEvent.click(screen.getByRole('button'));
-    const searchInput = screen.getByRole('combobox');
-    
-    // Filter down to "Business" options or "Marketing"
-    fireEvent.change(searchInput, { target: { value: 'Market' } });
-    expect(screen.getByText('Marketing')).toBeInTheDocument();
-    expect(screen.queryByText('Engineering')).not.toBeInTheDocument();
-
-    // Click Select all when filtered
-    const selectAllBtn = screen.getByText(/select all/i);
-    fireEvent.click(selectAllBtn);
-
-    // Only 'Marketing' should be selected, NOT all 5 options
-    expect(onChange).toHaveBeenCalledWith([sampleOptions[1]]);
-  });
-
-  it('deselects all matching filtered options when all filtered options are already selected', () => {
-    const onChange = vi.fn();
-    // 'Marketing' and 'Finance' already selected
-    render(
-      <DynamicSelect
-        mode="multiple"
-        searchable
-        selectAll
-        options={sampleOptions}
-        value={['mkt', 'fin', 'eng']}
-        onChange={onChange}
-      />
-    );
-
-    fireEvent.click(screen.getAllByRole('button')[0]!);
-    const searchInput = screen.getByRole('combobox');
-
-    // Filter to 'Market'
-    fireEvent.change(searchInput, { target: { value: 'Market' } });
-    expect(screen.getByRole('option', { name: /marketing/i })).toBeInTheDocument();
-
-    // Select all row shows 'Deselect all' because the only filtered enabled option 'mkt' is already selected
-    const deselectAllBtn = screen.getByText(/deselect all/i);
-    fireEvent.click(deselectAllBtn);
-
-    // 'mkt' is removed while 'fin' and 'eng' remain
-    expect(onChange).toHaveBeenCalledWith([
-      sampleOptions[2], // 'fin'
-      sampleOptions[0], // 'eng'
-    ]);
-  });
-
-  it('renders multi-select sticky footer with selection count and Clear all action', () => {
-    const onChange = vi.fn();
-    render(
-      <DynamicSelect
-        mode="multiple"
-        options={sampleOptions}
-        value={['eng', 'mkt']}
-        onChange={onChange}
-      />
-    );
-
-    fireEvent.click(screen.getAllByRole('button')[0]!);
-    expect(screen.getByText('2 selected')).toBeInTheDocument();
-
-    const clearAllBtn = screen.getByText('Clear all');
-    expect(clearAllBtn).toBeInTheDocument();
-    fireEvent.click(clearAllBtn);
-
-    expect(onChange).toHaveBeenCalledWith([]);
-  });
-
-  it('allows keyboard activation (Enter/Space) on Select All row', () => {
-    const onChange = vi.fn();
-    render(
-      <DynamicSelect
         mode="multiple"
         selectAll
-        options={sampleOptions}
-        value={[]}
-        onChange={onChange}
+        clearable
+        loading
+        disabled
+        grouping
+        required
+        maxMenuHeight={300}
+        maxVisibleValues={5}
+        maxSelections={3}
       />
     );
-
-    fireEvent.click(screen.getByRole('button'));
-    const selectAllRow = screen.getByLabelText(/select all options/i);
-    
-    // Press Space on select all
-    fireEvent.keyDown(selectAllRow, { key: ' ' });
-    expect(onChange).toHaveBeenCalledWith(sampleOptions.filter((o) => !o.disabled));
+    const wc = container.querySelector('skyra-tech-dynamic-select') as any;
+    expect(wc.getAttribute('mode')).toBe('multiple');
+    expect(wc.getAttribute('select-all')).toBe('');
+    expect(wc.getAttribute('clearable')).toBe('');
+    expect(wc.getAttribute('loading')).toBe('');
+    expect(wc.getAttribute('disabled')).toBe('');
+    expect(wc.getAttribute('grouping')).toBe('');
+    expect(wc.getAttribute('required')).toBe('');
+    expect(wc.getAttribute('max-menu-height')).toBe('300');
+    expect(wc.getAttribute('max-visible-values')).toBe('5');
+    expect(wc.getAttribute('max-selections')).toBe('3');
   });
 });

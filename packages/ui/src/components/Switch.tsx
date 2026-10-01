@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useId } from 'react';
-import { Check, X, Moon, Sun, Loader2 } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import '@skyra-tech-platform/switch';
 
 export type SwitchVariant = 'default' | 'compact' | 'labeled' | 'icon' | 'outline';
 export type SwitchSize = 'sm' | 'md' | 'lg';
@@ -39,15 +39,16 @@ export interface SwitchProps {
   className?: string;
 }
 
-/**
- * @skyra/ui Switch
- *
- * Highly configurable accessible toggle switch supporting 5 design variants
- * (default, compact, labeled, icon, outline), 3 sizes (sm, md, lg), loading spinner,
- * and dark mode tokens.
- */
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'skyra-tech-switch': any;
+    }
+  }
+}
+
 export function Switch({
-  checked = false,
+  checked,
   defaultChecked,
   onChange,
   label,
@@ -63,208 +64,49 @@ export function Switch({
   name,
   className = '',
 }: SwitchProps) {
-  const uid = useId();
-  const switchId = id ?? `skyra-switch-${uid}`;
-  const labelId = `${switchId}-label`;
-  const descId = `${switchId}-desc`;
-  const errorId = `${switchId}-error`;
+  const internalRef = useRef<any>(null);
 
-  const [internalChecked, setInternalChecked] = React.useState(defaultChecked ?? checked);
-  const isControlled = typeof checked === 'boolean' && defaultChecked === undefined;
-  const currentChecked = isControlled ? checked : internalChecked;
+  useEffect(() => {
+    const el = internalRef.current;
+    if (!el) return;
 
-  const handleToggle = () => {
-    if (disabled || readOnly || loading) return;
-    const next = !currentChecked;
-    if (!isControlled) {
-      setInternalChecked(next);
+    const handleChange = (e: Event) => {
+      if (onChange) {
+        onChange(el.checked);
+      }
+    };
+
+    el.addEventListener('change', handleChange);
+    return () => el.removeEventListener('change', handleChange);
+  }, [onChange]);
+
+  // Handle controlled checked state updates
+  useEffect(() => {
+    const el = internalRef.current;
+    if (el && checked !== undefined) {
+      el.checked = checked;
     }
-    onChange?.(next);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (disabled || readOnly || loading) return;
-    if (e.key === ' ' || e.key === 'Enter') {
-      e.preventDefault();
-      handleToggle();
-    }
-  };
-
-  // Dimensions based on size and variant
-  const isCompact = variant === 'compact';
-  const isLabeled = variant === 'labeled';
-  const dimensions = {
-    sm: {
-      trackW: isCompact ? '28px' : isLabeled ? '42px' : '34px',
-      trackH: isCompact ? '16px' : '18px',
-      thumbS: isCompact ? '12px' : '14px',
-      translate: isCompact ? '12px' : isLabeled ? '24px' : '16px',
-    },
-    md: {
-      trackW: isCompact ? '34px' : isLabeled ? '52px' : '44px',
-      trackH: isCompact ? '18px' : '24px',
-      thumbS: isCompact ? '14px' : '18px',
-      translate: isCompact ? '16px' : isLabeled ? '28px' : '20px',
-    },
-    lg: {
-      trackW: isCompact ? '42px' : isLabeled ? '64px' : '54px',
-      trackH: isCompact ? '22px' : '28px',
-      thumbS: isCompact ? '18px' : '22px',
-      translate: isCompact ? '20px' : isLabeled ? '36px' : '26px',
-    },
-  }[size];
-
-  const trackBackground = disabled
-    ? 'var(--skyra-border)'
-    : variant === 'outline'
-    ? 'transparent'
-    : currentChecked
-    ? 'var(--skyra-primary)'
-    : 'var(--skyra-border)';
-
-  const trackBorder =
-    variant === 'outline'
-      ? currentChecked
-        ? '2px solid var(--skyra-primary)'
-        : '2px solid var(--skyra-border)'
-      : 'none';
+  }, [checked]);
 
   return (
-    <div
-      className={`skyra-switch-container ${className}`}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.25rem',
-        fontFamily: 'var(--skyra-font-body)' }}
+    <skyra-tech-switch
+      ref={internalRef}
+      class={className || undefined}
+      id={id}
+      name={name}
+      checked={checked ?? defaultChecked ? 'true' : undefined}
+      disabled={disabled ? 'true' : undefined}
+      readonly={readOnly ? 'true' : undefined}
+      required={required ? 'true' : undefined}
+      loading={loading ? 'true' : undefined}
+      variant={variant}
+      size={size}
+      label={typeof label === 'string' ? label : undefined}
+      helper-text={typeof description === 'string' ? description : undefined}
+      error={error}
     >
-      <div
-        style={{
-          display: 'inline-flex',
-          alignItems: 'flex-start',
-          gap: '0.75rem',
-          minHeight: '38px',
-          padding: '2px 0',
-          cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'pointer' }}
-        onClick={handleToggle}
-      >
-        {/* Toggle Track */}
-        <button className="skyra-switch-btn"
-          id={switchId}
-          type="button"
-          role="switch"
-          name={name}
-          aria-checked={currentChecked}
-          aria-labelledby={label ? labelId : undefined}
-          aria-describedby={error ? errorId : description ? descId : undefined}
-          aria-disabled={disabled}
-          aria-required={required}
-          disabled={disabled}
-          onKeyDown={handleKeyDown}
-          style={{
-            position: 'relative',
-            width: dimensions.trackW,
-            height: dimensions.trackH,
-            borderRadius: 'var(--skyra-radius-full)',
-            background: trackBackground,
-            border: trackBorder,
-            padding: '2px',
-            cursor: disabled ? 'not-allowed' : readOnly ? 'default' : 'pointer',
-            
-            outline: 'none',
-            flexShrink: 0,
-            marginTop: '2px',
-            display: 'inline-flex',
-            alignItems: 'center',
-            boxSizing: 'border-box' }}
-        >
-          {/* Labeled Variant ON/OFF Text in Track */}
-          {variant === 'labeled' && (
-            <span
-              style={{
-                position: 'absolute',
-                left: currentChecked ? '6px' : 'auto',
-                right: currentChecked ? 'auto' : '6px',
-                fontSize: size === 'sm' ? '0.6rem' : '0.7rem',
-                fontWeight: 700,
-                color: currentChecked ? '#ffffff' : 'var(--skyra-text-muted)',
-                lineHeight: 1,
-                userSelect: 'none' }}
-            >
-              {currentChecked ? 'ON' : 'OFF'}
-            </span>
-          )}
-
-          {/* Sliding Thumb */}
-          <span
-            className="skyra-switch-thumb"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: dimensions.thumbS,
-              height: dimensions.thumbS,
-              borderRadius: '50%',
-              background: variant === 'outline' && currentChecked ? 'var(--skyra-primary)' : '#ffffff',
-              boxShadow: 'var(--skyra-shadow-sm)',
-              transform: currentChecked ? `translateX(${dimensions.translate})` : 'translateX(0)',
-              flexShrink: 0 }}
-          >
-            {loading ? (
-              <Loader2 size={10} className="skyra-spin" style={{ color: 'var(--skyra-primary)' }} />
-            ) : variant === 'icon' ? (
-              currentChecked ? (
-                <Check size={10} color="var(--skyra-primary)" strokeWidth={3} />
-              ) : (
-                <X size={10} color="var(--skyra-text-muted)" strokeWidth={3} />
-              )
-            ) : null}
-          </span>
-        </button>
-
-        {/* Label and Description */}
-        {(label || description) && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-            {label && (
-              <span
-                id={labelId}
-                style={{
-                  fontSize: '0.875rem',
-                  fontWeight: 500,
-                  color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)',
-                  lineHeight: '1.4' }}
-              >
-                {label}
-                {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
-              </span>
-            )}
-            {description && (
-              <span
-                id={descId}
-                style={{
-                  fontSize: '0.78rem',
-                  color: 'var(--skyra-text-muted)',
-                  lineHeight: '1.35' }}
-              >
-                {description}
-              </span>
-            )}
-          </div>
-        )}
-      </div>
-
-      {error && (
-        <span
-          id={errorId}
-          role="alert"
-          style={{
-            fontSize: '0.78rem',
-            color: 'var(--skyra-danger)',
-            marginLeft: dimensions.trackW }}
-        >
-          {error}
-        </span>
-      )}
-    </div>
+      {typeof label !== 'string' && label ? <span slot="label">{label}</span> : null}
+      {typeof description !== 'string' && description ? <span slot="helper">{description}</span> : null}
+    </skyra-tech-switch>
   );
 }
