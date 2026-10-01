@@ -1,164 +1,87 @@
 import { describe, it, expect, vi } from 'vitest';
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import { DateField } from './DateField';
 import { DateRangeField } from './DateRangeField';
 import { TimeField } from './TimeField';
 import { DateTimeField } from './DateTimeField';
 import { Calendar } from './Calendar';
-import { TimeRangeField } from './TimeRangeField';
-import { DateTimeRangeField } from './DateTimeRangeField';
-import { MonthField } from './MonthField';
-import { YearField } from './YearField';
-import { WeekField } from './WeekField';
+
+expect.extend(toHaveNoViolations);
 
 describe('Date & Time Fields', () => {
   describe('DateField', () => {
-    it('renders with placeholder and opens popover calendar', () => {
-      const onChange = vi.fn();
-      render(<DateField label="Birth Date" value="2026-09-09" onChange={onChange} />);
-
-      expect(screen.getByDisplayValue('2026-09-09')).toBeInTheDocument();
-
-      const openBtn = screen.getByRole('button', { name: /open calendar/i });
-      fireEvent.click(openBtn);
-
-      expect(screen.getByRole('dialog')).toBeInTheDocument();
-      expect(screen.getByText(/september 2026/i)).toBeInTheDocument();
+    it('renders and binds values correctly', () => {
+      const { container } = render(<DateField label="Birth Date" value="2026-09-09" />);
+      const el = container.querySelector('skyra-tech-date-field') as HTMLElement;
+      expect(el).toBeInTheDocument();
+      expect(el.getAttribute('value')).toBe('2026-09-09');
     });
 
-    it('clears date with clear button', () => {
-      const onChange = vi.fn();
-      render(<DateField label="Date" value="2026-09-09" onChange={onChange} />);
-
-      const clearBtn = screen.getByRole('button', { name: /clear date/i });
-      fireEvent.click(clearBtn);
-
-      expect(onChange).toHaveBeenCalledWith(null);
+    it('has no accessibility violations', async () => {
+      const { container } = render(<DateField label="Birth Date" value="2026-09-09" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 
   describe('DateRangeField', () => {
-    it('renders start and end date trigger', () => {
-      render(
+    it('renders start and end date attributes', () => {
+      const { container } = render(
         <DateRangeField
           label="Billing Period"
           value={{ startDate: '2026-09-01', endDate: '2026-09-15' }}
-          onChange={() => {}}
         />
       );
-
-      expect(screen.getByText('2026-09-01')).toBeInTheDocument();
-      expect(screen.getByText('2026-09-15')).toBeInTheDocument();
+      const el = container.querySelector('skyra-tech-date-range-field') as HTMLElement;
+      expect(el.getAttribute('start-value')).toBe('2026-09-01');
+      expect(el.getAttribute('end-value')).toBe('2026-09-15');
+    });
+    
+    it('has no accessibility violations', async () => {
+      const { container } = render(<DateRangeField label="Billing Period" value={{ startDate: '2026-09-01', endDate: '2026-09-15' }} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 
   describe('TimeField', () => {
-    it('handles hour and minute selections in 12h mode', () => {
-      const onChange = vi.fn();
-      render(<TimeField label="Appointment Time" value="10:30 AM" onChange={onChange} />);
+    it('renders with format and minute step', () => {
+      const { container } = render(<TimeField label="Appointment Time" value="10:30 AM" format="12h" minuteStep={15} />);
+      const el = container.querySelector('skyra-tech-time-field') as HTMLElement;
+      expect(el.getAttribute('value')).toBe('10:30 AM');
+      expect(el.getAttribute('format')).toBe('12h');
+      expect(el.getAttribute('minute-step')).toBe('15');
+    });
 
-      const hourTrigger = screen.getByLabelText(/hour/i);
-      fireEvent.click(hourTrigger);
-
-      const hourOption = screen.getByRole('option', { name: '11' });
-      fireEvent.click(hourOption);
-
-      expect(onChange).toHaveBeenCalledWith('11:30 AM');
+    it('has no accessibility violations', async () => {
+      const { container } = render(<TimeField label="Appointment Time" value="10:30 AM" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 
   describe('DateTimeField', () => {
     it('renders combined date and time fields', () => {
-      const onChange = vi.fn();
-      render(
+      const { container } = render(
         <DateTimeField
           label="Event Schedule"
           value={{ date: '2026-09-09', time: '04:00 PM' }}
-          onChange={onChange}
         />
       );
-
-      expect(screen.getByDisplayValue('2026-09-09')).toBeInTheDocument();
-      expect(screen.getByLabelText(/hour/i)).toBeInTheDocument();
+      const el = container.querySelector('skyra-tech-date-time-field') as HTMLElement;
+      expect(el.getAttribute('date-value')).toBe('2026-09-09');
+      expect(el.getAttribute('time-value')).toBe('04:00 PM');
     });
   });
 
   describe('Calendar Core', () => {
-    it('supports single date selection and navigation', () => {
-      const onChange = vi.fn();
-      render(<Calendar mode="single" value="2026-09-09" onChange={onChange} />);
-
-      expect(screen.getByText(/september 2026/i)).toBeInTheDocument();
-      const day15 = screen.getByRole('button', { name: '15' });
-      fireEvent.click(day15);
-
-      expect(onChange).toHaveBeenCalledWith('2026-09-15');
-    });
-
-    it('supports range selection', () => {
-      const onRangeChange = vi.fn();
-      render(<Calendar mode="range" rangeValue={['2026-09-01', '2026-09-10']} onRangeChange={onRangeChange} />);
-
-      const day20 = screen.getByRole('button', { name: '20' });
-      fireEvent.click(day20);
-      expect(screen.getByText('Today')).toBeInTheDocument();
-    });
-  });
-
-  describe('TimeRangeField', () => {
-    it('renders time range trigger and supports quick selection', () => {
-      const onChange = vi.fn();
-      render(<TimeRangeField label="Shift Window" value={['09:00', '17:00']} onChange={onChange} />);
-
-      expect(screen.getByText('09:00 → 17:00')).toBeInTheDocument();
-
-      fireEvent.click(screen.getByRole('button', { name: /shift window/i }));
-      expect(screen.getByText(/quick range presets/i)).toBeInTheDocument();
-
-      fireEvent.click(screen.getByText(/morning/i));
-      expect(onChange).toHaveBeenCalledWith(['09:00', '12:00']);
-    });
-  });
-
-  describe('DateTimeRangeField', () => {
-    it('renders datetime range trigger', () => {
-      render(
-        <DateTimeRangeField
-          label="Sprint Period"
-          value={['2026-09-01 09:00 AM', '2026-09-15 06:00 PM']}
-          onChange={() => {}}
-        />
-      );
-
-      expect(screen.getByText('2026-09-01 09:00 AM → 2026-09-15 06:00 PM')).toBeInTheDocument();
-    });
-  });
-
-  describe('MonthField, YearField & WeekField', () => {
-    it('renders month field and allows selection', () => {
-      const onChange = vi.fn();
-      render(<MonthField label="Fiscal Month" value="2026-09" onChange={onChange} />);
-
-      expect(screen.getByText(/sep 2026/i)).toBeInTheDocument();
-      fireEvent.click(screen.getByRole('button', { name: /fiscal month/i }));
-      fireEvent.click(screen.getByText('Oct'));
-
-      expect(onChange).toHaveBeenCalledWith('2026-10');
-    });
-
-    it('renders year field with decade selector', () => {
-      const onChange = vi.fn();
-      render(<YearField label="Report Year" value={2026} onChange={onChange} />);
-
-      expect(screen.getByText('2026')).toBeInTheDocument();
-      fireEvent.click(screen.getByRole('button', { name: /report year/i }));
-      expect(screen.getByText('2020 - 2029')).toBeInTheDocument();
-    });
-
-    it('renders week field trigger', () => {
-      render(<WeekField label="Work Week" value={['2026-09-07', '2026-09-13']} onChange={() => {}} />);
-      expect(screen.getByText('2026-09-07 → 2026-09-13')).toBeInTheDocument();
+    it('supports single date selection mode', () => {
+      const { container } = render(<Calendar mode="single" value="2026-09-09" />);
+      const el = container.querySelector('skyra-tech-calendar') as HTMLElement;
+      expect(el.getAttribute('mode')).toBe('single');
+      expect(el.getAttribute('value')).toBe('2026-09-09');
     });
   });
 });

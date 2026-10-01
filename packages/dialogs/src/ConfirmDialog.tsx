@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useEffect, useCallback } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { AlertTriangle, Info, Trash2 } from 'lucide-react';
-import { useFocusTrap } from './useFocusTrap';
+import '@skyra-tech-platform/dialog';
+
 
 export type ConfirmDialogVariant = 'danger' | 'warning' | 'primary';
 
@@ -54,26 +54,6 @@ const VARIANT_CONFIG: Record<ConfirmDialogVariant, {
   },
 };
 
-/**
- * @skyra/dialogs ConfirmDialog
- *
- * [B] PLATFORM EXTRACTION from skyra-erp/src/components/ui/ConfirmDialog.tsx
- *
- * Confirmed ERP visual values:
- *   - Dialog width: 440px  [CONFIRMED: ConfirmDialog.tsx]
- *   - Responsive width: calc(100vw - 2rem)  [CONFIRMED]
- *   - Border radius: var(--radius-lg) = 14px  [CONFIRMED]
- *   - Padding: 2rem  [CONFIRMED]
- *   - Backdrop: rgba(0,0,0,0.5) + blur(2px)  [CONFIRMED]
- *   - z-index overlay: 199, modal: 200  [CONFIRMED]
- *   - Variant prop: danger/warning/primary  [CONFIRMED]
- *
- * [C] PLATFORM ENHANCEMENTS:
- *   - Focus trap (ERP uses basic focus management)
- *   - Focus restoration to trigger element on close
- *   - ARIA role=dialog + aria-modal + aria-labelledby + aria-describedby
- *   - Portal rendering
- */
 export function ConfirmDialog({
   open,
   title,
@@ -86,78 +66,37 @@ export function ConfirmDialog({
   isLoading = false,
 }: ConfirmDialogProps) {
   const cfg = VARIANT_CONFIG[variant];
-  const trapRef = useFocusTrap(open);
-  const titleId = React.useId();
-  const descId = React.useId();
-
-  // Store the element that triggered the dialog so we can return focus
-  const triggerRef = React.useRef<Element | null>(null);
+  const ref = useRef<HTMLElement>(null);
+  
+  const triggerRef = useRef<Element | null>(null);
   useEffect(() => {
     if (open) triggerRef.current = document.activeElement;
     else if (triggerRef.current instanceof HTMLElement) triggerRef.current.focus();
   }, [open]);
 
-  const handleEscape = useCallback((e: KeyboardEvent) => {
-    if (e.key === 'Escape') { e.preventDefault(); onCancel(); }
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    
+    const handleCancel = () => onCancel();
+    const handleClose = () => onCancel();
+
+    el.addEventListener('skyra-cancel', handleCancel);
+    el.addEventListener('skyra-close', handleClose);
+    return () => {
+      el.removeEventListener('skyra-cancel', handleCancel);
+      el.removeEventListener('skyra-close', handleClose);
+    };
   }, [onCancel]);
 
-  useEffect(() => {
-    if (!open) return;
-    document.addEventListener('keydown', handleEscape);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = '';
-    };
-  }, [open, handleEscape]);
-
-  if (!open) return null;
-
-  const dialog = (
-    <>
-      {/* Backdrop [CONFIRMED: rgba(0,0,0,0.5) + blur(2px)] */}
-      <div
-        onClick={onCancel}
-        aria-hidden="true"
-        style={{
-          position: 'fixed', inset: 0,
-          background: 'rgba(0, 0, 0, 0.5)',
-          backdropFilter: 'blur(2px)',
-          WebkitBackdropFilter: 'blur(2px)',
-          zIndex: 199,                             // [CONFIRMED: z-index 199]
-        }}
-      />
-      {/* Dialog [CONFIRMED: 440px, calc(100vw-2rem), radius-lg, 2rem padding] */}
-      <div
-        ref={trapRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        aria-describedby={descId}
-        style={{
-          position: 'fixed',
-          top: '50%', left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '440px',                          // [CONFIRMED]
-          maxWidth: 'calc(100vw - 2rem)',          // [CONFIRMED]
-          maxHeight: 'calc(100dvh - 2rem)',        // Prevent vertical clipping
-          overflowY: 'auto',                       // Allow scrolling if content is huge
-          background: 'var(--skyra-surface)',
-          borderRadius: 'var(--skyra-radius-lg)', // [CONFIRMED: radius-lg = 14px]
-          boxShadow: 'var(--skyra-shadow-lg)',
-          padding: '2rem',                         // [CONFIRMED]
-          zIndex: 200,                             // [CONFIRMED: z-index 200]
-          animation: 'skyra-dialog-in 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
-      >
-        <style>{`
-          @keyframes skyra-dialog-in {
-            from { opacity: 0; transform: translate(-50%, calc(-50% + 12px)); }
-            to   { opacity: 1; transform: translate(-50%, -50%); }
-          }
-        `}</style>
-
-        {/* Icon */}
+  return (
+    <skyra-tech-dialog
+      ref={ref}
+      open={open || undefined}
+      mode="modal"
+      hide-close-button
+    >
+      <div style={{ padding: '0.5rem', display: 'flex', flexDirection: 'column' }}>
         <div style={{
           width: '48px', height: '48px', borderRadius: 'var(--skyra-radius-lg)',
           background: cfg.iconBg, display: 'flex', alignItems: 'center',
@@ -167,8 +106,7 @@ export function ConfirmDialog({
           {cfg.icon}
         </div>
 
-        {/* Title */}
-        <h2 id={titleId} style={{
+        <h2 style={{
           fontFamily: 'var(--skyra-font-display)',
           fontWeight: 700, fontSize: '1.125rem',
           color: 'var(--skyra-text)',
@@ -177,15 +115,13 @@ export function ConfirmDialog({
           {title}
         </h2>
 
-        {/* Message */}
-        <div id={descId} style={{
+        <div style={{
           fontSize: '0.9rem', color: 'var(--skyra-text-muted)',
           lineHeight: 1.6, marginBottom: '1.75rem',
         }}>
           {message}
         </div>
 
-        {/* Actions */}
         <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
           <button
             type="button"
@@ -240,8 +176,14 @@ export function ConfirmDialog({
           </button>
         </div>
       </div>
-    </>
+    </skyra-tech-dialog>
   );
+}
 
-  return typeof document !== 'undefined' ? createPortal(dialog, document.body) : null;
+declare module 'react' {
+  namespace JSX {
+    interface IntrinsicElements {
+      'skyra-tech-dialog': any;
+    }
+  }
 }

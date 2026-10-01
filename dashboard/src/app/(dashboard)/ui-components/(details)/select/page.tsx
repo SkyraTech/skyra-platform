@@ -366,17 +366,6 @@ export default function DynamicSelectShowcasePage() {
               optionLabel={(emp) => emp.name}
               optionValue={(emp) => emp.id}
               onChange={setValCustomOpt}
-              renderOption={(emp, { selected }) => (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '2px 0' }}>
-                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'var(--skyra-primary-light)', color: 'var(--skyra-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.75rem' }}>
-                    {emp.name.charAt(0)}
-                  </div>
-                  <div>
-                    <div style={{ fontWeight: selected ? 600 : 500, fontSize: '0.85rem' }}>{emp.name}</div>
-                    <div style={{ fontSize: '0.72rem', color: 'var(--skyra-text-muted)' }}>{emp.role} • {emp.dept}</div>
-                  </div>
-                </div>
-              )}
             />
           </DemoBlock>
 

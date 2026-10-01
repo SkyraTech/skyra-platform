@@ -22,7 +22,7 @@ export default function DateFieldsShowcasePage() {
     endDate: '2026-09-15',
   });
   const [timeVal, setTimeVal] = useState<string>('14:30');
-  const [timeRangeVal, setTimeRangeVal] = useState<[string, string] | null>(['09:00 AM', '05:30 PM']);
+  const [timeRangeVal, setTimeRangeVal] = useState<{start: string; end: string;} | undefined>({start: '09:00', end: '17:30'});
   const [dateTimeVal, setDateTimeVal] = useState<{ date: string | null; time: string }>({
     date: '2026-09-09',
     time: '14:30',
@@ -106,7 +106,7 @@ export default function DateFieldsShowcasePage() {
             <div style={{ width: '100%' }}>
               <TimeRangeField
                 label="Business Operating Hours"
-                value={timeRangeVal}
+                value={timeRangeVal ?? undefined}
                 onChange={setTimeRangeVal}
                 format="12h"
                 description="Start and end time range with automatic validation"

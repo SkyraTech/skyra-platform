@@ -1,8 +1,7 @@
 'use client';
 
-import React from 'react';
-import { DateField } from './DateField';
-import { TimeField } from './TimeField';
+import React, { useRef, useEffect } from 'react';
+import '@skyra-tech-platform/date-time';
 
 export interface DateTimeValue {
   date: string | null;
@@ -10,37 +9,20 @@ export interface DateTimeValue {
 }
 
 export interface DateTimeFieldProps {
-  /** Value object with date (YYYY-MM-DD) and time */
   value?: DateTimeValue;
-  /** Change handler */
   onChange?: (value: DateTimeValue) => void;
-  /** Min selectable date */
   minDate?: string | Date;
-  /** Max selectable date */
   maxDate?: string | Date;
-  /** Label for combined field */
   label?: React.ReactNode;
-  /** Helper text */
   helper?: React.ReactNode;
-  /** Description */
   description?: React.ReactNode;
-  /** Error message */
   error?: string;
-  /** Time format (12h or 24h) */
   timeFormat?: '12h' | '24h';
-  /** Disabled */
   disabled?: boolean;
-  /** Required */
   required?: boolean;
-  /** Additional CSS class */
   className?: string;
 }
 
-/**
- * @skyra/ui DateTimeField
- *
- * Responsive composition of DateField and TimeField.
- */
 export function DateTimeField({
   value = { date: null, time: '' },
   onChange,
@@ -55,77 +37,38 @@ export function DateTimeField({
   required = false,
   className = '',
 }: DateTimeFieldProps) {
-  const handleDateChange = (d: string | null) => {
-    onChange?.({ date: d, time: value.time });
-  };
+  const ref = useRef<HTMLElement>(null);
 
-  const handleTimeChange = (t: string) => {
-    onChange?.({ date: value.date, time: t });
-  };
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const handleChange = (e: Event) => {
+      const custom = e as CustomEvent;
+      onChange?.(custom.detail.value);
+    };
+
+    el.addEventListener('skyra-change', handleChange);
+    return () => el.removeEventListener('skyra-change', handleChange);
+  }, [onChange]);
+
+  const isoMin = minDate instanceof Date ? minDate.toISOString().split('T')[0] : minDate;
+  const isoMax = maxDate instanceof Date ? maxDate.toISOString().split('T')[0] : maxDate;
 
   return (
-    <div
-      className={`skyra-datetime-container ${className}`}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.375rem',
-        width: '100%',
-        fontFamily: 'var(--skyra-font-body)' }}
-    >
-      {label && (
-        <span
-          style={{
-            fontSize: '0.875rem',
-            fontWeight: 500,
-            color: disabled ? 'var(--skyra-text-subtle)' : 'var(--skyra-text)' }}
-        >
-          {label}
-          {required && <span style={{ color: 'var(--skyra-danger)', marginLeft: '4px' }}>*</span>}
-        </span>
-      )}
-
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-          gap: '0.75rem',
-          alignItems: 'flex-start' }}
-      >
-        <DateField
-          value={value.date}
-          minDate={minDate}
-          maxDate={maxDate}
-          disabled={disabled}
-          onChange={handleDateChange}
-          placeholder="Select date..."
-        />
-        <TimeField
-          value={value.time}
-          format={timeFormat}
-          disabled={disabled}
-          onChange={handleTimeChange}
-        />
-      </div>
-
-      {error ? (
-        <span
-          role="alert"
-          style={{
-            fontSize: '0.78rem',
-            color: 'var(--skyra-danger)' }}
-        >
-          {error}
-        </span>
-      ) : (description || helper) ? (
-        <span
-          style={{
-            fontSize: '0.78rem',
-            color: 'var(--skyra-text-muted)' }}
-        >
-          {description || helper}
-        </span>
-      ) : null}
-    </div>
+    <skyra-tech-date-time-field
+      ref={ref}
+      class={className}
+      date-value={value.date || undefined}
+      time-value={value.time || undefined}
+      min={isoMin || undefined}
+      max={isoMax || undefined}
+      label={label as string}
+      helper-text={(helper || description) as string}
+      error={error}
+      time-format={timeFormat}
+      disabled={disabled ? '' : undefined}
+      required={required ? '' : undefined}
+    />
   );
 }

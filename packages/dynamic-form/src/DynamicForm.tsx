@@ -1,391 +1,230 @@
 'use client';
 
-import React, { useImperativeHandle, useMemo } from 'react';
-import { AlertCircle, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
-import { Button } from '@skyra/ui';
-import {
-  DynamicFormProps,
-  FormValues,
-  FieldDef,
-  FieldsetDef,
-  DynamicFormHandle,
-} from './types';
-import { FormField } from './components/FormField';
-import { RepeatableGroup } from './components/RepeatableGroup';
-import { ValidationSummary } from './components/ValidationSummary';
-import { useDynamicFormState } from './hooks/useDynamicFormState';
-import { evaluateCondition } from './utils/conditions';
-import { getIn } from './utils/nested';
+import React, { useEffect, useRef, useImperativeHandle, useState } from 'react';
+import ReactDOM from 'react-dom';
+import './skyra-tech-dynamic-form';
+import type { SkyraTechDynamicForm } from './skyra-tech-dynamic-form';
+import type { DynamicFormProps, DynamicFormHandle, FormValues, FieldDef } from './types';
 
 export function DynamicForm<TValues extends FormValues = FormValues>(
-  props: DynamicFormProps<TValues>
+  props: DynamicFormProps<TValues> & { children?: React.ReactNode; submitLabel?: string }
 ) {
   const {
     fields,
     fieldsets,
-    submitLabel = 'Save Changes',
-    cancelLabel = 'Cancel',
-    onCancel,
-    showDangerZone = false,
-    dangerZoneTitle = 'Danger Zone',
-    dangerZoneLabel = 'Delete Resource',
-    dangerZoneDesc = 'Permanently remove this resource. This action cannot be undone.',
-    onDangerAction,
+    initialValues,
+    values,
+    onChange,
+    onValuesChange,
+    onSubmit,
+    validationMode = 'onSubmit',
+    validate,
+    errors,
+    serverErrors,
+    serverError,
+    features,
+    onDirtyChange,
     className = '',
     id,
     formRef,
+    submitLabel = 'Save Changes',
+    cancelLabel,
+    onCancel,
+    showDangerZone,
+    dangerZoneTitle,
+    dangerZoneLabel,
+    dangerZoneDesc,
+    onDangerAction,
   } = props;
 
-  // Normalize fields vs fieldsets into structured fieldsets
-  const normalizedFieldsets: FieldsetDef<TValues>[] = useMemo(() => {
-    if (fieldsets && fieldsets.length > 0) {
-      return fieldsets;
+  const wcRef = useRef<SkyraTechDynamicForm>(null);
+  
+  // Track custom render fields
+  const customFields: FieldDef<TValues>[] = [];
+  const allFields = fieldsets ? fieldsets.flatMap(fs => fs.fields) : (fields || []);
+  for (const field of allFields) {
+    if (field.type === 'custom' && field.render) {
+      customFields.push(field);
     }
-    if (fields && fields.length > 0) {
-      return [
-        {
-          id: 'default',
-          title: '',
-          fields,
-        },
-      ];
-    }
-    return [];
-  }, [fieldsets, fields]);
+  }
 
-  // Flatten all fields for validation and initial values extraction
-  const allFields: FieldDef<TValues>[] = useMemo(() => {
-    const list: FieldDef<TValues>[] = [];
-    for (const fs of normalizedFieldsets) {
-      list.push(...fs.fields);
-    }
-    return list;
-  }, [normalizedFieldsets]);
+  // Imperative handle
+  useImperativeHandle(formRef, () => {
+    if (!wcRef.current) return {} as DynamicFormHandle<TValues>;
+    const wc = wcRef.current;
+    return {
+      getValue: (name) => wc.getValue(name),
+      getValues: () => wc.getValues() as TValues,
+      setValue: (name, val) => wc.setValue(name, val),
+      setValues: (newVals) => wc.setValues(newVals),
+      reset: (newVals) => wc.reset(newVals),
+      resetField: (name) => {
+        const val = wc.initialValues[name];
+        wc.setValue(name, val);
+      },
+      validate: () => wc.validate(),
+      submit: () => wc.submit(),
+      getFormState: () => ({ values: wc.getValues() as TValues, timestamp: Date.now() }),
+      restoreFormState: (state) => wc.setValues(state.values),
+      get isDirty() { return wcRef.current?.isDirty || false; },
+      get dirtyFields() { 
+        if (!wcRef.current) return {};
+        const fields: Record<string, boolean> = {};
+        const current = wcRef.current.getValues();
+        const initial = wcRef.current.initialValues || {};
+        
+        // Only checking top level for now, based on original behavior.
+        // Nested tracking requires walking the object tree.
+        for (const k of Object.keys(current)) {
+           if (JSON.stringify(current[k]) !== JSON.stringify(initial[k])) {
+             fields[k] = true;
+           }
+        }
+        for (const k of Object.keys(initial)) {
+           if (JSON.stringify(current[k]) !== JSON.stringify(initial[k])) {
+             fields[k] = true;
+           }
+        }
+        return fields; 
+      },
+      get isValid() { return Object.keys(wcRef.current?.errors || {}).length === 0; },
+      get isSubmitting() { return wcRef.current?.isSubmitting || false; },
+      get isSubmitted() { return wcRef.current?.isSubmitted || false; },
+    };
+  }, [wcRef]);
 
-  // Form state orchestrator
-  const formState = useDynamicFormState<TValues>({
-    ...props,
-    allFields,
-  });
+  // Sync props to WC
+  useEffect(() => {
+    const el = wcRef.current;
+    if (!el) return;
+    
+    if (fields) el.fields = fields as any;
+    if (fieldsets) el.fieldsets = fieldsets as any;
+    if (initialValues) el.initialValues = initialValues;
+    if (features) el.features = features;
+    if (validationMode) el.validationMode = validationMode;
+    if (validate) el.customValidator = validate as any;
+    if (onSubmit) el.onSubmitCallback = onSubmit as any;
+  }, [fields, fieldsets, initialValues, features, validationMode, validate, onSubmit]);
 
-  const {
-    values,
-    errors,
-    isSubmitting,
-    submitError,
-    mergedFeatures,
-    setFieldValue,
-    handleFieldBlur,
-    addRepeatableItem,
-    removeRepeatableItem,
-    submit,
-    handle,
-  } = formState;
+  // Controlled values
+  useEffect(() => {
+    const el = wcRef.current;
+    if (!el || !values) return;
+    el.values = values;
+  }, [values]);
 
-  // Expose imperative handle if ref supplied
-  useImperativeHandle(formRef, () => handle, [handle]);
+  // Controlled server errors
+  useEffect(() => {
+    const el = wcRef.current;
+    if (!el) return;
+    const combined = { ...serverErrors };
+    if (serverError) combined._form = serverError;
+    el.serverErrors = combined;
+  }, [serverErrors, serverError]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    submit();
-  };
+  const [internalValues, setInternalValues] = useState<TValues>((values || initialValues || {}) as TValues);
+  const [mounted, setMounted] = useState(false);
 
-  // Build field label dictionary for ValidationSummary
-  const fieldLabels: Record<string, string> = useMemo(() => {
-    const labels: Record<string, string> = {};
-    for (const f of allFields) {
-      const key = f.name ?? f.key;
-      if (key) labels[key] = f.label;
-    }
-    return labels;
-  }, [allFields]);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Event Listeners
+  useEffect(() => {
+    const el = wcRef.current;
+    if (!el) return;
+
+    const handleChange = (e: Event) => {
+      const custom = e as CustomEvent;
+      setInternalValues(custom.detail.values as TValues);
+      
+      if (custom.detail.name && onChange) {
+        onChange(custom.detail.name, custom.detail.value);
+      }
+      if (onValuesChange) {
+        onValuesChange(custom.detail.values as TValues);
+      }
+      if (onDirtyChange) {
+        onDirtyChange(el.isDirty);
+      }
+    };
+
+    el.addEventListener('skyra-change', handleChange);
+    return () => el.removeEventListener('skyra-change', handleChange);
+  }, [onChange, onValuesChange, onDirtyChange]);
 
   return (
-    <form
+    <skyra-tech-dynamic-form
+      ref={wcRef as any}
       id={id}
-      onSubmit={handleSubmit}
-      noValidate
-      className={`skyra-dynamic-form ${className}`.trim()}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1.5rem',
-        fontFamily: 'var(--skyra-font-body)',
-        width: '100%',
-      }}
+      class={className}
     >
-      <style>{`
-        @media (prefers-reduced-motion: reduce) {
-          .skyra-dynamic-form *,
-          .skyra-dynamic-form button,
-          .skyra-dynamic-form input {
-            transition: none !important;
-            animation: none !important;
-          }
-        }
-      `}</style>
-
-      {/* ── Validation Summary Banner (Opt-in) ── */}
-      {mergedFeatures.validationSummary && Object.keys(errors).length > 0 && (
-        <ValidationSummary errors={errors} labels={fieldLabels} />
+      {onCancel && (
+        <button slot="actions" type="button" onClick={onCancel} style={{ padding: '0.5rem 1rem', background: 'transparent', color: 'var(--skyra-text)', border: '1px solid var(--skyra-border)', borderRadius: 'var(--skyra-radius-md)', cursor: 'pointer', marginRight: '0.5rem' }}>
+          {cancelLabel || 'Cancel'}
+        </button>
       )}
-
-      {/* ── Form-Level Error / Submit Error Banner ── */}
-      {(errors._form || submitError) && (
-        <div
-          role="alert"
-          style={{
-            background: 'var(--skyra-danger-light, rgba(239, 68, 68, 0.08))',
-            border: '1px solid var(--skyra-danger)',
-            borderRadius: 'var(--skyra-radius-md)',
-            padding: '0.85rem 1.25rem',
-            color: 'var(--skyra-danger)',
-            fontSize: '0.875rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            fontWeight: 500,
-          }}
-        >
-          <AlertCircle size={16} aria-hidden="true" />
-          <span>{errors._form || submitError}</span>
+      {submitLabel && (
+        <button slot="actions" type="submit" onClick={() => wcRef.current?.submit()} style={{ padding: '0.5rem 1rem', background: 'var(--skyra-primary)', color: 'white', border: 'none', borderRadius: 'var(--skyra-radius-md)', cursor: 'pointer' }}>
+          {submitLabel}
+        </button>
+      )}
+      
+      {showDangerZone && (
+        <div style={{ padding: '1rem', border: '1px solid var(--skyra-danger)', borderRadius: 'var(--skyra-radius-md)', marginTop: '2rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <h3 style={{ margin: 0, color: 'var(--skyra-danger)', fontSize: '1.125rem', fontWeight: 600 }}>{dangerZoneTitle || 'Danger Zone'}</h3>
+              {dangerZoneDesc && <p style={{ margin: '0.25rem 0 0', color: 'var(--skyra-text-secondary)', fontSize: '0.875rem' }}>{dangerZoneDesc}</p>}
+            </div>
+            <button type="button" onClick={onDangerAction} style={{ background: 'var(--skyra-danger)', color: 'white', padding: '0.5rem 1rem', border: 'none', borderRadius: 'var(--skyra-radius-md)', cursor: 'pointer', fontWeight: 500 }}>
+              {dangerZoneLabel || 'Delete'}
+            </button>
+          </div>
         </div>
       )}
-
-      {/* ── Fieldsets Rendering ── */}
-      {normalizedFieldsets.map((fieldset, fsIndex) => {
-        // Evaluate conditional visibility for each field in the set
-        const visibleFields = fieldset.fields.filter((field) => {
-          if (!mergedFeatures.conditionalFields) return true;
-
-          // Legacy dependsOn compatibility
-          if (field.dependsOn && field.dependsOn.value !== undefined && !field.visibleWhen) {
-            const parentVal = getIn(values, field.dependsOn.field);
-            return parentVal === field.dependsOn.value;
-          }
-
-          // Declarative visibleWhen
-          if (field.visibleWhen) {
-            return evaluateCondition(field.visibleWhen, values);
-          }
-
-          return true;
-        });
-
-        if (visibleFields.length === 0) return null;
-
-        const isFramedCard = Boolean(fieldset.title || fieldset.subtitle);
-
+      
+      {/* Portals for Custom Render fields */}
+      {props.children && (
+        <div slot="actions" style={{ display: 'contents' }}>
+          {props.children}
+        </div>
+      )}
+      
+      {/* Portals for Custom Render fields */}
+      {mounted && customFields.map((f, i) => {
+        const slotName = `custom-${f.name ?? f.key}`.replace(/\./g, '-');
+        
+        const getIn = (obj: any, path: string) => {
+          return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+        };
+        const val = getIn(internalValues, f.name ?? f.key ?? '');
+        
         return (
-            <fieldset
-            key={fieldset.id ?? fieldset.title ?? `fieldset-${fsIndex}`}
-            className="skyra-fieldset-card"
-            style={{
-              margin: 0,
-              padding: 0,
-              border: isFramedCard ? '1px solid var(--skyra-border)' : 'none',
-              borderRadius: isFramedCard ? 'var(--skyra-radius-xl)' : '0',
-              background: isFramedCard ? 'var(--skyra-surface)' : 'transparent',
-              boxShadow: isFramedCard ? 'var(--skyra-shadow-sm)' : 'none',
-            }}
-          >
-            {/* Fieldset Header */}
-            {isFramedCard ? (
-              <legend
-                style={{
-                  display: 'block',
-                  float: 'left',
-                  width: '100%',
-                  margin: 0,
-                  padding: '1rem 1.25rem',
-                  borderBottom: '1px solid var(--skyra-border)',
-                  background: 'var(--skyra-bg)',
-                  boxSizing: 'border-box',
-                  borderTopLeftRadius: 'calc(var(--skyra-radius-xl) - 1px)',
-                  borderTopRightRadius: 'calc(var(--skyra-radius-xl) - 1px)',
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: '0.95rem',
-                    fontWeight: 600,
-                    fontFamily: 'var(--skyra-font-display)',
-                    color: 'var(--skyra-text)',
-                    display: 'block',
-                  }}
-                >
-                  {fieldset.title}
-                </span>
-                {fieldset.subtitle && (
-                  <span
-                    style={{
-                      marginTop: '0.25rem',
-                      fontSize: '0.8rem',
-                      color: 'var(--skyra-text-muted)',
-                      display: 'block',
-                      fontWeight: 400,
-                    }}
-                  >
-                    {fieldset.subtitle}
-                  </span>
-                )}
-              </legend>
-            ) : (
-              <legend
-                style={{
-                  position: 'absolute',
-                  width: '1px',
-                  height: '1px',
-                  margin: '-1px',
-                  padding: 0,
-                  overflow: 'hidden',
-                  clip: 'rect(0, 0, 0, 0)',
-                  whiteSpace: 'nowrap',
-                  borderWidth: 0,
-                }}
-              >
-                {fieldset.title || 'Form fields'}
-              </legend>
-            )}
-
-            {/* Fieldset Grid: 2 columns on desktop, 1 on mobile */}
-            <div
-              style={{
-                padding: isFramedCard ? '1.25rem' : '0',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
-                gap: '1.25rem',
-                clear: 'both',
-              }}
-            >
-              {visibleFields.map((field) => {
-                const fieldKey = field.name ?? field.key ?? '';
-
-                // Handle repeatable field group
-                const repConfig = field.repeatable || (field as any).repeatableConfig;
-                if (field.type === 'repeatable' && repConfig && mergedFeatures.repeatableGroups) {
-                  const items = (getIn(values, fieldKey) as Record<string, unknown>[]) || [];
-                  return (
-                    <RepeatableGroup
-                      key={fieldKey}
-                      groupName={fieldKey}
-                      label={field.label}
-                      config={repConfig}
-                      items={items}
-                      errors={errors}
-                      disabled={isSubmitting || field.disabled}
-                      onItemChange={(gName, idx, subKey, val) => {
-                        const updated = [...items];
-                        updated[idx] = { ...updated[idx], [subKey]: val };
-                        setFieldValue(gName, updated);
-                      }}
-                      onAddItem={addRepeatableItem}
-                      onRemoveItem={removeRepeatableItem}
-                      allValues={values}
-                    />
-                  );
-                }
-
-                return (
-                  <FormField
-                    key={fieldKey}
-                    field={field}
-                    value={getIn(values, fieldKey)}
-                    error={errors[fieldKey]}
-                    disabled={isSubmitting}
-                    onChange={setFieldValue}
-                    onBlur={handleFieldBlur}
-                    allValues={values}
-                  />
-                );
-              })}
-            </div>
-          </fieldset>
+          <div key={i} slot={slotName} style={{ width: '100%' }}>
+            {f.render!({
+              field: f,
+              value: val,
+              onChange: (v) => wcRef.current?.setValue(f.name ?? f.key ?? '', v),
+              onBlur: () => {},
+              allValues: internalValues
+            })}
+          </div>
         );
       })}
-
-      {/* ── Optional Danger Zone (Backward Compatibility) ── */}
-      {showDangerZone && (
-        <div
-          style={{
-            background: 'var(--skyra-danger-light, rgba(239, 68, 68, 0.08))',
-            border: '1px solid var(--skyra-danger)',
-            borderRadius: 'var(--skyra-radius-xl)',
-            padding: '1.25rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '1rem',
-            flexWrap: 'wrap',
-          }}
-        >
-          <div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                color: 'var(--skyra-danger)',
-                fontWeight: 600,
-                fontSize: '0.95rem',
-              }}
-            >
-              <AlertTriangle size={18} aria-hidden="true" />
-              <span>{dangerZoneTitle}</span>
-            </div>
-            <p
-              style={{
-                margin: '0.25rem 0 0',
-                fontSize: '0.82rem',
-                color: 'var(--skyra-text-muted)',
-              }}
-            >
-              {dangerZoneDesc}
-            </p>
-          </div>
-
-          {onDangerAction && (
-            <Button
-              type="button"
-              variant="destructive"
-              onClick={onDangerAction}
-            >
-              {dangerZoneLabel}
-            </Button>
-          )}
-        </div>
-      )}
-
-      {/* ── Form Actions ── */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          gap: '0.75rem',
-          paddingTop: '0.5rem',
-          flexWrap: 'wrap',
-        }}
-      >
-        {onCancel && (
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={onCancel}
-            disabled={isSubmitting}
-          >
-            {cancelLabel}
-          </Button>
-        )}
-        <Button
-          type="submit"
-          variant="primary"
-          isLoading={isSubmitting}
-          disabled={isSubmitting}
-        >
-          {submitLabel}
-        </Button>
-      </div>
-    </form>
+    </skyra-tech-dynamic-form>
   );
+}
+
+declare global {
+  namespace React {
+    namespace JSX {
+      interface IntrinsicElements {
+        'skyra-tech-dynamic-form': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+          class?: string;
+        };
+      }
+    }
+  }
 }

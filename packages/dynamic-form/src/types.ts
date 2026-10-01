@@ -89,6 +89,7 @@ export type ConditionPredicate<TValues = Record<string, unknown>> = (values: TVa
 export interface FieldDependency<TValues = Record<string, unknown>> {
   field: string;
   value?: unknown;
+  clearOnParentChange?: boolean;
   onChange?: (newValue: unknown, currentValues: TValues) => Partial<TValues>;
 }
 

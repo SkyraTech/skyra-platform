@@ -240,14 +240,43 @@ importers:
         specifier: ^2.1.8
         version: 2.1.9(@types/node@20.19.43)(jsdom@25.0.1)(lightningcss@1.33.0)
 
+  packages/date-time:
+    dependencies:
+      '@skyra/design-tokens':
+        specifier: workspace:*
+        version: link:../design-tokens
+    devDependencies:
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.1(postcss@8.5.28)(tsx@4.23.15)(typescript@5.9.3)(yaml@2.9.1)
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+
   packages/design-tokens:
     devDependencies:
       typescript:
         specifier: ^5.7.0
         version: 5.9.3
 
+  packages/dialog:
+    dependencies:
+      '@skyra/design-tokens':
+        specifier: workspace:*
+        version: link:../design-tokens
+    devDependencies:
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.1(postcss@8.5.28)(tsx@4.23.15)(typescript@5.9.3)(yaml@2.9.1)
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+
   packages/dialogs:
     dependencies:
+      '@skyra-tech-platform/dialog':
+        specifier: workspace:^
+        version: link:../dialog
       '@skyra/ui':
         specifier: workspace:*
         version: link:../ui
@@ -276,6 +305,30 @@ importers:
 
   packages/dynamic-form:
     dependencies:
+      '@skyra-tech-platform/button':
+        specifier: workspace:^
+        version: link:../button
+      '@skyra-tech-platform/checkbox':
+        specifier: workspace:^
+        version: link:../checkbox
+      '@skyra-tech-platform/date-time':
+        specifier: workspace:^
+        version: link:../date-time
+      '@skyra-tech-platform/dynamic-select':
+        specifier: workspace:^
+        version: link:../dynamic-select
+      '@skyra-tech-platform/input':
+        specifier: workspace:^
+        version: link:../input
+      '@skyra-tech-platform/radio':
+        specifier: workspace:^
+        version: link:../radio
+      '@skyra-tech-platform/switch':
+        specifier: workspace:^
+        version: link:../switch
+      '@skyra-tech-platform/textarea':
+        specifier: workspace:^
+        version: link:../textarea
       '@skyra/ui':
         specifier: workspace:*
         version: link:../ui
@@ -428,6 +481,9 @@ importers:
       '@skyra-tech-platform/checkbox':
         specifier: workspace:^
         version: link:../checkbox
+      '@skyra-tech-platform/date-time':
+        specifier: workspace:^
+        version: link:../date-time
       '@skyra-tech-platform/dynamic-select':
         specifier: workspace:^
         version: link:../dynamic-select
@@ -6095,7 +6151,7 @@ snapshots:
       eslint: 9.39.5
       eslint-import-resolver-node: 0.3.10
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5))(eslint@9.39.5)
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.5)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5))(eslint@9.39.5))(eslint@9.39.5)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.5)
       eslint-plugin-react: 7.37.5(eslint@9.39.5)
       eslint-plugin-react-hooks: 7.1.1(eslint@9.39.5)
@@ -6128,7 +6184,7 @@ snapshots:
       tinyglobby: 0.2.17
       unrs-resolver: 1.12.2
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.5)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5))(eslint@9.39.5))(eslint@9.39.5)
     transitivePeerDependencies:
       - supports-color
 
@@ -6143,7 +6199,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.5):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5))(eslint@9.39.5))(eslint@9.39.5):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9

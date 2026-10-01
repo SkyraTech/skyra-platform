@@ -1,3 +1,5 @@
+'use client';
+
 import { DynamicSelect, Card, CardContent, CardHeader, CardTitle, CardDescription } from '@skyra/ui';
 
 export default function DynamicSelectShowcase() {

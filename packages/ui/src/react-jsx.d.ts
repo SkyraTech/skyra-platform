@@ -10,6 +10,12 @@ declare module 'react' {
       'skyra-tech-radio': any;
       'skyra-tech-switch': any;
       'skyra-tech-dynamic-select': any;
+      'skyra-tech-calendar': any;
+      'skyra-tech-date-field': any;
+      'skyra-tech-date-range-field': any;
+      'skyra-tech-time-field': any;
+      'skyra-tech-time-range-field': any;
+      'skyra-tech-date-time-field': any;
     }
   }
 }

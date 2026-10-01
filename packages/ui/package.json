@@ -23,6 +23,7 @@
   "dependencies": {
     "@skyra-tech-platform/button": "workspace:^",
     "@skyra-tech-platform/checkbox": "workspace:^",
+    "@skyra-tech-platform/date-time": "workspace:^",
     "@skyra-tech-platform/dynamic-select": "workspace:^",
     "@skyra-tech-platform/input": "workspace:^",
     "@skyra-tech-platform/radio": "workspace:^",
