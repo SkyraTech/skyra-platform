@@ -41,15 +41,15 @@ importers:
 
   dashboard:
     dependencies:
+      '@skyra-tech-platform/data-table':
+        specifier: workspace:*
+        version: link:../packages/data-table
       '@skyra/app-shell':
         specifier: workspace:^
         version: link:../packages/app-shell
       '@skyra/data-export':
         specifier: workspace:*
         version: link:../packages/data-export
-      '@skyra/data-table':
-        specifier: workspace:*
-        version: link:../packages/data-table
       '@skyra/design-tokens':
         specifier: workspace:*
         version: link:../packages/design-tokens

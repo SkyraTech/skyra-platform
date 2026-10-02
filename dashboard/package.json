@@ -13,7 +13,7 @@
   "dependencies": {
     "@skyra/app-shell": "workspace:^",
     "@skyra/data-export": "workspace:*",
-    "@skyra/data-table": "workspace:*",
+    "@skyra-tech-platform/data-table": "workspace:*",
     "@skyra/design-tokens": "workspace:*",
     "@skyra/dialogs": "workspace:*",
     "@skyra/dynamic-form": "workspace:*",
