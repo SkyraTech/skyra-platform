@@ -48,6 +48,9 @@ export const buttonStyles = `
     min-width: 44px;
     position: relative;
     box-sizing: border-box;
+  }
+
+  :host([full-width]) .skyra-btn {
     width: 100%;
   }
 

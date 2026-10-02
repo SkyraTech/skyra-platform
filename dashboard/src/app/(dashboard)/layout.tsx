@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, Palette, Component, Table2, WrapText,
   PanelTop, Eye, Monitor, BookOpen, Moon, Sun, ChevronRight,
-  FileText, Printer, Download, QrCode, Package, History
+  FileText, Printer, Download, QrCode, Package, History, Layers
 } from 'lucide-react';
 import { 
   ApplicationShell, 
@@ -27,8 +27,9 @@ import { SearchDialog } from '../../components/docs/SearchDialog';
 const NAV_ITEMS = [
   { href: '/overview',      label: 'Overview',             icon: LayoutDashboard },
   { href: '/packages',      label: 'Packages',             icon: Package },
+  { href: '/components',    label: 'Components (Docs)',    icon: Layers },
   { href: '/design-system', label: 'Design System',        icon: Palette },
-  { href: '/ui-components', label: 'UI Components',        icon: Component },
+  { href: '/ui-components', label: 'UI Playground',        icon: Component },
   { href: '/data-table',    label: 'Data Table',           icon: Table2 },
   { href: '/dynamic-form',  label: 'Dynamic Form',         icon: WrapText },
   { href: '/dialogs',       label: 'Dialogs & Overlays',   icon: PanelTop },
@@ -38,7 +39,7 @@ const NAV_ITEMS = [
   { href: '/qr-code',       label: 'QR Code',              icon: QrCode },
   { href: '/accessibility', label: 'Accessibility Studio', icon: Eye },
   { href: '/responsive',    label: 'Viewport Studio',      icon: Monitor },
-  { href: '/docs',          label: 'Documentation',        icon: BookOpen },
+  { href: '/docs',          label: 'Old Docs',             icon: BookOpen },
   { href: '/releases',      label: 'Releases & Changelog', icon: History },
 ];
 
@@ -88,24 +89,80 @@ function DashboardSidebarFooter({ dark, toggleDark }: { dark: boolean; toggleDar
   );
 }
 
+const NAV_GROUPS = [
+  {
+    title: 'Platform',
+    items: [
+      { href: '/overview',      label: 'Overview',             icon: LayoutDashboard },
+      { href: '/packages',      label: 'Packages',             icon: Package },
+      { href: '/releases',      label: 'Releases & Changelog', icon: History },
+    ]
+  },
+  {
+    title: 'Documentation',
+    items: [
+      { href: '/components',    label: 'Components (Docs)',    icon: Layers },
+      { href: '/design-system', label: 'Design System',        icon: Palette },
+      { href: '/accessibility', label: 'Accessibility Studio', icon: Eye },
+      { href: '/responsive',    label: 'Viewport Studio',      icon: Monitor },
+    ]
+  },
+  {
+    title: 'Playgrounds',
+    items: [
+      { href: '/ui-components', label: 'UI Playground',        icon: Component },
+      { href: '/data-table',    label: 'Data Table',           icon: Table2 },
+      { href: '/dynamic-form',  label: 'Dynamic Form',         icon: WrapText },
+      { href: '/dialogs',       label: 'Dialogs & Overlays',   icon: PanelTop },
+      { href: '/pdf-viewer',    label: 'PDF & Documents',      icon: FileText },
+      { href: '/print',         label: 'Print Studio',         icon: Printer },
+      { href: '/export',        label: 'Data Export',          icon: Download },
+      { href: '/qr-code',       label: 'QR Code',              icon: QrCode },
+    ]
+  }
+];
+
 function DashboardSidebarNavigationComponent({ pathname }: { pathname: string }) {
-  const { setMobileOpen } = useShell();
+  const { setMobileOpen, isCollapsed, isMobile } = useShell();
+  const collapsed = isCollapsed && !isMobile;
+  
   return (
     <SidebarNavigation>
-      {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
-        const active = pathname === href || pathname.startsWith(href + '/');
-        return (
-          <SidebarItem
-            key={href}
-            href={href}
-            label={label}
-            icon={<Icon size={17} />}
-            active={active}
-            as={Link}
-            onClick={() => setMobileOpen(false)}
-          />
-        );
-      })}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '0.5rem 0' }}>
+        {NAV_GROUPS.map((group, groupIdx) => (
+          <div key={groupIdx}>
+            {!collapsed && (
+              <div style={{ 
+                fontSize: '0.65rem', 
+                fontWeight: 700, 
+                color: 'rgba(255,255,255,0.4)', 
+                textTransform: 'uppercase', 
+                letterSpacing: '0.05em',
+                marginBottom: '0.5rem',
+                paddingLeft: '0.75rem'
+              }}>
+                {group.title}
+              </div>
+            )}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.125rem' }}>
+              {group.items.map(({ href, label, icon: Icon }) => {
+                const active = pathname === href || pathname.startsWith(href + '/');
+                return (
+                  <SidebarItem
+                    key={href}
+                    href={href}
+                    label={label}
+                    icon={<Icon size={17} />}
+                    active={active}
+                    as={Link}
+                    onClick={() => setMobileOpen(false)}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
     </SidebarNavigation>
   );
 }

@@ -160,6 +160,25 @@ export function buildSearchIndex(): SearchDocument[] {
     keywords: ['changelog', 'release', 'version', 'updates', 'history'],
   });
 
+  // Canonical Component Documentation
+  documents.push({
+    id: 'page-components',
+    type: 'pattern',
+    title: 'Components',
+    description: 'Canonical documentation for all Skyra Platform Web Components.',
+    href: '/components',
+    keywords: ['web component', 'custom element', 'framework-independent'],
+  });
+
+  documents.push({
+    id: 'component-button',
+    type: 'foundation',
+    title: 'Button',
+    description: 'Framework-independent button Web Component. 6 variants, 3 sizes, loading, icon support.',
+    href: '/components/basic-controls/button',
+    keywords: ['button', 'skyra-tech-button', '@skyra-tech-platform/button', 'Basic Controls', 'primary', 'orange', 'outline', 'ghost', 'danger', 'link', 'loading', 'disabled', 'icon-only', 'web component'],
+  });
+
   // Releases
   if (registry.getReleases) {
     for (const release of registry.getReleases()) {

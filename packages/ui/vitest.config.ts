@@ -5,6 +5,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@skyra/utils': path.resolve(__dirname, '../utils/src'),
+      '@skyra-tech-platform/button': path.resolve(__dirname, '../button/src/index.ts'),
     },
   },
   test: {
