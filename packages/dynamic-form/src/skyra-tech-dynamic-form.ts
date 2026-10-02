@@ -3,15 +3,17 @@ import { FieldDef, FieldsetDef, DynamicFormFeatures, FormValues, FormErrors, For
 import { getIn, setIn, cloneDeep, isDeepEqual } from './utils/nested';
 import { evaluateCondition } from './utils/conditions';
 
-// Import required internal Web Components to ensure registration
-import '@skyra-tech-platform/input';
-import '@skyra-tech-platform/textarea';
-import '@skyra-tech-platform/dynamic-select';
-import '@skyra-tech-platform/checkbox';
-import '@skyra-tech-platform/radio';
-import '@skyra-tech-platform/switch';
-import '@skyra-tech-platform/button';
-import '@skyra-tech-platform/date-time';
+// Import required internal Web Components dynamically to ensure registration without breaking SSR hoisting
+if (typeof window !== 'undefined') {
+  import('@skyra-tech-platform/input');
+  import('@skyra-tech-platform/textarea');
+  import('@skyra-tech-platform/dynamic-select');
+  import('@skyra-tech-platform/checkbox');
+  import('@skyra-tech-platform/radio');
+  import('@skyra-tech-platform/switch');
+  import('@skyra-tech-platform/button');
+  import('@skyra-tech-platform/date-time');
+}
 
 const BaseElement = typeof HTMLElement !== 'undefined' ? HTMLElement : class {} as typeof HTMLElement;
 

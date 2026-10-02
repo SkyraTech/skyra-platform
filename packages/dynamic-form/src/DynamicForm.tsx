@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useImperativeHandle, useState } from 'react';
 import ReactDOM from 'react-dom';
-import './skyra-tech-dynamic-form';
 import type { SkyraTechDynamicForm } from './skyra-tech-dynamic-form';
 import type { DynamicFormProps, DynamicFormHandle, FormValues, FieldDef } from './types';
 
@@ -95,6 +94,7 @@ export function DynamicForm<TValues extends FormValues = FormValues>(
 
   // Sync props to WC
   useEffect(() => {
+    import('./skyra-tech-dynamic-form').catch(console.error);
     const el = wcRef.current;
     if (!el) return;
     

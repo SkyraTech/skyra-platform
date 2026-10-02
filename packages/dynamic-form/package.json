@@ -28,7 +28,6 @@
     "@skyra-tech-platform/radio": "workspace:^",
     "@skyra-tech-platform/switch": "workspace:^",
     "@skyra-tech-platform/textarea": "workspace:^",
-    "@skyra/ui": "workspace:*",
     "@skyra/utils": "workspace:*",
     "@skyra/validation": "workspace:*"
   },

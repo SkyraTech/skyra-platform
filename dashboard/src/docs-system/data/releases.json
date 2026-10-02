@@ -2,7 +2,7 @@
   "pending-app-shell-distribution-fix": {
     "id": "pending-app-shell-distribution-fix",
     "version": "Pending Release",
-    "date": "2026-10-01",
+    "date": "2026-10-02",
     "summary": "fix(app-shell): migrate distribution architecture to tsup",
     "packages": [
       {
@@ -10,25 +10,25 @@
         "packageName": "@skyra/app-shell",
         "changes": [
           {
-            "id": "change-cktxyng",
+            "id": "change-t3wjl7b",
             "type": "changed",
             "title": "Migrated package build system from raw `tsc` to `tsup` to match the Platform's standard distribution architecture.",
             "breaking": false
           },
           {
-            "id": "change-938ekzz",
+            "id": "change-spdijmj",
             "type": "changed",
             "title": "Remapped public `exports`, `main`, `module`, and `types` to target the compiled `./dist` artifacts instead of raw `./src` TypeScript files.",
             "breaking": false
           },
           {
-            "id": "change-73wspfd",
+            "id": "change-39pf9rs",
             "type": "fixed",
             "title": "Resolved missing local `@types/react` dependencies that caused isolated build failures.",
             "breaking": false
           },
           {
-            "id": "change-pgk6pv3",
+            "id": "change-44qprwz",
             "type": "changed",
             "title": "Packages are now properly isolated, independently consumable, and fully resolvable without requiring consumers to transpile workspace source.",
             "breaking": false
@@ -40,7 +40,7 @@
   "pending-phase-9-4-style-isolation": {
     "id": "pending-phase-9-4-style-isolation",
     "version": "Pending Release",
-    "date": "2026-10-01",
+    "date": "2026-10-02",
     "summary": "fix: Scope reduced-motion accessibility styles to explicitly target Skyra components",
     "packages": [
       {
@@ -48,7 +48,7 @@
         "packageName": "@skyra/ui",
         "changes": [
           {
-            "id": "change-zhcifjr",
+            "id": "change-zzqm7lj",
             "type": "fixed",
             "title": "fix: Scope reduced-motion accessibility styles to explicitly target Skyra components",
             "breaking": false
@@ -60,7 +60,7 @@
   "pending-phase-9-5-type-safety-fixes": {
     "id": "pending-phase-9-5-type-safety-fixes",
     "version": "Pending Release",
-    "date": "2026-10-01",
+    "date": "2026-10-02",
     "summary": "fix: Strengthen internal and public type safety across Platform components",
     "packages": [
       {
@@ -68,7 +68,7 @@
         "packageName": "@skyra/ui",
         "changes": [
           {
-            "id": "change-dsxalpm",
+            "id": "change-t7pc528",
             "type": "fixed",
             "title": "fix: Strengthen internal and public type safety across Platform components",
             "breaking": false
@@ -80,7 +80,7 @@
         "packageName": "@skyra/dynamic-form",
         "changes": [
           {
-            "id": "change-dsxalpm",
+            "id": "change-t7pc528",
             "type": "fixed",
             "title": "fix: Strengthen internal and public type safety across Platform components",
             "breaking": false
@@ -92,7 +92,7 @@
   "pending-ui-07-datatable": {
     "id": "pending-ui-07-datatable",
     "version": "Pending Release",
-    "date": "2026-10-01",
+    "date": "2026-10-02",
     "summary": "Added enterprise data grid features:",
     "packages": [
       {
@@ -100,38 +100,38 @@
         "packageName": "@skyra/data-table",
         "changes": [
           {
-            "id": "change-fw0lioy",
+            "id": "change-5cq9xpc",
             "type": "changed",
             "title": "Filter configuration and operations",
             "breaking": false
           },
           {
-            "id": "change-w2b0vi1",
+            "id": "change-xbwrcgl",
             "type": "changed",
             "title": "Interactive column filtering popover",
             "breaking": false
           },
           {
-            "id": "change-p4hh541",
+            "id": "change-yrmil06",
             "type": "changed",
             "title": "Filter state visualization bar",
             "breaking": false
           },
           {
-            "id": "change-b5u3zum",
+            "id": "change-58qqc8i",
             "type": "changed",
             "title": "`onAdd` row action callback",
             "breaking": false
           },
           {
-            "id": "change-pslitdq",
+            "id": "change-kdnrgp4",
             "type": "changed",
             "title": "Column visual configuration (accent styling)",
             "breaking": false,
             "description": " Included @skyra/ui:"
           },
           {
-            "id": "change-left1px",
+            "id": "change-bt02tfp",
             "type": "changed",
             "title": "Updated Progress and CircularProgress variant types.",
             "breaking": false
@@ -143,38 +143,38 @@
         "packageName": "@skyra/ui",
         "changes": [
           {
-            "id": "change-fw0lioy",
+            "id": "change-5cq9xpc",
             "type": "changed",
             "title": "Filter configuration and operations",
             "breaking": false
           },
           {
-            "id": "change-w2b0vi1",
+            "id": "change-xbwrcgl",
             "type": "changed",
             "title": "Interactive column filtering popover",
             "breaking": false
           },
           {
-            "id": "change-p4hh541",
+            "id": "change-yrmil06",
             "type": "changed",
             "title": "Filter state visualization bar",
             "breaking": false
           },
           {
-            "id": "change-b5u3zum",
+            "id": "change-58qqc8i",
             "type": "changed",
             "title": "`onAdd` row action callback",
             "breaking": false
           },
           {
-            "id": "change-pslitdq",
+            "id": "change-kdnrgp4",
             "type": "changed",
             "title": "Column visual configuration (accent styling)",
             "breaking": false,
             "description": " Included @skyra/ui:"
           },
           {
-            "id": "change-left1px",
+            "id": "change-bt02tfp",
             "type": "changed",
             "title": "Updated Progress and CircularProgress variant types.",
             "breaking": false
@@ -186,7 +186,7 @@
   "pending-ui-09-export-hardening": {
     "id": "pending-ui-09-export-hardening",
     "version": "Pending Release",
-    "date": "2026-10-01",
+    "date": "2026-10-02",
     "summary": "Updated package dependencies",
     "packages": [
       {
@@ -194,25 +194,25 @@
         "packageName": "@skyra/data-export",
         "changes": [
           {
-            "id": "change-ekchicd",
+            "id": "change-sa7jyco",
             "type": "added",
             "title": "Added JSON and TSV export engines.",
             "breaking": false
           },
           {
-            "id": "change-lswvepe",
+            "id": "change-y3x5yvq",
             "type": "changed",
             "title": "Refactored export options to use granular interfaces for CSV and Excel.",
             "breaking": false
           },
           {
-            "id": "change-5d7gscq",
+            "id": "change-ct3k2rj",
             "type": "added",
             "title": "Added formula injection protection and null value handling for CSV exports.",
             "breaking": false
           },
           {
-            "id": "change-zabcwue",
+            "id": "change-mlyjzu7",
             "type": "added",
             "title": "Added JSON and TSV format options to `ExportButton` and `ExportMenu` in `@skyra/ui`.",
             "breaking": false
@@ -224,25 +224,25 @@
         "packageName": "@skyra/ui",
         "changes": [
           {
-            "id": "change-ekchicd",
+            "id": "change-sa7jyco",
             "type": "added",
             "title": "Added JSON and TSV export engines.",
             "breaking": false
           },
           {
-            "id": "change-lswvepe",
+            "id": "change-y3x5yvq",
             "type": "changed",
             "title": "Refactored export options to use granular interfaces for CSV and Excel.",
             "breaking": false
           },
           {
-            "id": "change-5d7gscq",
+            "id": "change-ct3k2rj",
             "type": "added",
             "title": "Added formula injection protection and null value handling for CSV exports.",
             "breaking": false
           },
           {
-            "id": "change-zabcwue",
+            "id": "change-mlyjzu7",
             "type": "added",
             "title": "Added JSON and TSV format options to `ExportButton` and `ExportMenu` in `@skyra/ui`.",
             "breaking": false

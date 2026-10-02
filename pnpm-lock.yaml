@@ -329,9 +329,6 @@ importers:
       '@skyra-tech-platform/textarea':
         specifier: workspace:^
         version: link:../textarea
-      '@skyra/ui':
-        specifier: workspace:*
-        version: link:../ui
       '@skyra/utils':
         specifier: workspace:*
         version: link:../utils

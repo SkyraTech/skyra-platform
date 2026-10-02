@@ -377,12 +377,6 @@ export default function DynamicSelectShowcasePage() {
               optionLabel={(emp) => emp.name}
               optionValue={(emp) => emp.id}
               onChange={setValCustomVal}
-              renderValue={(emp: any) => (
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontWeight: 600, color: 'var(--skyra-primary)' }}>
-                  <Shield size={14} />
-                  {emp.name} ({emp.dept})
-                </span>
-              )}
             />
           </DemoBlock>
         </div>

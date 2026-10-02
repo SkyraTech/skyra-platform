@@ -28,46 +28,46 @@ if (typeof window !== 'undefined') {
   };
 
   const origAppendChild = Node.prototype.appendChild;
-  Node.prototype.appendChild = function(child) {
+  Node.prototype.appendChild = function<T extends Node>(this: Node, child: T): T {
     const res = origAppendChild.call(this, child);
-    if (child instanceof HTMLElement && child.shadowRoot && child.shadowRoot !== child && !Array.from(child.children).includes(child.shadowRoot as any)) {
+    if (child instanceof HTMLElement && child.shadowRoot && (child.shadowRoot as any) !== child && !Array.from(child.children).includes(child.shadowRoot as any)) {
       origAppendChild.call(child, child.shadowRoot);
     }
     if (child instanceof HTMLElement) {
       child.querySelectorAll('*').forEach(desc => {
-        if (desc.shadowRoot && desc.shadowRoot !== desc && !Array.from(desc.children).includes(desc.shadowRoot as any)) {
+        if (desc.shadowRoot && (desc.shadowRoot as any) !== desc && !Array.from(desc.children).includes(desc.shadowRoot as any)) {
           origAppendChild.call(desc, desc.shadowRoot);
         }
       });
     }
-    return res;
+    return res as T;
   };
   
   const origInsertBefore = Node.prototype.insertBefore;
-  Node.prototype.insertBefore = function(newNode, referenceNode) {
+  Node.prototype.insertBefore = function<T extends Node>(this: Node, newNode: T, referenceNode: Node | null): T {
     const res = origInsertBefore.call(this, newNode, referenceNode);
-    if (newNode instanceof HTMLElement && newNode.shadowRoot && newNode.shadowRoot !== newNode && !Array.from(newNode.children).includes(newNode.shadowRoot as any)) {
+    if (newNode instanceof HTMLElement && newNode.shadowRoot && (newNode.shadowRoot as any) !== newNode && !Array.from(newNode.children).includes(newNode.shadowRoot as any)) {
       origAppendChild.call(newNode, newNode.shadowRoot);
     }
     if (newNode instanceof HTMLElement) {
       newNode.querySelectorAll('*').forEach(desc => {
-        if (desc.shadowRoot && desc.shadowRoot !== desc && !Array.from(desc.children).includes(desc.shadowRoot as any)) {
+        if (desc.shadowRoot && (desc.shadowRoot as any) !== desc && !Array.from(desc.children).includes(desc.shadowRoot as any)) {
           origAppendChild.call(desc, desc.shadowRoot);
         }
       });
     }
-    return res;
+    return res as T;
   };
   
   const observer = new MutationObserver((mutations) => {
     mutations.forEach(m => {
       m.addedNodes.forEach(node => {
         if (node instanceof HTMLElement) {
-          if (node.shadowRoot && node.shadowRoot !== node && !Array.from(node.children).includes(node.shadowRoot as any)) {
+          if (node.shadowRoot && (node.shadowRoot as any) !== node && !Array.from(node.children).includes(node.shadowRoot as any)) {
             origAppendChild.call(node, node.shadowRoot);
           }
           node.querySelectorAll('*').forEach(desc => {
-            if (desc.shadowRoot && desc.shadowRoot !== desc && !Array.from(desc.children).includes(desc.shadowRoot as any)) {
+            if (desc.shadowRoot && (desc.shadowRoot as any) !== desc && !Array.from(desc.children).includes(desc.shadowRoot as any)) {
               origAppendChild.call(desc, desc.shadowRoot);
             }
           });

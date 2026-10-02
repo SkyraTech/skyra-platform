@@ -809,14 +809,22 @@ describe('DynamicForm', () => {
         <DynamicForm
           fieldsets={[
             {
-              title: 'Account Details',
+              title: 'Accessibility Test Form',
               fields: [
-                { name: 'accName', label: 'Account Name', type: 'text', required: true },
-                { name: 'accBio', label: 'Account Bio', type: 'textarea' },
+                { name: 'inputField', label: 'Input Field', type: 'text', required: true },
+                { name: 'textareaField', label: 'Textarea Field', type: 'textarea' },
+                { name: 'checkboxField', label: 'Checkbox Field', type: 'checkbox' },
+                { name: 'radioField', label: 'Radio Field', type: 'radio', options: [{ label: '1', value: '1' }] },
+                { name: 'switchField', label: 'Switch Field', type: 'switch' },
+                { name: 'selectField', label: 'Select Field', type: 'select', options: [{ label: 'A', value: 'A' }] },
+                { name: 'dateField', label: 'Date Field', type: 'date' },
+                { name: 'disabledField', label: 'Disabled Field', type: 'text', disabled: true },
+                { name: 'conditionalField', label: 'Conditional Field', type: 'text', visibleWhen: { field: 'inputField', value: 'show' } },
               ],
             },
           ]}
-          initialValues={{ accName: 'Skyra Admin', accBio: 'System operator' }}
+          initialValues={{ inputField: 'show' }}
+          serverErrors={{ inputField: 'Validation error test' }}
           onSubmit={() => {}}
         />
       );
