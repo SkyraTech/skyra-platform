@@ -197,6 +197,15 @@ export function buildSearchIndex(): SearchDocument[] {
     keywords: ['textarea', 'text area', 'form textarea', 'skyra-tech-textarea', '@skyra-tech-platform/textarea', 'Basic Controls', 'auto-resize', 'validation', 'web component'],
   });
 
+  documents.push({
+    id: 'component-checkbox',
+    type: 'foundation',
+    title: 'Checkbox',
+    description: 'Framework-independent checkbox component for multiple-choice selections.',
+    href: '/components/basic-controls/checkbox',
+    keywords: ['checkbox', 'skyra-tech-checkbox', '@skyra-tech-platform/checkbox', 'Basic Controls', 'multiple-choice', 'indeterminate', 'web component'],
+  });
+
   // Releases
   if (registry.getReleases) {
     for (const release of registry.getReleases()) {

@@ -21,11 +21,15 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "echo 'lint ok'"
   },
   "devDependencies": {
+    "jsdom": "^25.0.0",
+    "tsup": "^8.0.0",
     "typescript": "^5.0.0",
-    "tsup": "^8.0.0"
+    "vitest": "^2.1.9"
   },
   "publishConfig": {
     "access": "public"

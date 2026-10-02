@@ -95,12 +95,12 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         id={id}
         name={name}
         value={value}
-        checked={checked ?? defaultChecked ? 'true' : undefined}
-        indeterminate={indeterminate ? 'true' : undefined}
+        checked={checked ?? defaultChecked ? '' : undefined}
+        indeterminate={indeterminate ? '' : undefined}
         label={typeof label === 'string' ? label : undefined}
         error={error}
         helper-text={typeof effectiveHelper === 'string' ? effectiveHelper : undefined}
-        required={required ? 'true' : undefined}
+        required={required ? '' : undefined}
         disabled={disabled ? true : undefined}
         {...rest}
       >
