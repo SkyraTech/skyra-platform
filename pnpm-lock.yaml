@@ -548,6 +548,15 @@ importers:
 
   packages/textarea:
     devDependencies:
+      '@types/jest-axe':
+        specifier: ^3.5.9
+        version: 3.5.9
+      jest-axe:
+        specifier: ^9.0.0
+        version: 9.0.0
+      jsdom:
+        specifier: ^25.0.0
+        version: 25.0.1(canvas@2.11.2)
       tsup:
         specifier: ^8.0.0
         version: 8.5.1(postcss@8.5.28)(tsx@4.23.15)(typescript@5.9.3)(yaml@2.9.1)

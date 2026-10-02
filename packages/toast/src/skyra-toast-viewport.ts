@@ -287,7 +287,7 @@ export class SkyraToastViewportElement extends BaseElement {
   }
 }
 
-if (typeof window !== 'undefined' && !customElements.get('skyra-toast-viewport')) {
+if (typeof customElements !== 'undefined' && !customElements.get('skyra-toast-viewport')) {
   customElements.define('skyra-toast-viewport', SkyraToastViewportElement);
 }
 

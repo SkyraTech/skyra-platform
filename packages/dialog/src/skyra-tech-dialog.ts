@@ -5,7 +5,7 @@ const BaseElement = typeof HTMLElement !== 'undefined' ? HTMLElement : class {} 
 export class SkyraTechDialog extends BaseElement {
   static formAssociated = true;
 
-  private _internals: ElementInternals;
+  private _internals!: ElementInternals;
   private _dialogEl!: HTMLDialogElement;
   private _closeBtn!: HTMLButtonElement;
 

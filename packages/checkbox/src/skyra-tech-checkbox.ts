@@ -3,7 +3,8 @@ import { checkboxStyles } from './skyra-tech-checkbox.css.js';
 const CHECK_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icon icon-check"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
 const MINUS_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icon icon-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
 
-export class SkyraTechCheckbox extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+export class SkyraTechCheckbox extends BaseClass {
   static formAssociated = true;
 
   private _internals: ElementInternals | null = null;
@@ -241,7 +242,7 @@ export class SkyraTechCheckbox extends HTMLElement {
 }
 
 export function defineSkyraTechCheckbox() {
-  if (typeof window !== 'undefined' && !customElements.get('skyra-tech-checkbox')) {
+  if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-checkbox')) {
     customElements.define('skyra-tech-checkbox', SkyraTechCheckbox);
   }
 }

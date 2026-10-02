@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { DataTable, ColumnDef, processTableData, useDataTableState } from '@skyra/data-table';
+import { DataTable, ColumnDef, processTableData, useDataTableState } from '@skyra-tech-platform/data-table';
 import { StatusBadge, StatusConfig, Button } from '@skyra/ui';
 import { downloadCsv } from '@skyra/data-export';
 import { MOCK_TRANSACTIONS, MockTransaction } from '@/components/demos/MockData';

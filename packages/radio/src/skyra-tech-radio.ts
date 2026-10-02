@@ -1,6 +1,7 @@
 import { radioStyles } from './skyra-tech-radio.css.js';
 
-export class SkyraTechRadio extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+export class SkyraTechRadio extends BaseClass {
   static formAssociated = true;
 
   private _internals: ElementInternals | null = null;
@@ -297,7 +298,7 @@ export class SkyraTechRadio extends HTMLElement {
 }
 
 export function defineSkyraTechRadio() {
-  if (typeof window !== 'undefined' && !customElements.get('skyra-tech-radio')) {
+  if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-radio')) {
     customElements.define('skyra-tech-radio', SkyraTechRadio);
   }
 }

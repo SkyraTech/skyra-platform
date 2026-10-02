@@ -1,7 +1,8 @@
 import { icons } from './utils';
 import './skyra-tech-time-field';
 
-export class SkyraTechTimeRangeField extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+export class SkyraTechTimeRangeField extends BaseClass {
   static get observedAttributes() {
     return ['start-value', 'end-value', 'format', 'minute-step', 'disabled', 'required', 'label', 'helper-text', 'error'];
   }
@@ -131,6 +132,6 @@ export class SkyraTechTimeRangeField extends HTMLElement {
   }
 }
 
-if (!customElements.get('skyra-tech-time-range-field')) {
+if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-time-range-field')) {
   customElements.define('skyra-tech-time-range-field', SkyraTechTimeRangeField);
 }

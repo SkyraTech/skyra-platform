@@ -1,6 +1,7 @@
 import { generateQRCode, buildSVGPath } from './core';
 
-export class SkyraQRCodeElement extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+export class SkyraQRCodeElement extends BaseClass {
   static get observedAttributes() {
     return ['value', 'error-correction-level', 'version', 'margin', 'mask-pattern', 'scale', 'color-light', 'color-dark'];
   }
@@ -94,7 +95,7 @@ export class SkyraQRCodeElement extends HTMLElement {
             aria-label="${ariaLabel}"
           >
             <title>${ariaLabel}</title>
-            ${lightColor.toLowerCase() !== 'transparent' ? \`<rect width="100%" height="100%" fill="\${lightColor}" />\` : ''}
+            ${lightColor.toLowerCase() !== 'transparent' ? `<rect width="100%" height="100%" fill="${lightColor}" />` : ''}
             <path d="${pathData}" fill="${darkColor}" />
           </svg>
         </div>
@@ -106,6 +107,6 @@ export class SkyraQRCodeElement extends HTMLElement {
   }
 }
 
-if (typeof window !== 'undefined' && !customElements.get('skyra-qr-code')) {
+if (typeof customElements !== 'undefined' && !customElements.get('skyra-qr-code')) {
   customElements.define('skyra-qr-code', SkyraQRCodeElement);
 }

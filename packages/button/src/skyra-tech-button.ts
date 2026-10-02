@@ -1,6 +1,7 @@
 import { buttonStyles } from './skyra-tech-button.css.js';
 
-export class SkyraTechButton extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+export class SkyraTechButton extends BaseClass {
   static formAssociated = true;
 
   private _internals: ElementInternals | null = null;
@@ -208,7 +209,7 @@ export class SkyraTechButton extends HTMLElement {
 }
 
 export function defineSkyraTechButton() {
-  if (typeof window !== 'undefined' && !customElements.get('skyra-tech-button')) {
+  if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-button')) {
     customElements.define('skyra-tech-button', SkyraTechButton);
   }
 }

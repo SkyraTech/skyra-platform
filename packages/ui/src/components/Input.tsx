@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { SkyraTechInput } from '@skyra-tech-platform/input';
 import '@skyra-tech-platform/input';
 
 export interface InputProps
@@ -138,6 +139,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         placeholder={placeholder}
         name={name}
+        has-left={left ? '' : undefined}
+        has-right={right ? '' : undefined}
         {...rest}
       >
         {typeof label !== 'string' && label ? (

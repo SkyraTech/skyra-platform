@@ -2,7 +2,8 @@ import { textareaStyles } from './skyra-tech-textarea.css.js';
 
 const ALERT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>`;
 
-export class SkyraTechTextarea extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+export class SkyraTechTextarea extends BaseClass {
   static formAssociated = true;
 
   private _internals: ElementInternals | null = null;
@@ -131,7 +132,9 @@ export class SkyraTechTextarea extends HTMLElement {
 
     if (name === 'auto-resize') {
       if (this.autoResize) {
-        this._setupResizeObserver();
+        if (typeof ResizeObserver !== 'undefined') {
+          this._setupResizeObserver();
+        }
         this._calculateHeight();
       } else if (this._resizeObserver) {
         this._resizeObserver.disconnect();
@@ -201,8 +204,8 @@ export class SkyraTechTextarea extends HTMLElement {
 
   // --- Methods ---
 
-  checkValidity() { return this._internals ? this._internals.checkValidity() : this._textarea.checkValidity(); }
-  reportValidity() { return this._internals ? this._internals.reportValidity() : this._textarea.reportValidity(); }
+  checkValidity() { return this._internals && typeof (this._internals as any).checkValidity === 'function' ? (this._internals as any).checkValidity() : this._textarea.checkValidity(); }
+  reportValidity() { return this._internals && typeof (this._internals as any).reportValidity === 'function' ? (this._internals as any).reportValidity() : this._textarea.reportValidity(); }
   
   override focus(options?: FocusOptions) { this._textarea.focus(options); }
   override blur() { this._textarea.blur(); }
@@ -293,7 +296,9 @@ export class SkyraTechTextarea extends HTMLElement {
     if (hasLabelText || hasLabelSlot) {
       this._labelContainer.style.display = 'block';
       if (hasLabelText && !hasLabelSlot) {
-        this._labelSlot.textContent = this.label;
+        if (this._labelSlot.textContent !== this.label) {
+          this._labelSlot.textContent = this.label;
+        }
       }
       this.required 
         ? this._labelContainer.classList.add('skyra-label--required') 
@@ -321,7 +326,9 @@ export class SkyraTechTextarea extends HTMLElement {
       if (helperMsg || hasHelperSlot) {
         this._helperContainer.style.display = 'block';
         if (helperMsg && !hasHelperSlot) {
-          this._helperSlot.textContent = helperMsg;
+          if (this._helperSlot.textContent !== helperMsg) {
+            this._helperSlot.textContent = helperMsg;
+          }
         }
         describedBy.push(this._helperContainer.id);
       } else {
@@ -353,7 +360,7 @@ export class SkyraTechTextarea extends HTMLElement {
 }
 
 export function defineSkyraTechTextarea() {
-  if (typeof window !== 'undefined' && !customElements.get('skyra-tech-textarea')) {
+  if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-textarea')) {
     customElements.define('skyra-tech-textarea', SkyraTechTextarea);
   }
 }

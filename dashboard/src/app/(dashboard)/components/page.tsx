@@ -11,7 +11,7 @@ const COMPONENT_GROUPS = [
     items: [
       { href: '/components/basic-controls/button', label: 'Button', desc: 'Framework-independent accessible button', status: 'stable', tech: 'Web Component' },
       { href: '/components/basic-controls/input', label: 'Input', desc: 'Text input, search, password, and number controls.', status: 'stable', tech: 'Web Component' },
-      { href: '#', label: 'Textarea', desc: 'Auto-resizing, character count, validation states.', status: 'planned', tech: 'Web Component' },
+      { href: '/components/basic-controls/textarea', label: 'Textarea', desc: 'Auto-resizing, character count, validation states.', status: 'stable', tech: 'Web Component' },
       { href: '#', label: 'Checkbox', desc: 'Accessible single and grouped checkboxes.', status: 'planned', tech: 'Web Component' },
       { href: '#', label: 'Radio', desc: 'WAI-ARIA roving tabindex single-selection controls.', status: 'planned', tech: 'Web Component' },
       { href: '#', label: 'Switch', desc: '5 design variants across 3 sizes.', status: 'planned', tech: 'Web Component' },

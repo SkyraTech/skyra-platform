@@ -2,7 +2,8 @@ import { toISODateString, parseDate, icons } from './utils';
 import { dateRangeFieldCss } from './date-range-field.css';
 import './skyra-tech-calendar';
 
-export class SkyraTechDateRangeField extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+export class SkyraTechDateRangeField extends BaseClass {
   static get observedAttributes() {
     return ['start-value', 'end-value', 'min', 'max', 'disabled', 'required', 'clearable', 'placeholder', 'label', 'helper-text', 'error', 'invalid'];
   }
@@ -266,6 +267,6 @@ export class SkyraTechDateRangeField extends HTMLElement {
   }
 }
 
-if (!customElements.get('skyra-tech-date-range-field')) {
+if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-date-range-field')) {
   customElements.define('skyra-tech-date-range-field', SkyraTechDateRangeField);
 }

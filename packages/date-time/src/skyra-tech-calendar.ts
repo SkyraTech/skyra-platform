@@ -1,7 +1,8 @@
 import { toISODateString, parseDate, MONTH_NAMES, DAY_NAMES, icons } from './utils';
 import { calendarCss } from './calendar.css';
 
-export class SkyraTechCalendar extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+export class SkyraTechCalendar extends BaseClass {
   static get observedAttributes() {
     return ['mode', 'value', 'range-start', 'range-end', 'min', 'max', 'disable-weekends', 'show-today'];
   }
@@ -304,6 +305,6 @@ export class SkyraTechCalendar extends HTMLElement {
   }
 }
 
-if (!customElements.get('skyra-tech-calendar')) {
+if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-calendar')) {
   customElements.define('skyra-tech-calendar', SkyraTechCalendar);
 }

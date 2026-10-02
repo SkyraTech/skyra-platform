@@ -2,7 +2,8 @@ import { toISODateString, parseDate, icons } from './utils';
 import { dateFieldCss } from './date-field.css';
 import './skyra-tech-calendar';
 
-export class SkyraTechDateField extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+export class SkyraTechDateField extends BaseClass {
   static get observedAttributes() {
     return ['value', 'min', 'max', 'disabled', 'required', 'clearable', 'placeholder', 'label', 'helper-text', 'error', 'invalid'];
   }
@@ -253,6 +254,6 @@ export class SkyraTechDateField extends HTMLElement {
   }
 }
 
-if (!customElements.get('skyra-tech-date-field')) {
+if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-date-field')) {
   customElements.define('skyra-tech-date-field', SkyraTechDateField);
 }

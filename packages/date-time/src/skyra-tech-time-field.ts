@@ -1,7 +1,8 @@
 import { icons } from './utils';
 import { timeFieldCss } from './time-field.css';
 
-export class SkyraTechTimeField extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+export class SkyraTechTimeField extends BaseClass {
   static get observedAttributes() {
     return ['value', 'format', 'minute-step', 'disabled', 'required', 'clearable', 'label', 'helper-text', 'error', 'invalid'];
   }
@@ -376,6 +377,6 @@ export class SkyraTechTimeField extends HTMLElement {
   }
 }
 
-if (!customElements.get('skyra-tech-time-field')) {
+if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-time-field')) {
   customElements.define('skyra-tech-time-field', SkyraTechTimeField);
 }

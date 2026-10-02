@@ -304,6 +304,6 @@ export class SkyraNotificationBarElement extends BaseElement {
   }
 }
 
-if (typeof window !== 'undefined' && !customElements.get('skyra-notification-bar')) {
+if (typeof customElements !== 'undefined' && !customElements.get('skyra-notification-bar')) {
   customElements.define('skyra-notification-bar', SkyraNotificationBarElement);
 }

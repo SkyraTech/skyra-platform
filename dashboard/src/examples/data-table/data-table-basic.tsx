@@ -5,7 +5,7 @@
  * @packageId @skyra/data-table
  */
 import React from 'react';
-import { DynamicDataTable } from '@skyra/data-table';
+import { DynamicDataTable } from '@skyra-tech-platform/data-table';
 
 export default function DataTableBasicExample() {
   const data = [

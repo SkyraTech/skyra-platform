@@ -87,7 +87,7 @@ if (typeof window !== 'undefined') {
   };
 
   const defineDummy = (tag: string, template: (el: HTMLElement) => string) => {
-    if (!customElements.get(tag)) {
+    if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
       customElements.define(tag, class extends HTMLElement {
 
         connectedCallback() {

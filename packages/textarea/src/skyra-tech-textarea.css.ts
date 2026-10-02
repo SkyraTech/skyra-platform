@@ -83,8 +83,7 @@ export const textareaStyles = `
 
   /* Status variants */
   :host([status="error"]) .skyra-textarea,
-  :host([invalid]) .skyra-textarea,
-  .skyra-textarea.skyra-textarea--error {
+  :host([invalid]) .skyra-textarea {
     border: 1.5px solid var(--skyra-textarea-danger);
   }
   

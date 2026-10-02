@@ -179,6 +179,10 @@ export default function InputDocsPage() {
       />
 
       <HeadingAnchor id="api">API Reference</HeadingAnchor>
+      <p style={{ color: 'var(--skyra-text-muted)', marginBottom: '2rem', lineHeight: 1.6 }}>
+        Skyra Platform uses Web Components. This means properties can be accessed via DOM properties (<code style={{ fontFamily: 'var(--skyra-font-mono)', fontSize: '0.85em', color: 'var(--skyra-primary)' }}>input.value = 'hello'</code>) and attributes via HTML (<code style={{ fontFamily: 'var(--skyra-font-mono)', fontSize: '0.85em', color: 'var(--skyra-primary)' }}>value="hello"</code>).
+      </p>
+
       <ApiTabs 
         tabs={[
           {
@@ -198,6 +202,21 @@ export default function InputDocsPage() {
                   { name: 'loading', type: 'boolean', defaultVal: 'false', description: 'Shows a spinner inside the input.' },
                   { name: 'clearable', type: 'boolean', defaultVal: 'false', description: 'Shows a clear button when value is not empty.' },
                   { name: 'show-count', type: 'boolean', defaultVal: 'false', description: 'Shows a character count. Requires maxlength to be set.' },
+                ]}
+              />
+            )
+          },
+          {
+            id: 'methods',
+            label: 'Methods',
+            content: (
+              <ApiTable 
+                headers={['Method', 'Returns', 'Description']}
+                rows={[
+                  { name: 'checkValidity()', type: 'boolean', description: 'Returns whether the input fulfills its validation constraints.' },
+                  { name: 'reportValidity()', type: 'boolean', description: 'Returns validity and reports validity state to the user.' },
+                  { name: 'select()', type: 'void', description: 'Selects all text within the input.' },
+                  { name: 'setSelectionRange(start, end, dir?)', type: 'void', description: 'Sets the start and end positions of the current text selection.' },
                 ]}
               />
             )

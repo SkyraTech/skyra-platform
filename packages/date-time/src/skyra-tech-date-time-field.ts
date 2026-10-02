@@ -2,7 +2,8 @@ import { icons } from './utils';
 import './skyra-tech-date-field';
 import './skyra-tech-time-field';
 
-export class SkyraTechDateTimeField extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+export class SkyraTechDateTimeField extends BaseClass {
   static get observedAttributes() {
     return ['date-value', 'time-value', 'min', 'max', 'disabled', 'required', 'label', 'helper-text', 'error', 'time-format'];
   }
@@ -148,6 +149,6 @@ export class SkyraTechDateTimeField extends HTMLElement {
   }
 }
 
-if (!customElements.get('skyra-tech-date-time-field')) {
+if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-date-time-field')) {
   customElements.define('skyra-tech-date-time-field', SkyraTechDateTimeField);
 }

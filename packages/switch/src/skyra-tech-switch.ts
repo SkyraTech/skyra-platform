@@ -4,7 +4,8 @@ const iconCheck = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" c
 const iconX = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-svg icon-off"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
 const iconLoader = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-svg icon-loading"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>`;
 
-export class SkyraTechSwitch extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+export class SkyraTechSwitch extends BaseClass {
   static formAssociated = true;
 
   private _internals: ElementInternals | null = null;
@@ -266,7 +267,7 @@ export class SkyraTechSwitch extends HTMLElement {
 }
 
 export function defineSkyraTechSwitch() {
-  if (typeof window !== 'undefined' && !customElements.get('skyra-tech-switch')) {
+  if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-switch')) {
     customElements.define('skyra-tech-switch', SkyraTechSwitch);
   }
 }

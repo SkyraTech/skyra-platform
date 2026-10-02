@@ -179,6 +179,24 @@ export function buildSearchIndex(): SearchDocument[] {
     keywords: ['button', 'skyra-tech-button', '@skyra-tech-platform/button', 'Basic Controls', 'primary', 'orange', 'outline', 'ghost', 'danger', 'link', 'loading', 'disabled', 'icon-only', 'web component'],
   });
 
+  documents.push({
+    id: 'component-input',
+    type: 'foundation',
+    title: 'Input',
+    description: 'Framework-independent input Web Component. Variants, sizes, icons, validation, formatters.',
+    href: '/components/basic-controls/input',
+    keywords: ['input', 'skyra-tech-input', '@skyra-tech-platform/input', 'Basic Controls', 'text', 'password', 'number', 'search', 'email', 'tel', 'url', 'validation', 'web component'],
+  });
+
+  documents.push({
+    id: 'component-textarea',
+    type: 'foundation',
+    title: 'Textarea',
+    description: 'Framework-independent textarea Web Component. Auto-resizing, validation, character counting.',
+    href: '/components/basic-controls/textarea',
+    keywords: ['textarea', 'text area', 'form textarea', 'skyra-tech-textarea', '@skyra-tech-platform/textarea', 'Basic Controls', 'auto-resize', 'validation', 'web component'],
+  });
+
   // Releases
   if (registry.getReleases) {
     for (const release of registry.getReleases()) {

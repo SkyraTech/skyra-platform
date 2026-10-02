@@ -209,8 +209,8 @@ export class SkyraTechInput extends BaseClass {
 
   // --- Methods ---
 
-  checkValidity() { return this._internals ? this._internals.checkValidity() : this._input.checkValidity(); }
-  reportValidity() { return this._internals ? this._internals.reportValidity() : this._input.reportValidity(); }
+  checkValidity() { return this._internals && typeof (this._internals as any).checkValidity === 'function' ? (this._internals as any).checkValidity() : this._input.checkValidity(); }
+  reportValidity() { return this._internals && typeof (this._internals as any).reportValidity === 'function' ? (this._internals as any).reportValidity() : this._input.reportValidity(); }
   
   override focus(options?: FocusOptions) { this._input.focus(options); }
   override blur() { this._input.blur(); }
@@ -284,7 +284,9 @@ export class SkyraTechInput extends BaseClass {
     if (hasLabelText || hasLabelSlot) {
       this._labelContainer.style.display = 'block';
       if (hasLabelText && !hasLabelSlot) {
-        this._labelSlot.textContent = this.label;
+        if (this._labelSlot.textContent !== this.label) {
+          this._labelSlot.textContent = this.label;
+        }
       }
       this.required 
         ? this._labelContainer.classList.add('skyra-label--required') 
@@ -350,7 +352,9 @@ export class SkyraTechInput extends BaseClass {
       if (helperMsg || hasHelperSlot) {
         this._helperContainer.style.display = 'block';
         if (helperMsg && !hasHelperSlot) {
-          this._helperSlot.textContent = helperMsg;
+          if (this._helperSlot.textContent !== helperMsg) {
+            this._helperSlot.textContent = helperMsg;
+          }
         }
         describedBy.push(this._helperContainer.id);
       } else {
@@ -382,7 +386,7 @@ export class SkyraTechInput extends BaseClass {
 }
 
 export function defineSkyraTechInput() {
-  if (typeof window !== 'undefined' && !customElements.get('skyra-tech-input')) {
+  if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-input')) {
     customElements.define('skyra-tech-input', SkyraTechInput);
   }
 }

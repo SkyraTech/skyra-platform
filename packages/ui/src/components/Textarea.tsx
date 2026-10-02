@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { SkyraTechTextarea } from '@skyra-tech-platform/textarea';
 import '@skyra-tech-platform/textarea';
 
 export interface TextareaProps
@@ -17,7 +18,6 @@ export interface TextareaProps
   autoResize?: boolean;
   resize?: 'none' | 'vertical' | 'horizontal' | 'both';
   showCount?: boolean;
-  wrapperClassName?: string;
 }
 
 declare global {
@@ -49,7 +49,6 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       onChange,
       id,
       className = '',
-      wrapperClassName = '',
       disabled,
       readOnly,
       rows = 3,

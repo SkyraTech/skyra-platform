@@ -992,7 +992,7 @@ export class SkyraPdfViewerElement extends BaseElement {
 }
 
 if (typeof customElements !== 'undefined') {
-  if (!customElements.get('skyra-tech-pdf-viewer')) {
+  if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-pdf-viewer')) {
     customElements.define('skyra-tech-pdf-viewer', SkyraPdfViewerElement);
   }
 }
