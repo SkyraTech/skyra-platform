@@ -91,14 +91,14 @@ describe('toISODate', () => {
 describe('Calendar — week mode', () => {
   it('selecting a day fires onRangeChange with Mon–Sun range', () => {
     const onRangeChange = vi.fn();
-    render(
+    const { container } = render(
       <Calendar
         mode="week"
         onRangeChange={onRangeChange}
       />
     );
-    // Find a day button in the current month and click it
-    const dayButtons = screen.getAllByRole('button').filter(
+    const calendarEl = container.querySelector('skyra-tech-calendar') as HTMLElement;
+    const dayButtons = Array.from(calendarEl.shadowRoot!.querySelectorAll('button')).filter(
       (b) => /^\d{1,2}$/.test(b.textContent?.trim() ?? '')
     );
     expect(dayButtons.length).toBeGreaterThan(0);
@@ -138,8 +138,8 @@ describe('Calendar — range mode', () => {
         rangeValue={['2026-09-01', '2026-09-10']}
       />
     );
-    // Calendar renders a div with day buttons
-    const dayButtons = container.querySelectorAll('button[type="button"]');
+    const calendarEl = container.querySelector('skyra-tech-calendar') as HTMLElement;
+    const dayButtons = calendarEl.shadowRoot!.querySelectorAll('button[type="button"]');
     expect(dayButtons.length).toBeGreaterThan(7); // at least one week of days + nav buttons
   });
 });
@@ -183,9 +183,10 @@ describe('NumberInput — boundary & precision', () => {
 
   it('emits undefined for empty input', () => {
     const onChange = vi.fn();
-    render(<NumberInput value={5} onChange={onChange} label="Amount" />);
-    const input = screen.getByRole('spinbutton');
-    fireEvent.change(input, { target: { value: '' } });
+    const { container } = render(<NumberInput value={5} onChange={onChange} label="Amount" />);
+    const input = container.querySelector('skyra-tech-input') as HTMLInputElement;
+    input.value = '';
+    input.dispatchEvent(new Event('change', { bubbles: true }));
     expect(onChange).toHaveBeenCalledWith(undefined);
   });
 
@@ -227,8 +228,7 @@ describe('NumberInput — boundary & precision', () => {
     const { container } = render(
       <NumberInput value={10} step={2} onChange={onChange} label="Count" />
     );
-    // The native input[type=number] is the spinbutton
-    const input = container.querySelector('input[type="number"]') as HTMLInputElement;
+    const input = container.querySelector('skyra-tech-input') as HTMLElement;
     expect(input).not.toBeNull();
     fireEvent.keyDown(input, { key: 'ArrowUp' });
     expect(onChange).toHaveBeenCalledWith(12);
@@ -239,7 +239,7 @@ describe('NumberInput — boundary & precision', () => {
     const { container } = render(
       <NumberInput value={10} step={2} onChange={onChange} label="Count" />
     );
-    const input = container.querySelector('input[type="number"]') as HTMLInputElement;
+    const input = container.querySelector('skyra-tech-input') as HTMLElement;
     expect(input).not.toBeNull();
     fireEvent.keyDown(input, { key: 'ArrowDown' });
     expect(onChange).toHaveBeenCalledWith(8);

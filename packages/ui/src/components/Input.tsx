@@ -22,7 +22,6 @@ export interface InputProps
   clearable?: boolean;
   onClear?: () => void;
   showCount?: boolean;
-  wrapperClassName?: string;
 }
 
 declare global {
@@ -60,7 +59,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       onInput,
       id,
       className = '',
-      wrapperClassName = '',
       disabled,
       readOnly,
       type,
@@ -90,8 +88,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         if (onChange) {
           // Synthetic event mapping
           const synthEvent = Object.create(e);
-          synthEvent.target = el;
-          synthEvent.currentTarget = el;
+          Object.defineProperty(synthEvent, 'target', { value: el, enumerable: true });
+          Object.defineProperty(synthEvent, 'currentTarget', { value: el, enumerable: true });
           onChange(synthEvent as any);
         }
       };
@@ -99,8 +97,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       const handleInput = (e: Event) => {
         if (onInput) {
           const synthEvent = Object.create(e);
-          synthEvent.target = el;
-          synthEvent.currentTarget = el;
+          Object.defineProperty(synthEvent, 'target', { value: el, enumerable: true });
+          Object.defineProperty(synthEvent, 'currentTarget', { value: el, enumerable: true });
           onInput(synthEvent as any);
         }
       };

@@ -116,10 +116,9 @@ export const inputStyles = `
     padding-right: 2.5rem;
   }
 
-  /* Status variants */
   :host([status="error"]) .skyra-input,
   :host([invalid]) .skyra-input,
-  .skyra-input.skyra-input--error {
+  :host([error]) .skyra-input {
     border: 1.5px solid var(--skyra-input-danger);
   }
   

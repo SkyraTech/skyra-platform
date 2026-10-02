@@ -4,7 +4,9 @@ const ALERT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12
 const X_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
 const SPINNER_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="skyra-spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`;
 
-export class SkyraTechInput extends HTMLElement {
+const BaseClass = typeof HTMLElement !== 'undefined' ? HTMLElement : class {} as typeof HTMLElement;
+
+export class SkyraTechInput extends BaseClass {
   static formAssociated = true;
 
   private _internals: ElementInternals | null = null;
@@ -272,7 +274,8 @@ export class SkyraTechInput extends HTMLElement {
 
   private _updateUI() {
     const errorMsg = this.error;
-    const hasError = !!errorMsg || this.hasAttribute('invalid');
+    const hasErrorMsg = !!errorMsg;
+    const isExplicitlyInvalid = this.hasAttribute('invalid');
     const helperMsg = this.helperText;
     
     // Label
@@ -294,7 +297,6 @@ export class SkyraTechInput extends HTMLElement {
     if (this._hasLeftContent) {
       this._leftAdornment.style.display = 'flex';
       this.setAttribute('has-left', '');
-      // Calculate dynamic padding if it's text vs icon (simplified logic via CSS vars usually, but we fallback to CSS class)
     } else {
       this._leftAdornment.style.display = 'none';
       this.removeAttribute('has-left');
@@ -334,17 +336,15 @@ export class SkyraTechInput extends HTMLElement {
     // Footer (Error / Helper)
     let describedBy = [];
     
-    if (hasError) {
+    if (hasErrorMsg) {
       this._errorContainer.style.display = 'inline-flex';
       this.shadowRoot!.getElementById('error-text')!.textContent = errorMsg || '';
       this._helperContainer.style.display = 'none';
-      this.setAttribute('invalid', '');
       this._input.setAttribute('aria-invalid', 'true');
       describedBy.push(this._errorContainer.id);
     } else {
       this._errorContainer.style.display = 'none';
-      this.removeAttribute('invalid');
-      this._input.setAttribute('aria-invalid', 'false');
+      this._input.setAttribute('aria-invalid', isExplicitlyInvalid ? 'true' : 'false');
       
       const hasHelperSlot = this._helperSlot.assignedNodes().length > 0;
       if (helperMsg || hasHelperSlot) {
