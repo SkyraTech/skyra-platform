@@ -50,7 +50,9 @@ const TYPE_CONFIG = {
   },
 };
 
-export class SkyraNotificationBarElement extends HTMLElement {
+const BaseElement = typeof HTMLElement !== 'undefined' ? HTMLElement : class {} as typeof HTMLElement;
+
+export class SkyraNotificationBarElement extends BaseElement {
   private _isDismissed = false;
   private _isPaused = false;
   private _remainingTime = 5000;

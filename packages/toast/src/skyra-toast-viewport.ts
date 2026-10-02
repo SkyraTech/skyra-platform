@@ -35,7 +35,9 @@ export interface ToastData extends ToastOptions {
   createdAt: number;
 }
 
-export class SkyraToastViewportElement extends HTMLElement {
+const BaseElement = typeof HTMLElement !== 'undefined' ? HTMLElement : class {} as typeof HTMLElement;
+
+export class SkyraToastViewportElement extends BaseElement {
   private _toasts: ToastData[] = [];
   private _maxVisible = 5;
   private _position: ToastPosition = 'top-right';

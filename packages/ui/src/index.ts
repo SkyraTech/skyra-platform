@@ -144,8 +144,8 @@ export { Divider } from './components/Divider';
 export type { DividerProps } from './components/Divider';
 
 // ── Document & Export Controls ──
-export { PdfViewer } from './components/PdfViewer';
-export type { PdfViewerProps } from './components/PdfViewer';
+export { PdfViewer } from '@skyra-tech-platform/pdf-viewer/react';
+export type { PdfViewerProps } from '@skyra-tech-platform/pdf-viewer/react';
 
 export { PrintButton } from './components/PrintButton';
 export type { PrintButtonProps } from './components/PrintButton';

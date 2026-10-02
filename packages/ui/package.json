@@ -26,6 +26,7 @@
     "@skyra-tech-platform/date-time": "workspace:^",
     "@skyra-tech-platform/dynamic-select": "workspace:^",
     "@skyra-tech-platform/input": "workspace:^",
+    "@skyra-tech-platform/pdf-viewer": "workspace:^",
     "@skyra-tech-platform/radio": "workspace:^",
     "@skyra-tech-platform/switch": "workspace:^",
     "@skyra-tech-platform/textarea": "workspace:^",
