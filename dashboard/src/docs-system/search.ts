@@ -206,6 +206,15 @@ export function buildSearchIndex(): SearchDocument[] {
     keywords: ['checkbox', 'skyra-tech-checkbox', '@skyra-tech-platform/checkbox', 'Basic Controls', 'multiple-choice', 'indeterminate', 'web component'],
   });
 
+  documents.push({
+    id: 'component-radio',
+    type: 'foundation',
+    title: 'Radio',
+    description: 'Framework-independent radio component for mutually exclusive selections.',
+    href: '/components/basic-controls/radio',
+    keywords: ['radio', 'skyra-tech-radio', '@skyra-tech-platform/radio', 'Basic Controls', 'exclusive', 'group', 'web component'],
+  });
+
   // Releases
   if (registry.getReleases) {
     for (const release of registry.getReleases()) {

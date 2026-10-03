@@ -179,8 +179,8 @@ export class SkyraTechRadio extends BaseClass {
     // Find the closest root (document or shadow root)
     const root = this.getRootNode();
     
-    if (root instanceof Document || root instanceof ShadowRoot) {
-      const radios = root.querySelectorAll<SkyraTechRadio>(`skyra-tech-radio[name="${this.name}"]`);
+    if (root && (root.nodeType === 9 || root.nodeType === 11)) {
+      const radios = (root as Document | ShadowRoot).querySelectorAll<SkyraTechRadio>(`skyra-tech-radio[name="${this.name}"]`);
       for (const radio of Array.from(radios)) {
         if (radio !== this && radio.checked) {
           // Verify they belong to the same form (or neither)
@@ -210,8 +210,8 @@ export class SkyraTechRadio extends BaseClass {
       e.preventDefault();
       
       const root = this.getRootNode();
-      if (root instanceof Document || root instanceof ShadowRoot) {
-        const radios = Array.from(root.querySelectorAll<SkyraTechRadio>(`skyra-tech-radio[name="${this.name}"]`))
+      if (root && (root.nodeType === 9 || root.nodeType === 11)) {
+        const radios = Array.from((root as Document | ShadowRoot).querySelectorAll<SkyraTechRadio>(`skyra-tech-radio[name="${this.name}"]`))
           .filter(r => !r.disabled && r.form === this.form);
           
         if (radios.length > 0) {
@@ -258,7 +258,7 @@ export class SkyraTechRadio extends BaseClass {
     // Label fallback
     const hasLabelText = !!this.label;
     const hasLabelSlot = this._labelSlot.assignedNodes().length > 0;
-    if (hasLabelText && !hasLabelSlot) {
+    if (hasLabelText && !hasLabelSlot && this._labelSlot.textContent !== this.label) {
       this._labelSlot.textContent = this.label;
     }
 
@@ -280,7 +280,7 @@ export class SkyraTechRadio extends BaseClass {
       const hasHelperSlot = this._helperSlot.assignedNodes().length > 0;
       if (helperMsg || hasHelperSlot) {
         this._helperContainer.style.display = 'block';
-        if (helperMsg && !hasHelperSlot) {
+        if (helperMsg && !hasHelperSlot && this._helperSlot.textContent !== helperMsg) {
           this._helperSlot.textContent = helperMsg;
         }
         describedBy.push(this._helperContainer.id);

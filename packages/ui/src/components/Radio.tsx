@@ -49,15 +49,10 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       const handleChange = (e: Event) => {
         if (onChange) {
           const synthEvent = Object.create(e);
-          synthEvent.target = el;
-          synthEvent.currentTarget = el;
+          Object.defineProperty(synthEvent, 'target', { value: el, enumerable: true });
+          Object.defineProperty(synthEvent, 'currentTarget', { value: el, enumerable: true });
           
-          // Shim for React expecting event.target.checked
-          Object.defineProperty(synthEvent.target, 'checked', {
-            get: () => el.checked,
-            configurable: true
-          });
-          
+
           onChange(synthEvent as any);
         }
       };
@@ -88,11 +83,11 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         id={id}
         name={name}
         value={value}
-        checked={checked ?? defaultChecked ? 'true' : undefined}
+        checked={checked ?? defaultChecked ? '' : undefined}
         label={typeof label === 'string' ? label : undefined}
         error={error}
         helper-text={typeof effectiveHelper === 'string' ? effectiveHelper : undefined}
-        required={required ? 'true' : undefined}
+        required={required ? '' : undefined}
         disabled={disabled ? true : undefined}
         {...rest}
       >

@@ -1,69 +1,128 @@
 'use client';
 
+import React, { useState } from 'react';
 import { Radio } from '@skyra/ui';
-import { useState } from 'react';
+import { DocsLayout } from '@/components/docs/DocsLayout';
+import { DocsHeader } from '@/components/docs/DocsHeader';
+import { PackageMeta } from '@/components/docs/PackageMeta';
+import { InstallCommand } from '@/components/docs/InstallCommand';
+import { LiveExample } from '@/components/docs/LiveExample';
+import { ApiTable } from '@/components/docs/ApiTable';
+import { ApiTabs } from '@/components/docs/ApiTabs';
+import { FrameworkSupport } from '@/components/docs/FrameworkSupport';
+import { UsageGuidance } from '@/components/docs/UsageGuidance';
+import { AccessibilityPanel } from '@/components/docs/AccessibilityPanel';
+import { TokenGrid } from '@/components/docs/TokenGrid';
+import { ResponsiveDemo } from '@/components/docs/ResponsiveDemo';
+import { RelatedComponents } from '@/components/docs/RelatedComponents';
+import { Callout } from '@/components/docs/Callout';
+import { HeadingAnchor } from '@/components/docs/HeadingAnchor';
 
 export default function RadioDocsPage() {
   const [selected, setSelected] = useState('free');
 
+  const toc = [
+    { id: 'quick-start', label: 'Quick Start' },
+    { id: 'examples', label: 'Examples' },
+    { id: 'grouping', label: 'Grouping Behavior' },
+    { id: 'usage', label: 'Usage Guidance' },
+    { id: 'api', label: 'API Reference' },
+    { id: 'frameworks', label: 'Framework Usage' },
+    { id: 'accessibility', label: 'Accessibility' },
+    { id: 'styling', label: 'Styling' },
+    { id: 'responsive', label: 'Responsive Behavior' },
+    { id: 'related', label: 'Related Components' },
+    { id: 'technical', label: 'Technical Reference' },
+  ];
+
   return (
-    <div className="p-8 max-w-5xl mx-auto space-y-12">
-      <div>
-        <h1 className="text-3xl font-bold mb-2">Radio</h1>
-        <p className="text-[var(--skyra-text-subtle)]">Framework-independent radio component for single-choice selections.</p>
-      </div>
+    <DocsLayout toc={toc}>
+      <DocsHeader 
+        title="Radio"
+        description="Framework-independent radio component for mutually exclusive, single-choice selections."
+        breadcrumbs={[
+          { label: 'Components', href: '/components' },
+          { label: 'Basic Controls' },
+          { label: 'Radio' }
+        ]}
+        badges={[
+          { label: 'Stable', variant: 'stable' },
+          { label: 'Web Component', variant: 'tech' }
+        ]}
+      />
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">Overview</h2>
-        <p className="text-[var(--skyra-text-subtle)] max-w-3xl mb-4">
-          The Skyra Tech Radio is a framework-independent component authored as a native Web Component (`&lt;skyra-tech-radio&gt;`). It natively handles checked states, form association, cross-shadow-boundary grouping, and validation errors without relying on React internals.
-        </p>
-      </section>
+      <PackageMeta 
+        packageName="@skyra-tech-platform/radio"
+        elementName="<skyra-tech-radio>"
+        version="0.1.0"
+        type="Web Component"
+      />
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">Installation</h2>
-        <div className="bg-[var(--skyra-bg-subtle)] p-4 rounded-md border border-[var(--skyra-border)] font-mono text-sm mb-4">
-          pnpm add @skyra-tech-platform/radio
-        </div>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">Framework Usage</h2>
-        <h3 className="text-lg font-semibold mb-2">Vanilla HTML</h3>
-        <pre className="bg-[var(--skyra-bg-subtle)] p-4 rounded-md border border-[var(--skyra-border)] overflow-x-auto text-sm mb-6">
-          <code>{`<script type="module">
+      <HeadingAnchor id="quick-start">Quick Start</HeadingAnchor>
+      <InstallCommand packageName="@skyra-tech-platform/radio" />
+      
+      <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--skyra-text)', marginBottom: '1rem', marginTop: '3rem', letterSpacing: '-0.01em' }}>
+        Basic Usage
+      </h3>
+      <LiveExample 
+        language="html"
+        code={`<script type="module">
   import '@skyra-tech-platform/radio';
 </script>
 
 <skyra-tech-radio name="plan" value="basic" label="Basic Plan"></skyra-tech-radio>
-<skyra-tech-radio name="plan" value="pro" label="Pro Plan" checked></skyra-tech-radio>`}</code>
-        </pre>
-
-        <h3 className="text-lg font-semibold mb-2">React / Next.js</h3>
-        <p className="text-[var(--skyra-text-subtle)] mb-4">
-          The platform exposes a lightweight wrapper inside `@skyra/ui` that passes refs and handles React synthetic events cleanly.
-        </p>
-        <pre className="bg-[var(--skyra-bg-subtle)] p-4 rounded-md border border-[var(--skyra-border)] overflow-x-auto text-sm mb-6">
-          <code>{`import { Radio } from '@skyra/ui';
-
-<Radio name="theme" value="light" label="Light theme" helper="Default appearance" />`}</code>
-        </pre>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">Basic Examples</h2>
-        <div className="p-8 border border-[var(--skyra-border)] rounded-md flex flex-col gap-6 max-w-sm">
-          <Radio name="ex1" value="1" label="Standard Radio 1" />
-          <Radio name="ex1" value="2" label="Standard Radio 2" defaultChecked />
-          <Radio name="ex2" value="3" label="Required Field" required helper="You must pick this to proceed." />
+<skyra-tech-radio name="plan" value="pro" label="Pro Plan" checked></skyra-tech-radio>`}
+      >
+        <div className="flex flex-col gap-4">
+          <Radio name="plan" value="basic" label="Basic Plan" />
+          <Radio name="plan" value="pro" label="Pro Plan" defaultChecked />
         </div>
-      </section>
+      </LiveExample>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">Radio Grouping</h2>
-        <p className="text-[var(--skyra-text-subtle)] mb-4">
-          The custom element automatically clears other radios in the same document with the same `name` attribute when checked.
-        </p>
+      <HeadingAnchor id="examples">Examples</HeadingAnchor>
+      
+      <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--skyra-text)', marginBottom: '0.75rem' }}>Disabled</h3>
+      <LiveExample 
+        language="tsx"
+        title="Disabled"
+        description="Prevent user interaction."
+        code={`<Radio label="Disabled Unchecked" disabled />
+<Radio label="Disabled Checked" defaultChecked disabled />`}
+      >
+        <div className="flex flex-col gap-4">
+          <Radio label="Disabled Unchecked" disabled />
+          <Radio label="Disabled Checked" defaultChecked disabled />
+        </div>
+      </LiveExample>
+
+      <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--skyra-text)', marginBottom: '0.75rem', marginTop: '2rem' }}>Helper & Error Text</h3>
+      <LiveExample 
+        language="tsx"
+        title="Helper & Error"
+        description="Provide additional guidance or validation feedback."
+        code={`<Radio label="Subscribe" helper="We will never spam you." />
+<Radio label="Accept Terms" required error="You must accept the terms to proceed." />`}
+      >
+        <div className="flex flex-col gap-4">
+          <Radio label="Subscribe" helper="We will never spam you." />
+          <Radio label="Accept Terms" required error="You must accept the terms to proceed." />
+        </div>
+      </LiveExample>
+
+      <HeadingAnchor id="grouping">Grouping Behavior</HeadingAnchor>
+      <p className="text-[var(--skyra-text-subtle)] mb-6">
+        Radios automatically form mutually exclusive groups when they share the same <code>name</code> attribute within the same form context. The custom element scopes this grouping behavior to its closest Document or ShadowRoot context to maintain deterministic boundary isolation.
+      </p>
+      <LiveExample 
+        language="tsx"
+        title="Controlled Group"
+        description="Example of a React controlled radio group."
+        code={`const [selected, setSelected] = useState('free');
+
+<Radio name="planGroup" value="free" label="Free Plan" checked={selected === 'free'} onChange={() => setSelected('free')} />
+<Radio name="planGroup" value="pro" label="Pro Plan" checked={selected === 'pro'} onChange={() => setSelected('pro')} />
+<Radio name="planGroup" value="enterprise" label="Enterprise" checked={selected === 'enterprise'} onChange={() => setSelected('enterprise')} />`}
+      >
         <div className="p-8 border border-[var(--skyra-border)] rounded-md flex flex-col gap-4 max-w-sm">
           <Radio 
             name="planGroup" 
@@ -90,27 +149,129 @@ export default function RadioDocsPage() {
             Selected: <strong>{selected}</strong>
           </div>
         </div>
-      </section>
+      </LiveExample>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">States & Validation</h2>
-        <div className="p-8 border border-[var(--skyra-border)] rounded-md flex flex-col gap-6 max-w-sm">
-          <Radio name="ex3" value="1" label="Error State" error="This selection is invalid." />
-          <Radio name="ex4" value="1" label="Disabled Unchecked" disabled />
-          <Radio name="ex4" value="2" label="Disabled Checked" disabled checked />
-        </div>
-      </section>
+      <HeadingAnchor id="usage">Usage Guidance</HeadingAnchor>
+      <UsageGuidance 
+        doItems={[
+          "Use radios for mutually exclusive, single-choice selections from a list of options.",
+          "Provide a clear, concise label for each radio option.",
+          "Group related radios together visually and programmatically using the same name."
+        ]}
+        dontItems={[
+          "Don't use radios for multiple-choice selections (use Checkbox instead).",
+          "Don't trigger immediate state changes (like navigating) on radio selection.",
+          "Don't use radios for a single yes/no binary choice if it can be represented by a Checkbox or Switch."
+        ]}
+      />
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">Accessibility</h2>
-        <ul className="list-disc list-inside text-[var(--skyra-text-subtle)] space-y-2">
-          <li>Implements native form association (`ElementInternals`).</li>
-          <li>Labels are programmatically linked to the internal hidden radio using generated unique IDs.</li>
-          <li>Automatically sets `aria-invalid` and `aria-describedby` when errors or helpers are present.</li>
-          <li>Fully compliant with keyboard navigation (Arrow keys between native inputs, Spacebar activation).</li>
-          <li>Touch targets are intentionally preserved above 44x44px.</li>
-        </ul>
-      </section>
-    </div>
+      <ApiTabs tabs={[
+        { id: 'props', label: 'Properties & Attributes', content: <ApiTable rows={[
+          { name: 'checked', type: 'boolean', defaultVal: 'false', description: 'Whether the radio is checked.' },
+          { name: 'disabled', type: 'boolean', defaultVal: 'false', description: 'Whether the radio is disabled.' },
+          { name: 'required', type: 'boolean', defaultVal: 'false', description: 'Whether the radio is required for form submission.' },
+          { name: 'name', type: 'string', defaultVal: '-', description: 'The name of the radio group, submitted with form data.' },
+          { name: 'value', type: 'string', defaultVal: 'on', description: 'The value to submit if the radio is checked.' },
+          { name: 'label', type: 'string', defaultVal: '-', description: 'The text label for the radio.' },
+          { name: 'helper-text', type: 'string', defaultVal: '-', description: 'Additional context or description.' },
+          { name: 'error', type: 'string', defaultVal: '-', description: 'Error message. If provided, sets invalid state.' },
+          { name: 'invalid', type: 'boolean', defaultVal: 'false', description: 'Forces the invalid error state visually.' }
+        ]} /> },
+        { id: 'events', label: 'Events', content: <ApiTable rows={[
+          { name: 'change', type: 'Event', defaultVal: '-', description: 'Fired when the checked state changes via user interaction.' }
+        ]} /> },
+        { id: 'slots', label: 'Slots', content: <ApiTable rows={[
+          { name: 'label', type: 'HTML', defaultVal: '-', description: 'Slot for rich HTML labels.' },
+          { name: 'helper', type: 'HTML', defaultVal: '-', description: 'Slot for rich HTML helper text.' }
+        ]} /> }
+      ]} />
+
+      <HeadingAnchor id="frameworks">Framework Usage</HeadingAnchor>
+      <FrameworkSupport 
+        frameworks={[
+          { 
+            name: 'Vanilla HTML / JS', 
+            support: 'e2e', 
+            integration: <p>No wrapper needed. Import <code style={{fontFamily: 'var(--skyra-font-mono)'}}>@skyra-tech-platform/radio</code> and use <code style={{fontFamily: 'var(--skyra-font-mono)'}}>&lt;skyra-tech-radio&gt;</code> natively.</p> 
+          },
+          { 
+            name: 'React / Next.js', 
+            support: 'e2e', 
+            integration: <p>Full support via the thin wrapper in <code style={{fontFamily: 'var(--skyra-font-mono)'}}>@skyra/ui</code>. Strongly typed with React event delegation.</p> 
+          },
+          { 
+            name: 'Angular', 
+            support: 'architecture', 
+            integration: <p>Bind attributes and standard properties. Listen to <code>change</code> event.</p> 
+          },
+          { 
+            name: 'Vue 3', 
+            support: 'architecture', 
+            integration: <p>Native custom element support.</p> 
+          },
+          { 
+            name: 'Svelte', 
+            support: 'architecture', 
+            integration: <p>Native custom element support. Standard property bindings work automatically.</p> 
+          }
+        ]}
+      />
+
+      <HeadingAnchor id="accessibility">Accessibility</HeadingAnchor>
+      <AccessibilityPanel 
+        features={[
+          "Exposes standard radio semantics to screen readers via ElementInternals.",
+          "Labels are automatically linked to the internal native radio input.",
+          "Keyboard operable (Arrow keys navigate the group, Spacebar selects).",
+          "aria-invalid and aria-describedby automatically map to error/helper text.",
+          "Preserves a minimum 44x44px touch target on mobile."
+        ]}
+      />
+
+      <HeadingAnchor id="styling">Styling</HeadingAnchor>
+      <p className="text-[var(--skyra-text-subtle)] mb-6">
+        The Radio uses a minimal set of CSS custom properties for high-level customization.
+      </p>
+      <TokenGrid 
+        groups={[
+          {
+            category: 'Radio',
+            tokens: [
+              { name: 'Size', variable: '--skyra-radio-size', value: '1.25rem' },
+              { name: 'Border', variable: '--skyra-radio-border', value: 'var(--skyra-border)' },
+              { name: 'Background', variable: '--skyra-radio-bg', value: 'transparent' },
+              { name: 'Checked Background', variable: '--skyra-radio-checked-bg', value: 'var(--skyra-primary)' },
+              { name: 'Dot Color', variable: '--skyra-radio-dot-color', value: 'white' },
+            ]
+          }
+        ]}
+      />
+
+      <HeadingAnchor id="responsive">Responsive Behavior</HeadingAnchor>
+      <ResponsiveDemo 
+        description="The Radio component is designed to wrap long text elegantly on small viewports while maintaining perfect alignment with the radio control itself. It uses Flexbox to ensure the control remains at the top rather than centering vertically. The touch target is a minimum of 44x44px for accessibility on mobile devices."
+        desktop={<Radio label="Standard desktop layout with a concise label." />}
+        mobile={<Radio label="Short label" />}
+        fullWidth={<Radio label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the radio." helper="The helper text also wraps to match the label." />}
+      />
+
+      <HeadingAnchor id="related">Related Components</HeadingAnchor>
+      <RelatedComponents 
+        components={[
+          { title: 'Checkbox', href: '/components/basic-controls/checkbox', description: 'For multiple-choice selections.', category: 'Basic Controls' },
+          { title: 'Switch', href: '/components/basic-controls/switch', description: 'For immediate, boolean state toggles.', category: 'Basic Controls' },
+          { title: 'Dynamic Form', href: '/dynamic-form', description: 'Compose radios into structured forms.', category: 'Complex Forms' }
+        ]}
+      />
+
+      <HeadingAnchor id="technical">Technical Reference</HeadingAnchor>
+      <Callout type="info" title="Form Association & Grouping">
+        Radio implements <code>ElementInternals</code> to automatically participate in standard HTML forms (<code>&lt;form&gt;</code>). Note that grouping behavior is strictly scoped to the radio's current DOM or Shadow DOM boundary, respecting web component encapsulation principles.
+      </Callout>
+      <Callout type="warning" title="Keyboard Navigation">
+        The web component automatically handles standard keyboard navigation (up/down/left/right arrows) across the radio group when focused, skipping disabled elements in the group.
+      </Callout>
+
+    </DocsLayout>
   );
 }
