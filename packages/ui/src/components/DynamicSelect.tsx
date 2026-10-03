@@ -1,7 +1,12 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import '@skyra-tech-platform/dynamic-select';
+import { defineSkyraTechDynamicSelect } from '@skyra-tech-platform/dynamic-select';
+
+// Ensure the web component is registered when this module is loaded on the client
+if (typeof window !== 'undefined') {
+  defineSkyraTechDynamicSelect();
+}
 
 export type DynamicSelectMode = 'single' | 'multiple';
 

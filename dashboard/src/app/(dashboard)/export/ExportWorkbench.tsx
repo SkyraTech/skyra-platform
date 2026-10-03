@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ExportButton, ExportMenu, Button, Input, Checkbox, NativeSelect } from '@skyra/ui';
+import { ExportButton, ExportMenu, Button, Input, Checkbox, DynamicSelect } from '@skyra/ui';
 import { ExportFormat, ExportScope, ExportColumn } from '@skyra/data-export';
 
 const ALL_DATA = [
@@ -48,10 +48,9 @@ export function ExportWorkbench() {
           
           <div>
             <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.25rem', color: 'var(--skyra-text-muted)' }}>Export Format</label>
-            <NativeSelect 
-              value={format} 
-              onChange={(e) => setFormat(e.target.value as ExportFormat)} 
-              style={{ width: '100%' }}
+            <DynamicSelect 
+              value={{ value: format, label: format.toUpperCase() }} 
+              onChange={(val: any) => setFormat(val?.value as ExportFormat)} 
               options={[
                 { value: 'csv', label: 'CSV (RFC-4180)' },
                 { value: 'xlsx', label: 'Excel (.xlsx)' },
@@ -63,10 +62,9 @@ export function ExportWorkbench() {
 
           <div>
             <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.25rem', color: 'var(--skyra-text-muted)' }}>Dataset Scope</label>
-            <NativeSelect 
-              value={scope} 
-              onChange={(e) => setScope(e.target.value as ExportScope)} 
-              style={{ width: '100%' }}
+            <DynamicSelect 
+              value={{ value: scope, label: scope === 'all' ? 'All Records' : scope === 'page' ? 'Current Page Only' : scope === 'filtered' ? 'Filtered Records' : 'Selected Records Only' }} 
+              onChange={(val: any) => setScope(val?.value as ExportScope)} 
               options={[
                 { value: 'all', label: 'All Records' },
                 { value: 'page', label: 'Current Page Only' },

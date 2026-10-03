@@ -21,13 +21,18 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:ui": "vitest --ui"
   },
   "devDependencies": {
     "typescript": "^5.0.0",
-    "tsup": "^8.0.0"
+    "tsup": "^8.0.0",
+    "vitest": "^2.1.8",
+    "jsdom": "^25.0.0"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": true
 }

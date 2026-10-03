@@ -32,12 +32,7 @@ export type { NumberInputProps } from './components/NumberInput';
 export { Textarea } from './components/Textarea';
 export type { TextareaProps } from './components/Textarea';
 
-// ── Selection & Pickers ──
-export { NativeSelect } from './components/NativeSelect';
-export type { NativeSelectProps, SelectOption as NativeSelectOption } from './components/NativeSelect';
 
-export { CustomSelect } from './components/CustomSelect';
-export type { CustomSelectProps, SelectOption } from './components/CustomSelect';
 
 export { DynamicSelect } from './components/DynamicSelect';
 export type {

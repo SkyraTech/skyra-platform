@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
     '@skyra-tech-platform/checkbox',
     '@skyra-tech-platform/radio',
     '@skyra-tech-platform/button',
+    '@skyra-tech-platform/dynamic-select',
   ],
 };
 

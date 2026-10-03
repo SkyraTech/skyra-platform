@@ -19,7 +19,7 @@ import { NumberInput } from './NumberInput';
 import { NotificationBar } from './NotificationBar';
 import { DataLoader } from './DataLoader';
 import { Tooltip } from './Tooltip';
-import { CustomSelect } from './CustomSelect';
+import { DynamicSelect } from './DynamicSelect';
 import { Spinner } from './Spinner';
 
 // ── parseISODate timezone-neutral ──────────────────────────────────────────
@@ -520,7 +520,7 @@ describe('Tooltip — edge cases', () => {
 // ── Style Property Normalization Regression (React Shorthand/Longhand) ──────
 
 describe('Style Property Normalization — React Shorthand/Longhand conflict prevention', () => {
-  it('CustomSelect transitions focus and error states without React style removal warnings', () => {
+  it('DynamicSelect transitions focus and error states without React style removal warnings', () => {
     const consoleErrorSpy = vi.spyOn(console, 'error');
     const options = [
       { value: 'opt1', label: 'Option 1' },
@@ -528,7 +528,7 @@ describe('Style Property Normalization — React Shorthand/Longhand conflict pre
     ];
 
     const { rerender } = render(
-      <CustomSelect options={options} placeholder="Select an option" />
+      <DynamicSelect options={options} placeholder="Select an option" onChange={() => {}} />
     );
 
     const trigger = screen.getByRole('button');
@@ -537,7 +537,7 @@ describe('Style Property Normalization — React Shorthand/Longhand conflict pre
 
     // Rerender in error state
     rerender(
-      <CustomSelect options={options} placeholder="Select an option" error="Required field" />
+      <DynamicSelect options={options} placeholder="Select an option" error="Required field" onChange={() => {}} />
     );
 
     fireEvent.focus(trigger);
@@ -545,7 +545,7 @@ describe('Style Property Normalization — React Shorthand/Longhand conflict pre
 
     // Rerender back to normal state
     rerender(
-      <CustomSelect options={options} placeholder="Select an option" />
+      <DynamicSelect options={options} placeholder="Select an option" onChange={() => {}} />
     );
 
     const styleConflictErrors = consoleErrorSpy.mock.calls.filter(args =>
