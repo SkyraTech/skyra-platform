@@ -208,7 +208,9 @@ export class SkyraTechSwitch extends BaseClass {
     const hasLabelText = !!this.label;
     const hasLabelSlot = this._labelSlot.assignedNodes().length > 0;
     if (hasLabelText && !hasLabelSlot) {
-      this._labelSlot.textContent = this.label;
+      if (this._labelSlot.textContent !== this.label) {
+        this._labelSlot.textContent = this.label;
+      }
     }
 
     // Error / Helper
@@ -230,7 +232,9 @@ export class SkyraTechSwitch extends BaseClass {
       if (helperMsg || hasHelperSlot) {
         this._helperContainer.style.display = 'block';
         if (helperMsg && !hasHelperSlot) {
-          this._helperSlot.textContent = helperMsg;
+          if (this._helperSlot.textContent !== helperMsg) {
+            this._helperSlot.textContent = helperMsg;
+          }
         }
         describedBy.push(this._helperContainer.id);
       } else {

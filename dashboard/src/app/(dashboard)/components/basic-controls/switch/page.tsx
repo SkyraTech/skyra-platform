@@ -1,48 +1,78 @@
 'use client';
 
+import React, { useState } from 'react';
 import { Switch } from '@skyra/ui';
-import { useState } from 'react';
+import { DocsLayout } from '@/components/docs/DocsLayout';
+import { DocsHeader } from '@/components/docs/DocsHeader';
+import { PackageMeta } from '@/components/docs/PackageMeta';
+import { InstallCommand } from '@/components/docs/InstallCommand';
+import { LiveExample } from '@/components/docs/LiveExample';
+import { ApiTable } from '@/components/docs/ApiTable';
+import { ApiTabs } from '@/components/docs/ApiTabs';
+import { FrameworkSupport } from '@/components/docs/FrameworkSupport';
+import { UsageGuidance } from '@/components/docs/UsageGuidance';
+import { AccessibilityPanel } from '@/components/docs/AccessibilityPanel';
+import { TokenGrid } from '@/components/docs/TokenGrid';
+import { ResponsiveDemo } from '@/components/docs/ResponsiveDemo';
+import { RelatedComponents } from '@/components/docs/RelatedComponents';
+import { Callout } from '@/components/docs/Callout';
+import { HeadingAnchor } from '@/components/docs/HeadingAnchor';
 
 export default function SwitchDocsPage() {
   const [airplaneMode, setAirplaneMode] = useState(false);
 
+  const toc = [
+    { id: 'quick-start', label: 'Quick Start' },
+    { id: 'basic-usage', label: 'Basic Usage' },
+    { id: 'variants', label: 'Variants' },
+    { id: 'sizes', label: 'Sizes' },
+    { id: 'states', label: 'States' },
+    { id: 'usage', label: 'Usage Guidance' },
+    { id: 'api', label: 'API Reference' },
+    { id: 'frameworks', label: 'Framework Usage' },
+    { id: 'accessibility', label: 'Accessibility' },
+    { id: 'styling', label: 'Styling' },
+    { id: 'responsive', label: 'Responsive Behavior' },
+    { id: 'related', label: 'Related Components' },
+    { id: 'technical', label: 'Technical Reference' },
+  ];
+
   return (
-    <div className="p-8 max-w-5xl mx-auto space-y-12">
-      <div>
-        <h1 className="text-3xl font-bold mb-2">Switch</h1>
-        <p className="text-[var(--skyra-text-subtle)]">Framework-independent toggle switch component.</p>
-      </div>
+    <DocsLayout toc={toc}>
+      <DocsHeader 
+        title="Switch"
+        description="A framework-independent toggle control for switching between two boolean states."
+        breadcrumbs={[
+          { label: 'Components', href: '/components' },
+          { label: 'Basic Controls' },
+          { label: 'Switch' }
+        ]}
+        badges={[
+          { label: 'Stable', variant: 'stable' },
+          { label: 'Web Component', variant: 'tech' }
+        ]}
+      />
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">Overview</h2>
-        <p className="text-[var(--skyra-text-subtle)] max-w-3xl mb-4">
-          The Skyra Tech Switch is a native Web Component (`&lt;skyra-tech-switch&gt;`) supporting various visual variants (default, compact, labeled, icon, outline) and sizes. It safely isolates its visual states inside a Shadow DOM and correctly reports state to standard web forms and accessibility tools.
-        </p>
-      </section>
+      <PackageMeta 
+        packageName="@skyra-tech-platform/switch"
+        elementName="<skyra-tech-switch>"
+        version="0.1.0"
+        type="Web Component"
+      />
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">Installation</h2>
-        <div className="bg-[var(--skyra-bg-subtle)] p-4 rounded-md border border-[var(--skyra-border)] font-mono text-sm mb-4">
-          pnpm add @skyra-tech-platform/switch
-        </div>
-      </section>
+      <HeadingAnchor id="quick-start">Quick Start</HeadingAnchor>
+      <InstallCommand packageName="@skyra-tech-platform/switch" />
+      
+      <HeadingAnchor id="basic-usage">Basic Usage</HeadingAnchor>
+      <LiveExample 
+        language="html"
+        code={`<script type="module">
+  import '@skyra-tech-platform/switch';
+</script>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">Framework Usage</h2>
-        <h3 className="text-lg font-semibold mb-2">React / Next.js Wrapper</h3>
-        <p className="text-[var(--skyra-text-subtle)] mb-4">
-          Use the `Switch` component exported from `@skyra/ui` for seamless React JSX mapping.
-        </p>
-        <pre className="bg-[var(--skyra-bg-subtle)] p-4 rounded-md border border-[var(--skyra-border)] overflow-x-auto text-sm mb-6">
-          <code>{`import { Switch } from '@skyra/ui';
-
-<Switch label="Airplane Mode" variant="icon" />`}</code>
-        </pre>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">Interactive Example</h2>
-        <div className="p-8 border border-[var(--skyra-border)] rounded-md flex flex-col gap-4 max-w-sm">
+<skyra-tech-switch label="Airplane Mode"></skyra-tech-switch>`}
+      >
+        <div className="flex flex-col gap-4">
           <Switch 
             label="Airplane Mode"
             description="Disable all wireless connections."
@@ -53,45 +83,187 @@ export default function SwitchDocsPage() {
             Airplane Mode: <strong>{airplaneMode ? 'ON' : 'OFF'}</strong>
           </div>
         </div>
-      </section>
+      </LiveExample>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">Variants & Sizes</h2>
-        <div className="p-8 border border-[var(--skyra-border)] rounded-md flex flex-col gap-6 max-w-sm">
+      <HeadingAnchor id="variants">Variants</HeadingAnchor>
+      <LiveExample 
+        language="tsx"
+        title="Visual Variants"
+        description="The switch supports several visual variants including compact, labeled, icon, and outline modes."
+        code={`<Switch label="Default" />
+<Switch label="Compact" variant="compact" />
+<Switch label="Labeled" variant="labeled" defaultChecked />
+<Switch label="Icon" variant="icon" defaultChecked />
+<Switch label="Outline" variant="outline" defaultChecked />`}
+      >
+        <div className="flex flex-col gap-4">
           <Switch label="Default" />
           <Switch label="Compact" variant="compact" />
-          <Switch label="Labeled" variant="labeled" checked={true} />
-          <Switch label="Icon" variant="icon" checked={true} />
-          <Switch label="Outline" variant="outline" checked={true} />
-          
-          <div className="border-t border-[var(--skyra-border)] pt-4 mt-2">
-            <Switch label="Small Size" size="sm" />
-            <Switch label="Medium Size" size="md" className="mt-2" />
-            <Switch label="Large Size" size="lg" className="mt-2" />
-          </div>
+          <Switch label="Labeled" variant="labeled" defaultChecked />
+          <Switch label="Icon" variant="icon" defaultChecked />
+          <Switch label="Outline" variant="outline" defaultChecked />
         </div>
-      </section>
+      </LiveExample>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">States & Validation</h2>
-        <div className="p-8 border border-[var(--skyra-border)] rounded-md flex flex-col gap-6 max-w-sm">
-          <Switch label="Error State" error="Feature unavailable in current plan." />
-          <Switch label="Disabled Unchecked" disabled />
-          <Switch label="Disabled Checked" disabled checked={true} />
-          <Switch label="Loading State" loading checked={true} />
-          <Switch label="Readonly State" readOnly checked={true} />
+      <HeadingAnchor id="sizes">Sizes</HeadingAnchor>
+      <LiveExample 
+        language="tsx"
+        title="Sizes"
+        description="Available in small, medium (default), and large sizes."
+        code={`<Switch label="Small Size" size="sm" />
+<Switch label="Medium Size" size="md" />
+<Switch label="Large Size" size="lg" />`}
+      >
+        <div className="flex flex-col gap-4">
+          <Switch label="Small Size" size="sm" />
+          <Switch label="Medium Size" size="md" />
+          <Switch label="Large Size" size="lg" />
         </div>
-      </section>
-      
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold border-b border-[var(--skyra-border)] pb-2">Accessibility</h2>
-        <ul className="list-disc list-inside text-[var(--skyra-text-subtle)] space-y-2">
-          <li>Implements native form association (`ElementInternals`).</li>
-          <li>Labels and helpers are programmatically linked to the inner native button using dynamically generated unique IDs across the Shadow Boundary.</li>
-          <li>Properly exposes `role="switch"` and updates `aria-checked`.</li>
-          <li>Supports native `Spacebar` and `Enter` key interactions natively because it utilizes a real `&lt;button&gt;` internally.</li>
-        </ul>
-      </section>
-    </div>
+      </LiveExample>
+
+      <HeadingAnchor id="states">States</HeadingAnchor>
+      <LiveExample 
+        language="tsx"
+        title="States"
+        description="Demonstrating disabled, readonly, loading, and error states."
+        code={`<Switch label="Disabled" disabled />
+<Switch label="Disabled Checked" disabled defaultChecked />
+<Switch label="Read-only" readOnly defaultChecked />
+<Switch label="Loading" loading defaultChecked />
+<Switch label="Error State" error="Network connectivity required." />`}
+      >
+        <div className="flex flex-col gap-4">
+          <Switch label="Disabled" disabled />
+          <Switch label="Disabled Checked" disabled defaultChecked />
+          <Switch label="Read-only" readOnly defaultChecked />
+          <Switch label="Loading" loading defaultChecked />
+          <Switch label="Error State" error="Network connectivity required." />
+        </div>
+      </LiveExample>
+
+      <HeadingAnchor id="usage">Usage Guidance</HeadingAnchor>
+      <UsageGuidance 
+        doItems={[
+          "Use switches for immediate, boolean state changes (e.g., turning a setting on or off).",
+          "Provide a clear, descriptive label for the switch.",
+          "Use the Loading state when a switch toggle requires an asynchronous network request."
+        ]}
+        dontItems={[
+          "Don't use a switch when the user must click a separate 'Save' or 'Submit' button to apply changes (use Checkbox instead).",
+          "Don't use a switch for multiple-choice selections.",
+          "Don't use vague labels like 'Enable' without clarifying what is being enabled."
+        ]}
+      />
+
+      <HeadingAnchor id="api">API Reference</HeadingAnchor>
+      <ApiTabs tabs={[
+        { id: 'props', label: 'Properties & Attributes', content: <ApiTable rows={[
+          { name: 'checked', type: 'boolean', defaultVal: 'false', description: 'Whether the switch is turned on.' },
+          { name: 'disabled', type: 'boolean', defaultVal: 'false', description: 'Whether the switch is disabled.' },
+          { name: 'readonly', type: 'boolean', defaultVal: 'false', description: 'Whether the switch is read-only (cannot be toggled).' },
+          { name: 'loading', type: 'boolean', defaultVal: 'false', description: 'Shows a loading spinner in the thumb and prevents toggling.' },
+          { name: 'required', type: 'boolean', defaultVal: 'false', description: 'Whether the switch is required.' },
+          { name: 'variant', type: "'default' | 'compact' | 'labeled' | 'icon' | 'outline'", defaultVal: "'default'", description: 'The visual variant of the switch.' },
+          { name: 'size', type: "'sm' | 'md' | 'lg'", defaultVal: "'md'", description: 'The size of the switch.' },
+          { name: 'name', type: 'string', defaultVal: '-', description: 'The name submitted with form data.' },
+          { name: 'value', type: 'string', defaultVal: 'on', description: 'The value to submit if the switch is checked.' },
+          { name: 'label', type: 'string', defaultVal: '-', description: 'The text label for the switch.' },
+          { name: 'helper-text', type: 'string', defaultVal: '-', description: 'Additional context or description.' },
+          { name: 'error', type: 'string', defaultVal: '-', description: 'Error message. If provided, sets invalid state.' },
+          { name: 'invalid', type: 'boolean', defaultVal: 'false', description: 'Forces the invalid error state visually.' }
+        ]} /> },
+        { id: 'events', label: 'Events', content: <ApiTable rows={[
+          { name: 'change', type: 'Event', defaultVal: '-', description: 'Fired when the checked state changes via user interaction.' }
+        ]} /> },
+        { id: 'slots', label: 'Slots', content: <ApiTable rows={[
+          { name: 'label', type: 'HTML', defaultVal: '-', description: 'Slot for rich HTML labels.' },
+          { name: 'helper', type: 'HTML', defaultVal: '-', description: 'Slot for rich HTML helper text.' }
+        ]} /> }
+      ]} />
+
+      <HeadingAnchor id="frameworks">Framework Usage</HeadingAnchor>
+      <FrameworkSupport 
+        frameworks={[
+          { 
+            name: 'Vanilla HTML / JS', 
+            support: 'e2e', 
+            integration: <p>No wrapper needed. Import <code style={{fontFamily: 'var(--skyra-font-mono)'}}>@skyra-tech-platform/switch</code> and use <code style={{fontFamily: 'var(--skyra-font-mono)'}}>&lt;skyra-tech-switch&gt;</code> natively.</p> 
+          },
+          { 
+            name: 'React / Next.js', 
+            support: 'e2e', 
+            integration: <p>Full support via the thin wrapper in <code style={{fontFamily: 'var(--skyra-font-mono)'}}>@skyra/ui</code>. Strongly typed with React event delegation.</p> 
+          },
+          { 
+            name: 'Angular', 
+            support: 'architecture', 
+            integration: <p>Bind attributes and standard properties. Listen to <code>change</code> event.</p> 
+          },
+          { 
+            name: 'Vue 3', 
+            support: 'architecture', 
+            integration: <p>Native custom element support.</p> 
+          },
+          { 
+            name: 'Svelte', 
+            support: 'architecture', 
+            integration: <p>Native custom element support. Standard property bindings work automatically.</p> 
+          }
+        ]}
+      />
+
+      <HeadingAnchor id="accessibility">Accessibility</HeadingAnchor>
+      <AccessibilityPanel 
+        features={[
+          "Utilizes a native <button role=\"switch\"> element inside the Shadow DOM.",
+          "Properly updates the aria-checked state corresponding to the value.",
+          "Labels and helpers are programmatically linked across the Shadow DOM boundary without duplicate IDs.",
+          "aria-invalid and aria-describedby automatically map to error/helper text.",
+          "Native keyboard operable (Spacebar and Enter trigger toggle natively)."
+        ]}
+      />
+
+      <HeadingAnchor id="styling">Styling</HeadingAnchor>
+      <p className="text-[var(--skyra-text-subtle)] mb-6">
+        The Switch uses a minimal set of CSS custom properties for high-level customization.
+      </p>
+      <TokenGrid 
+        groups={[
+          {
+            category: 'Switch',
+            tokens: [
+              { name: 'Primary Color', variable: '--skyra-switch-primary', value: 'var(--skyra-primary)' },
+              { name: 'Border Color', variable: '--skyra-switch-border', value: 'var(--skyra-border)' },
+              { name: 'Background', variable: '--skyra-switch-bg', value: 'var(--skyra-bg)' },
+              { name: 'Thumb Shadow', variable: '--skyra-switch-shadow-sm', value: 'var(--skyra-shadow-sm)' },
+              { name: 'Radius', variable: '--skyra-switch-radius-full', value: 'var(--skyra-radius-full)' },
+              { name: 'Animation Duration', variable: '--skyra-switch-duration', value: 'var(--skyra-duration-fast)' },
+            ]
+          }
+        ]}
+      />
+
+      <HeadingAnchor id="responsive">Responsive Behavior</HeadingAnchor>
+      <ResponsiveDemo 
+        description="The Switch component handles varying label lengths effectively while preserving alignment. Using CSS flexbox inside the Shadow DOM, the switch track remains vertically aligned to the top of multi-line text, ensuring predictable behavior on mobile devices."
+        desktop={<Switch label="Standard desktop layout with a concise label." />}
+        mobile={<Switch label="Short label" />}
+        fullWidth={<Switch label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the switch control." description="The helper text also wraps to match the label." />}
+      />
+
+      <HeadingAnchor id="related">Related Components</HeadingAnchor>
+      <RelatedComponents 
+        components={[
+          { title: 'Checkbox', href: '/components/basic-controls/checkbox', description: 'For multiple-choice selections or form submission agreements.', category: 'Basic Controls' },
+          { title: 'Radio', href: '/components/basic-controls/radio', description: 'For mutually exclusive selections.', category: 'Basic Controls' }
+        ]}
+      />
+
+      <HeadingAnchor id="technical">Technical Reference</HeadingAnchor>
+      <Callout type="info" title="Form Association">
+        Switch implements <code>ElementInternals</code> to automatically participate in standard HTML forms (<code>&lt;form&gt;</code>). It manages its own internal state properly and syncs it with the form data.
+      </Callout>
+
+    </DocsLayout>
   );
 }

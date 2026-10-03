@@ -108,6 +108,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         helper-text={typeof effectiveHelper === 'string' ? effectiveHelper : undefined}
         status={effectiveStatus}
         required={required ? 'true' : undefined}
+        invalid={error ? '' : undefined}
         show-count={showCount ? 'true' : undefined}
         auto-resize={autoResize ? 'true' : undefined}
         resize={resize}

@@ -97,6 +97,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         helper-text={typeof effectiveHelper === 'string' ? effectiveHelper : undefined}
         required={required ? '' : undefined}
         disabled={disabled ? true : undefined}
+        invalid={error ? '' : undefined}
         {...rest}
       >
         {typeof label !== 'string' && label ? (

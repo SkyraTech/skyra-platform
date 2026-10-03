@@ -140,7 +140,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         placeholder={placeholder}
         name={name}
         has-left={left ? '' : undefined}
-        has-right={right ? '' : undefined}
+        has-right={!!right || loading || (clearable && !!(value ?? defaultValue) && !disabled && !readOnly) ? '' : undefined}
         {...rest}
       >
         {typeof label !== 'string' && label ? (

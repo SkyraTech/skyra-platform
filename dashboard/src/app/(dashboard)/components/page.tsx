@@ -14,7 +14,7 @@ const COMPONENT_GROUPS = [
       { href: '/components/basic-controls/textarea', label: 'Textarea', desc: 'Auto-resizing, character count, validation states.', status: 'stable', tech: 'Web Component' },
       { href: '/components/basic-controls/checkbox', label: 'Checkbox', desc: 'Accessible single and grouped checkboxes.', status: 'stable', tech: 'Web Component' },
       { href: '/components/basic-controls/radio', label: 'Radio', desc: 'WAI-ARIA roving tabindex single-selection controls.', status: 'stable', tech: 'Web Component' },
-      { href: '#', label: 'Switch', desc: '5 design variants across 3 sizes.', status: 'planned', tech: 'Web Component' },
+      { href: '/components/basic-controls/switch', label: 'Switch', desc: '5 design variants across 3 sizes.', status: 'stable', tech: 'Web Component' },
     ],
   },
   {

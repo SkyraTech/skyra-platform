@@ -1,7 +1,12 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import '@skyra-tech-platform/switch';
+import { defineSkyraTechSwitch } from '@skyra-tech-platform/switch';
+
+// Ensure the web component is registered when this module is loaded on the client
+if (typeof window !== 'undefined') {
+  defineSkyraTechSwitch();
+}
 
 export type SwitchVariant = 'default' | 'compact' | 'labeled' | 'icon' | 'outline';
 export type SwitchSize = 'sm' | 'md' | 'lg';
@@ -47,23 +52,26 @@ declare global {
   }
 }
 
-export function Switch({
-  checked,
-  defaultChecked,
-  onChange,
-  label,
-  description,
-  error,
-  disabled = false,
-  readOnly = false,
-  loading = false,
-  required = false,
-  variant = 'default',
-  size = 'md',
-  id,
-  name,
-  className = '',
-}: SwitchProps) {
+export const Switch = React.forwardRef<HTMLElement, SwitchProps>((
+  {
+    checked,
+    defaultChecked,
+    onChange,
+    label,
+    description,
+    error,
+    disabled = false,
+    readOnly = false,
+    loading = false,
+    required = false,
+    variant = 'default',
+    size = 'md',
+    id,
+    name,
+    className = '',
+  },
+  ref
+) => {
   const internalRef = useRef<any>(null);
 
   useEffect(() => {
@@ -90,7 +98,11 @@ export function Switch({
 
   return (
     <skyra-tech-switch
-      ref={internalRef}
+      ref={(el: any) => {
+        internalRef.current = el;
+        if (typeof ref === 'function') ref(el);
+        else if (ref) (ref as any).current = el;
+      }}
       class={className || undefined}
       id={id}
       name={name}
@@ -104,9 +116,12 @@ export function Switch({
       label={typeof label === 'string' ? label : undefined}
       helper-text={typeof description === 'string' ? description : undefined}
       error={error}
+      invalid={error ? '' : undefined}
     >
       {typeof label !== 'string' && label ? <span slot="label">{label}</span> : null}
       {typeof description !== 'string' && description ? <span slot="helper">{description}</span> : null}
     </skyra-tech-switch>
   );
-}
+});
+
+Switch.displayName = 'Switch';

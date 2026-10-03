@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
     '@skyra/data-table',
     '@skyra/dynamic-form',
     '@skyra/dialogs',
+    '@skyra-tech-platform/switch',
+    '@skyra-tech-platform/input',
+    '@skyra-tech-platform/textarea',
+    '@skyra-tech-platform/checkbox',
+    '@skyra-tech-platform/radio',
+    '@skyra-tech-platform/button',
   ],
 };
 

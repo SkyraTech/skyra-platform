@@ -215,6 +215,15 @@ export function buildSearchIndex(): SearchDocument[] {
     keywords: ['radio', 'skyra-tech-radio', '@skyra-tech-platform/radio', 'Basic Controls', 'exclusive', 'group', 'web component'],
   });
 
+  documents.push({
+    id: 'component-switch',
+    type: 'foundation',
+    title: 'Switch',
+    description: 'Framework-independent toggle switch component.',
+    href: '/components/basic-controls/switch',
+    keywords: ['switch', 'skyra-tech-switch', '@skyra-tech-platform/switch', 'Basic Controls', 'toggle', 'web component'],
+  });
+
   // Releases
   if (registry.getReleases) {
     for (const release of registry.getReleases()) {
