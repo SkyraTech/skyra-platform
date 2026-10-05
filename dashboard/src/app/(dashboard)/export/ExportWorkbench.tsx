@@ -113,10 +113,9 @@ export function ExportWorkbench() {
               
               <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.25rem', color: 'var(--skyra-text-muted)' }}>CSV Delimiter</label>
-                <NativeSelect 
-                  value={delimiter} 
-                  onChange={(e) => setDelimiter(e.target.value)} 
-                  style={{ width: '100%' }}
+                <DynamicSelect 
+                  value={{ value: delimiter, label: delimiter === ',' ? 'Comma (,)' : delimiter === ';' ? 'Semicolon (;)' : 'Pipe (|)' }} 
+                  onChange={(val: any) => setDelimiter(val?.value || ',')} 
                   options={[
                     { value: ',', label: 'Comma (,)' },
                     { value: ';', label: 'Semicolon (;)' },

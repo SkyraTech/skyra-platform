@@ -114,6 +114,7 @@ export function DynamicSelect<T = DefaultSelectOption>({
     if (optionGroup) el.optionGroup = optionGroup;
     if (optionDescription) el.optionDescription = optionDescription;
     if (optionDisabled) el.optionDisabled = optionDisabled;
+    
   }, [
     options, value, optionLabel, optionValue, optionGroup, optionDescription, optionDisabled
   ]);

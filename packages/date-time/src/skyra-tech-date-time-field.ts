@@ -30,7 +30,10 @@ export class SkyraTechDateTimeField extends BaseClass {
     if (oldVal !== newVal && this.isConnected) {
       if (name === 'date-value' || name === 'time-value') {
         const val = { date: this.dateValue, time: this.timeValue };
-        this._internals.setFormValue(JSON.stringify(val));
+        if (this._internals && typeof this._internals.setFormValue === 'function') {
+      this._internals.setFormValue(JSON.stringify(val));
+    }
+
       }
       this._updateUI();
     }
@@ -87,11 +90,13 @@ export class SkyraTechDateTimeField extends BaseClass {
 
   private _setupListeners() {
     this._dateField.addEventListener('skyra-change', (e: Event) => {
+      e.stopPropagation();
       const custom = e as CustomEvent;
       this.dateValue = custom.detail.value;
       this.dispatchEvent(new CustomEvent('skyra-change', { detail: { value: this.value }, bubbles: true }));
     });
     this._timeField.addEventListener('skyra-change', (e: Event) => {
+      e.stopPropagation();
       const custom = e as CustomEvent;
       this.timeValue = custom.detail.value;
       this.dispatchEvent(new CustomEvent('skyra-change', { detail: { value: this.value }, bubbles: true }));
@@ -142,9 +147,15 @@ export class SkyraTechDateTimeField extends BaseClass {
     if (this.max) this._dateField.setAttribute('max', this.max);
     
     if (this.required && (!this.dateValue || !this.timeValue)) {
+      if (this._internals && typeof this._internals.setValidity === 'function') {
       this._internals.setValidity({ valueMissing: true }, 'Date and time are required');
+    }
+
     } else {
+      if (this._internals && typeof this._internals.setValidity === 'function') {
       this._internals.setValidity({});
+    }
+
     }
   }
 }

@@ -224,6 +224,24 @@ export function buildSearchIndex(): SearchDocument[] {
     keywords: ['switch', 'skyra-tech-switch', '@skyra-tech-platform/switch', 'Basic Controls', 'toggle', 'web component'],
   });
 
+  documents.push({
+    id: 'component-dynamic-select',
+    type: 'foundation',
+    title: 'Dynamic Select',
+    description: 'Framework-independent single/multi select Web Component with search and chip display.',
+    href: '/components/selection/dynamic-select',
+    keywords: ['select', 'dynamic-select', 'dropdown', 'skyra-tech-dynamic-select', '@skyra-tech-platform/dynamic-select', 'Selection', 'web component'],
+  });
+
+  documents.push({
+    id: 'component-date-time',
+    type: 'foundation',
+    title: 'Date & Time Suite',
+    description: 'Complete ISO-compliant date & time suite with calendar popovers.',
+    href: '/components/forms/date-time',
+    keywords: ['date', 'time', 'calendar', 'date-range', 'skyra-tech-date-field', '@skyra-tech-platform/date-time', 'Forms', 'web component'],
+  });
+
   // Releases
   if (registry.getReleases) {
     for (const release of registry.getReleases()) {

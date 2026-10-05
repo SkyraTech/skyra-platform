@@ -18,7 +18,6 @@ export function LiveExample({ children, code, language = 'html', title, descript
     <div style={{ 
       border: '1px solid var(--skyra-border)', 
       borderRadius: 'var(--skyra-radius-lg)', 
-      overflow: 'hidden', 
       marginBottom: '2rem',
       background: 'var(--skyra-surface)'
     }}>
@@ -29,6 +28,8 @@ export function LiveExample({ children, code, language = 'html', title, descript
         justifyContent: 'space-between',
         padding: '0.75rem 1rem',
         borderBottom: '1px solid var(--skyra-border)',
+        borderTopLeftRadius: 'calc(var(--skyra-radius-lg) - 1px)',
+        borderTopRightRadius: 'calc(var(--skyra-radius-lg) - 1px)',
         background: 'var(--skyra-bg-muted)'
       }}>
         <div>

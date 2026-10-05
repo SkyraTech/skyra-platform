@@ -29,7 +29,10 @@ export class SkyraTechTimeRangeField extends BaseClass {
     if (oldVal !== newVal && this.isConnected) {
       if (name === 'start-value' || name === 'end-value') {
         const val = { start: this.startValue, end: this.endValue };
-        this._internals.setFormValue(JSON.stringify(val));
+        if (this._internals && typeof this._internals.setFormValue === 'function') {
+      this._internals.setFormValue(JSON.stringify(val));
+    }
+
       }
       this._updateUI();
     }
@@ -43,10 +46,15 @@ export class SkyraTechTimeRangeField extends BaseClass {
   get disabled() { return this.hasAttribute('disabled'); }
   set disabled(v) { if (v) this.setAttribute('disabled', ''); else this.removeAttribute('disabled'); }
   get required() { return this.hasAttribute('required'); }
+  set required(v) { if (v) this.setAttribute('required', ''); else this.removeAttribute('required'); }
   get label() { return this.getAttribute('label') || ''; }
+  set label(v) { if (v) this.setAttribute('label', v); else this.removeAttribute('label'); }
   get helperText() { return this.getAttribute('helper-text') || ''; }
+  set helperText(v) { if (v) this.setAttribute('helper-text', v); else this.removeAttribute('helper-text'); }
   get error() { return this.getAttribute('error') || ''; }
+  set error(v) { if (v) this.setAttribute('error', v); else this.removeAttribute('error'); }
   get format() { return this.getAttribute('format') || '12h'; }
+  set format(v) { if (v) this.setAttribute('format', v); else this.removeAttribute('format'); }
 
   private _render() {
     this._shadowRoot.innerHTML = `
@@ -77,11 +85,13 @@ export class SkyraTechTimeRangeField extends BaseClass {
 
   private _setupListeners() {
     this._startField.addEventListener('skyra-change', (e: Event) => {
+      e.stopPropagation();
       const custom = e as CustomEvent;
       this.startValue = custom.detail.value;
       this.dispatchEvent(new CustomEvent('skyra-change', { detail: { value: { start: this.startValue, end: this.endValue } }, bubbles: true }));
     });
     this._endField.addEventListener('skyra-change', (e: Event) => {
+      e.stopPropagation();
       const custom = e as CustomEvent;
       this.endValue = custom.detail.value;
       this.dispatchEvent(new CustomEvent('skyra-change', { detail: { value: { start: this.startValue, end: this.endValue } }, bubbles: true }));
@@ -125,9 +135,15 @@ export class SkyraTechTimeRangeField extends BaseClass {
     this._endField.setAttribute('format', this.format);
     
     if (this.required && (!this.startValue || !this.endValue)) {
+      if (this._internals && typeof this._internals.setValidity === 'function') {
       this._internals.setValidity({ valueMissing: true }, 'Start and end times are required');
+    }
+
     } else {
+      if (this._internals && typeof this._internals.setValidity === 'function') {
       this._internals.setValidity({});
+    }
+
     }
   }
 }

@@ -17,28 +17,8 @@ export interface CalendarProps {
   className?: string;
 }
 
-export function toISODate(d: Date): string {
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
-export function parseISODate(val?: string | Date | null): Date | null {
-  if (!val) return null;
-  if (val instanceof Date) return isNaN(val.getTime()) ? null : val;
-  const str = String(val);
-  const parts = str.split('-');
-  if (parts.length === 3 && parts[0] && parts[1] && parts[2]) {
-    const y = parseInt(parts[0], 10);
-    const m = parseInt(parts[1], 10) - 1;
-    const d = parseInt(parts[2], 10);
-    const date = new Date(y, m, d);
-    return isNaN(date.getTime()) ? null : date;
-  }
-  const parsed = new Date(str);
-  return isNaN(parsed.getTime()) ? null : parsed;
-}
+import { toISODate, parseISODate } from '@skyra-tech-platform/date-time';
+export { toISODate, parseISODate };
 
 export function Calendar({
   mode = 'single',

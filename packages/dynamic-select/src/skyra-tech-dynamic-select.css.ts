@@ -1,4 +1,12 @@
 export const dynamicSelectStyles = `
+  :host([data-open]) {
+    position: relative;
+    z-index: 1000;
+  }
+  :host([data-open]) .wrapper {
+    z-index: 1000;
+  }
+
   :host {
     display: block;
     font-family: var(--skyra-font-body, system-ui, sans-serif);
@@ -205,7 +213,7 @@ export const dynamicSelectStyles = `
     border: 1px solid var(--skyra-select-border);
     border-radius: var(--skyra-select-radius-md);
     box-shadow: var(--skyra-select-shadow-lg);
-    z-index: 200;
+    z-index: 1001;
     overflow: hidden;
     display: none;
     flex-direction: column;
@@ -214,6 +222,24 @@ export const dynamicSelectStyles = `
 
   .listbox.open {
     display: flex;
+  }
+
+  :host([placement="top"]) .listbox {
+    top: auto;
+    bottom: calc(100% + 4px);
+    box-shadow: 0 -10px 15px -3px rgba(0, 0, 0, 0.1), 0 -4px 6px -2px rgba(0, 0, 0, 0.05);
+    animation: skyra-fade-in-down 0.2s ease forwards;
+  }
+
+  @keyframes skyra-fade-in-down {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   /* Search Header */
@@ -284,6 +310,7 @@ export const dynamicSelectStyles = `
   /* Options list */
   .options-container {
     overflow-y: auto;
+    min-height: 0;
     flex: 1;
     padding: 4px;
     display: flex;

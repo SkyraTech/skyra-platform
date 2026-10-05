@@ -1,4 +1,4 @@
-import { toISODateString, parseDate, icons } from './utils';
+import { toISODate, parseISODate, icons } from './utils';
 import { dateFieldCss } from './date-field.css';
 import './skyra-tech-calendar';
 
@@ -32,7 +32,10 @@ export class SkyraTechDateField extends BaseClass {
   attributeChangedCallback(name: string, oldVal: string | null, newVal: string | null) {
     if (oldVal !== newVal && this.isConnected) {
       if (name === 'value') {
-        this._internals.setFormValue(newVal);
+        if (this._internals && typeof this._internals.setFormValue === 'function') {
+      this._internals.setFormValue(newVal);
+    }
+
       }
       this._updateUI();
     }
@@ -105,7 +108,7 @@ export class SkyraTechDateField extends BaseClass {
     wrapper.addEventListener('click', () => {
       if (!this.disabled) {
         this._setOpen(true);
-        this._input.focus();
+        // this._input.focus();
       }
     });
 
@@ -123,8 +126,7 @@ export class SkyraTechDateField extends BaseClass {
 
     this._popover.addEventListener('mouseup', () => {
       this._ignoreBlur = false;
-      this._input.focus();
-    });
+      });
 
     // Manual typing
     this._input.addEventListener('keydown', (e) => {
@@ -149,6 +151,7 @@ export class SkyraTechDateField extends BaseClass {
 
     // Handle Calendar selection
     this._calendar.addEventListener('skyra-change', (e: Event) => {
+      e.stopPropagation();
       const custom = e as CustomEvent;
       const iso = custom.detail.value;
       if (iso !== this.value) {
@@ -167,9 +170,9 @@ export class SkyraTechDateField extends BaseClass {
   }
 
   private _validateInput(text: string) {
-    const d = parseDate(text);
+    const d = parseISODate(text);
     if (d) {
-      const iso = toISODateString(d);
+      const iso = toISODate(d);
       if (iso !== this.value) {
         this.value = iso;
         this.dispatchEvent(new CustomEvent('skyra-change', { detail: { value: iso }, bubbles: true }));
@@ -247,9 +250,15 @@ export class SkyraTechDateField extends BaseClass {
     
     // Element internals valid state (simplified)
     if (this.required && !this.value) {
+      if (this._internals && typeof this._internals.setValidity === 'function') {
       this._internals.setValidity({ valueMissing: true }, 'Date is required');
+    }
+
     } else {
+      if (this._internals && typeof this._internals.setValidity === 'function') {
       this._internals.setValidity({});
+    }
+
     }
   }
 }

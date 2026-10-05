@@ -1,11 +1,11 @@
-export function toISODateString(d: Date): string {
+export function toISODate(d: Date): string {
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 }
 
-export function parseDate(val?: string | Date | null): Date | null {
+export function parseISODate(val?: string | Date | null): Date | null {
   if (!val) return null;
   if (val instanceof Date) return isNaN(val.getTime()) ? null : val;
   const str = String(val);

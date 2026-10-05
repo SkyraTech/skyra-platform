@@ -75,7 +75,7 @@ export default function DynamicSelectDocsPage() {
         description="A framework-independent, feature-rich select component with single/multi-select, search, grouping, creatable options, and full keyboard navigation."
         breadcrumbs={[
           { label: 'Components', href: '/components' },
-          { label: 'Basic Controls' },
+          { label: 'Selection' },
           { label: 'Dynamic Select' },
         ]}
         badges={[
@@ -118,7 +118,7 @@ export default function DynamicSelectDocsPage() {
   el.addEventListener('skyra-change', e => console.log(e.detail.value));
 </script>`}
       >
-        <div style={{ width: '100%', maxWidth: '380px' }}>
+        <div style={{ width: '100%', maxWidth: '380px', minHeight: '340px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
           <DynamicSelect
             options={frameworks}
             label="Favorite Framework"
@@ -144,7 +144,7 @@ export default function DynamicSelectDocsPage() {
   onChange={setValue}
 />`}
       >
-        <div style={{ width: '100%', maxWidth: '380px' }}>
+        <div style={{ width: '100%', maxWidth: '380px', minHeight: '340px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
           <DynamicSelect
             options={countries}
             label="Country"
@@ -172,7 +172,7 @@ export default function DynamicSelectDocsPage() {
   onChange={setValues}
 />`}
       >
-        <div style={{ width: '100%', maxWidth: '480px' }}>
+        <div style={{ width: '100%', maxWidth: '480px', minHeight: '340px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
           <DynamicSelect
             options={frameworks}
             mode="multiple"
@@ -204,7 +204,7 @@ export default function DynamicSelectDocsPage() {
   onChange={setValue}
 />`}
       >
-        <div style={{ width: '100%', maxWidth: '380px' }}>
+        <div style={{ width: '100%', maxWidth: '380px', minHeight: '340px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
           <DynamicSelect
             options={frameworks}
             label="Choose by Category"
@@ -229,7 +229,7 @@ export default function DynamicSelectDocsPage() {
 
 <DynamicSelect options={plans} onChange={setValue} />`}
       >
-        <div style={{ width: '100%', maxWidth: '380px' }}>
+        <div style={{ width: '100%', maxWidth: '380px', minHeight: '340px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
           <DynamicSelect
             options={withDisabled}
             label="Subscription Plan"
@@ -253,7 +253,7 @@ export default function DynamicSelectDocsPage() {
   onChange={setValues}
 />`}
       >
-        <div style={{ width: '100%', maxWidth: '480px' }}>
+        <div style={{ width: '100%', maxWidth: '480px', minHeight: '340px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
           <DynamicSelect
             options={frameworks.slice(0, 4)}
             mode="multiple"
@@ -278,7 +278,7 @@ export default function DynamicSelectDocsPage() {
 <DynamicSelect options={options} disabled label="Disabled" onChange={() => {}} />
 <DynamicSelect options={options} error="Selection required" label="Error State" onChange={() => {}} />`}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%', maxWidth: '380px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%', maxWidth: '380px', minHeight: '340px', justifyContent: 'flex-start' }}>
           <DynamicSelect
             options={[]}
             loading

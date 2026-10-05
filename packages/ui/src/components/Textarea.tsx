@@ -69,8 +69,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       const handleChange = (e: Event) => {
         if (onChange) {
           const synthEvent = Object.create(e);
-          synthEvent.target = el;
-          synthEvent.currentTarget = el;
+          Object.defineProperty(synthEvent, 'target', { value: el, enumerable: true });
+          Object.defineProperty(synthEvent, 'currentTarget', { value: el, enumerable: true });
           onChange(synthEvent as any);
         }
       };
@@ -78,8 +78,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       const handleInput = (e: Event) => {
         if (rest.onInput) {
           const synthEvent = Object.create(e);
-          synthEvent.target = el;
-          synthEvent.currentTarget = el;
+          Object.defineProperty(synthEvent, 'target', { value: el, enumerable: true });
+          Object.defineProperty(synthEvent, 'currentTarget', { value: el, enumerable: true });
           rest.onInput(synthEvent as any);
         }
       };

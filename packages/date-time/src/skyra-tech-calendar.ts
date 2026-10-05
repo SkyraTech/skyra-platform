@@ -1,4 +1,4 @@
-import { toISODateString, parseDate, MONTH_NAMES, DAY_NAMES, icons } from './utils';
+import { toISODate, parseISODate, MONTH_NAMES, DAY_NAMES, icons } from './utils';
 import { calendarCss } from './calendar.css';
 
 const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
@@ -22,7 +22,7 @@ export class SkyraTechCalendar extends BaseClass {
     this._render();
     this._setupListeners();
     // Initialize view date
-    const initial = parseDate(this.value) || parseDate(this.rangeStart) || new Date();
+    const initial = parseISODate(this.value) || parseISODate(this.rangeStart) || new Date();
     this._viewDate = initial;
     this._updateUI();
   }
@@ -30,7 +30,7 @@ export class SkyraTechCalendar extends BaseClass {
   attributeChangedCallback(name: string, oldVal: string | null, newVal: string | null) {
     if (oldVal !== newVal && this.isConnected) {
       if (name === 'value' || name === 'range-start') {
-        const d = parseDate(newVal);
+        const d = parseISODate(newVal);
         if (d && (d.getMonth() !== this._viewDate.getMonth() || d.getFullYear() !== this._viewDate.getFullYear())) {
           this._viewDate = d;
         }
@@ -70,11 +70,11 @@ export class SkyraTechCalendar extends BaseClass {
   }
 
   private _isDateDisabled(date: Date): boolean {
-    const iso = toISODateString(date);
-    const minParsed = parseDate(this.min);
-    const maxParsed = parseDate(this.max);
-    if (minParsed && iso < toISODateString(minParsed)) return true;
-    if (maxParsed && iso > toISODateString(maxParsed)) return true;
+    const iso = toISODate(date);
+    const minParsed = parseISODate(this.min);
+    const maxParsed = parseISODate(this.max);
+    if (minParsed && iso < toISODate(minParsed)) return true;
+    if (maxParsed && iso > toISODate(maxParsed)) return true;
     if (this.disableWeekends && (date.getDay() === 0 || date.getDay() === 6)) return true;
     if (this._disabledDateFn && this._disabledDateFn(date)) return true;
     return false;
@@ -82,7 +82,7 @@ export class SkyraTechCalendar extends BaseClass {
 
   private _handleDateClick(date: Date) {
     if (this._isDateDisabled(date)) return;
-    const iso = toISODateString(date);
+    const iso = toISODate(date);
 
     if (this.mode === 'single') {
       this.value = iso;
@@ -91,6 +91,7 @@ export class SkyraTechCalendar extends BaseClass {
       if (!this.rangeStart || (this.rangeStart && this.rangeEnd)) {
         this.rangeStart = iso;
         this.rangeEnd = null;
+        this.dispatchEvent(new CustomEvent('skyra-range-change', { detail: { value: [iso, null] }, bubbles: true, composed: true }));
       } else {
         if (iso < this.rangeStart) {
           const oldStart = this.rangeStart;
@@ -110,8 +111,8 @@ export class SkyraTechCalendar extends BaseClass {
       const monday = new Date(d.getFullYear(), d.getMonth(), diffToMonday);
       const sunday = new Date(monday);
       sunday.setDate(monday.getDate() + 6);
-      const startIso = toISODateString(monday);
-      const endIso = toISODateString(sunday);
+      const startIso = toISODate(monday);
+      const endIso = toISODate(sunday);
       this.rangeStart = startIso;
       this.rangeEnd = endIso;
       this.dispatchEvent(new CustomEvent('skyra-range-change', { detail: { value: [startIso, endIso] }, bubbles: true, composed: true }));
@@ -169,22 +170,31 @@ export class SkyraTechCalendar extends BaseClass {
     daysGrid.addEventListener('mouseover', (e) => {
       const target = e.target as HTMLElement;
       if (target.matches('.day-btn:not(:disabled)')) {
-        this._hoverDate = target.getAttribute('data-date');
-        this._updateUI();
+        const date = target.getAttribute('data-date');
+        if (this._hoverDate !== date) {
+          this._hoverDate = date;
+          if ((this.mode === 'range' || this.mode === 'week') && this.rangeStart && !this.rangeEnd) {
+            this._updateUI();
+          }
+        }
       }
     });
     
     daysGrid.addEventListener('mouseout', (e) => {
-      this._hoverDate = null;
-      this._updateUI();
+      if (this._hoverDate !== null) {
+        this._hoverDate = null;
+        if ((this.mode === 'range' || this.mode === 'week') && this.rangeStart && !this.rangeEnd) {
+          this._updateUI();
+        }
+      }
     });
 
-    daysGrid.addEventListener('click', (e) => {
+    daysGrid.addEventListener('mousedown', (e) => {
       const target = e.target as HTMLElement;
       if (target.matches('.day-btn:not(:disabled)')) {
         const d = target.getAttribute('data-date');
         if (d) {
-          const parsed = parseDate(d);
+          const parsed = parseISODate(d);
           if (parsed) this._handleDateClick(parsed);
         }
       }
@@ -195,7 +205,7 @@ export class SkyraTechCalendar extends BaseClass {
       if (target.matches('.day-btn')) {
         const dStr = target.getAttribute('data-date');
         if (!dStr) return;
-        const d = parseDate(dStr);
+        const d = parseISODate(dStr);
         if (!d) return;
 
         let nextD = new Date(d);
@@ -221,7 +231,7 @@ export class SkyraTechCalendar extends BaseClass {
         
         // Focus the new date
         requestAnimationFrame(() => {
-          const btn = this._shadowRoot.querySelector(`[data-date="${toISODateString(nextD)}"]`) as HTMLButtonElement;
+          const btn = this._shadowRoot.querySelector(`[data-date="${toISODate(nextD)}"]`) as HTMLButtonElement;
           if (btn) btn.focus();
         });
       }
@@ -253,8 +263,8 @@ export class SkyraTechCalendar extends BaseClass {
     const daysInPrevMonth = new Date(year, month, 0).getDate();
     const totalCells = Math.ceil((firstDayIndex + daysInMonth) / 7) * 7;
     
-    const todayIso = toISODateString(new Date());
-    const selectedIso = this.value ? toISODateString(parseDate(this.value) || new Date()) : null;
+    const todayIso = toISODate(new Date());
+    const selectedIso = this.value ? toISODate(parseISODate(this.value) || new Date()) : null;
 
     let html = '';
     for (let i = 0; i < totalCells; i++) {
@@ -271,7 +281,7 @@ export class SkyraTechCalendar extends BaseClass {
         isCurrentMonth = false;
       }
 
-      const iso = toISODateString(d);
+      const iso = toISODate(d);
       const isDisabled = this._isDateDisabled(d);
       const isToday = iso === todayIso;
       const isSelected = this.mode === 'single' ? iso === selectedIso : (iso === this.rangeStart || iso === this.rangeEnd);

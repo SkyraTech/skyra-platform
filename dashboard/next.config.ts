@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
     '@skyra-tech-platform/radio',
     '@skyra-tech-platform/button',
     '@skyra-tech-platform/dynamic-select',
+    '@skyra-tech-platform/date-time',
   ],
 };
 

@@ -1,4 +1,4 @@
-import { toISODateString, parseDate, icons } from './utils';
+import { toISODate, parseISODate, icons } from './utils';
 import { dateRangeFieldCss } from './date-range-field.css';
 import './skyra-tech-calendar';
 
@@ -34,7 +34,10 @@ export class SkyraTechDateRangeField extends BaseClass {
     if (oldVal !== newVal && this.isConnected) {
       if (name === 'start-value' || name === 'end-value') {
         const val = { startDate: this.startValue, endDate: this.endValue };
-        this._internals.setFormValue(JSON.stringify(val));
+        if (this._internals && typeof this._internals.setFormValue === 'function') {
+      this._internals.setFormValue(JSON.stringify(val));
+    }
+
       }
       this._updateUI();
     }
@@ -132,7 +135,7 @@ export class SkyraTechDateRangeField extends BaseClass {
     this._endInput.addEventListener('blur', handleBlur);
 
     this._popover.addEventListener('mousedown', () => { this._ignoreBlur = true; });
-    this._popover.addEventListener('mouseup', () => { this._ignoreBlur = false; this._startInput.focus(); });
+    this._popover.addEventListener('mouseup', () => { this._ignoreBlur = false; });
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
@@ -157,6 +160,7 @@ export class SkyraTechDateRangeField extends BaseClass {
     this._endInput.addEventListener('keydown', handleKeyDown);
 
     this._calendar.addEventListener('skyra-range-change', (e: Event) => {
+      e.stopPropagation();
       const custom = e as CustomEvent;
       const [startIso, endIso] = custom.detail.value;
       if (startIso !== this.startValue || endIso !== this.endValue) {
@@ -179,11 +183,11 @@ export class SkyraTechDateRangeField extends BaseClass {
   }
 
   private _validateInputs() {
-    const s = parseDate(this._startInput.value);
-    const e = parseDate(this._endInput.value);
+    const s = parseISODate(this._startInput.value);
+    const e = parseISODate(this._endInput.value);
     
-    let nextS = s ? toISODateString(s) : '';
-    let nextE = e ? toISODateString(e) : '';
+    let nextS = s ? toISODate(s) : '';
+    let nextE = e ? toISODate(e) : '';
     
     if (nextS && nextE && nextS > nextE) {
       [nextS, nextE] = [nextE, nextS];
@@ -260,9 +264,15 @@ export class SkyraTechDateRangeField extends BaseClass {
     if (this.max) this._calendar.setAttribute('max', this.max);
     
     if (this.required && (!this.startValue || !this.endValue)) {
+      if (this._internals && typeof this._internals.setValidity === 'function') {
       this._internals.setValidity({ valueMissing: true }, 'Date range is required');
+    }
+
     } else {
+      if (this._internals && typeof this._internals.setValidity === 'function') {
       this._internals.setValidity({});
+    }
+
     }
   }
 }

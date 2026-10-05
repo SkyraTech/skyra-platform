@@ -38,7 +38,10 @@ export class SkyraTechTimeField extends BaseClass {
   attributeChangedCallback(name: string, oldVal: string | null, newVal: string | null) {
     if (oldVal !== newVal && this.isConnected) {
       if (name === 'value') {
-        this._internals.setFormValue(newVal);
+        if (this._internals && typeof this._internals.setFormValue === 'function') {
+      this._internals.setFormValue(newVal);
+    }
+
       }
       this._updateUI();
     }
@@ -370,9 +373,15 @@ export class SkyraTechTimeField extends BaseClass {
     }
 
     if (this.required && !this.value) {
+      if (this._internals && typeof this._internals.setValidity === 'function') {
       this._internals.setValidity({ valueMissing: true }, 'Time is required');
+    }
+
     } else {
+      if (this._internals && typeof this._internals.setValidity === 'function') {
       this._internals.setValidity({});
+    }
+
     }
   }
 }

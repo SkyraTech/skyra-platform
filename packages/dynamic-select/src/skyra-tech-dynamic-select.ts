@@ -59,6 +59,7 @@ export class SkyraTechDynamicSelect extends BaseClass {
   }
 
   connectedCallback() {
+    this._teardownListeners();
     this._renderBase();
     this._setupListeners();
     this._updateUI();
@@ -73,19 +74,36 @@ export class SkyraTechDynamicSelect extends BaseClass {
     this._updateUI();
   }
 
+  private _resolveOption(val: any): any {
+    if (typeof val === 'object' && val !== null) return val;
+    const strVal = String(val);
+    const found = this._options.find(o => this._getValue(o) === strVal);
+    return found || { value: strVal, label: strVal };
+  }
+
   // --- Properties ---
   get options() { return this._options; }
   set options(val: any[]) { 
     this._options = Array.isArray(val) ? val : [];
+    if (this._value.length > 0) {
+      this._value = this._value.map(v => this._resolveOption(v));
+    }
+    if (this._isOpen) {
+      const optsContainer = this._shadowRoot?.querySelector('.options-container');
+      if (optsContainer) {
+        optsContainer.innerHTML = this._renderOptionsInnerHTML();
+        this._attachOptionListeners();
+      }
+    }
     this._updateUI();
   }
 
   get value() { return this.isMulti ? this._value : (this._value[0] ?? null); }
   set value(val: any) {
     if (Array.isArray(val)) {
-      this._value = [...val];
+      this._value = val.map(v => this._resolveOption(v));
     } else if (val !== null && val !== undefined) {
-      this._value = [val];
+      this._value = [this._resolveOption(val)];
     } else {
       this._value = [];
     }
@@ -216,8 +234,11 @@ export class SkyraTechDynamicSelect extends BaseClass {
     } else {
       this._value = [opt];
       this._isOpen = false;
+      this.removeAttribute('data-open');
+      this._searchQuery = '';
+      this.dispatchEvent(new CustomEvent('skyra-close', { bubbles: true, composed: true }));
       this._dispatchChange();
-      this._triggerBtn.focus();
+      this._triggerBtn?.focus();
     }
   }
 
@@ -256,6 +277,8 @@ export class SkyraTechDynamicSelect extends BaseClass {
     
     this._searchQuery = '';
     this._isOpen = false;
+    this.removeAttribute('data-open');
+    this.dispatchEvent(new CustomEvent('skyra-close', { bubbles: true, composed: true }));
     this._dispatchChange();
   }
 
@@ -283,6 +306,16 @@ export class SkyraTechDynamicSelect extends BaseClass {
     this._dispatchChange();
   }
 
+  public open() {
+    if (this.disabled || this._isOpen) return;
+    this._toggleOpen();
+  }
+
+  public close() {
+    if (!this._isOpen) return;
+    this._toggleOpen();
+  }
+
   private _toggleOpen(e?: Event) {
     if (e) {
       e.preventDefault();
@@ -291,27 +324,50 @@ export class SkyraTechDynamicSelect extends BaseClass {
     if (this.disabled) return;
     this._isOpen = !this._isOpen;
     if (this._isOpen) {
+      this.setAttribute('data-open', '');
       this._focusedIndex = -1;
+      document.dispatchEvent(new CustomEvent('skyra-select-opened', { detail: { source: this } }));
       this.dispatchEvent(new CustomEvent('skyra-open', { bubbles: true, composed: true }));
-      // Focus search input on open if available
       if (this.searchable) {
         setTimeout(() => this._searchInput?.focus(), 40);
       }
     } else {
+      this.removeAttribute('data-open');
       this._searchQuery = '';
       this.dispatchEvent(new CustomEvent('skyra-close', { bubbles: true, composed: true }));
     }
     this._updateUI();
   }
 
-  private _onGlobalClick = (e: MouseEvent) => {
-    if (this._isOpen && !this.contains(e.target as Node) && !this._shadowRoot.contains(e.target as Node)) {
-      this._toggleOpen();
+  private _onOtherOpened = (e: Event) => {
+    const detail = (e as CustomEvent).detail;
+    if (detail && detail.source !== this && this._isOpen) {
+      this._isOpen = false;
+      this._searchQuery = '';
+      this.removeAttribute('data-open');
+      this.dispatchEvent(new CustomEvent('skyra-close', { bubbles: true, composed: true }));
+      this._updateUI();
+    }
+  };
+
+
+  private _onGlobalClick = (e: Event) => {
+    if (!this._isOpen) return;
+    // Check if click was inside this component (composed path handles shadow DOM)
+    const path = e.composedPath ? e.composedPath() : [];
+    if (!path.includes(this as unknown as EventTarget)) {
+      this._isOpen = false;
+      this.removeAttribute('data-open');
+      this._searchQuery = '';
+      this.dispatchEvent(new CustomEvent('skyra-close', { bubbles: true, composed: true }));
+      this._updateUI();
     }
   };
 
   private _setupListeners() {
+    document.addEventListener('pointerdown', this._onGlobalClick);
     document.addEventListener('mousedown', this._onGlobalClick);
+    document.addEventListener('skyra-select-opened', this._onOtherOpened);
     
     // Resize observer for dynamic chips width
     if (typeof ResizeObserver !== 'undefined') {
@@ -322,7 +378,9 @@ export class SkyraTechDynamicSelect extends BaseClass {
   }
 
   private _teardownListeners() {
+    document.removeEventListener('pointerdown', this._onGlobalClick);
     document.removeEventListener('mousedown', this._onGlobalClick);
+    document.removeEventListener('skyra-select-opened', this._onOtherOpened);
     if (this._resizeObserver) this._resizeObserver.disconnect();
   }
   private _resizeObserver?: ResizeObserver;
@@ -432,8 +490,12 @@ export class SkyraTechDynamicSelect extends BaseClass {
         }
         break;
       case 'Tab':
-        this._isOpen = false;
-        this._updateUI();
+        if (this._isOpen) {
+          this._isOpen = false;
+          this._searchQuery = '';
+          this.dispatchEvent(new CustomEvent('skyra-close', { bubbles: true, composed: true }));
+          this._updateUI();
+        }
         break;
     }
   }
@@ -477,7 +539,7 @@ export class SkyraTechDynamicSelect extends BaseClass {
     const label = this.getAttribute('label');
     if (label) {
       labelContainer.innerHTML = `
-        <label class="label" part="label">
+        <label class="label" part="label" for="trigger" style="cursor: pointer;">
           ${label}
           ${this.required ? `<span class="required-asterisk" aria-hidden="true">*</span>` : ''}
         </label>
@@ -546,68 +608,62 @@ export class SkyraTechDynamicSelect extends BaseClass {
       });
     }
 
-    const overflowBadge = this._shadowRoot.querySelector('.overflow-badge');
-    if (overflowBadge) {
-      overflowBadge.addEventListener('click', (e) => this._toggleOpen(e));
-      overflowBadge.addEventListener('keydown', (e: any) => {
-        if (e.key === 'Enter' || e.key === ' ') this._toggleOpen(e);
-      });
-    }
-
     // Render Listbox
     const listboxContainer = this._shadowRoot.getElementById('listbox-container')!;
     if (this._isOpen) {
-      listboxContainer.innerHTML = this._renderListboxHTML();
-      this._listbox = this._shadowRoot.getElementById('listbox') as HTMLDivElement;
-      
-      this._searchInput = this._shadowRoot.getElementById('search-input') as HTMLInputElement;
-      if (this._searchInput) {
-        this._searchInput.addEventListener('input', (e: any) => {
-          this._searchQuery = e.target.value;
-          this._focusedIndex = 0;
-          this.dispatchEvent(new CustomEvent('skyra-search', { detail: { query: this._searchQuery }, bubbles: true }));
-          this._updateUI();
-        });
-        this._searchInput.addEventListener('keydown', (e) => this._handleKeyDown(e));
-        
-        const searchClear = this._shadowRoot.getElementById('search-clear');
-        if (searchClear) {
-          searchClear.addEventListener('click', () => {
-            this._searchQuery = '';
-            this._updateUI();
-            this._searchInput?.focus();
+      const alreadyRendered = !!listboxContainer.innerHTML;
+      if (!alreadyRendered) {
+        // First open: build full HTML and wire up all event listeners
+        listboxContainer.innerHTML = this._renderListboxHTML();
+        this._listbox = this._shadowRoot.getElementById('listbox') as HTMLDivElement;
+
+        this._searchInput = this._shadowRoot.getElementById('search-input') as HTMLInputElement;
+        if (this._searchInput) {
+          this._searchInput.addEventListener('input', (e: any) => {
+            this._searchQuery = e.target.value;
+            this._focusedIndex = 0;
+            this.dispatchEvent(new CustomEvent('skyra-search', { detail: { query: this._searchQuery }, bubbles: true }));
+            const optsContainer = this._shadowRoot.querySelector('.options-container');
+            if (optsContainer) {
+              optsContainer.innerHTML = this._renderOptionsInnerHTML();
+              this._attachOptionListeners();
+            }
+          });
+          this._searchInput.addEventListener('keydown', (e) => this._handleKeyDown(e));
+
+          const searchClear = this._shadowRoot.getElementById('search-clear');
+          if (searchClear) {
+            searchClear.addEventListener('click', () => {
+              this._searchQuery = '';
+              const optsContainer = this._shadowRoot.querySelector('.options-container');
+              if (optsContainer) {
+                optsContainer.innerHTML = this._renderOptionsInnerHTML();
+                this._attachOptionListeners();
+              }
+              this._searchInput?.focus();
+            });
+          }
+        }
+
+        const selectAllBtn = this._shadowRoot.getElementById('select-all-btn');
+        if (selectAllBtn) {
+          selectAllBtn.addEventListener('click', (e) => this._handleToggleSelectAll(e));
+          selectAllBtn.addEventListener('keydown', (e: any) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this._handleToggleSelectAll(e); }
           });
         }
-      }
 
-      const selectAllBtn = this._shadowRoot.getElementById('select-all-btn');
-      if (selectAllBtn) {
-        selectAllBtn.addEventListener('click', (e) => this._handleToggleSelectAll(e));
-        selectAllBtn.addEventListener('keydown', (e: any) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this._handleToggleSelectAll(e); }
-        });
-      }
+        const multiClear = this._shadowRoot.getElementById('multi-clear-all');
+        if (multiClear) {
+          multiClear.addEventListener('click', (e) => this._handleClearAll(e));
+        }
 
-      const multiClear = this._shadowRoot.getElementById('multi-clear-all');
-      if (multiClear) {
-        multiClear.addEventListener('click', (e) => this._handleClearAll(e));
+        this._attachOptionListeners();
+      } else {
+        // Already rendered: just sync visual state without destroying DOM
+        this._syncDOMStates();
+        this._syncFocusClasses();
       }
-
-      const createBtn = this._shadowRoot.getElementById('create-btn');
-      if (createBtn) {
-        createBtn.addEventListener('click', () => this._handleCreateNew());
-      }
-
-      this._shadowRoot.querySelectorAll('[data-skyra-option]').forEach((optEl, i) => {
-        optEl.addEventListener('click', () => this._handleSelect(this._getFilteredOptions()[i]));
-        optEl.addEventListener('mouseenter', () => {
-          const opt = this._getFilteredOptions()[i];
-          if (!this._getDisabled(opt)) {
-            this._focusedIndex = i;
-            this._updateUI();
-          }
-        });
-      });
 
     } else {
       listboxContainer.innerHTML = '';
@@ -627,6 +683,31 @@ export class SkyraTechDynamicSelect extends BaseClass {
     } else {
       helperContainer.innerHTML = '';
     }
+  }
+
+  
+  private _attachOptionListeners() {
+    this._shadowRoot.querySelectorAll('[data-skyra-option]').forEach((optEl, i) => {
+      optEl.addEventListener('click', () => this._handleSelect(this._getFilteredOptions()[i]));
+      optEl.addEventListener('mouseenter', () => {
+        const opt = this._getFilteredOptions()[i];
+        if (!this._getDisabled(opt)) {
+          this._focusedIndex = i;
+          this._syncFocusClasses();
+        }
+      });
+    });
+    const createBtn = this._shadowRoot.getElementById('create-btn');
+    if (createBtn) createBtn.addEventListener('click', () => this._handleCreateNew());
+  }
+
+  private _syncFocusClasses() {
+    if (!this._listbox) return;
+    const opts = this._listbox.querySelectorAll('.option');
+    opts.forEach((o, i) => {
+      if (i === this._focusedIndex) o.classList.add('focused');
+      else o.classList.remove('focused');
+    });
   }
 
   private _renderListboxHTML(): string {
@@ -673,6 +754,86 @@ export class SkyraTechDynamicSelect extends BaseClass {
 
     html += `<div class="options-container" part="options-container">`;
 
+    html += this._renderOptionsInnerHTML();
+    html += `</div>`;
+
+    if (this.isMulti) {
+      html += `
+        <div class="multi-footer" part="multi-footer">
+          <span class="multi-footer-text">${this._value.length} selected</span>
+          ${this._value.length > 0 ? `<button id="multi-clear-all" type="button" class="multi-footer-clear">Clear all</button>` : ''}
+        </div>
+      `;
+    }
+
+    html += `</div>`;
+    return html;
+  }
+
+  
+  private _syncDOMStates() {
+    if (!this.isMulti) {
+       const currentVal = this._value[0] ? this._getValue(this._value[0]) : null;
+       const optionEls = this._shadowRoot.querySelectorAll('.option');
+       const flatOpts = this._getFilteredOptions();
+       optionEls.forEach((optEl: any, i: number) => {
+         const isSelected = currentVal === this._getValue(flatOpts[i]);
+         optEl.setAttribute('aria-selected', String(isSelected));
+         if (isSelected) {
+           optEl.classList.add('selected');
+           if (!optEl.querySelector('svg.icon-check')) {
+             optEl.insertAdjacentHTML('beforeend', icons.check);
+           }
+         } else {
+           optEl.classList.remove('selected');
+           const checkIcon = optEl.querySelector('svg.icon-check');
+           if (checkIcon) checkIcon.remove();
+         }
+       });
+       return;
+    }
+
+    const currentValues = new Set(this._value.map(v => this._getValue(v)));
+    const optionEls = this._shadowRoot.querySelectorAll('.option');
+    const flatOpts = this._getFilteredOptions();
+    optionEls.forEach((optEl: any, i: number) => {
+       const val = this._getValue(flatOpts[i]);
+       const isSelected = currentValues.has(val);
+       optEl.setAttribute('aria-selected', String(isSelected));
+       if (isSelected) optEl.classList.add('selected'); else optEl.classList.remove('selected');
+       const cb = optEl.querySelector('.checkbox');
+       if (cb) {
+         cb.className = `checkbox ${isSelected ? 'checked' : ''}`;
+         cb.innerHTML = isSelected ? icons.checkSmall : '';
+       }
+    });
+    
+    const selectAllRow = this._shadowRoot.getElementById('select-all-btn');
+    if (selectAllRow) {
+      const selectable = flatOpts.filter(o => !this._getDisabled(o));
+      const allSelected = selectable.length > 0 && selectable.every(o => currentValues.has(this._getValue(o)));
+      const someSelected = !allSelected && selectable.some(o => currentValues.has(this._getValue(o)));
+      const cb = selectAllRow.querySelector('.checkbox');
+      if (cb) {
+        cb.className = `checkbox ${allSelected ? 'checked' : someSelected ? 'indeterminate' : ''}`;
+        cb.innerHTML = allSelected ? icons.checkSmall : someSelected ? '<div class="indeterminate-line"></div>' : '';
+      }
+      const label = selectAllRow.querySelector('span:not(.select-all-info)');
+      if (label) label.textContent = allSelected ? 'Deselect all' : 'Select all';
+    }
+    
+    const selectAllInfo = this._shadowRoot.querySelector('.select-all-info');
+    if (selectAllInfo) selectAllInfo.textContent = `${this._value.length} / ${this._options.length}`;
+    const multiFooterText = this._shadowRoot.querySelector('.multi-footer-text');
+    if (multiFooterText) multiFooterText.textContent = `${this._value.length} selected`;
+    const multiClear = this._shadowRoot.getElementById('multi-clear-all');
+    if (multiClear) multiClear.style.display = this._value.length > 0 ? '' : 'none';
+  }
+
+  
+  private _renderOptionsInnerHTML(): string {
+    const flatOpts = this._getFilteredOptions();
+    let html = '';
     if (this.loading) {
       html += `<div class="empty-state">${icons.loader} Loading options...</div>`;
     } else if (flatOpts.length === 0) {
@@ -688,35 +849,21 @@ export class SkyraTechDynamicSelect extends BaseClass {
         if (!groups[g]) groups[g] = [];
         groups[g].push(o);
       });
-      
       let globalIndex = 0;
       for (const gName in groups) {
         html += `<div style="margin-bottom: 4px;">`;
         html += `<div class="group-header" part="group-header">${gName}</div>`;
-        groups[gName]?.forEach(opt => {
+        groups[gName]?.forEach((opt: any) => {
           html += this._renderOptionHTML(opt, globalIndex);
           globalIndex++;
         });
         html += `</div>`;
       }
     } else {
-      flatOpts.forEach((opt, i) => {
+      flatOpts.forEach((opt: any, i: number) => {
         html += this._renderOptionHTML(opt, i);
       });
     }
-
-    html += `</div>`;
-
-    if (this.isMulti) {
-      html += `
-        <div class="multi-footer" part="multi-footer">
-          <span class="multi-footer-text">${this._value.length} selected</span>
-          ${this._value.length > 0 ? `<button id="multi-clear-all" type="button" class="multi-footer-clear">Clear all</button>` : ''}
-        </div>
-      `;
-    }
-
-    html += `</div>`;
     return html;
   }
 

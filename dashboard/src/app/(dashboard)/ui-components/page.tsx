@@ -1,7 +1,6 @@
 import React from 'react';
 import { ButtonDemo } from '@/components/demos/ButtonDemo';
 import { InputDemo } from '@/components/demos/InputDemo';
-import { SelectDemo } from '@/components/demos/SelectDemo';
 import { BadgeDemo } from '@/components/demos/BadgeDemo';
 import { MiscDemo } from '@/components/demos/MiscDemo';
 
@@ -34,7 +33,7 @@ const SPECIALIZED_PAGES = [
   { href: '/ui-components/context-menu', title: 'Context Menu', desc: 'Right-click contextual menu anchored to pointer click coordinates with viewport collision flipping', icon: MousePointerClick, badge: 'Phase 4A' },
   { href: '/ui-components/select', title: 'DynamicSelect', desc: 'Unified single/multi select with search, select all, creatable, and dynamic +N chips', icon: ListFilter, badge: 'Phase 2' },
   { href: '/ui-components/inputs', title: 'Inputs & Textarea', desc: 'Input variants (status, helper, prefix/suffix), SearchInput, NumberInput, PasswordInput, and auto-resizing Textarea', icon: Type, badge: 'Phase 3' },
-  { href: '/ui-components/date-fields', title: 'Date & Time Suite', desc: '10-component suite: DateField, DateRangeField, TimeField, TimeRangeField, DateTimeField, DateTimeRangeField, MonthField, YearField, WeekField, Calendar', icon: Calendar, badge: 'Phase 3' },
+  { href: '/components/forms/date-time', title: 'Date & Time Suite', desc: '10-component suite: DateField, DateRangeField, TimeField, TimeRangeField, DateTimeField, DateTimeRangeField, MonthField, YearField, WeekField, Calendar', icon: Calendar, badge: 'Phase 3' },
   { href: '/ui-components/loaders', title: 'Loading System', desc: 'Multi-size Spinners, Linear & Circular Progress, Skeletons (Text, Avatar, Card, Table), DataLoader & OverlayLoader', icon: Loader2, badge: 'Phase 3' },
   { href: '/ui-components/tooltip', title: 'Rich Tooltips', desc: 'Viewport collision-aware tooltips supporting plain text, rich React subtrees, status badges, and keyboard focus triggers', icon: MessageSquare, badge: 'Phase 3' },
   { href: '/components/basic-controls/switch', title: 'Switch & Toggles', desc: '5 design variants (default, compact, labeled, icon, outline), 3 sizes (sm/md/lg), loading spinner thumb, error, and disabled states', icon: ToggleLeft, badge: 'Phase 3' },
@@ -119,7 +118,6 @@ export default function UIComponentsPage() {
         </h2>
         <ButtonDemo />
         <InputDemo />
-        <SelectDemo />
         <BadgeDemo />
         <MiscDemo />
       </div>
