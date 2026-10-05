@@ -93,6 +93,7 @@ label.disabled {
   border-radius: var(--skyra-radius-sm, 4px);
   overflow: hidden;
   background: var(--skyra-surface, #ffffff);
+  flex-shrink: 0;
 }
 
 .am-pm-btn {
@@ -128,6 +129,7 @@ label.disabled {
   outline: none;
   border-radius: 4px;
   margin-left: auto;
+  flex-shrink: 0;
 }
 .am-pm-toggle + .clear-btn {
   margin-left: 0;
