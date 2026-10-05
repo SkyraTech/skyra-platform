@@ -1,4 +1,4 @@
-import { tokens } from '@skyra/design-tokens';
+﻿import { tokens } from '@skyra/design-tokens';
 import { docsRegistry } from './registry';
 import type { TokenCategory, TokenMetadata, DesignFoundationMetadata } from './metadata';
 

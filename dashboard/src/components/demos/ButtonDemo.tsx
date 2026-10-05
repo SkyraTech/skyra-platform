@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useState } from 'react';
 import { Button } from '@skyra/ui';
 import { Mail, ArrowRight, Trash2 } from 'lucide-react';

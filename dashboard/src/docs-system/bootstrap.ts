@@ -1,4 +1,4 @@
-import { docsRegistry } from './registry';
+﻿import { docsRegistry } from './registry';
 import { bootstrapDesignTokens } from './design-metadata';
 import { behavioralMetadataMap } from './behavioral-metadata';
 import type { PackageMetadata, RuntimeCategory, CapabilityMetadata } from './metadata';
@@ -24,7 +24,7 @@ const runtimeMap: Record<string, RuntimeCategory> = {
   '@skyra/data-table':   'react-browser',
   '@skyra/design-tokens':'design-tokens',
   '@skyra/dialogs':      'react-browser',
-  '@skyra/dynamic-form': 'react-browser',
+  '@skyra-tech-platform/dynamic-form': 'web-component',
   '@skyra/qr':           'mixed',          // core=runtime-neutral, react=react-browser
   '@skyra/ui':           'react-browser',
   '@skyra/utils':        'runtime-neutral',
@@ -107,15 +107,15 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     status: 'stable',
   },
 
-  // @skyra/dynamic-form
+  // @skyra-tech-platform/dynamic-form
   {
     id: 'dynamic-form/core',
-    packageId: '@skyra/dynamic-form',
+    packageId: '@skyra-tech-platform/dynamic-form',
     name: 'Dynamic Form Engine',
-    exportPath: '@skyra/dynamic-form',
-    runtime: 'react-browser',
+    exportPath: '@skyra-tech-platform/dynamic-form',
+    runtime: 'web-component',
     description: 'Schema-driven form engine with validation, conditional fields, multi-step support, and full accessibility.',
-    usageNote: "import { DynamicForm } from '@skyra/dynamic-form';",
+    usageNote: "import { DynamicForm } from '@skyra/ui';",
     status: 'stable',
   },
 

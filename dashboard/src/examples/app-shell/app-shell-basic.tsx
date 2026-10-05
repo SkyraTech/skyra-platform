@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @id app-shell-basic
  * @title Basic Application Shell
  * @apiId @skyra/app-shell::ApplicationShell

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Card, Badge, Button } from '@skyra/ui';
 import { docsRegistry } from '../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../docs-system/bootstrap';

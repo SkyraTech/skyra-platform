@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Link from 'next/link';
 import { ChevronRight, Layers } from 'lucide-react';
 
@@ -29,7 +29,7 @@ const COMPONENT_GROUPS = [
     description: 'Complex data entry and validation structures.',
     items: [
       { href: '/components/forms/date-time', label: 'Date & Time', desc: '10-component suite: Calendar, DateField, TimeField, and range inputs.', status: 'stable', tech: 'Web Component' },
-      { href: '#', label: 'Dynamic Form', desc: 'JSON-driven form generation.', status: 'planned', tech: 'React' },
+      { href: '/components/forms/dynamic-form', label: 'Dynamic Form', desc: 'JSON-driven form generation.', status: 'stable', tech: 'Web Component' },
     ]
   },
   {
@@ -51,7 +51,7 @@ const COMPONENT_GROUPS = [
     title: 'Overlays',
     description: 'Modals, popovers, and contextual layers.',
     items: [
-      { href: '#', label: 'Dialog', desc: 'Accessible modal dialog wrapper.', status: 'planned', tech: 'Web Component' },
+      { href: '/components/overlays/dialog', label: 'Dialog', desc: 'Accessible modal dialog wrapper.', status: 'stable', tech: 'Web Component' },
     ]
   },
   {

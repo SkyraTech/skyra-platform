@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React from 'react';
 import { Badge, StatusBadge, StatusConfig } from '@skyra/ui';
 import { DemoSection, DemoBlock } from './DemoSection';

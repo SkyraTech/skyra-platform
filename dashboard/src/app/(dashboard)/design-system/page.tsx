@@ -1,4 +1,4 @@
-import { bootstrapRegistry } from '@/docs-system/bootstrap';
+﻿import { bootstrapRegistry } from '@/docs-system/bootstrap';
 import { docsRegistry } from '@/docs-system/registry';
 import { Card, Badge, Divider } from '@skyra/ui';
 

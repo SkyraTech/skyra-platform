@@ -8,6 +8,7 @@ export class SkyraTechDialog extends BaseElement {
   private _internals!: ElementInternals;
   private _dialogEl!: HTMLDialogElement;
   private _closeBtn!: HTMLButtonElement;
+  private _triggerElement: HTMLElement | null = null;
 
   constructor() {
     super();
@@ -86,6 +87,7 @@ export class SkyraTechDialog extends BaseElement {
     this._applyDynamicStyles();
     
     if (this.open && !this._dialogEl.open) {
+      this._triggerElement = document.activeElement as HTMLElement;
       this._dialogEl.showModal();
       this._lockScroll();
     }
@@ -108,6 +110,7 @@ export class SkyraTechDialog extends BaseElement {
       const isOpen = this.hasAttribute('open');
       if (this._dialogEl) {
         if (isOpen && !this._dialogEl.open) {
+          this._triggerElement = document.activeElement as HTMLElement;
           this._dialogEl.showModal();
           this._lockScroll();
           this.dispatchEvent(new CustomEvent('skyra-open', { bubbles: true, composed: true }));
@@ -151,6 +154,10 @@ export class SkyraTechDialog extends BaseElement {
   private _handleNativeClose = () => {
     this.open = false;
     this._unlockScroll();
+    if (this._triggerElement) {
+      this._triggerElement.focus();
+      this._triggerElement = null;
+    }
     this.dispatchEvent(new CustomEvent('skyra-close', { bubbles: true, composed: true }));
   };
 

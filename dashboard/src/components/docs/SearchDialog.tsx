@@ -112,10 +112,10 @@ export function SearchDialog() {
           <p style={{ margin: '0 0 1rem 0', fontWeight: 500, color: 'var(--skyra-text)' }}>No documentation found</p>
           <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem' }}>Try searching for:</p>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.875rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-            <li>• a package name (e.g. ui, data-table)</li>
-            <li>• component name (e.g. Button)</li>
-            <li>• API name (e.g. generateQRCode)</li>
-            <li>• keyword (e.g. accessibility, dark mode)</li>
+            <li>� a package name (e.g. ui, data-table)</li>
+            <li>� component name (e.g. Button)</li>
+            <li>� API name (e.g. generateQRCode)</li>
+            <li>� keyword (e.g. accessibility, dark mode)</li>
           </ul>
         </>
       ) : (
@@ -186,7 +186,7 @@ export function SearchDialog() {
           borderRadius: '100px',
           border: '1px solid rgba(255,255,255,0.05)' 
         }}>
-          {typeof window !== 'undefined' && window.navigator.platform.includes('Mac') ? '⌘K' : 'Ctrl+K'}
+          {typeof window !== 'undefined' && window.navigator.platform.includes('Mac') ? '?K' : 'Ctrl+K'}
         </kbd>
       </button>
 
@@ -317,7 +317,7 @@ export function SearchDialog() {
                           <span style={{ textTransform: 'capitalize', fontWeight: 600 }}>{doc.type}</span>
                           {doc.packageId && (
                             <>
-                              <span style={{ opacity: 0.5 }}>•</span>
+                              <span style={{ opacity: 0.5 }}>�</span>
                               <span style={{ fontFamily: 'var(--skyra-font-mono)' }}>{doc.packageId}</span>
                             </>
                           )}
@@ -334,8 +334,8 @@ export function SearchDialog() {
             
             {/* Footer */}
             <div style={{ padding: '0.75rem 1.5rem', borderTop: '1px solid var(--skyra-border)', background: 'var(--skyra-bg-muted)', display: 'flex', gap: '1.5rem', fontSize: '0.75rem', color: 'var(--skyra-text-muted)' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><kbd style={{ padding: '2px 6px', background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', borderRadius: '4px', fontFamily: 'inherit' }}>↵</kbd> to select</span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><kbd style={{ padding: '2px 6px', background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', borderRadius: '4px', fontFamily: 'inherit' }}>↓</kbd> <kbd style={{ padding: '2px 6px', background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', borderRadius: '4px', fontFamily: 'inherit' }}>↑</kbd> to navigate</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><kbd style={{ padding: '2px 6px', background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', borderRadius: '4px', fontFamily: 'inherit' }}>?</kbd> to select</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><kbd style={{ padding: '2px 6px', background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', borderRadius: '4px', fontFamily: 'inherit' }}>?</kbd> <kbd style={{ padding: '2px 6px', background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', borderRadius: '4px', fontFamily: 'inherit' }}>?</kbd> to navigate</span>
               <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><kbd style={{ padding: '2px 6px', background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', borderRadius: '4px', fontFamily: 'inherit' }}>esc</kbd> to close</span>
             </div>
           </div>

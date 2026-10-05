@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @id utils-date-format
  * @title Date Formatting
  * @apiId @skyra/utils::formatDate

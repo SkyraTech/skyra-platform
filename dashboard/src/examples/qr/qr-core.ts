@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @id qr-core-basic
  * @title Core QR Generation
  * @apiId @skyra/qr::generateQRCode

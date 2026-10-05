@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useState } from 'react';
 import { Checkbox, Alert, Spinner, Divider, Card, PhoneInputField, LogoUploader } from '@skyra/ui';
 import { DemoSection, DemoBlock } from './DemoSection';

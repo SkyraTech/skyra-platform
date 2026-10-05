@@ -1,4 +1,4 @@
-export interface MockTransaction {
+﻿export interface MockTransaction {
   id: string;
   reference: string;
   client: string;

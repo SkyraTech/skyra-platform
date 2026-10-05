@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useState } from 'react';
 import { Input, Textarea } from '@skyra/ui';
 import { Search, Mail } from 'lucide-react';

@@ -31,12 +31,6 @@ export function Modal({
 }: ModalProps) {
   const ref = useRef<HTMLElement>(null);
   
-  // Track trigger element to restore focus after closing.
-  const triggerRef = useRef<Element | null>(null);
-  useEffect(() => {
-    if (open) triggerRef.current = document.activeElement;
-    else if (triggerRef.current instanceof HTMLElement) triggerRef.current.focus();
-  }, [open]);
 
   useEffect(() => {
     const el = ref.current;

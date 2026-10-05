@@ -33,11 +33,6 @@ export function Drawer({
 }: DrawerProps) {
   const ref = useRef<HTMLElement>(null);
 
-  const triggerRef = useRef<Element | null>(null);
-  useEffect(() => {
-    if (open) triggerRef.current = document.activeElement;
-    else if (triggerRef.current instanceof HTMLElement) triggerRef.current.focus();
-  }, [open]);
 
   useEffect(() => {
     const el = ref.current;

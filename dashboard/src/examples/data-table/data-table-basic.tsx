@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @id data-table-basic
  * @title Basic Data Table
  * @apiId @skyra/data-table::DynamicDataTable

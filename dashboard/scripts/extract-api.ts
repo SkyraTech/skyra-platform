@@ -1,4 +1,4 @@
-import { Project, VariableDeclaration, InterfaceDeclaration, TypeAliasDeclaration, FunctionDeclaration, SyntaxKind, JSDoc } from 'ts-morph';
+﻿import { Project, VariableDeclaration, InterfaceDeclaration, TypeAliasDeclaration, FunctionDeclaration, SyntaxKind, JSDoc } from 'ts-morph';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -9,7 +9,7 @@ const TARGETS = [
   { capabilityId: 'data-export/csv', packageId: '@skyra/data-export', exportPath: '@skyra/data-export', entry: 'packages/data-export/dist/index.d.ts' },
   { capabilityId: 'data-table/dynamic', packageId: '@skyra/data-table', exportPath: '@skyra/data-table', entry: 'packages/data-table/dist/index.d.ts' },
   { capabilityId: 'dialogs/core', packageId: '@skyra/dialogs', exportPath: '@skyra/dialogs', entry: 'packages/dialogs/dist/index.d.ts' },
-  { capabilityId: 'dynamic-form/core', packageId: '@skyra/dynamic-form', exportPath: '@skyra/dynamic-form', entry: 'packages/dynamic-form/dist/index.d.ts' },
+  { capabilityId: 'dynamic-form/core', packageId: '@skyra/ui', exportPath: '@skyra/ui', entry: 'packages/dynamic-form/dist/index.d.ts' },
   { capabilityId: 'qr/core', packageId: '@skyra/qr', exportPath: '@skyra/qr/core', entry: 'packages/qr/dist/core.d.ts' },
   { capabilityId: 'qr/react', packageId: '@skyra/qr', exportPath: '@skyra/qr/react', entry: 'packages/qr/dist/react.d.ts' },
   { capabilityId: 'ui/components', packageId: '@skyra/ui', exportPath: '@skyra/ui', entry: 'packages/ui/dist/index.d.ts' },

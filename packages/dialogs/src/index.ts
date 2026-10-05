@@ -26,4 +26,3 @@ export type { ModalProps, ModalSize } from './Modal';
 export { Drawer } from './Drawer';
 export type { DrawerProps, DrawerSide } from './Drawer';
 
-export { useFocusTrap } from './useFocusTrap';

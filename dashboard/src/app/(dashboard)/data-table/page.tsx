@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { DataTable, ColumnDef, processTableData, useDataTableState } from '@skyra-tech-platform/data-table';

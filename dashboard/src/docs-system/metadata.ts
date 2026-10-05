@@ -1,4 +1,4 @@
-export type LifecycleStatus = 'experimental' | 'stable' | 'deprecated' | 'removed';
+﻿export type LifecycleStatus = 'experimental' | 'stable' | 'deprecated' | 'removed';
 
 export type RuntimeCategory =
   | 'runtime-neutral'

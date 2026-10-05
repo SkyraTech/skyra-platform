@@ -1,4 +1,4 @@
-export { DynamicForm } from './DynamicForm';
+export * from './skyra-tech-dynamic-form';
 export { getIn, setIn, removeIn, isDeepEqual, cloneDeep } from './utils/nested';
 export { evaluateCondition } from './utils/conditions';
 

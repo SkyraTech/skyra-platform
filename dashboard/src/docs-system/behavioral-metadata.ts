@@ -1,4 +1,4 @@
-import type { ApiMetadata } from './metadata';
+﻿import type { ApiMetadata } from './metadata';
 
 type BehavioralMetadata = Pick<ApiMetadata, 'design' | 'accessibility' | 'responsive'>;
 

@@ -2,9 +2,8 @@
 
 import React, { useEffect, useRef, useImperativeHandle, useState } from 'react';
 import ReactDOM from 'react-dom';
-import './skyra-tech-dynamic-form';
-import type { SkyraTechDynamicForm } from './skyra-tech-dynamic-form';
-import type { DynamicFormProps, DynamicFormHandle, FormValues, FieldDef } from './types';
+import '@skyra-tech-platform/dynamic-form';
+import type { SkyraTechDynamicForm, DynamicFormProps, DynamicFormHandle, FormValues, FieldDef } from '@skyra-tech-platform/dynamic-form';
 
 export function DynamicForm<TValues extends FormValues = FormValues>(
   props: DynamicFormProps<TValues> & { children?: React.ReactNode; submitLabel?: string }
@@ -41,7 +40,7 @@ export function DynamicForm<TValues extends FormValues = FormValues>(
   
   // Track custom render fields
   const customFields: FieldDef<TValues>[] = [];
-  const allFields = fieldsets ? fieldsets.flatMap(fs => fs.fields) : (fields || []);
+  const allFields = fieldsets ? fieldsets.flatMap((fs: any) => fs.fields) : (fields || []);
   for (const field of allFields) {
     if (field.type === 'custom' && field.render) {
       customFields.push(field);
@@ -53,19 +52,19 @@ export function DynamicForm<TValues extends FormValues = FormValues>(
     if (!wcRef.current) return {} as DynamicFormHandle<TValues>;
     const wc = wcRef.current;
     return {
-      getValue: (name) => wc.getValue(name),
+      getValue: (name: string) => wc.getValue(name),
       getValues: () => wc.getValues() as TValues,
-      setValue: (name, val) => wc.setValue(name, val),
-      setValues: (newVals) => wc.setValues(newVals),
-      reset: (newVals) => wc.reset(newVals),
-      resetField: (name) => {
+      setValue: (name: string, val: unknown) => wc.setValue(name, val),
+      setValues: (newVals: Partial<TValues>) => wc.setValues(newVals),
+      reset: (newVals?: Partial<TValues>) => wc.reset(newVals),
+      resetField: (name: string) => {
         const val = wc.initialValues[name];
         wc.setValue(name, val);
       },
       validate: () => wc.validate(),
       submit: () => wc.submit(),
       getFormState: () => ({ values: wc.getValues() as TValues, timestamp: Date.now() }),
-      restoreFormState: (state) => wc.setValues(state.values),
+      restoreFormState: (state: any) => wc.setValues(state.values),
       get isDirty() { return wcRef.current?.isDirty || false; },
       get dirtyFields() { 
         if (!wcRef.current) return {};
@@ -206,7 +205,7 @@ export function DynamicForm<TValues extends FormValues = FormValues>(
             {f.render!({
               field: f,
               value: val,
-              onChange: (v) => wcRef.current?.setValue(f.name ?? f.key ?? '', v),
+              onChange: (v: any) => wcRef.current?.setValue(f.name ?? f.key ?? '', v),
               onBlur: () => {},
               allValues: internalValues
             })}

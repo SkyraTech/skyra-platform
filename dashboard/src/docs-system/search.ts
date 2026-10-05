@@ -1,4 +1,4 @@
-import { docsRegistry } from './registry';
+﻿import { docsRegistry } from './registry';
 
 
 export interface SearchDocument {

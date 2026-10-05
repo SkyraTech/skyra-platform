@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @id dialogs-confirm-basic
  * @title Confirm Dialog
  * @apiId @skyra/dialogs::ConfirmDialog

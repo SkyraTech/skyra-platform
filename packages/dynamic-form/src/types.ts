@@ -3,7 +3,7 @@
  * Strict enterprise schema types for DynamicForm.
  */
 
-import React from 'react';
+
 
 export type FieldType =
   | 'text'
@@ -170,8 +170,8 @@ export interface FieldDef<TValues = Record<string, unknown>> {
   repeatableConfig?: RepeatableGroupConfig<TValues>;
   /** Custom validation function */
   validate?: (value: unknown, allValues: TValues) => string | undefined | Promise<string | undefined>;
-  /** Custom render override */
-  render?: (props: FieldRenderProps<TValues>) => React.ReactNode;
+  /** Custom render override (handled by framework adapters) */
+  render?: (props: FieldRenderProps<TValues>) => any;
   className?: string;
 }
 
@@ -277,8 +277,8 @@ export interface DynamicFormProps<TValues extends FormValues = FormValues> {
   /** Unsaved changes notification callback */
   onDirtyChange?: (isDirty: boolean) => void;
 
-  /** Imperative form action ref */
-  formRef?: React.Ref<DynamicFormHandle<TValues>>;
+  /** Imperative form action ref (used by framework adapters) */
+  formRef?: any;
 
   /** Danger zone section */
   showDangerZone?: boolean;

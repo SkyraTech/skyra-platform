@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -31,8 +31,7 @@ const NAV_ITEMS = [
   { href: '/design-system', label: 'Design System',        icon: Palette },
   { href: '/ui-components', label: 'UI Playground',        icon: Component },
   { href: '/data-table',    label: 'Data Table',           icon: Table2 },
-  { href: '/dynamic-form',  label: 'Dynamic Form',         icon: WrapText },
-  { href: '/dialogs',       label: 'Dialogs & Overlays',   icon: PanelTop },
+
   { href: '/pdf-viewer',    label: 'PDF & Documents',      icon: FileText },
   { href: '/print',         label: 'Print Studio',         icon: Printer },
   { href: '/export',        label: 'Data Export',          icon: Download },
@@ -112,8 +111,7 @@ const NAV_GROUPS = [
     items: [
       { href: '/ui-components', label: 'UI Playground',        icon: Component },
       { href: '/data-table',    label: 'Data Table',           icon: Table2 },
-      { href: '/dynamic-form',  label: 'Dynamic Form',         icon: WrapText },
-      { href: '/dialogs',       label: 'Dialogs & Overlays',   icon: PanelTop },
+
       { href: '/pdf-viewer',    label: 'PDF & Documents',      icon: FileText },
       { href: '/print',         label: 'Print Studio',         icon: Printer },
       { href: '/export',        label: 'Data Export',          icon: Download },

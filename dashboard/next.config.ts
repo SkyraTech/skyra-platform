@@ -1,11 +1,11 @@
-import type { NextConfig } from 'next';
+﻿import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   transpilePackages: [
     '@skyra/ui',
     '@skyra/design-tokens',
     '@skyra/data-table',
-    '@skyra/dynamic-form',
+    '@skyra/ui',
     '@skyra/dialogs',
     '@skyra-tech-platform/switch',
     '@skyra-tech-platform/input',
@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
     '@skyra-tech-platform/button',
     '@skyra-tech-platform/dynamic-select',
     '@skyra-tech-platform/date-time',
+    '@skyra-tech-platform/dialog',
+    '@skyra-tech-platform/dynamic-form',
   ],
 };
 

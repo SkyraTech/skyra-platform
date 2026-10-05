@@ -1,11 +1,11 @@
-/**
+﻿/**
  * @id dynamic-form-basic
  * @title Basic Dynamic Form
  * @apiId @skyra/dynamic-form::DynamicForm
  * @packageId @skyra/dynamic-form
  */
 import React from 'react';
-import { DynamicForm } from '@skyra/dynamic-form';
+import { DynamicForm } from '@skyra/ui';
 
 export default function DynamicFormBasicExample() {
   const fields = [

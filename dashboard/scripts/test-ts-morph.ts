@@ -1,4 +1,4 @@
-import { Project } from 'ts-morph';
+﻿import { Project } from 'ts-morph';
 import * as path from 'path';
 
 const project = new Project();

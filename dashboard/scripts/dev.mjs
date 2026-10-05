@@ -30,7 +30,7 @@ initialRun.on('close', (code) => {
 
   // 3. Start Next.js dev server
   console.log('Starting Next.js dev server...');
-  const nextProcess = spawn('npx', ['next', 'dev', '--port', '3001'], { 
+  const nextProcess = spawn('npx', ['next', 'dev', '--port', '3002'], { 
     cwd: root, 
     stdio: 'inherit',
     shell: true 

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React from 'react';
 
 export function DemoSection({ title, desc, children, erpSource }: { title: string, desc: string, children: React.ReactNode, erpSource?: string }) {

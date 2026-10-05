@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { Info, AlertTriangle, Zap, Terminal } from 'lucide-react';

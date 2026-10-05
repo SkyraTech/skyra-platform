@@ -1,4 +1,4 @@
-import type { DocumentationRegistry, PackageMetadata, CapabilityMetadata, ApiMetadata, ExampleMetadata } from './metadata';
+﻿import type { DocumentationRegistry, PackageMetadata, CapabilityMetadata, ApiMetadata, ExampleMetadata } from './metadata';
 
 /**
  * In-memory foundation registry for the Documentation System.

@@ -1,7 +1,7 @@
-'use client';
+﻿'use client';
 import React from 'react';
 import { Button, Input, Card } from '@skyra/ui';
-import { DynamicForm } from '@skyra/dynamic-form';
+import { DynamicForm } from '@skyra/ui';
 
 export default function SandboxPage() {
   return (

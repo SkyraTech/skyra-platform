@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @id ui-button-basic
  * @title Basic Button
  * @apiId @skyra/ui::Button

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @id qr-react-basic
  * @title React QR Code
  * @apiId @skyra/qr::QRCode

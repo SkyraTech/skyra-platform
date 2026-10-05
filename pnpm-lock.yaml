@@ -56,9 +56,6 @@ importers:
       '@skyra/dialogs':
         specifier: workspace:*
         version: link:../packages/dialogs
-      '@skyra/dynamic-form':
-        specifier: workspace:*
-        version: link:../packages/dynamic-form
       '@skyra/qr':
         specifier: workspace:^
         version: link:../packages/qr
@@ -348,24 +345,9 @@ importers:
         specifier: workspace:*
         version: link:../validation
     devDependencies:
-      '@testing-library/jest-dom':
-        specifier: ^6.4.0
-        version: 6.10.0(@testing-library/dom@10.4.1)
-      '@testing-library/react':
-        specifier: ^16.0.0
-        version: 16.3.3(@testing-library/dom@10.4.1)(@types/react-dom@19.2.7(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@testing-library/user-event':
-        specifier: ^14.5.2
-        version: 14.6.7(@testing-library/dom@10.4.1)
       '@types/jest-axe':
         specifier: ^3.5.9
         version: 3.5.9
-      '@types/react':
-        specifier: ^19
-        version: 19.2.18
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.2.7(@types/react@19.2.18)
       '@vitest/coverage-v8':
         specifier: ^2.1.8
         version: 2.1.9(vitest@2.1.9(@types/node@20.19.43)(jsdom@25.0.1(canvas@2.11.2))(lightningcss@1.33.0))
@@ -378,12 +360,6 @@ importers:
       lucide-react:
         specifier: ^1.33.0
         version: 1.43.0(react@19.2.4)
-      react:
-        specifier: 19.2.4
-        version: 19.2.4
-      react-dom:
-        specifier: 19.2.4
-        version: 19.2.4(react@19.2.4)
       typescript:
         specifier: ^5.7.0
         version: 5.9.3
@@ -636,6 +612,9 @@ importers:
       '@skyra-tech-platform/date-time':
         specifier: workspace:^
         version: link:../date-time
+      '@skyra-tech-platform/dynamic-form':
+        specifier: workspace:*
+        version: link:../dynamic-form
       '@skyra-tech-platform/dynamic-select':
         specifier: workspace:^
         version: link:../dynamic-select
@@ -6551,7 +6530,7 @@ snapshots:
       eslint: 9.39.5
       eslint-import-resolver-node: 0.3.10
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5))(eslint@9.39.5)
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.5)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5))(eslint@9.39.5))(eslint@9.39.5)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.5)
       eslint-plugin-react: 7.37.5(eslint@9.39.5)
       eslint-plugin-react-hooks: 7.1.1(eslint@9.39.5)
@@ -6584,7 +6563,7 @@ snapshots:
       tinyglobby: 0.2.17
       unrs-resolver: 1.12.2
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.5)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5))(eslint@9.39.5))(eslint@9.39.5)
     transitivePeerDependencies:
       - supports-color
 
@@ -6599,7 +6578,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.5):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.70.0(eslint@9.39.5)(typescript@5.9.3))(eslint@9.39.5))(eslint@9.39.5))(eslint@9.39.5):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9

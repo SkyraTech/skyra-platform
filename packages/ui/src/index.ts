@@ -32,8 +32,7 @@ export type { NumberInputProps } from './components/NumberInput';
 export { Textarea } from './components/Textarea';
 export type { TextareaProps } from './components/Textarea';
 
-
-
+export { DynamicForm } from './components/DynamicForm';
 export { DynamicSelect } from './components/DynamicSelect';
 export type {
   DynamicSelectProps,

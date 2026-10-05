@@ -1,4 +1,4 @@
-import { Card } from '@skyra/ui';
+﻿import { Card } from '@skyra/ui';
 import Link from 'next/link';
 import { docsRegistry } from '../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../docs-system/bootstrap';
@@ -11,7 +11,7 @@ export default function OverviewPage() {
 
   const getLayer = (id: string) => {
     if (['@skyra/design-tokens', '@skyra/utils', '@skyra/validation'].includes(id)) return 'Layer 1';
-    if (['@skyra/ui', '@skyra/app-shell', '@skyra/dialogs', '@skyra/data-table', '@skyra/dynamic-form'].includes(id)) return 'Layer 2';
+    if (['@skyra/ui', '@skyra/app-shell', '@skyra/dialogs', '@skyra/data-table', '@skyra-tech-platform/dynamic-form'].includes(id)) return 'Layer 2';
     if (['@skyra/data-export', '@skyra/qr'].includes(id)) return 'Layer 3';
     return 'Layer 3';
   };
