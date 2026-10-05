@@ -323,6 +323,9 @@ export class SkyraTechDynamicSelect extends BaseClass {
     }
     if (this.disabled) return;
     this._isOpen = !this._isOpen;
+    if (this._triggerBtn && document.activeElement !== this._triggerBtn) {
+      this._triggerBtn.focus();
+    }
     if (this._isOpen) {
       this.setAttribute('data-open', '');
       this._focusedIndex = -1;
@@ -522,7 +525,24 @@ export class SkyraTechDynamicSelect extends BaseClass {
       </div>
     `;
     this._triggerBtn = this._shadowRoot.getElementById('trigger') as HTMLButtonElement;
-    this._triggerBtn.addEventListener('click', (e) => this._toggleOpen(e));
+    this._triggerBtn.addEventListener('pointerdown', (e: PointerEvent) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      
+      // Ignore if clicking on clear button or chip remove
+      const path = e.composedPath();
+      const isActionBtn = path.some((el: any) => el.id === 'clear-btn' || el.classList?.contains('chip-remove'));
+      if (isActionBtn) return;
+      
+      this._toggleOpen(e);
+    });
+    this._triggerBtn.addEventListener('click', (e) => {
+      const path = e.composedPath();
+      const isActionBtn = path.some((el: any) => el.id === 'clear-btn' || el.classList?.contains('chip-remove'));
+      if (!isActionBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
     this._triggerBtn.addEventListener('keydown', (e) => this._handleKeyDown(e));
   }
 
@@ -586,11 +606,14 @@ export class SkyraTechDynamicSelect extends BaseClass {
     }
 
     this._shadowRoot.querySelectorAll('.chip-remove').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('pointerdown', (e: any) => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        e.preventDefault(); // prevent focus loss
         const val = (e.currentTarget as HTMLElement).dataset.remove;
         const opt = this._value.find(v => this._getValue(v) === val);
         if (opt) this._handleRemoveToken(e, opt);
       });
+      btn.addEventListener('click', (e) => e.stopPropagation());
       btn.addEventListener('keydown', (e: any) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -602,7 +625,12 @@ export class SkyraTechDynamicSelect extends BaseClass {
     });
     const clearBtn = this._shadowRoot.getElementById('clear-btn');
     if (clearBtn) {
-      clearBtn.addEventListener('click', (e) => this._handleClearAll(e));
+      clearBtn.addEventListener('pointerdown', (e: any) => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        e.preventDefault();
+        this._handleClearAll(e);
+      });
+      clearBtn.addEventListener('click', (e) => e.stopPropagation());
       clearBtn.addEventListener('keydown', (e: any) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this._handleClearAll(e); }
       });
