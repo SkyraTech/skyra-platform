@@ -11,7 +11,6 @@ import designTokensPkg from '../../../packages/design-tokens/package.json';
 import dialogsPkg from '../../../packages/dialog/package.json';
 import dynamicFormPkg from '../../../packages/dynamic-form/package.json';
 import qrPkg from '../../../packages/qr/package.json';
-import uiPkg from '../../../packages/ui/package.json';
 import utilsPkg from '../../../packages/utils/package.json';
 import validationPkg from '../../../packages/validation/package.json';
 
@@ -194,7 +193,7 @@ export function bootstrapRegistry() {
 
   const packages = [
     appShellPkg, dataExportPkg, dataTablePkg, designTokensPkg,
-    dialogsPkg, dynamicFormPkg, qrPkg, uiPkg, utilsPkg, validationPkg,
+    dialogsPkg, dynamicFormPkg, qrPkg, utilsPkg, validationPkg,
   ];
 
   packages.forEach((pkg) => {

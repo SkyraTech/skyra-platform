@@ -4,7 +4,7 @@ import React from 'react';
 import { Plus, Minus } from 'lucide-react';
 import '@skyra-tech-platform/input';
 
-export interface NumberReact.ComponentProps<'skyra-tech-input'> extends Omit<React.ComponentProps<'skyra-tech-input'>, 'type' | 'onChange'> {
+export interface NumberInputProps extends Omit<React.ComponentProps<'skyra-tech-input'>, 'type' | 'onChange'> {
   value?: number | string;
   defaultValue?: number | string;
   min?: number;
@@ -21,7 +21,7 @@ export interface NumberReact.ComponentProps<'skyra-tech-input'> extends Omit<Rea
  * Number input with increment/decrement steppers, min/max bounds,
  * precision rounding, and keyboard controls.
  */
-export const NumberInput = React.forwardRef<HTMLInputElement, NumberReact.ComponentProps<'skyra-tech-input'>>(
+export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
   (
     {
       value,

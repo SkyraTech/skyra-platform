@@ -4,7 +4,7 @@ import React from 'react';
 import { Search } from 'lucide-react';
 import '@skyra-tech-platform/input';
 
-export interface SearchReact.ComponentProps<'skyra-tech-input'> extends Omit<React.ComponentProps<'skyra-tech-input'>, 'type' | 'leftAdornment' | 'prefix'> {
+export interface SearchInputProps extends Omit<React.ComponentProps<'skyra-tech-input'>, 'type' | 'leftAdornment' | 'prefix'> {
   /** Optional search icon */
   showSearchIcon?: boolean;
   /** Callback triggered when user submits search (e.g. presses Enter) */
@@ -16,7 +16,7 @@ export interface SearchReact.ComponentProps<'skyra-tech-input'> extends Omit<Rea
  *
  * Specialized search input with search icon, clear button, and accessible semantics.
  */
-export const SearchInput = React.forwardRef<HTMLInputElement, SearchReact.ComponentProps<'skyra-tech-input'>>(
+export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
   (
     {
       showSearchIcon = true,

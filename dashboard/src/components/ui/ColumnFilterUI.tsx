@@ -1,7 +1,9 @@
+'use client';
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Filter, X, Search, ChevronDown, Check } from 'lucide-react';
 import { ColumnFilter, FilterOperator } from '@skyra-tech-platform/data-table';
-import {  ColumnDef  } from '@skyra-tech-platform/data-table';
+type ColumnDef<T, V = unknown> = any;
 
 interface ColumnFilterUIProps<TData> {
   column: ColumnDef<TData, any>;

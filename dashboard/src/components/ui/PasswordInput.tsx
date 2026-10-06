@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import '@skyra-tech-platform/input';
 
-export interface PasswordReact.ComponentProps<'skyra-tech-input'> extends Omit<React.ComponentProps<'skyra-tech-input'>, 'type' | 'rightAdornment' | 'suffix'> {
+export interface PasswordInputProps extends Omit<React.ComponentProps<'skyra-tech-input'>, 'type' | 'rightAdornment' | 'suffix'> {
   /** Allow toggling password visibility */
   showToggle?: boolean;
 }
@@ -14,7 +14,7 @@ export interface PasswordReact.ComponentProps<'skyra-tech-input'> extends Omit<R
  *
  * Specialized password input with show/hide password toggle button.
  */
-export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordReact.ComponentProps<'skyra-tech-input'>>(
+export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
   ({ showToggle = true, ...props }, ref) => {
     const [isVisible, setIsVisible] = useState(false);
 

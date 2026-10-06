@@ -5,7 +5,7 @@ import { Download, FileSpreadsheet, FileJson, FileText } from 'lucide-react';
 import { downloadCsv, downloadExcel, downloadJson, downloadTsv, ExportColumn } from '@skyra-tech-platform/data-export';
 import '@skyra-tech-platform/button';
 
-export interface ExportReact.ComponentProps<'skyra-tech-button'><T extends Record<string, unknown> = Record<string, unknown>> extends Omit<React.ComponentProps<'skyra-tech-button'>, 'onClick'> {
+export interface ExportButtonProps<T extends Record<string, unknown> = Record<string, unknown>> extends Omit<React.ComponentProps<'skyra-tech-button'>, 'onClick'> {
   /** Target export format */
   format: 'csv' | 'xlsx' | 'xls' | 'json' | 'tsv';
   /** Array of data objects to export */
@@ -36,7 +36,7 @@ export function ExportButton<T extends Record<string, unknown> = Record<string, 
   variant = 'outline',
   leftIcon,
   ...rest
-}: ExportReact.ComponentProps<'skyra-tech-button'>) {
+}: ExportButtonProps<T>) {
   const [isExporting, setIsExporting] = useState(false);
 
   const defaultIcon =

@@ -46,8 +46,8 @@ export default function ApiDetailPage({ params }: { params: { slug: string, capa
 
   // Find latest release referencing this API
   const releases = docsRegistry.getReleases().reverse();
-  let latestChangeForApi = null;
-  let latestReleaseForApi = null;
+  let latestChangeForApi: any = null;
+  let latestReleaseForApi: any = null;
   
   for (const release of releases) {
     for (const p of release.packages) {
