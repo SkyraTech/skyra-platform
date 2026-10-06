@@ -47,6 +47,10 @@ export type { CheckboxProps } from './components/Checkbox';
 export { CheckboxGroup } from './components/CheckboxGroup';
 export type { CheckboxGroupProps, CheckboxGroupOption } from './components/CheckboxGroup';
 
+export { DataTable } from './components/DataTable';
+export type { DataTableProps, ColumnDef } from './components/DataTable.types';
+export { useDataTableState } from './hooks/useDataTableState';
+
 export { Radio } from './components/Radio';
 export type { RadioProps } from './components/Radio';
 

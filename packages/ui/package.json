@@ -34,7 +34,8 @@
     "@skyra/design-tokens": "workspace:*",
     "@skyra/utils": "workspace:*",
     "pdfjs-dist": "4.10.38",
-    "@skyra-tech-platform/dynamic-form": "workspace:*"
+    "@skyra-tech-platform/dynamic-form": "workspace:*",
+    "@skyra-tech-platform/data-table": "workspace:*"
   },
   "peerDependencies": {
     "lucide-react": ">=0.400.0",

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Filter, X, Search, ChevronDown, Check } from 'lucide-react';
-import { ColumnDef, ColumnFilter, FilterOperator } from './types';
+import { ColumnFilter, FilterOperator } from '@skyra-tech-platform/data-table';
+import { ColumnDef } from './DataTable.types';
 
 interface ColumnFilterUIProps<TData> {
   column: ColumnDef<TData, any>;

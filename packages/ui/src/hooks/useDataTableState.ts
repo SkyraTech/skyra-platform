@@ -6,7 +6,7 @@ import {
   RowSelectionState,
   ColumnFiltersState,
   ColumnSizingState
-} from './types';
+} from '@skyra-tech-platform/data-table';
 
 export interface UseDataTableStateProps {
   initialSorting?: SortingState[];

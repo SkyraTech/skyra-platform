@@ -1,7 +1,7 @@
-import { ColumnDef, ColumnFiltersState, SortingState } from './types';
+import { BaseColumnDef, ColumnFiltersState, SortingState } from './types';
 
 export interface ProcessTableDataOptions<TData> {
-  columns: ColumnDef<TData, any>[];
+  columns: BaseColumnDef<TData, unknown>[];
   globalFilter?: string;
   columnFilters?: ColumnFiltersState;
   sorting?: SortingState[];

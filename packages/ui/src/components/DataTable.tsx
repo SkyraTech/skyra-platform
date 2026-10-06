@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useRef, useEffect, useState, useMemo } from 'react';
-import { DataTableProps } from './types';
-import './skyra-tech-data-table';
-import { useDataTableState } from './useDataTableState';
+import { DataTableProps } from './DataTable.types';
+import '@skyra-tech-platform/data-table';
+import { useDataTableState } from '../hooks/useDataTableState';
 
 declare global {
   namespace React {

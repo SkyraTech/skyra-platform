@@ -1,8 +1,8 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
-import { DataTable, ColumnDef, processTableData, useDataTableState } from '@skyra-tech-platform/data-table';
-import { StatusBadge, StatusConfig, Button } from '@skyra/ui';
+import { processTableData } from '@skyra-tech-platform/data-table';
+import { DataTable, ColumnDef, useDataTableState, StatusBadge, StatusConfig, Button } from '@skyra/ui';
 import { downloadCsv } from '@skyra/data-export';
 import { MOCK_TRANSACTIONS, MockTransaction } from '@/components/demos/MockData';
 import { Eye, Edit, Trash2, Download, RefreshCw, AlertCircle } from 'lucide-react';
@@ -104,7 +104,7 @@ export default function DataTablePage() {
   // Export handler using pure processTableData + downloadCsv
   const handleExportProcessed = () => {
     const processed = processTableData(MOCK_TRANSACTIONS, {
-      columns,
+      columns: columns as any,
       globalFilter: featureConfig.globalSearch ? tableState.globalFilter : undefined,
       columnFilters: featureConfig.filtering ? tableState.columnFilters : undefined,
       sorting: featureConfig.sorting ? tableState.sorting : undefined,

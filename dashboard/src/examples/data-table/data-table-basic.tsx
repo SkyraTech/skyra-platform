@@ -1,11 +1,11 @@
-﻿/**
+/**
  * @id data-table-basic
  * @title Basic Data Table
  * @apiId @skyra/data-table::DynamicDataTable
  * @packageId @skyra/data-table
  */
 import React from 'react';
-import { DynamicDataTable } from '@skyra-tech-platform/data-table';
+import { DataTable } from '@skyra/ui';
 
 export default function DataTableBasicExample() {
   const data = [
@@ -22,7 +22,7 @@ export default function DataTableBasicExample() {
 
   return (
     <div style={{ border: '1px solid var(--skyra-border)', borderRadius: 'var(--skyra-radius-md)', overflow: 'hidden' }}>
-      <DynamicDataTable 
+      <DataTable 
         data={data} 
         columns={columns} 
       />

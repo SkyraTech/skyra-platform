@@ -1,4 +1,4 @@
-﻿import { docsRegistry } from './registry';
+import { docsRegistry } from './registry';
 import { bootstrapDesignTokens } from './design-metadata';
 import { behavioralMetadataMap } from './behavioral-metadata';
 import type { PackageMetadata, RuntimeCategory, CapabilityMetadata } from './metadata';
@@ -21,10 +21,10 @@ import validationPkg from '../../../packages/validation/package.json';
 const runtimeMap: Record<string, RuntimeCategory> = {
   '@skyra/app-shell':    'react-browser',
   '@skyra/data-export':  'react-browser',
-  '@skyra/data-table':   'react-browser',
+  '@skyra-tech-platform/data-table': 'mixed',
   '@skyra/design-tokens':'design-tokens',
   '@skyra/dialogs':      'react-browser',
-  '@skyra-tech-platform/dynamic-form': 'web-component',
+  '@skyra-tech-platform/dynamic-form': 'mixed',
   '@skyra/qr':           'mixed',          // core=runtime-neutral, react=react-browser
   '@skyra/ui':           'react-browser',
   '@skyra/utils':        'runtime-neutral',
@@ -70,15 +70,15 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     status: 'stable',
   },
 
-  // @skyra/data-table
+  // @skyra-tech-platform/data-table
   {
     id: 'data-table/dynamic',
-    packageId: '@skyra/data-table',
+    packageId: '@skyra-tech-platform/data-table',
     name: 'Dynamic Data Table',
-    exportPath: '@skyra/data-table',
-    runtime: 'react-browser',
+    exportPath: '@skyra-tech-platform/data-table',
+    runtime: 'mixed',
     description: 'Enterprise-grade, accessible, and responsive data table with sorting, pagination, filtering, and column configuration.',
-    usageNote: "import { DataTable } from '@skyra/data-table';",
+    usageNote: "import { DataTable } from '@skyra/ui';",
     status: 'stable',
   },
 
@@ -113,7 +113,7 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     packageId: '@skyra-tech-platform/dynamic-form',
     name: 'Dynamic Form Engine',
     exportPath: '@skyra-tech-platform/dynamic-form',
-    runtime: 'web-component',
+    runtime: 'mixed',
     description: 'Schema-driven form engine with validation, conditional fields, multi-step support, and full accessibility.',
     usageNote: "import { DynamicForm } from '@skyra/ui';",
     status: 'stable',
