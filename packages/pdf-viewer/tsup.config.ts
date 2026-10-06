@@ -2,8 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
   entry: {
-    index: 'src/index.ts',
-    'react/index': 'src/react/index.ts'
+    index: 'src/index.ts'
   },
   format: ['cjs', 'esm'],
   dts: true,
@@ -11,5 +10,5 @@ export default defineConfig({
   minify: true,
   sourcemap: true,
   treeshake: true,
-  external: ['react', 'react-dom', 'pdfjs-dist'],
+  external: ['pdfjs-dist'],
 });

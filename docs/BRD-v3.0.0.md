@@ -240,7 +240,7 @@ Rules:
                                (imports Layer 1)
 +-------------------------------------------------------------------------------+
 | LAYER 1: DESIGN FOUNDATION                                                    |
-| @skyra/design-tokens — CSS Custom Properties (--skyra-*), Dark Mode Overrides |
+| @skyra-tech-platform/design-tokens — CSS Custom Properties (--skyra-*), Dark Mode Overrides |
 | @skyra/utils         — Pure TS Utilities (amountInWords, currency, geo, date) |
 | @skyra/validation    — Authoritative Zod Schemas (Invoice, Payment, Org, Bank)|
 +-------------------------------------------------------------------------------+
@@ -502,7 +502,7 @@ It does NOT force web React components to run in React Native or vice versa.
 
 Zero dependencies on React or browser DOM. Safe to import in Node.js, edge workers, and future React Native apps.
 
-- **`@skyra/design-tokens`**: Ships `tokens.css` and `tokens.dark.css`. Defines all `--skyra-*` CSS custom properties derived from ERP.
+- **`@skyra-tech-platform/design-tokens`**: Ships `tokens.css` and `tokens.dark.css`. Defines all `--skyra-*` CSS custom properties derived from ERP.
 - **`@skyra/utils`**: Pure deterministic TypeScript utilities (`amountInWords`, `formatCurrency`, `formatDate`, geographic data, dial codes). Zero DOM dependencies.
 - **`@skyra/validation`**: Authoritative Zod schemas for invoices, payments, organizations, banks, clients.
 
@@ -631,10 +631,10 @@ STANDARD SHOWCASE PAGE STRUCTURE
 
 | Package Directory | Package Name | Layer | Runtime | Dependencies |
 |---|---|---|---|---|
-| `packages/design-tokens` | `@skyra/design-tokens` | 1 | CSS | None |
+| `packages/design-tokens` | `@skyra-tech-platform/design-tokens` | 1 | CSS | None |
 | `packages/utils` | `@skyra/utils` | 1 | Universal TS | None |
 | `packages/validation` | `@skyra/validation` | 1 | Universal TS | `zod` (peer) |
-| `packages/ui` | `@skyra/ui` | 2 | React (Browser/SSR) | `@skyra/design-tokens`, `react` (peer), `lucide-react` (peer) |
+| `packages/ui` | `@skyra/ui` | 2 | React (Browser/SSR) | `@skyra-tech-platform/design-tokens`, `react` (peer), `lucide-react` (peer) |
 | `packages/data-table` | `@skyra/data-table` | 2 | React (Browser/SSR) | `@skyra/ui`, `react` (peer), `lucide-react` (peer) |
 | `packages/dynamic-form` | `@skyra/dynamic-form` | 2 | React (Browser/SSR) | `@skyra/ui`, `react` (peer), `lucide-react` (peer) |
 | `packages/dialogs` | `@skyra/dialogs` | 2 | React (Browser/SSR) | `@skyra/ui`, `react` (peer), `lucide-react` (peer) |
@@ -644,7 +644,7 @@ STANDARD SHOWCASE PAGE STRUCTURE
 ### 17.2 One-Way Dependency Graph
 
 ```
-@skyra/design-tokens  @skyra/utils  @skyra/validation
+@skyra-tech-platform/design-tokens  @skyra/utils  @skyra/validation
          |                 |               |
          +-----------------+---------------+
                            |
@@ -792,7 +792,7 @@ All platform components must be specified and manually verified at 7 viewport wi
 ## 25. Dark Mode System Requirements
 
 1. Driven by `.dark` class on `<html>` element — confirmed from `globals.css:57`.
-2. Overrides defined in `tokens.dark.css` in `@skyra/design-tokens`.
+2. Overrides defined in `tokens.dark.css` in `@skyra-tech-platform/design-tokens`.
 3. All ERP dark mode values (`#0B111E`, `#151D30`, etc.) confirmed and preserved.
 4. Dashboard provides live light/dark split comparison for every component.
 5. **Invoice Print Integrity**: Application chrome renders dark; A4 invoice document container preserves light/print fidelity.
@@ -869,7 +869,7 @@ Every `packages/*` must contain:
 8-step non-destructive migration with mandatory dashboard verification at every step:
 
 ```
-Step 1: @skyra/design-tokens  →  Step 2: @skyra/utils  →  Step 3: @skyra/validation
+Step 1: @skyra-tech-platform/design-tokens  →  Step 2: @skyra/utils  →  Step 3: @skyra/validation
 →  Step 4: @skyra/ui  →  Step 5: @skyra/data-table  →  Step 6: @skyra/dynamic-form
 →  Step 7: @skyra/dialogs  →  Step 8: @skyra/invoice
 ```
@@ -958,7 +958,7 @@ COMPONENT ACCEPTANCE WORKFLOW
 
 ```
 PHASE 0 (NOW):    Specification finalization and formal approval
-PHASE 1:          Monorepo setup + @skyra/design-tokens + dashboard skeleton
+PHASE 1:          Monorepo setup + @skyra-tech-platform/design-tokens + dashboard skeleton
 PHASE 2:          @skyra/utils + @skyra/validation (≥95% test coverage)
 PHASE 3:          @skyra/ui + UI showcase section (ERP visual fidelity verified)
 PHASE 4:          @skyra/data-table + 9 table showcase designs

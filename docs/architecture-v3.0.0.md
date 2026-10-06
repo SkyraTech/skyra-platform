@@ -43,7 +43,7 @@
                                (imports Layer 1)
 +-------------------------------------------------------------------------------+
 | LAYER 1: DESIGN FOUNDATION  (zero DOM/browser/React/CSS dependencies)        |
-| @skyra/design-tokens — CSS Custom Properties (--skyra-*), dark mode CSS      |
+| @skyra-tech-platform/design-tokens — CSS Custom Properties (--skyra-*), dark mode CSS      |
 | @skyra/utils         — Pure TS: amountInWords, formatCurrency, geo, date     |
 | @skyra/validation    — Authoritative Zod Schemas                              |
 +-------------------------------------------------------------------------------+
@@ -59,7 +59,7 @@
 ## 3. Package Dependency Graph
 
 ```
-@skyra/design-tokens   @skyra/utils   @skyra/validation (peer: zod)
+@skyra-tech-platform/design-tokens   @skyra/utils   @skyra/validation (peer: zod)
          |                  |                |
          +------------------+----------------+
                             |
@@ -78,7 +78,7 @@ Dependency matrix:
 
 | Package | design-tokens | utils | validation | ui | External |
 |---|---|---|---|---|---|
-| `@skyra/design-tokens` | — | — | — | — | none |
+| `@skyra-tech-platform/design-tokens` | — | — | — | — | none |
 | `@skyra/utils` | — | — | — | — | none |
 | `@skyra/validation` | — | — | — | — | `zod` (peer) |
 | `@skyra/ui` | dep | — | — | — | `react` (peer), `lucide-react` (peer) |
@@ -280,7 +280,7 @@ SKYRA PLATFORM
 ```
 skyra-platform/
 +-- packages/
-|   +-- design-tokens/      @skyra/design-tokens
+|   +-- design-tokens/      @skyra-tech-platform/design-tokens
 |   +-- utils/              @skyra/utils
 |   +-- validation/         @skyra/validation
 |   +-- ui/                 @skyra/ui
@@ -398,7 +398,7 @@ No Platform package may import an application package, application database laye
 
 ### Styling Boundary
 
-`@skyra/design-tokens` defines semantic values and theme contracts, but importing Platform packages must not silently introduce a global CSS reset, global element rules, global typography rules, or global layout rules. Consumers explicitly opt into token styles. Component styling remains isolated.
+`@skyra-tech-platform/design-tokens` defines semantic values and theme contracts, but importing Platform packages must not silently introduce a global CSS reset, global element rules, global typography rules, or global layout rules. Consumers explicitly opt into token styles. Component styling remains isolated.
 
 ### Versioned Public Surface
 

@@ -30,7 +30,7 @@ export function Layout({ children }) {
 ```
 
 ## Dependencies / Peer Dependencies
-- **Dependencies:** `@skyra/design-tokens`, `@skyra/ui`, `@skyra/utils`
+- **Dependencies:** `@skyra-tech-platform/design-tokens`, `@skyra/ui`, `@skyra/utils`
 - **Peer Dependencies:** `react`, `react-dom`, `lucide-react`
 
 ## Responsive Behavior

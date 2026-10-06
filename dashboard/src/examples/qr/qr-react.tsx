@@ -1,12 +1,12 @@
-﻿/**
+/**
  * @id qr-react-basic
  * @title React QR Code
- * @apiId @skyra/qr::QRCode
- * @packageId @skyra/qr
- * @capabilityId qr/react
+ * @apiId @skyra/ui::QRCode
+ * @packageId @skyra/ui
+ * @capabilityId ui/components
  */
 import React from 'react';
-import { QRCode } from '@skyra/qr/react';
+import { QRCode } from '@skyra/ui';
 
 export default function QRReactExample() {
   return (

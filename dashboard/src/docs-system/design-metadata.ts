@@ -1,4 +1,4 @@
-﻿import { tokens } from '@skyra/design-tokens';
+﻿import { tokens } from '@skyra-tech-platform/design-tokens';
 import { docsRegistry } from './registry';
 import type { TokenCategory, TokenMetadata, DesignFoundationMetadata } from './metadata';
 
@@ -119,7 +119,7 @@ export function bootstrapDesignTokens() {
       value: value,
       darkValue: mapping.darkTokens ? mapping.darkTokens[key] : undefined,
       category: mapping.category,
-      source: '@skyra/design-tokens'
+      source: '@skyra-tech-platform/design-tokens'
     };
 
     docsRegistry.registerToken(tokenMeta);

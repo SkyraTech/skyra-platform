@@ -1,8 +1,8 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { Badge } from '@skyra/ui';
-import { QRCodeConfigurator, QRCodePreview, QRCodeScanabilityStatus } from '@skyra/qr/react';
+import { QRCodeConfigurator, QRCodePreview, QRCodeScanabilityStatus } from '@skyra/ui';
 
 export default function QRCodeShowcase() {
   const [value, setValue] = useState('https://skyra.tech/demo-qr');
@@ -119,7 +119,7 @@ export default function QRCodeShowcase() {
               overflowX: 'auto',
               lineHeight: 1.6
             }}>
-<span style={{ color: '#38BDF8' }}>import</span> {'{ '} <span style={{ color: '#FDE047' }}>QRCode</span> {' }'} <span style={{ color: '#38BDF8' }}>from</span> <span style={{ color: '#34D399' }}>'@skyra/qr/react'</span>;{'\n\n'}
+<span style={{ color: '#38BDF8' }}>import</span> {'{ '} <span style={{ color: '#FDE047' }}>QRCode</span> {' }'} <span style={{ color: '#38BDF8' }}>from</span> <span style={{ color: '#34D399' }}>'@skyra/ui'</span>;{'\n\n'}
 <span style={{ color: '#64748B' }}>// React Usage</span>{'\n'}
 {'<'}<span style={{ color: '#FDE047' }}>QRCode</span>{'\n'}
 {'  '}<span style={{ color: '#38BDF8' }}>value</span>={'{'}<span style={{ color: '#34D399' }}>'{value}'</span>{'}'}{'\n'}

@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
-import '../index'; // Ensure custom element is registered
+import '@skyra-tech-platform/pdf-viewer'; // Ensure custom element is registered
 
 export interface PdfViewerProps {
   title?: string;

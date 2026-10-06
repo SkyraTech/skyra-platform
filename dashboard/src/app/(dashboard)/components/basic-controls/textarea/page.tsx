@@ -291,7 +291,7 @@ export default function TextareaDocsPage() {
 
       <HeadingAnchor id="styling">Styling & Theming</HeadingAnchor>
       <p style={{ color: 'var(--skyra-text-muted)', lineHeight: 1.6, marginBottom: '2.5rem' }}>
-        The component reads its colors from the <code style={{fontFamily: 'var(--skyra-font-mono)'}}>@skyra/design-tokens</code> layer.
+        The component reads its colors from the <code style={{fontFamily: 'var(--skyra-font-mono)'}}>@skyra-tech-platform/design-tokens</code> layer.
         Dark mode and light mode are handled completely natively via the token variables without JavaScript.
       </p>
       

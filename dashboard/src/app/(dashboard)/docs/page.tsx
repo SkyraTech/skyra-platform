@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Card } from '@skyra/ui';
 
 export const metadata = { title: 'Documentation Architecture — Skyra Platform' };
@@ -31,7 +31,7 @@ export default function DocsArchitecturePage() {
             <Card style={{ padding: '1.25rem' }}>
               <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', fontWeight: 600 }}>Layer B: Capabilities &amp; Modules</h3>
               <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--skyra-text-muted)' }}>
-                Conceptual features within packages (e.g., <code>@skyra/qr/core</code> vs <code>@skyra/qr/react</code>). Explains usage patterns, limitations, and runtime requirements.
+                Conceptual features within packages (e.g., <code>@skyra-tech-platform/qr</code> vs <code>@skyra/ui</code>). Explains usage patterns, limitations, and runtime requirements.
               </p>
             </Card>
             <Card style={{ padding: '1.25rem' }}>
@@ -54,7 +54,7 @@ export default function DocsArchitecturePage() {
           <ul style={{ margin: 0, paddingLeft: '1.5rem', fontSize: '0.875rem', color: 'var(--skyra-text-muted)', lineHeight: 1.6 }}>
             <li><strong>Package Metadata:</strong> Bootstrapped directly from authoritative workspace <code>package.json</code> files.</li>
             <li><strong>Lifecycle Governance:</strong> Driven by Phase 9 platform standards (stable, experimental, deprecated).</li>
-            <li><strong>Design Tokens:</strong> Derived strictly from <code>@skyra/design-tokens</code>. Do not hardcode hex codes.</li>
+            <li><strong>Design Tokens:</strong> Derived strictly from <code>@skyra-tech-platform/design-tokens</code>. Do not hardcode hex codes.</li>
             <li><strong>What not to duplicate:</strong> Never manually redefine TypeScript signatures, package dependencies, or CSS styles globally.</li>
           </ul>
         </section>

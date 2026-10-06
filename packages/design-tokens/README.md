@@ -1,4 +1,4 @@
-# @skyra/design-tokens
+# @skyra-tech-platform/design-tokens
 
 ## Overview
 Skyra Platform design tokens — CSS custom properties, dark mode support, and base CSS resets.
@@ -8,7 +8,7 @@ Runtime-neutral (Browser CSS)
 
 ## Installation
 ```bash
-pnpm add @skyra/design-tokens
+pnpm add @skyra-tech-platform/design-tokens
 ```
 
 ## Public API
@@ -18,10 +18,10 @@ pnpm add @skyra/design-tokens
 
 ## Basic Usage
 ```tsx
-import '@skyra/design-tokens/tokens.css';
-import '@skyra/design-tokens/reset.css'; // Optional but recommended
+import '@skyra-tech-platform/design-tokens/tokens.css';
+import '@skyra-tech-platform/design-tokens/reset.css'; // Optional but recommended
 
-import { tokens } from '@skyra/design-tokens';
+import { tokens } from '@skyra-tech-platform/design-tokens';
 console.log(tokens.primary);
 ```
 

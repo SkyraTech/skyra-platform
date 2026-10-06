@@ -1,11 +1,11 @@
-﻿/**
+/**
  * @id qr-core-basic
  * @title Core QR Generation
- * @apiId @skyra/qr::generateQRCode
- * @packageId @skyra/qr
+ * @apiId @skyra-tech-platform/qr::generateQRCode
+ * @packageId @skyra-tech-platform/qr
  * @capabilityId qr/core
  */
-import { generateQRCode } from '@skyra/qr/core';
+import { generateQRCode } from '@skyra-tech-platform/qr';
 
 export function runExample() {
   // Runtime neutral QR code generation

@@ -22,7 +22,7 @@ export default function DesignSystemPage() {
         Design System
       </h1>
       <p style={{ color: 'var(--skyra-text-muted)', marginBottom: '2rem' }}>
-        Authoritative platform tokens rendered dynamically from <code>@skyra/design-tokens</code>.
+        Authoritative platform tokens rendered dynamically from <code>@skyra-tech-platform/design-tokens</code>.
       </p>
 
       {colorFoundation && (

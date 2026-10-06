@@ -10,10 +10,10 @@
   {
     "id": "data-table-basic",
     "title": "Basic Data Table",
-    "source": "/**\r\n * @id data-table-basic\r\n * @title Basic Data Table\r\n * @apiId @skyra/data-table::DynamicDataTable\r\n * @packageId @skyra/data-table\r\n */\r\nimport React from 'react';\r\nimport { DataTable } from '@skyra/ui';\r\n\r\nexport default function DataTableBasicExample() {\r\n  const data = [\r\n    { id: '1', name: 'Alice Smith', role: 'Admin', status: 'Active' },\r\n    { id: '2', name: 'Bob Jones', role: 'Editor', status: 'Inactive' },\r\n    { id: '3', name: 'Charlie Brown', role: 'Viewer', status: 'Active' },\r\n  ];\r\n\r\n  const columns: any[] = [\r\n    { key: 'name', accessor: 'name', header: 'Name' },\r\n    { key: 'role', accessor: 'role', header: 'Role' },\r\n    { key: 'status', accessor: 'status', header: 'Status' },\r\n  ];\r\n\r\n  return (\r\n    <div style={{ border: '1px solid var(--skyra-border)', borderRadius: 'var(--skyra-radius-md)', overflow: 'hidden' }}>\r\n      <DataTable \r\n        data={data} \r\n        columns={columns} \r\n      />\r\n    </div>\r\n  );\r\n}\r\n",
+    "source": "/**\r\n * @id data-table-basic\r\n * @title Basic Data Table\r\n * @apiId @skyra/ui::DataTable\r\n * @packageId @skyra-tech-platform/data-table\r\n */\r\nimport React from 'react';\r\nimport { DataTable } from '@skyra/ui';\r\n\r\nexport default function DataTableBasicExample() {\r\n  const data = [\r\n    { id: '1', name: 'Alice Smith', role: 'Admin', status: 'Active' },\r\n    { id: '2', name: 'Bob Jones', role: 'Editor', status: 'Inactive' },\r\n    { id: '3', name: 'Charlie Brown', role: 'Viewer', status: 'Active' },\r\n  ];\r\n\r\n  const columns: any[] = [\r\n    { key: 'name', accessor: 'name', header: 'Name' },\r\n    { key: 'role', accessor: 'role', header: 'Role' },\r\n    { key: 'status', accessor: 'status', header: 'Status' },\r\n  ];\r\n\r\n  return (\r\n    <div style={{ border: '1px solid var(--skyra-border)', borderRadius: 'var(--skyra-radius-md)', overflow: 'hidden' }}>\r\n      <DataTable \r\n        data={data} \r\n        columns={columns} \r\n      />\r\n    </div>\r\n  );\r\n}\r\n",
     "language": "tsx",
-    "apiId": "@skyra/data-table::DynamicDataTable",
-    "packageId": "@skyra/data-table"
+    "apiId": "@skyra/ui::DataTable",
+    "packageId": "@skyra-tech-platform/data-table"
   },
   {
     "id": "dialogs-confirm-basic",
@@ -26,28 +26,28 @@
   {
     "id": "dynamic-form-basic",
     "title": "Basic Dynamic Form",
-    "source": "﻿/**\r\n * @id dynamic-form-basic\r\n * @title Basic Dynamic Form\r\n * @apiId @skyra/dynamic-form::DynamicForm\r\n * @packageId @skyra/dynamic-form\r\n */\r\nimport React from 'react';\r\nimport { DynamicForm } from '@skyra/ui';\r\n\r\nexport default function DynamicFormBasicExample() {\r\n  const fields = [\r\n    { id: 'firstName', type: 'text' as const, label: 'First Name', required: true },\r\n    { id: 'lastName', type: 'text' as const, label: 'Last Name' },\r\n    { id: 'email', type: 'text' as const, label: 'Email', required: true }\r\n  ];\r\n\r\n  return (\r\n    <div style={{ maxWidth: '400px' }}>\r\n      <DynamicForm \r\n        fields={fields}\r\n        onSubmit={(data: any) => alert(JSON.stringify(data, null, 2))}\r\n      />\r\n    </div>\r\n  );\r\n}\r\n",
+    "source": "/**\r\n * @id dynamic-form-basic\r\n * @title Basic Dynamic Form\r\n * @apiId @skyra/ui::DynamicForm\r\n * @packageId @skyra-tech-platform/dynamic-form\r\n */\r\nimport React from 'react';\r\nimport { DynamicForm } from '@skyra/ui';\r\n\r\nexport default function DynamicFormBasicExample() {\r\n  const fields = [\r\n    { id: 'firstName', type: 'text' as const, label: 'First Name', required: true },\r\n    { id: 'lastName', type: 'text' as const, label: 'Last Name' },\r\n    { id: 'email', type: 'text' as const, label: 'Email', required: true }\r\n  ];\r\n\r\n  return (\r\n    <div style={{ maxWidth: '400px' }}>\r\n      <DynamicForm \r\n        fields={fields}\r\n        onSubmit={(data: any) => alert(JSON.stringify(data, null, 2))}\r\n      />\r\n    </div>\r\n  );\r\n}\r\n",
     "language": "tsx",
-    "apiId": "@skyra/dynamic-form::DynamicForm",
-    "packageId": "@skyra/dynamic-form"
+    "apiId": "@skyra/ui::DynamicForm",
+    "packageId": "@skyra-tech-platform/dynamic-form"
   },
   {
     "id": "qr-core-basic",
     "title": "Core QR Generation",
-    "source": "﻿/**\r\n * @id qr-core-basic\r\n * @title Core QR Generation\r\n * @apiId @skyra/qr::generateQRCode\r\n * @packageId @skyra/qr\r\n * @capabilityId qr/core\r\n */\r\nimport { generateQRCode } from '@skyra/qr/core';\r\n\r\nexport function runExample() {\r\n  // Runtime neutral QR code generation\r\n  // Can be executed on Node.js, edge, or browser\r\n  return generateQRCode('https://skyra.com', {\r\n    errorCorrectionLevel: 'H',\r\n    version: 4\r\n  });\r\n}\r\n",
+    "source": "/**\r\n * @id qr-core-basic\r\n * @title Core QR Generation\r\n * @apiId @skyra-tech-platform/qr::generateQRCode\r\n * @packageId @skyra-tech-platform/qr\r\n * @capabilityId qr/core\r\n */\r\nimport { generateQRCode } from '@skyra-tech-platform/qr';\r\n\r\nexport function runExample() {\r\n  // Runtime neutral QR code generation\r\n  // Can be executed on Node.js, edge, or browser\r\n  return generateQRCode('https://skyra.com', {\r\n    errorCorrectionLevel: 'H',\r\n    version: 4\r\n  });\r\n}\r\n",
     "language": "typescript",
-    "apiId": "@skyra/qr::generateQRCode",
-    "packageId": "@skyra/qr",
+    "apiId": "@skyra-tech-platform/qr::generateQRCode",
+    "packageId": "@skyra-tech-platform/qr",
     "capabilityId": "qr/core"
   },
   {
     "id": "qr-react-basic",
     "title": "React QR Code",
-    "source": "﻿/**\r\n * @id qr-react-basic\r\n * @title React QR Code\r\n * @apiId @skyra/qr::QRCode\r\n * @packageId @skyra/qr\r\n * @capabilityId qr/react\r\n */\r\nimport React from 'react';\r\nimport { QRCode } from '@skyra/qr/react';\r\n\r\nexport default function QRReactExample() {\r\n  return (\r\n    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>\r\n      <p>Scan to visit Skyra Platform:</p>\r\n      <QRCode \r\n        value=\"https://skyra.com\" \r\n        width={200}\r\n      />\r\n    </div>\r\n  );\r\n}\r\n",
+    "source": "/**\r\n * @id qr-react-basic\r\n * @title React QR Code\r\n * @apiId @skyra/ui::QRCode\r\n * @packageId @skyra/ui\r\n * @capabilityId ui/components\r\n */\r\nimport React from 'react';\r\nimport { QRCode } from '@skyra/ui';\r\n\r\nexport default function QRReactExample() {\r\n  return (\r\n    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>\r\n      <p>Scan to visit Skyra Platform:</p>\r\n      <QRCode \r\n        value=\"https://skyra.com\" \r\n        width={200}\r\n      />\r\n    </div>\r\n  );\r\n}\r\n",
     "language": "tsx",
-    "apiId": "@skyra/qr::QRCode",
-    "packageId": "@skyra/qr",
-    "capabilityId": "qr/react"
+    "apiId": "@skyra/ui::QRCode",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components"
   },
   {
     "id": "ui-button-basic",

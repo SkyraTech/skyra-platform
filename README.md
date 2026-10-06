@@ -75,7 +75,7 @@ skyra-platform/
 | Package | Version | Description |
 | :--- | :--- | :--- |
 | [`@skyra/ui`](file:///packages/ui) | `0.1.0` | Production-grade accessible UI primitives (Inputs, Date/Time, Popover, Menu, Tabs, Accordion, Collapsible, Breadcrumbs, Loaders, Select, Switch, etc.) |
-| [`@skyra/design-tokens`](file:///packages/design-tokens) | `0.1.0` | Centralized `--skyra-*` CSS variable tokens for colors, typography, radii, spacing, elevations, and dark mode |
+| [`@skyra-tech-platform/design-tokens`](file:///packages/design-tokens) | `0.1.0` | Centralized `--skyra-*` CSS variable tokens for colors, typography, radii, spacing, elevations, and dark mode |
 | [`@skyra/utils`](file:///packages/utils) | `0.1.0` | Pure helper functions for currency formatting, date arithmetic, string utilities, and math |
 | [`@skyra/validation`](file:///packages/validation) | `0.1.0` | Reusable Zod schemas and validation helpers (GSTIN, PAN, email, phone, org rules) |
 | [`@skyra/data-table`](file:///packages/data-table) | `0.1.0` | Enterprise data grid with sorting, filtering, selection, and pagination hooks |

@@ -26,7 +26,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@skyra/design-tokens": "workspace:*",
+    "@skyra-tech-platform/design-tokens": "workspace:*",
     "@skyra/ui": "workspace:*",
     "@skyra/utils": "workspace:*"
   },

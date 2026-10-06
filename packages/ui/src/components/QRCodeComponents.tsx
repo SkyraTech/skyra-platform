@@ -2,10 +2,9 @@
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { QRCode, QRCodeProps } from './QRCode';
-import { Button, DropdownMenu, Input, Badge, Alert } from '@skyra/ui';
+import { Button, DropdownMenu, Input, Badge, Alert } from '../index';
 import { Download, Copy, Share2, ZoomIn, ZoomOut, Check, AlertTriangle, Maximize, RefreshCw, XCircle } from 'lucide-react';
-import { renderToSVGString } from '../render/svg';
-import { generateQRCode } from '../generate';
+import { renderToSVGString, generateQRCode } from '@skyra-tech-platform/qr';
 
 // ---------------------------------------------------------
 // Helpers

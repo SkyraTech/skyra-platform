@@ -3,7 +3,7 @@
 const nextConfig: NextConfig = {
   transpilePackages: [
     '@skyra/ui',
-    '@skyra/design-tokens',
+    '@skyra-tech-platform/design-tokens',
     '@skyra/data-table',
     '@skyra/ui',
     '@skyra/dialogs',

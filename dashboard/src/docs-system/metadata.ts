@@ -63,7 +63,7 @@ export interface TokenMetadata {
   darkValue?: string;
   category: TokenCategory;
   description?: string;
-  source: string; // e.g. '@skyra/design-tokens'
+  source: string; // e.g. '@skyra-tech-platform/design-tokens'
 }
 
 export interface DesignFoundationMetadata {

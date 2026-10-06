@@ -1,5 +1,5 @@
 /**
- * @skyra/design-tokens
+ * @skyra-tech-platform/design-tokens
  *
  * CSS Custom Properties for the Skyra Platform design system.
  * Import the CSS files directly; this module exports TypeScript
@@ -7,11 +7,11 @@
  * React Native in the future, test assertions).
  *
  * Usage in CSS:
- *   import '@skyra/design-tokens/tokens.css';
- *   import '@skyra/design-tokens/reset.css';
+ *   import '@skyra-tech-platform/design-tokens/tokens.css';
+ *   import '@skyra-tech-platform/design-tokens/reset.css';
  *
  * Usage in TypeScript:
- *   import { tokens } from '@skyra/design-tokens';
+ *   import { tokens } from '@skyra-tech-platform/design-tokens';
  *   tokens.primary // '#0A58CA'
  */
 

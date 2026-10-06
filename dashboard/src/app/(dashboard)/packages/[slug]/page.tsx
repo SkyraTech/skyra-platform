@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Card, Badge, Button } from '@skyra/ui';
 import { docsRegistry } from '../../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../../docs-system/bootstrap';
@@ -12,13 +12,12 @@ bootstrapRegistry();
 export async function generateStaticParams() {
   const packages = docsRegistry.getPackages();
   return packages.map((pkg) => ({
-    slug: pkg.id.replace('@skyra/', ''),
+    slug: pkg.id.split('/').pop() || '',
   }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
-  const id = `@skyra/${params.slug}`;
-  const pkg = docsRegistry.getPackage(id);
+  const pkg = docsRegistry.getPackages().find(p => p.id.endsWith(`/${params.slug}`));
   
   if (!pkg) {
     return { title: 'Package Not Found' };
@@ -28,12 +27,13 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
 }
 
 export default function PackageDetailPage({ params }: { params: { slug: string } }) {
-  const id = `@skyra/${params.slug}`;
-  const pkg = docsRegistry.getPackage(id);
+  const pkg = docsRegistry.getPackages().find(p => p.id.endsWith(`/${params.slug}`));
 
   if (!pkg) {
     notFound();
   }
+  
+  const id = pkg.id;
 
   const capabilities = docsRegistry.getCapabilitiesForPackage(id);
   const releases = docsRegistry.getReleases()

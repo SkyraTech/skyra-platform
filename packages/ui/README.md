@@ -31,11 +31,11 @@ export function Form() {
 ```
 
 ## Dependencies / Peer Dependencies
-- **Dependencies:** `@skyra/design-tokens`, `@skyra/data-export`, `@skyra/utils`
+- **Dependencies:** `@skyra-tech-platform/design-tokens`, `@skyra/data-export`, `@skyra/utils`
 - **Peer Dependencies:** `react`, `react-dom`, `lucide-react`
 
 ## Theming & Styling
-Requires importing both `@skyra/design-tokens` (for CSS variables) and `@skyra/ui/styles.css` (for component scoping).
+Requires importing both `@skyra-tech-platform/design-tokens` (for CSS variables) and `@skyra/ui/styles.css` (for component scoping).
 
 *Constraint Notice:* Currently, `styles.css` injects a global `prefers-reduced-motion` reset onto `*`. Consuming this stylesheet will mutate host application motion behavior.
 

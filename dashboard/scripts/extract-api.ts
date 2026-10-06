@@ -1,4 +1,4 @@
-﻿import { Project, VariableDeclaration, InterfaceDeclaration, TypeAliasDeclaration, FunctionDeclaration, SyntaxKind, JSDoc } from 'ts-morph';
+import { Project, VariableDeclaration, InterfaceDeclaration, TypeAliasDeclaration, FunctionDeclaration, SyntaxKind, JSDoc } from 'ts-morph';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -7,11 +7,10 @@ import * as path from 'path';
 const TARGETS = [
   { capabilityId: 'app-shell/layout', packageId: '@skyra/app-shell', exportPath: '@skyra/app-shell', entry: 'packages/app-shell/dist/index.d.ts' },
   { capabilityId: 'data-export/csv', packageId: '@skyra/data-export', exportPath: '@skyra/data-export', entry: 'packages/data-export/dist/index.d.ts' },
-  { capabilityId: 'data-table/dynamic', packageId: '@skyra/data-table', exportPath: '@skyra/data-table', entry: 'packages/data-table/dist/index.d.ts' },
+  { capabilityId: 'data-table/dynamic', packageId: '@skyra-tech-platform/data-table', exportPath: '@skyra-tech-platform/data-table', entry: 'packages/data-table/dist/index.d.ts' },
   { capabilityId: 'dialogs/core', packageId: '@skyra/dialogs', exportPath: '@skyra/dialogs', entry: 'packages/dialogs/dist/index.d.ts' },
-  { capabilityId: 'dynamic-form/core', packageId: '@skyra/ui', exportPath: '@skyra/ui', entry: 'packages/dynamic-form/dist/index.d.ts' },
-  { capabilityId: 'qr/core', packageId: '@skyra/qr', exportPath: '@skyra/qr/core', entry: 'packages/qr/dist/core.d.ts' },
-  { capabilityId: 'qr/react', packageId: '@skyra/qr', exportPath: '@skyra/qr/react', entry: 'packages/qr/dist/react.d.ts' },
+  { capabilityId: 'dynamic-form/core', packageId: '@skyra-tech-platform/dynamic-form', exportPath: '@skyra-tech-platform/dynamic-form', entry: 'packages/dynamic-form/dist/index.d.ts' },
+  { capabilityId: 'qr/core', packageId: '@skyra-tech-platform/qr', exportPath: '@skyra-tech-platform/qr', entry: 'packages/qr/dist/core.d.ts' },
   { capabilityId: 'ui/components', packageId: '@skyra/ui', exportPath: '@skyra/ui', entry: 'packages/ui/dist/index.d.ts' },
   { capabilityId: 'utils/core', packageId: '@skyra/utils', exportPath: '@skyra/utils', entry: 'packages/utils/dist/index.d.ts' },
   { capabilityId: 'validation/core', packageId: '@skyra/validation', exportPath: '@skyra/validation', entry: 'packages/validation/dist/index.d.ts' },

@@ -48,7 +48,7 @@ Migration must NEVER:
 ## 4. Eight-Step Package Adoption Sequence
 
 ```
-Step 1: @skyra/design-tokens
+Step 1: @skyra-tech-platform/design-tokens
 Step 2: @skyra/utils
 Step 3: @skyra/validation
 Step 4: @skyra/ui
@@ -64,14 +64,14 @@ Step 8: @skyra/invoice
 
 ---
 
-### Step 1: `@skyra/design-tokens` (Very Low Risk)
+### Step 1: `@skyra-tech-platform/design-tokens` (Very Low Risk)
 
 **What Changes:**
-- Install `@skyra/design-tokens` in `skyra-erp`.
+- Install `@skyra-tech-platform/design-tokens` in `skyra-erp`.
 - In `src/app/globals.css`, replace local token block with:
   ```css
-  @import '@skyra/design-tokens/tokens.css';
-  @import '@skyra/design-tokens/tokens.dark.css';
+  @import '@skyra-tech-platform/design-tokens/tokens.css';
+  @import '@skyra-tech-platform/design-tokens/tokens.dark.css';
   ```
 - Add backward-compatibility aliases: `--primary: var(--skyra-primary)` etc. to prevent breaking existing ERP components that use old names.
 
@@ -300,14 +300,14 @@ Before any migration PR is merged:
 When bootstrapping a new Skyra product (CRM, Billing):
 
 ```bash
-pnpm add @skyra/design-tokens @skyra/utils @skyra/validation @skyra/ui @skyra/data-table @skyra/dynamic-form @skyra/dialogs
+pnpm add @skyra-tech-platform/design-tokens @skyra/utils @skyra/validation @skyra/ui @skyra/data-table @skyra/dynamic-form @skyra/dialogs
 # Add @skyra/invoice only if invoice functionality is required
 ```
 
 Root layout stylesheet:
 ```css
-@import '@skyra/design-tokens/tokens.css';
-@import '@skyra/design-tokens/tokens.dark.css';
+@import '@skyra-tech-platform/design-tokens/tokens.css';
+@import '@skyra-tech-platform/design-tokens/tokens.dark.css';
 ```
 
 Root layout HTML:

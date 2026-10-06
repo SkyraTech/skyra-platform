@@ -17,7 +17,7 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "@skyra/design-tokens": "workspace:*"
+    "@skyra-tech-platform/design-tokens": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

@@ -1,8 +1,8 @@
-﻿/**
+/**
  * @id dynamic-form-basic
  * @title Basic Dynamic Form
- * @apiId @skyra/dynamic-form::DynamicForm
- * @packageId @skyra/dynamic-form
+ * @apiId @skyra/ui::DynamicForm
+ * @packageId @skyra-tech-platform/dynamic-form
  */
 import React from 'react';
 import { DynamicForm } from '@skyra/ui';

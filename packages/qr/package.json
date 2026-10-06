@@ -1,18 +1,8 @@
 {
-  "name": "@skyra/qr",
+  "name": "@skyra-tech-platform/qr",
   "version": "0.1.0",
   "description": "Skyra Platform generic QR code generation, matrix calculation, and SVG rendering",
   "exports": {
-    "./react": {
-      "require": "./dist/react.cjs",
-      "types": "./dist/react.d.ts",
-      "import": "./dist/react.js"
-    },
-    "./core": {
-      "require": "./dist/core.cjs",
-      "types": "./dist/core.d.ts",
-      "import": "./dist/core.js"
-    },
     ".": {
       "require": "./dist/core.cjs",
       "types": "./dist/core.d.ts",
@@ -29,11 +19,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@skyra/ui": "workspace:^",
     "qrcode": "^1.5.4"
-  },
-  "peerDependencies": {
-    "react": "^18 || ^19"
   },
   "peerDependenciesMeta": {
     "react": {
@@ -41,16 +27,9 @@
     }
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.4.0",
-    "@testing-library/react": "^16.0.0",
-    "@testing-library/user-event": "^14.5.2",
     "@types/qrcode": "^1.5.5",
-    "@types/react": "^19",
     "@vitest/coverage-v8": "^2.1.8",
-    "jest-axe": "^9.0.0",
     "jsdom": "^25.0.0",
-    "lucide-react": "^1.33.0",
-    "react": "19.2.4",
     "typescript": "^5.7.0",
     "vitest": "^2.1.8"
   },

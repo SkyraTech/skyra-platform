@@ -1,7 +1,7 @@
 /*
  * ============================================================
  * SKYRA PLATFORM DESIGN TOKENS
- * @skyra/design-tokens — v0.1.0
+ * @skyra-tech-platform/design-tokens — v0.1.0
  * ============================================================
  *
  * All [CONFIRMED] values derived directly from:
@@ -165,7 +165,7 @@
    BACKWARD-COMPAT ALIASES
    These map old ERP token names → new --skyra-* tokens.
    Applied so skyra-erp continues to work transparently
-   if @skyra/design-tokens is ever imported in ERP.
+   if @skyra-tech-platform/design-tokens is ever imported in ERP.
    [C] PLATFORM ENHANCEMENT — non-breaking safety bridge
    ============================================================ */
 :root {

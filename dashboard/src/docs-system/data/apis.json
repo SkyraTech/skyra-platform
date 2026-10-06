@@ -681,6 +681,37 @@
     "related": []
   },
   {
+    "id": "@skyra/data-export::BaseExportOptions",
+    "name": "BaseExportOptions",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "columns",
+        "type": "ExportColumn<T>[] | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "headers",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "dateFormat",
+        "type": "string | undefined",
+        "required": false,
+        "description": "Global date format string (e.g. 'YYYY-MM-DD' or 'DD/MM/YYYY')"
+      }
+    ],
+    "related": []
+  },
+  {
     "id": "@skyra/data-export::CsvDownloadOptions",
     "name": "CsvDownloadOptions",
     "packageId": "@skyra/data-export",
@@ -710,12 +741,6 @@
     "status": "stable",
     "properties": [
       {
-        "name": "columns",
-        "type": "ExportColumn<T>[] | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
         "name": "delimiter",
         "type": "string | undefined",
         "required": false,
@@ -728,8 +753,14 @@
         "description": ""
       },
       {
-        "name": "headers",
+        "name": "protectFormulas",
         "type": "boolean | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "nullValue",
+        "type": "string | undefined",
         "required": false,
         "description": ""
       }
@@ -766,20 +797,45 @@
     "status": "stable",
     "properties": [
       {
-        "name": "columns",
-        "type": "ExportColumn<T>[] | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
         "name": "sheetName",
         "type": "string | undefined",
         "required": false,
         "description": ""
       },
       {
-        "name": "headers",
-        "type": "boolean | undefined",
+        "name": "sheets",
+        "type": "ExcelSheetConfig<any>[] | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "related": []
+  },
+  {
+    "id": "@skyra/data-export::ExcelSheetConfig",
+    "name": "ExcelSheetConfig",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "data",
+        "type": "T[]",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "columns",
+        "type": "ExportColumn<T>[] | undefined",
         "required": false,
         "description": ""
       }
@@ -809,12 +865,113 @@
         "description": ""
       },
       {
+        "name": "exportable",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
         "name": "formatter",
         "type": "((value: any, row: T) => string | number | boolean | null | undefined) | undefined",
         "required": false,
         "description": ""
       }
     ],
+    "related": []
+  },
+  {
+    "id": "@skyra/data-export::ExportFormat",
+    "name": "ExportFormat",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "type",
+    "description": "",
+    "status": "stable",
+    "signature": "type ExportFormat = 'csv' | 'xlsx' | 'json' | 'tsv';",
+    "properties": [],
+    "related": []
+  },
+  {
+    "id": "@skyra/data-export::ExportScope",
+    "name": "ExportScope",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "type",
+    "description": "",
+    "status": "stable",
+    "signature": "type ExportScope = 'all' | 'page' | 'filtered' | 'selected';",
+    "properties": [],
+    "related": []
+  },
+  {
+    "id": "@skyra/data-export::JsonDownloadOptions",
+    "name": "JsonDownloadOptions",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "filename",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "related": []
+  },
+  {
+    "id": "@skyra/data-export::JsonExportOptions",
+    "name": "JsonExportOptions",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "pretty",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "related": []
+  },
+  {
+    "id": "@skyra/data-export::TsvDownloadOptions",
+    "name": "TsvDownloadOptions",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "filename",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "related": []
+  },
+  {
+    "id": "@skyra/data-export::TsvExportOptions",
+    "name": "TsvExportOptions",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [],
     "related": []
   },
   {
@@ -872,15 +1029,69 @@
     "related": []
   },
   {
+    "id": "@skyra/data-export::downloadJson",
+    "name": "downloadJson",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "function",
+    "description": "Triggers browser download of JSON data.",
+    "status": "stable",
+    "signature": "declare function downloadJson<T = any>(data: T[], options?: JsonDownloadOptions<T>): void;",
+    "properties": [
+      {
+        "name": "data",
+        "type": "T[]",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "options",
+        "type": "JsonDownloadOptions<T> | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "returnType": "void",
+    "related": []
+  },
+  {
+    "id": "@skyra/data-export::downloadTsv",
+    "name": "downloadTsv",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "function",
+    "description": "Triggers browser download of TSV data.",
+    "status": "stable",
+    "signature": "declare function downloadTsv<T = any>(data: T[], options?: TsvDownloadOptions<T>): void;",
+    "properties": [
+      {
+        "name": "data",
+        "type": "T[]",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "options",
+        "type": "TsvDownloadOptions<T> | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "returnType": "void",
+    "related": []
+  },
+  {
     "id": "@skyra/data-export::escapeCsvCell",
     "name": "escapeCsvCell",
     "packageId": "@skyra/data-export",
     "capabilityId": "data-export/csv",
     "exportPath": "@skyra/data-export",
     "kind": "function",
-    "description": "Escapes a single cell value for CSV formatting.\nQuotes containing strings, strings with delimiter, or newlines are wrapped in quotes.",
+    "description": "Escapes a single cell value for CSV formatting.\nQuotes containing strings, strings with delimiter, or newlines are wrapped in quotes.\nOptional protection against CSV formula injection.",
     "status": "stable",
-    "signature": "declare function escapeCsvCell(val: any, delimiter?: string): string;",
+    "signature": "declare function escapeCsvCell(val: any, delimiter?: string, protectFormulas?: boolean, nullValue?: string): string;",
     "properties": [
       {
         "name": "val",
@@ -890,6 +1101,18 @@
       },
       {
         "name": "delimiter",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "protectFormulas",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "nullValue",
         "type": "string | undefined",
         "required": false,
         "description": ""
@@ -965,6 +1188,87 @@
     "related": []
   },
   {
+    "id": "@skyra/data-export::exportToJson",
+    "name": "exportToJson",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "function",
+    "description": "Pure JSON string generator.",
+    "status": "stable",
+    "signature": "declare function exportToJson<T = any>(data: T[], options?: JsonExportOptions<T>): string;",
+    "properties": [
+      {
+        "name": "data",
+        "type": "T[]",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "options",
+        "type": "JsonExportOptions<T> | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "returnType": "string",
+    "related": []
+  },
+  {
+    "id": "@skyra/data-export::exportToTsv",
+    "name": "exportToTsv",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "function",
+    "description": "Pure TSV string generator.\nSimply calls exportToCsv with tab delimiter.",
+    "status": "stable",
+    "signature": "declare function exportToTsv<T = any>(data: T[], options?: TsvExportOptions<T>): string;",
+    "properties": [
+      {
+        "name": "data",
+        "type": "T[]",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "options",
+        "type": "TsvExportOptions<T> | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "returnType": "string",
+    "related": []
+  },
+  {
+    "id": "@skyra/data-export::formatDate",
+    "name": "formatDate",
+    "packageId": "@skyra/data-export",
+    "capabilityId": "data-export/csv",
+    "exportPath": "@skyra/data-export",
+    "kind": "function",
+    "description": "",
+    "status": "stable",
+    "signature": "declare function formatDate(value: any, dateFormat?: string): any;",
+    "properties": [
+      {
+        "name": "value",
+        "type": "any",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "dateFormat",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "returnType": "any",
+    "related": []
+  },
+  {
     "id": "@skyra/data-export::generateExcelXml",
     "name": "generateExcelXml",
     "packageId": "@skyra/data-export",
@@ -977,62 +1281,13 @@
     "related": []
   },
   {
-    "id": "@skyra/data-table::Column",
-    "name": "Column",
-    "packageId": "@skyra/data-table",
+    "id": "@skyra-tech-platform/data-table::BaseColumnDef",
+    "name": "BaseColumnDef",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
+    "exportPath": "@skyra-tech-platform/data-table",
     "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "key",
-        "type": "string",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "header",
-        "type": "string",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "accessor",
-        "type": "keyof T | ((row: T) => React.ReactNode)",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "sortable",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "hideable",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "width",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/data-table::ColumnDef",
-    "name": "ColumnDef",
-    "packageId": "@skyra/data-table",
-    "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
-    "kind": "interface",
-    "description": "Column definition.",
+    "description": "Base Column definition (Framework Agnostic)",
     "status": "stable",
     "properties": [
       {
@@ -1042,20 +1297,26 @@
         "description": ""
       },
       {
-        "name": "header",
-        "type": "React.ReactNode",
-        "required": true,
-        "description": ""
-      },
-      {
         "name": "accessor",
         "type": "keyof TData | ((row: TData) => TValue)",
         "required": true,
         "description": ""
       },
       {
-        "name": "cell",
-        "type": "((props: { row: TData; value: TValue; }) => React.ReactNode) | undefined",
+        "name": "header",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "headerSlot",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "cellSlot",
+        "type": "((row: TData) => string) | undefined",
         "required": false,
         "description": ""
       },
@@ -1068,6 +1329,12 @@
       {
         "name": "filterable",
         "type": "boolean | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "filterConfig",
+        "type": "ColumnFilterConfig | undefined",
         "required": false,
         "description": ""
       },
@@ -1112,16 +1379,22 @@
         "type": "string | undefined",
         "required": false,
         "description": ""
+      },
+      {
+        "name": "visual",
+        "type": "ColumnVisualConfig | undefined",
+        "required": false,
+        "description": ""
       }
     ],
     "related": []
   },
   {
-    "id": "@skyra/data-table::ColumnFilter",
+    "id": "@skyra-tech-platform/data-table::ColumnFilter",
     "name": "ColumnFilter",
-    "packageId": "@skyra/data-table",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
+    "exportPath": "@skyra-tech-platform/data-table",
     "kind": "interface",
     "description": "Filter State",
     "status": "stable",
@@ -1137,16 +1410,53 @@
         "type": "unknown",
         "required": true,
         "description": ""
+      },
+      {
+        "name": "operator",
+        "type": "FilterOperator | undefined",
+        "required": false,
+        "description": ""
       }
     ],
     "related": []
   },
   {
-    "id": "@skyra/data-table::ColumnFiltersState",
-    "name": "ColumnFiltersState",
-    "packageId": "@skyra/data-table",
+    "id": "@skyra-tech-platform/data-table::ColumnFilterConfig",
+    "name": "ColumnFilterConfig",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
+    "exportPath": "@skyra-tech-platform/data-table",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "type",
+        "type": "FilterType | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "options",
+        "type": "{ value: string | number | boolean; label: string; }[] | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "customComponent",
+        "type": "unknown",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "related": []
+  },
+  {
+    "id": "@skyra-tech-platform/data-table::ColumnFiltersState",
+    "name": "ColumnFiltersState",
+    "packageId": "@skyra-tech-platform/data-table",
+    "capabilityId": "data-table/dynamic",
+    "exportPath": "@skyra-tech-platform/data-table",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -1155,11 +1465,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-table::ColumnSizingState",
+    "id": "@skyra-tech-platform/data-table::ColumnSizingState",
     "name": "ColumnSizingState",
-    "packageId": "@skyra/data-table",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
+    "exportPath": "@skyra-tech-platform/data-table",
     "kind": "type",
     "description": "Column Sizing State (Key = Column ID, Value = width in px)",
     "status": "stable",
@@ -1168,224 +1478,36 @@
     "related": []
   },
   {
-    "id": "@skyra/data-table::DataTable",
-    "name": "DataTable",
-    "packageId": "@skyra/data-table",
+    "id": "@skyra-tech-platform/data-table::ColumnVisualConfig",
+    "name": "ColumnVisualConfig",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
-    "kind": "component",
+    "exportPath": "@skyra-tech-platform/data-table",
+    "kind": "interface",
     "description": "",
     "status": "stable",
-    "signature": "declare const DataTable: React.FC<DataTableProps>",
     "properties": [
       {
-        "name": "columns",
-        "type": "ColumnDef<TData, any>[]",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "data",
-        "type": "TData[]",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "features",
-        "type": "DataTableFeatures | undefined",
+        "name": "variant",
+        "type": "\"accent\" | \"subtle\" | undefined",
         "required": false,
         "description": ""
       },
       {
-        "name": "sorting",
-        "type": "SortingState[] | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onSortingChange",
-        "type": "((sorting: SortingState[]) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "pagination",
-        "type": "PaginationState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onPaginationChange",
-        "type": "((pagination: PaginationState) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "pageCount",
-        "type": "number | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "totalRows",
-        "type": "number | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "manualPagination",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "pageSizeOptions",
-        "type": "number[] | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "rowSelection",
-        "type": "RowSelectionState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onRowSelectionChange",
-        "type": "((selection: RowSelectionState) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "isRowDisabled",
-        "type": "((row: TData) => boolean) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "globalFilter",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onGlobalFilterChange",
-        "type": "((filter: string) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "columnFilters",
-        "type": "ColumnFiltersState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onColumnFiltersChange",
-        "type": "((filters: ColumnFiltersState) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "columnVisibility",
-        "type": "VisibilityState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onColumnVisibilityChange",
-        "type": "((visibility: VisibilityState) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "columnSizing",
-        "type": "ColumnSizingState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onColumnSizingChange",
-        "type": "((sizing: ColumnSizingState) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onRowClick",
-        "type": "((row: TData) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "rowActions",
-        "type": "((row: TData) => React.ReactNode) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "bulkActions",
-        "type": "((selectedRows: TData[]) => React.ReactNode) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onProcessedDataChange",
-        "type": "((data: TData[]) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "isLoading",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "emptyMessage",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "emptyIcon",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "noResultsMessage",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "error",
-        "type": "Error | null | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onErrorRetry",
-        "type": "(() => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
+        "name": "tone",
+        "type": "\"primary\" | \"danger\" | \"warning\" | \"success\" | \"info\" | undefined",
         "required": false,
         "description": ""
       }
     ],
-    "returnType": "React.JSX.Element",
     "related": []
   },
   {
-    "id": "@skyra/data-table::DataTableFeatures",
+    "id": "@skyra-tech-platform/data-table::DataTableFeatures",
     "name": "DataTableFeatures",
-    "packageId": "@skyra/data-table",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
+    "exportPath": "@skyra-tech-platform/data-table",
     "kind": "interface",
     "description": "Global feature configuration.\nControls which table capabilities are enabled.",
     "status": "stable",
@@ -1454,418 +1576,37 @@
     "related": []
   },
   {
-    "id": "@skyra/data-table::DataTableProps",
-    "name": "DataTableProps",
-    "packageId": "@skyra/data-table",
+    "id": "@skyra-tech-platform/data-table::FilterOperator",
+    "name": "FilterOperator",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
-    "kind": "interface",
-    "description": "Core DataTable Props",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "columns",
-        "type": "ColumnDef<TData, any>[]",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "data",
-        "type": "TData[]",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "features",
-        "type": "DataTableFeatures | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "sorting",
-        "type": "SortingState[] | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onSortingChange",
-        "type": "((sorting: SortingState[]) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "pagination",
-        "type": "PaginationState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onPaginationChange",
-        "type": "((pagination: PaginationState) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "pageCount",
-        "type": "number | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "totalRows",
-        "type": "number | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "manualPagination",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "pageSizeOptions",
-        "type": "number[] | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "rowSelection",
-        "type": "RowSelectionState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onRowSelectionChange",
-        "type": "((selection: RowSelectionState) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "isRowDisabled",
-        "type": "((row: TData) => boolean) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "globalFilter",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onGlobalFilterChange",
-        "type": "((filter: string) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "columnFilters",
-        "type": "ColumnFiltersState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onColumnFiltersChange",
-        "type": "((filters: ColumnFiltersState) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "columnVisibility",
-        "type": "VisibilityState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onColumnVisibilityChange",
-        "type": "((visibility: VisibilityState) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "columnSizing",
-        "type": "ColumnSizingState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onColumnSizingChange",
-        "type": "((sizing: ColumnSizingState) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onRowClick",
-        "type": "((row: TData) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "rowActions",
-        "type": "((row: TData) => React.ReactNode) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "bulkActions",
-        "type": "((selectedRows: TData[]) => React.ReactNode) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onProcessedDataChange",
-        "type": "((data: TData[]) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "isLoading",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "emptyMessage",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "emptyIcon",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "noResultsMessage",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "error",
-        "type": "Error | null | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onErrorRetry",
-        "type": "(() => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/data-table::DynamicDataTable",
-    "name": "DynamicDataTable",
-    "packageId": "@skyra/data-table",
-    "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
-    "kind": "component",
+    "exportPath": "@skyra-tech-platform/data-table",
+    "kind": "type",
     "description": "",
     "status": "stable",
-    "signature": "declare const DynamicDataTable: React.FC<DynamicDataTableProps>",
-    "properties": [
-      {
-        "name": "columns",
-        "type": "Column<T>[]",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "data",
-        "type": "T[]",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "isLoading",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "emptyMessage",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "emptyIcon",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "pageSize",
-        "type": "number | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "searchPlaceholder",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "actionLabel",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Label for the primary action button (top-right)"
-      },
-      {
-        "name": "onAction",
-        "type": "(() => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onEdit",
-        "type": "((row: T) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onDelete",
-        "type": "((row: T) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onView",
-        "type": "((row: T) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "rowActions",
-        "type": "((row: T) => React.ReactNode) | undefined",
-        "required": false,
-        "description": "Render additional per-row action buttons"
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
+    "signature": "type FilterOperator = 'contains' | 'equals' | 'startsWith' | 'endsWith' | 'doesNotContain' | 'isEmpty' | 'isNotEmpty' | 'greaterThan' | 'greaterThanOrEqual' | 'lessThan' | 'lessThanOrEqual' | 'between' | 'notEquals' | 'before' | 'after' | 'onOrBefore' | 'onOrAfter';",
+    "properties": [],
     "related": []
   },
   {
-    "id": "@skyra/data-table::DynamicDataTableProps",
-    "name": "DynamicDataTableProps",
-    "packageId": "@skyra/data-table",
+    "id": "@skyra-tech-platform/data-table::FilterType",
+    "name": "FilterType",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
-    "kind": "interface",
+    "exportPath": "@skyra-tech-platform/data-table",
+    "kind": "type",
     "description": "",
     "status": "stable",
-    "properties": [
-      {
-        "name": "columns",
-        "type": "Column<T>[]",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "data",
-        "type": "T[]",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "isLoading",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "emptyMessage",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "emptyIcon",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "pageSize",
-        "type": "number | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "searchPlaceholder",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "actionLabel",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Label for the primary action button (top-right)"
-      },
-      {
-        "name": "onAction",
-        "type": "(() => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onEdit",
-        "type": "((row: T) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onDelete",
-        "type": "((row: T) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onView",
-        "type": "((row: T) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "rowActions",
-        "type": "((row: T) => React.ReactNode) | undefined",
-        "required": false,
-        "description": "Render additional per-row action buttons"
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
+    "signature": "type FilterType = 'text' | 'select' | 'multiSelect' | 'number' | 'date' | 'dateRange' | 'boolean' | 'custom';",
+    "properties": [],
     "related": []
   },
   {
-    "id": "@skyra/data-table::PaginationState",
+    "id": "@skyra-tech-platform/data-table::PaginationState",
     "name": "PaginationState",
-    "packageId": "@skyra/data-table",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
+    "exportPath": "@skyra-tech-platform/data-table",
     "kind": "interface",
     "description": "Pagination State",
     "status": "stable",
@@ -1886,18 +1627,18 @@
     "related": []
   },
   {
-    "id": "@skyra/data-table::ProcessTableDataOptions",
+    "id": "@skyra-tech-platform/data-table::ProcessTableDataOptions",
     "name": "ProcessTableDataOptions",
-    "packageId": "@skyra/data-table",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
+    "exportPath": "@skyra-tech-platform/data-table",
     "kind": "interface",
     "description": "",
     "status": "stable",
     "properties": [
       {
         "name": "columns",
-        "type": "ColumnDef<TData, any>[]",
+        "type": "BaseColumnDef<TData, unknown>[]",
         "required": true,
         "description": ""
       },
@@ -1923,11 +1664,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-table::RowSelectionState",
+    "id": "@skyra-tech-platform/data-table::RowSelectionState",
     "name": "RowSelectionState",
-    "packageId": "@skyra/data-table",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
+    "exportPath": "@skyra-tech-platform/data-table",
     "kind": "type",
     "description": "Selection State (Key = Row ID, Value = isSelected)",
     "status": "stable",
@@ -1936,11 +1677,23 @@
     "related": []
   },
   {
-    "id": "@skyra/data-table::SortDirection",
-    "name": "SortDirection",
-    "packageId": "@skyra/data-table",
+    "id": "@skyra-tech-platform/data-table::SkyraTechDataTable",
+    "name": "SkyraTechDataTable",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
+    "exportPath": "@skyra-tech-platform/data-table",
+    "kind": "type",
+    "description": "",
+    "status": "stable",
+    "properties": [],
+    "related": []
+  },
+  {
+    "id": "@skyra-tech-platform/data-table::SortDirection",
+    "name": "SortDirection",
+    "packageId": "@skyra-tech-platform/data-table",
+    "capabilityId": "data-table/dynamic",
+    "exportPath": "@skyra-tech-platform/data-table",
     "kind": "type",
     "description": "Sorting State",
     "status": "stable",
@@ -1949,11 +1702,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-table::SortingState",
+    "id": "@skyra-tech-platform/data-table::SortingState",
     "name": "SortingState",
-    "packageId": "@skyra/data-table",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
+    "exportPath": "@skyra-tech-platform/data-table",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -1974,66 +1727,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-table::UseDataTableStateProps",
-    "name": "UseDataTableStateProps",
-    "packageId": "@skyra/data-table",
-    "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
-    "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "initialSorting",
-        "type": "SortingState[] | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "initialPagination",
-        "type": "PaginationState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "initialVisibility",
-        "type": "VisibilityState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "initialSelection",
-        "type": "RowSelectionState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "initialGlobalFilter",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "initialColumnFilters",
-        "type": "ColumnFiltersState | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "initialColumnSizing",
-        "type": "ColumnSizingState | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/data-table::VisibilityState",
+    "id": "@skyra-tech-platform/data-table::VisibilityState",
     "name": "VisibilityState",
-    "packageId": "@skyra/data-table",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
+    "exportPath": "@skyra-tech-platform/data-table",
     "kind": "type",
     "description": "Visibility State (Key = Column ID, Value = isHidden)",
     "status": "stable",
@@ -2042,11 +1740,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-table::processTableData",
+    "id": "@skyra-tech-platform/data-table::processTableData",
     "name": "processTableData",
-    "packageId": "@skyra/data-table",
+    "packageId": "@skyra-tech-platform/data-table",
     "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
+    "exportPath": "@skyra-tech-platform/data-table",
     "kind": "function",
     "description": "Pure deterministic processing utility.\nApplies global search, column filters, and sorting to dataset without side effects.\nSuitable for both DataTable internal processing and consumer export preparation.",
     "status": "stable",
@@ -2069,45 +1767,72 @@
     "related": []
   },
   {
-    "id": "@skyra/data-table::useDataTableState",
-    "name": "useDataTableState",
-    "packageId": "@skyra/data-table",
-    "capabilityId": "data-table/dynamic",
-    "exportPath": "@skyra/data-table",
-    "kind": "function",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function useDataTableState(props?: UseDataTableStateProps):",
-    "properties": [
-      {
-        "name": "props",
-        "type": "UseDataTableStateProps | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "returnType": "{ sorting: SortingState[]; onSortingChange: (newSorting: SortingState[]) => void; pagination: PaginationState; onPaginationChange: (newPagination: PaginationState) => void; visibility: VisibilityState; onVisibilityChange: (newVisibility: VisibilityState) => void; selection: RowSelectionState; onRowSelectionChange: (newSelection: RowSelectionState) => void; globalFilter: string; onGlobalFilterChange: (filter: string) => void; columnFilters: ColumnFiltersState; onColumnFiltersChange: (filters: ColumnFiltersState) => void; columnSizing: ColumnSizingState; onColumnSizingChange: (sizing: ColumnSizingState) => void; resetFilters: () => void; resetSorting: () => void; }",
-    "related": []
-  },
-  {
     "id": "@skyra/dialogs::ConfirmDialog",
     "name": "ConfirmDialog",
     "packageId": "@skyra/dialogs",
     "capabilityId": "dialogs/core",
     "exportPath": "@skyra/dialogs",
-    "kind": "function",
+    "kind": "component",
     "description": "",
     "status": "stable",
-    "signature": "declare function ConfirmDialog(",
+    "signature": "declare const ConfirmDialog: React.FC<ConfirmDialogProps>",
     "properties": [
       {
-        "name": "{ open, title, message, confirmLabel, cancelLabel, variant, onConfirm, onCancel, isLoading, }",
-        "type": "ConfirmDialogProps",
+        "name": "open",
+        "type": "boolean",
         "required": true,
-        "description": ""
+        "description": "Whether the dialog is open"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Dialog heading"
+      },
+      {
+        "name": "message",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": "Body message"
+      },
+      {
+        "name": "confirmLabel",
+        "type": "string | undefined",
+        "required": false,
+        "description": "Confirm button label"
+      },
+      {
+        "name": "cancelLabel",
+        "type": "string | undefined",
+        "required": false,
+        "description": "Cancel button label"
+      },
+      {
+        "name": "variant",
+        "type": "ConfirmDialogVariant | undefined",
+        "required": false,
+        "description": "Visual variant controls icon and button color"
+      },
+      {
+        "name": "onConfirm",
+        "type": "() => void",
+        "required": true,
+        "description": "Called when the user confirms"
+      },
+      {
+        "name": "onCancel",
+        "type": "() => void",
+        "required": true,
+        "description": "Called when the user cancels (also Escape key)"
+      },
+      {
+        "name": "isLoading",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": "If true, confirm button shows loading state"
       }
     ],
-    "returnType": "React.ReactPortal | null",
+    "returnType": "React.JSX.Element",
     "related": []
   },
   {
@@ -2196,19 +1921,61 @@
     "packageId": "@skyra/dialogs",
     "capabilityId": "dialogs/core",
     "exportPath": "@skyra/dialogs",
-    "kind": "function",
+    "kind": "component",
     "description": "",
     "status": "stable",
-    "signature": "declare function Drawer(",
+    "signature": "declare const Drawer: React.FC<DrawerProps>",
     "properties": [
       {
-        "name": "{ open, onClose, title, children, side, width, closeOnBackdrop, footer, }",
-        "type": "DrawerProps",
+        "name": "open",
+        "type": "boolean",
         "required": true,
+        "description": ""
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "title",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "side",
+        "type": "DrawerSide | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "width",
+        "type": "string | undefined",
+        "required": false,
+        "description": "Drawer width (for side drawers). On mobile always 100vw."
+      },
+      {
+        "name": "closeOnBackdrop",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "footer",
+        "type": "React.ReactNode",
+        "required": false,
         "description": ""
       }
     ],
-    "returnType": "React.ReactPortal | null",
+    "returnType": "React.JSX.Element",
     "related": []
   },
   {
@@ -2291,19 +2058,61 @@
     "packageId": "@skyra/dialogs",
     "capabilityId": "dialogs/core",
     "exportPath": "@skyra/dialogs",
-    "kind": "function",
+    "kind": "component",
     "description": "",
     "status": "stable",
-    "signature": "declare function Modal(",
+    "signature": "declare const Modal: React.FC<ModalProps>",
     "properties": [
       {
-        "name": "{ open, onClose, title, children, size, closeOnBackdrop, closeOnEscape, footer, }",
-        "type": "ModalProps",
+        "name": "open",
+        "type": "boolean",
         "required": true,
+        "description": ""
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "title",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "ModalSize | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "closeOnBackdrop",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": "If false, clicking backdrop does NOT close the modal"
+      },
+      {
+        "name": "closeOnEscape",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": "If false, Escape does NOT close the modal"
+      },
+      {
+        "name": "footer",
+        "type": "React.ReactNode",
+        "required": false,
         "description": ""
       }
     ],
-    "returnType": "React.ReactPortal | null",
+    "returnType": "React.JSX.Element",
     "related": []
   },
   {
@@ -2381,32 +2190,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dialogs::useFocusTrap",
-    "name": "useFocusTrap",
-    "packageId": "@skyra/dialogs",
-    "capabilityId": "dialogs/core",
-    "exportPath": "@skyra/dialogs",
-    "kind": "function",
-    "description": "Focus trap hook.\nWhen `active` is true, Tab/Shift+Tab cycle inside the container ref.\nOn mount, auto-focuses the first element and saves the currently focused element.\nOn unmount (or active=false), restores focus to the saved element.\nReturns the ref to attach to the container element.",
-    "status": "stable",
-    "signature": "declare function useFocusTrap(active: boolean): React.RefObject<HTMLDivElement | null>;",
-    "properties": [
-      {
-        "name": "active",
-        "type": "boolean",
-        "required": true,
-        "description": ""
-      }
-    ],
-    "returnType": "React.RefObject<HTMLDivElement | null>",
-    "related": []
-  },
-  {
-    "id": "@skyra/dynamic-form::CheckboxOption",
+    "id": "@skyra-tech-platform/dynamic-form::CheckboxOption",
     "name": "CheckboxOption",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -2439,11 +2227,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::ConditionOperator",
+    "id": "@skyra-tech-platform/dynamic-form::ConditionOperator",
     "name": "ConditionOperator",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "type",
     "description": "Conditional visibility operators",
     "status": "stable",
@@ -2452,11 +2240,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::ConditionPredicate",
+    "id": "@skyra-tech-platform/dynamic-form::ConditionPredicate",
     "name": "ConditionPredicate",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -2465,194 +2253,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::DynamicForm",
-    "name": "DynamicForm",
-    "packageId": "@skyra/dynamic-form",
-    "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare const DynamicForm: React.FC<DynamicFormProps>",
-    "properties": [
-      {
-        "name": "fields",
-        "type": "FieldDef<TValues>[] | undefined",
-        "required": false,
-        "description": "Flat list of fields OR structured fieldsets"
-      },
-      {
-        "name": "fieldsets",
-        "type": "FieldsetDef<TValues>[] | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "initialValues",
-        "type": "Partial<TValues> | undefined",
-        "required": false,
-        "description": "Initial values for uncontrolled mode"
-      },
-      {
-        "name": "values",
-        "type": "TValues | undefined",
-        "required": false,
-        "description": "Controlled form values"
-      },
-      {
-        "name": "onValuesChange",
-        "type": "((values: TValues) => void) | undefined",
-        "required": false,
-        "description": "Controlled values change callback"
-      },
-      {
-        "name": "onChange",
-        "type": "((key: string, value: unknown) => void) | undefined",
-        "required": false,
-        "description": "Backward-compatible single field change handler"
-      },
-      {
-        "name": "onSubmit",
-        "type": "(values: TValues) => void | Promise<void>",
-        "required": true,
-        "description": "Submission callback"
-      },
-      {
-        "name": "onCancel",
-        "type": "(() => void) | undefined",
-        "required": false,
-        "description": "Optional cancel callback"
-      },
-      {
-        "name": "isLoading",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": "Loading & submission states"
-      },
-      {
-        "name": "isSubmitting",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "submitLabel",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "cancelLabel",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "validationMode",
-        "type": "ValidationMode | undefined",
-        "required": false,
-        "description": "Validation configuration"
-      },
-      {
-        "name": "validate",
-        "type": "((values: TValues) => FormErrors | Promise<FormErrors>) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "errors",
-        "type": "FormErrors | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onErrorsChange",
-        "type": "((errors: FormErrors) => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "serverErrors",
-        "type": "FormErrors | undefined",
-        "required": false,
-        "description": "Server error mappings"
-      },
-      {
-        "name": "serverError",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "features",
-        "type": "DynamicFormFeatures | undefined",
-        "required": false,
-        "description": "Modular feature toggles"
-      },
-      {
-        "name": "onDirtyChange",
-        "type": "((isDirty: boolean) => void) | undefined",
-        "required": false,
-        "description": "Unsaved changes notification callback"
-      },
-      {
-        "name": "formRef",
-        "type": "React.Ref<DynamicFormHandle<TValues>> | undefined",
-        "required": false,
-        "description": "Imperative form action ref"
-      },
-      {
-        "name": "showDangerZone",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": "Danger zone section"
-      },
-      {
-        "name": "dangerZoneTitle",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "dangerZoneLabel",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "dangerZoneDesc",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "onDangerAction",
-        "type": "(() => void) | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "id",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/dynamic-form::DynamicFormFeatures",
+    "id": "@skyra-tech-platform/dynamic-form::DynamicFormFeatures",
     "name": "DynamicFormFeatures",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -2727,11 +2332,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::DynamicFormHandle",
+    "id": "@skyra-tech-platform/dynamic-form::DynamicFormHandle",
     "name": "DynamicFormHandle",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -2830,11 +2435,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::DynamicFormProps",
+    "id": "@skyra-tech-platform/dynamic-form::DynamicFormProps",
     "name": "DynamicFormProps",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -2961,9 +2566,9 @@
       },
       {
         "name": "formRef",
-        "type": "React.Ref<DynamicFormHandle<TValues>> | undefined",
+        "type": "any",
         "required": false,
-        "description": "Imperative form action ref"
+        "description": "Imperative form action ref (used by framework adapters)"
       },
       {
         "name": "showDangerZone",
@@ -3011,11 +2616,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::FieldCondition",
+    "id": "@skyra-tech-platform/dynamic-form::FieldCondition",
     "name": "FieldCondition",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -3114,11 +2719,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::FieldDef",
+    "id": "@skyra-tech-platform/dynamic-form::FieldDef",
     "name": "FieldDef",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -3359,9 +2964,9 @@
       },
       {
         "name": "render",
-        "type": "((props: FieldRenderProps<TValues>) => React.ReactNode) | undefined",
+        "type": "((props: FieldRenderProps<TValues>) => any) | undefined",
         "required": false,
-        "description": "Custom render override"
+        "description": "Custom render override (handled by framework adapters)"
       },
       {
         "name": "className",
@@ -3373,11 +2978,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::FieldDependency",
+    "id": "@skyra-tech-platform/dynamic-form::FieldDependency",
     "name": "FieldDependency",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -3395,6 +3000,12 @@
         "description": ""
       },
       {
+        "name": "clearOnParentChange",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
         "name": "onChange",
         "type": "((newValue: unknown, currentValues: TValues) => Partial<TValues>) | undefined",
         "required": false,
@@ -3404,11 +3015,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::FieldRenderProps",
+    "id": "@skyra-tech-platform/dynamic-form::FieldRenderProps",
     "name": "FieldRenderProps",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -3459,11 +3070,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::FieldSchema",
+    "id": "@skyra-tech-platform/dynamic-form::FieldSchema",
     "name": "FieldSchema",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -3472,11 +3083,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::FieldType",
+    "id": "@skyra-tech-platform/dynamic-form::FieldType",
     "name": "FieldType",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -3485,11 +3096,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::FieldsetDef",
+    "id": "@skyra-tech-platform/dynamic-form::FieldsetDef",
     "name": "FieldsetDef",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -3540,11 +3151,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::FieldsetSchema",
+    "id": "@skyra-tech-platform/dynamic-form::FieldsetSchema",
     "name": "FieldsetSchema",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -3553,11 +3164,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::FormDraftState",
+    "id": "@skyra-tech-platform/dynamic-form::FormDraftState",
     "name": "FormDraftState",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -3584,11 +3195,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::FormErrors",
+    "id": "@skyra-tech-platform/dynamic-form::FormErrors",
     "name": "FormErrors",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -3597,32 +3208,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::FormField",
-    "name": "FormField",
-    "packageId": "@skyra/dynamic-form",
-    "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function FormField<TValues extends Record<string, unknown>>(",
-    "properties": [
-      {
-        "name": "{ field, value, error, disabled: formDisabled, onChange, onBlur, allValues, }",
-        "type": "FormFieldProps<TValues>",
-        "required": true,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/dynamic-form::FormTouched",
+    "id": "@skyra-tech-platform/dynamic-form::FormTouched",
     "name": "FormTouched",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -3631,11 +3221,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::FormValues",
+    "id": "@skyra-tech-platform/dynamic-form::FormValues",
     "name": "FormValues",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -3644,11 +3234,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::RadioOption",
+    "id": "@skyra-tech-platform/dynamic-form::RadioOption",
     "name": "RadioOption",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -3681,32 +3271,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::RepeatableGroup",
-    "name": "RepeatableGroup",
-    "packageId": "@skyra/dynamic-form",
-    "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function RepeatableGroup<TValues extends Record<string, unknown>>(",
-    "properties": [
-      {
-        "name": "{ groupName, label, config, items, errors, disabled, onItemChange, onItemBlur, onAddItem, onRemoveItem, allValues, }",
-        "type": "RepeatableGroupProps<TValues>",
-        "required": true,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/dynamic-form::RepeatableGroupConfig",
+    "id": "@skyra-tech-platform/dynamic-form::RepeatableGroupConfig",
     "name": "RepeatableGroupConfig",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -3751,11 +3320,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::SelectOption",
+    "id": "@skyra-tech-platform/dynamic-form::SelectOption",
     "name": "SelectOption",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -3794,11 +3363,23 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::ValidationMode",
-    "name": "ValidationMode",
-    "packageId": "@skyra/dynamic-form",
+    "id": "@skyra-tech-platform/dynamic-form::SkyraTechDynamicForm",
+    "name": "SkyraTechDynamicForm",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
+    "kind": "type",
+    "description": "",
+    "status": "stable",
+    "properties": [],
+    "related": []
+  },
+  {
+    "id": "@skyra-tech-platform/dynamic-form::ValidationMode",
+    "name": "ValidationMode",
+    "packageId": "@skyra-tech-platform/dynamic-form",
+    "capabilityId": "dynamic-form/core",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -3807,32 +3388,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::ValidationSummary",
-    "name": "ValidationSummary",
-    "packageId": "@skyra/dynamic-form",
-    "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function ValidationSummary(",
-    "properties": [
-      {
-        "name": "{ errors, labels, title, onFocusField, className, }",
-        "type": "ValidationSummaryProps",
-        "required": true,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element | null",
-    "related": []
-  },
-  {
-    "id": "@skyra/dynamic-form::cloneDeep",
+    "id": "@skyra-tech-platform/dynamic-form::cloneDeep",
     "name": "cloneDeep",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "function",
     "description": "Safe deep clone utility",
     "status": "stable",
@@ -3849,11 +3409,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::evaluateCondition",
+    "id": "@skyra-tech-platform/dynamic-form::evaluateCondition",
     "name": "evaluateCondition",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "function",
     "description": "Pure evaluator for field conditional visibility.",
     "status": "stable",
@@ -3876,11 +3436,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::getIn",
+    "id": "@skyra-tech-platform/dynamic-form::getIn",
     "name": "getIn",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "function",
     "description": "Pure nested value manipulation and equality utilities.\nHandles dot paths ('address.city') and array indexing ('items.0.name').",
     "status": "stable",
@@ -3909,11 +3469,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::isDeepEqual",
+    "id": "@skyra-tech-platform/dynamic-form::isDeepEqual",
     "name": "isDeepEqual",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "function",
     "description": "Deep equality check for dirty tracking and pristine comparisons.",
     "status": "stable",
@@ -3936,11 +3496,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::removeIn",
+    "id": "@skyra-tech-platform/dynamic-form::removeIn",
     "name": "removeIn",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "function",
     "description": "Immutably removes a nested key by path.",
     "status": "stable",
@@ -3963,11 +3523,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::setIn",
+    "id": "@skyra-tech-platform/dynamic-form::setIn",
     "name": "setIn",
-    "packageId": "@skyra/dynamic-form",
+    "packageId": "@skyra-tech-platform/dynamic-form",
     "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
+    "exportPath": "@skyra-tech-platform/dynamic-form",
     "kind": "function",
     "description": "Immutably sets a nested value at dot/bracket path.",
     "status": "stable",
@@ -3996,32 +3556,11 @@
     "related": []
   },
   {
-    "id": "@skyra/dynamic-form::useDynamicFormState",
-    "name": "useDynamicFormState",
-    "packageId": "@skyra/dynamic-form",
-    "capabilityId": "dynamic-form/core",
-    "exportPath": "@skyra/dynamic-form",
-    "kind": "function",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function useDynamicFormState<TValues extends FormValues = FormValues>(options: UseDynamicFormStateOptions<TValues>):",
-    "properties": [
-      {
-        "name": "options",
-        "type": "UseDynamicFormStateOptions<TValues>",
-        "required": true,
-        "description": ""
-      }
-    ],
-    "returnType": "{ values: TValues; errors: { [x: string]: string; }; touched: FormTouched; isDirty: boolean; dirtyFields: Record<string, boolean>; isSubmitting: boolean; submitSuccess: boolean; submitError: string | undefined; mergedFeatures: { validation: boolean; conditionalFields: boolean; dependencies: boolean; repeatableGroups: boolean; nestedFields: boolean; dirtyTracking: boolean; draftState: boolean; submissionState: boolean; validationSummary: boolean; serverErrors: boolean; unsavedChanges: boolean; }; setFieldValue: (name: string, value: unknown) => void; handleFieldBlur: (name: string) => void; addRepeatableItem: (groupName: string) => void; removeRepeatableItem: (groupName: string, index: number) => void; reset: (newValues?: Partial<TValues>) => void; submit: () => Promise<void>; handle: DynamicFormHandle<TValues>; }",
-    "related": []
-  },
-  {
-    "id": "@skyra/qr::QRCodeErrorCorrectionLevel",
+    "id": "@skyra-tech-platform/qr::QRCodeErrorCorrectionLevel",
     "name": "QRCodeErrorCorrectionLevel",
-    "packageId": "@skyra/qr",
+    "packageId": "@skyra-tech-platform/qr",
     "capabilityId": "qr/core",
-    "exportPath": "@skyra/qr/core",
+    "exportPath": "@skyra-tech-platform/qr",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -4030,11 +3569,11 @@
     "related": []
   },
   {
-    "id": "@skyra/qr::QRCodeMatrix",
+    "id": "@skyra-tech-platform/qr::QRCodeMatrix",
     "name": "QRCodeMatrix",
-    "packageId": "@skyra/qr",
+    "packageId": "@skyra-tech-platform/qr",
     "capabilityId": "qr/core",
-    "exportPath": "@skyra/qr/core",
+    "exportPath": "@skyra-tech-platform/qr",
     "kind": "interface",
     "description": "Generic representation of a generated QR Code matrix.\nIndependent of rendering target (SVG, Canvas, React).",
     "status": "stable",
@@ -4067,11 +3606,11 @@
     "related": []
   },
   {
-    "id": "@skyra/qr::QRCodeOptions",
+    "id": "@skyra-tech-platform/qr::QRCodeOptions",
     "name": "QRCodeOptions",
-    "packageId": "@skyra/qr",
+    "packageId": "@skyra-tech-platform/qr",
     "capabilityId": "qr/core",
-    "exportPath": "@skyra/qr/core",
+    "exportPath": "@skyra-tech-platform/qr",
     "kind": "interface",
     "description": "QR Code Generation Options",
     "status": "stable",
@@ -4098,11 +3637,11 @@
     "related": []
   },
   {
-    "id": "@skyra/qr::QRCodeRenderOptions",
+    "id": "@skyra-tech-platform/qr::QRCodeRenderOptions",
     "name": "QRCodeRenderOptions",
-    "packageId": "@skyra/qr",
+    "packageId": "@skyra-tech-platform/qr",
     "capabilityId": "qr/core",
-    "exportPath": "@skyra/qr/core",
+    "exportPath": "@skyra-tech-platform/qr",
     "kind": "interface",
     "description": "Base options for rendering a QR code matrix.",
     "status": "stable",
@@ -4135,11 +3674,11 @@
     "related": []
   },
   {
-    "id": "@skyra/qr::QRCodeSVGOptions",
+    "id": "@skyra-tech-platform/qr::QRCodeSVGOptions",
     "name": "QRCodeSVGOptions",
-    "packageId": "@skyra/qr",
+    "packageId": "@skyra-tech-platform/qr",
     "capabilityId": "qr/core",
-    "exportPath": "@skyra/qr/core",
+    "exportPath": "@skyra-tech-platform/qr",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -4154,11 +3693,11 @@
     "related": []
   },
   {
-    "id": "@skyra/qr::QRCodeValidationError",
+    "id": "@skyra-tech-platform/qr::QRCodeValidationError",
     "name": "QRCodeValidationError",
-    "packageId": "@skyra/qr",
+    "packageId": "@skyra-tech-platform/qr",
     "capabilityId": "qr/core",
-    "exportPath": "@skyra/qr/core",
+    "exportPath": "@skyra-tech-platform/qr",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -4166,11 +3705,11 @@
     "related": []
   },
   {
-    "id": "@skyra/qr::buildSVGPath",
+    "id": "@skyra-tech-platform/qr::buildSVGPath",
     "name": "buildSVGPath",
-    "packageId": "@skyra/qr",
+    "packageId": "@skyra-tech-platform/qr",
     "capabilityId": "qr/core",
-    "exportPath": "@skyra/qr/core",
+    "exportPath": "@skyra-tech-platform/qr",
     "kind": "function",
     "description": "",
     "status": "stable",
@@ -4193,11 +3732,11 @@
     "related": []
   },
   {
-    "id": "@skyra/qr::generateQRCode",
+    "id": "@skyra-tech-platform/qr::generateQRCode",
     "name": "generateQRCode",
-    "packageId": "@skyra/qr",
+    "packageId": "@skyra-tech-platform/qr",
     "capabilityId": "qr/core",
-    "exportPath": "@skyra/qr/core",
+    "exportPath": "@skyra-tech-platform/qr",
     "kind": "function",
     "description": "Generates a framework-independent QR code matrix representation.\nThis performs validation, byte/alphanumeric mode selection, and error correction processing.",
     "status": "stable",
@@ -4220,11 +3759,11 @@
     "related": []
   },
   {
-    "id": "@skyra/qr::renderToSVGString",
+    "id": "@skyra-tech-platform/qr::renderToSVGString",
     "name": "renderToSVGString",
-    "packageId": "@skyra/qr",
+    "packageId": "@skyra-tech-platform/qr",
     "capabilityId": "qr/core",
-    "exportPath": "@skyra/qr/core",
+    "exportPath": "@skyra-tech-platform/qr",
     "kind": "function",
     "description": "Generates an optimized, valid SVG XML string from a QRCodeMatrix.",
     "status": "stable",
@@ -4247,11 +3786,11 @@
     "related": []
   },
   {
-    "id": "@skyra/qr::validateQRCodeInput",
+    "id": "@skyra-tech-platform/qr::validateQRCodeInput",
     "name": "validateQRCodeInput",
-    "packageId": "@skyra/qr",
+    "packageId": "@skyra-tech-platform/qr",
     "capabilityId": "qr/core",
-    "exportPath": "@skyra/qr/core",
+    "exportPath": "@skyra-tech-platform/qr",
     "kind": "function",
     "description": "Validates the generic payload and options for QR code generation.",
     "status": "stable",
@@ -4274,66 +3813,45 @@
     "related": []
   },
   {
-    "id": "@skyra/qr::QRCode",
-    "name": "QRCode",
-    "packageId": "@skyra/qr",
-    "capabilityId": "qr/react",
-    "exportPath": "@skyra/qr/react",
-    "kind": "component",
+    "id": "@skyra/ui::parseISODate",
+    "name": "parseISODate",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "function",
     "description": "",
     "status": "stable",
-    "signature": "declare const QRCode: React.FC<QRCodeProps>",
+    "signature": "declare function parseISODate(val?: string | Date | null): Date | null;",
     "properties": [
       {
-        "name": "value",
-        "type": "string",
-        "required": true,
-        "description": "The string payload to encode in the QR code."
-      },
-      {
-        "name": "'aria-label'",
-        "type": "string | undefined",
+        "name": "val",
+        "type": "string | Date | null | undefined",
         "required": false,
-        "description": "Accessible label describing the QR code destination/content."
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Custom CSS class for the wrapper element."
+        "description": ""
       }
     ],
+    "returnType": "Date | null",
     "related": []
   },
   {
-    "id": "@skyra/qr::QRCodeProps",
-    "name": "QRCodeProps",
-    "packageId": "@skyra/qr",
-    "capabilityId": "qr/react",
-    "exportPath": "@skyra/qr/react",
-    "kind": "interface",
+    "id": "@skyra/ui::toISODate",
+    "name": "toISODate",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "function",
     "description": "",
     "status": "stable",
+    "signature": "declare function toISODate(d: Date): string;",
     "properties": [
       {
-        "name": "value",
-        "type": "string",
+        "name": "d",
+        "type": "Date",
         "required": true,
-        "description": "The string payload to encode in the QR code."
-      },
-      {
-        "name": "'aria-label'",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Accessible label describing the QR code destination/content."
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Custom CSS class for the wrapper element."
+        "description": ""
       }
     ],
+    "returnType": "string",
     "related": []
   },
   {
@@ -5446,49 +4964,49 @@
         "name": "variant",
         "type": "ButtonVariant | undefined",
         "required": false,
-        "description": "Visual variant. [CONFIRMED from ERP: ui.css .btn-*]"
+        "description": ""
       },
       {
         "name": "size",
         "type": "ButtonSize | undefined",
         "required": false,
-        "description": "Size preset"
+        "description": ""
       },
       {
         "name": "isLoading",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Show a loading spinner and disable the button"
+        "description": ""
       },
       {
         "name": "loadingText",
         "type": "string | undefined",
         "required": false,
-        "description": "Loading state text shown to screen readers"
+        "description": ""
       },
       {
         "name": "fullWidth",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Render as full-width block"
+        "description": ""
       },
       {
         "name": "iconOnly",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Icon-only button (square, no label)"
+        "description": ""
       },
       {
         "name": "leftIcon",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Left-side icon"
+        "description": ""
       },
       {
         "name": "rightIcon",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Right-side icon"
+        "description": ""
       },
       {
         "name": "children",
@@ -5513,49 +5031,49 @@
         "name": "variant",
         "type": "ButtonVariant | undefined",
         "required": false,
-        "description": "Visual variant. [CONFIRMED from ERP: ui.css .btn-*]"
+        "description": ""
       },
       {
         "name": "size",
         "type": "ButtonSize | undefined",
         "required": false,
-        "description": "Size preset"
+        "description": ""
       },
       {
         "name": "isLoading",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Show a loading spinner and disable the button"
+        "description": ""
       },
       {
         "name": "loadingText",
         "type": "string | undefined",
         "required": false,
-        "description": "Loading state text shown to screen readers"
+        "description": ""
       },
       {
         "name": "fullWidth",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Render as full-width block"
+        "description": ""
       },
       {
         "name": "iconOnly",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Icon-only button (square, no label)"
+        "description": ""
       },
       {
         "name": "leftIcon",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Left-side icon"
+        "description": ""
       },
       {
         "name": "rightIcon",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Right-side icon"
+        "description": ""
       },
       {
         "name": "children",
@@ -5607,67 +5125,67 @@
         "name": "mode",
         "type": "\"single\" | \"range\" | \"week\" | \"month\" | \"year\" | undefined",
         "required": false,
-        "description": "Mode: single date or date range"
+        "description": ""
       },
       {
         "name": "value",
         "type": "string | null | undefined",
         "required": false,
-        "description": "Selected single ISO date string (YYYY-MM-DD)"
+        "description": ""
       },
       {
         "name": "rangeValue",
         "type": "[string | null, string | null] | undefined",
         "required": false,
-        "description": "Selected date range [startDate, endDate]"
+        "description": ""
       },
       {
         "name": "onChange",
         "type": "((date: string) => void) | undefined",
         "required": false,
-        "description": "Change callback for single date"
+        "description": ""
       },
       {
         "name": "onRangeChange",
         "type": "((range: [string, string]) => void) | undefined",
         "required": false,
-        "description": "Change callback for range"
+        "description": ""
       },
       {
         "name": "minDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Minimum selectable ISO date"
+        "description": ""
       },
       {
         "name": "maxDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Maximum selectable ISO date"
+        "description": ""
       },
       {
         "name": "disabledDate",
         "type": "((date: Date) => boolean) | undefined",
         "required": false,
-        "description": "Disable specific dates predicate"
+        "description": ""
       },
       {
         "name": "disableWeekends",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Disable all Saturdays & Sundays"
+        "description": ""
       },
       {
         "name": "showToday",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Show today button"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "returnType": "React.JSX.Element",
@@ -5687,67 +5205,67 @@
         "name": "mode",
         "type": "\"single\" | \"range\" | \"week\" | \"month\" | \"year\" | undefined",
         "required": false,
-        "description": "Mode: single date or date range"
+        "description": ""
       },
       {
         "name": "value",
         "type": "string | null | undefined",
         "required": false,
-        "description": "Selected single ISO date string (YYYY-MM-DD)"
+        "description": ""
       },
       {
         "name": "rangeValue",
         "type": "[string | null, string | null] | undefined",
         "required": false,
-        "description": "Selected date range [startDate, endDate]"
+        "description": ""
       },
       {
         "name": "onChange",
         "type": "((date: string) => void) | undefined",
         "required": false,
-        "description": "Change callback for single date"
+        "description": ""
       },
       {
         "name": "onRangeChange",
         "type": "((range: [string, string]) => void) | undefined",
         "required": false,
-        "description": "Change callback for range"
+        "description": ""
       },
       {
         "name": "minDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Minimum selectable ISO date"
+        "description": ""
       },
       {
         "name": "maxDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Maximum selectable ISO date"
+        "description": ""
       },
       {
         "name": "disabledDate",
         "type": "((date: Date) => boolean) | undefined",
         "required": false,
-        "description": "Disable specific dates predicate"
+        "description": ""
       },
       {
         "name": "disableWeekends",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Disable all Saturdays & Sundays"
+        "description": ""
       },
       {
         "name": "showToday",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Show today button"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "related": []
@@ -5909,7 +5427,7 @@
       {
         "name": "label",
         "type": "React.ReactNode",
-        "required": true,
+        "required": false,
         "description": ""
       },
       {
@@ -6236,7 +5754,7 @@
       {
         "name": "label",
         "type": "React.ReactNode",
-        "required": true,
+        "required": false,
         "description": ""
       },
       {
@@ -6297,7 +5815,7 @@
       },
       {
         "name": "variant",
-        "type": "\"danger\" | \"warning\" | \"primary\" | \"success\" | undefined",
+        "type": "\"primary\" | \"danger\" | \"warning\" | \"success\" | undefined",
         "required": false,
         "description": "Color variant"
       },
@@ -6347,7 +5865,7 @@
       },
       {
         "name": "variant",
-        "type": "\"danger\" | \"warning\" | \"primary\" | \"success\" | undefined",
+        "type": "\"primary\" | \"danger\" | \"warning\" | \"success\" | undefined",
         "required": false,
         "description": "Color variant"
       },
@@ -6607,6 +6125,31 @@
         "type": "React.ReactNode",
         "required": true,
         "description": "Custom trigger content"
+      }
+    ],
+    "related": []
+  },
+  {
+    "id": "@skyra/ui::ColumnDef",
+    "name": "ColumnDef",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "header",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "cell",
+        "type": "((props: { row: TData; value: TValue; }) => React.ReactNode) | undefined",
+        "required": false,
+        "description": ""
       }
     ],
     "related": []
@@ -7377,178 +6920,6 @@
     "related": []
   },
   {
-    "id": "@skyra/ui::CustomSelect",
-    "name": "CustomSelect",
-    "packageId": "@skyra/ui",
-    "capabilityId": "ui/components",
-    "exportPath": "@skyra/ui",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare const CustomSelect: React.FC<CustomSelectProps>",
-    "properties": [
-      {
-        "name": "options",
-        "type": "SelectOption[]",
-        "required": true,
-        "description": "Available options"
-      },
-      {
-        "name": "value",
-        "type": "string",
-        "required": true,
-        "description": "Controlled value"
-      },
-      {
-        "name": "onChange",
-        "type": "(value: string) => void",
-        "required": true,
-        "description": "Change handler"
-      },
-      {
-        "name": "placeholder",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "searchThreshold",
-        "type": "number | undefined",
-        "required": false,
-        "description": "Show search field if option count exceeds this threshold (ERP default: 5)"
-      },
-      {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "error",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "helper",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "required",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "disabled",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "id",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "wrapperClassName",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/ui::CustomSelectProps",
-    "name": "CustomSelectProps",
-    "packageId": "@skyra/ui",
-    "capabilityId": "ui/components",
-    "exportPath": "@skyra/ui",
-    "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "options",
-        "type": "SelectOption[]",
-        "required": true,
-        "description": "Available options"
-      },
-      {
-        "name": "value",
-        "type": "string",
-        "required": true,
-        "description": "Controlled value"
-      },
-      {
-        "name": "onChange",
-        "type": "(value: string) => void",
-        "required": true,
-        "description": "Change handler"
-      },
-      {
-        "name": "placeholder",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "searchThreshold",
-        "type": "number | undefined",
-        "required": false,
-        "description": "Show search field if option count exceeds this threshold (ERP default: 5)"
-      },
-      {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "error",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "helper",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "required",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "disabled",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "id",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "wrapperClassName",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "related": []
-  },
-  {
     "id": "@skyra/ui::DataLoader",
     "name": "DataLoader",
     "packageId": "@skyra/ui",
@@ -7685,6 +7056,442 @@
     "related": []
   },
   {
+    "id": "@skyra/ui::DataTable",
+    "name": "DataTable",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "component",
+    "description": "",
+    "status": "stable",
+    "signature": "declare const DataTable: React.FC<DataTableProps>",
+    "properties": [
+      {
+        "name": "columns",
+        "type": "ColumnDef<TData, unknown>[]",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "data",
+        "type": "TData[]",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "features",
+        "type": "DataTableFeatures | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "sorting",
+        "type": "SortingState[] | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onSortingChange",
+        "type": "((sorting: SortingState[]) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "pagination",
+        "type": "PaginationState | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onPaginationChange",
+        "type": "((pagination: PaginationState) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "pageCount",
+        "type": "number | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "totalRows",
+        "type": "number | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "manualPagination",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "pageSizeOptions",
+        "type": "number[] | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "rowSelection",
+        "type": "RowSelectionState | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onRowSelectionChange",
+        "type": "((selection: RowSelectionState) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "isRowDisabled",
+        "type": "((row: TData) => boolean) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "globalFilter",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onGlobalFilterChange",
+        "type": "((filter: string) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "columnFilters",
+        "type": "ColumnFiltersState | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onColumnFiltersChange",
+        "type": "((filters: ColumnFiltersState) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "columnVisibility",
+        "type": "VisibilityState | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onColumnVisibilityChange",
+        "type": "((visibility: VisibilityState) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "columnSizing",
+        "type": "ColumnSizingState | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onColumnSizingChange",
+        "type": "((sizing: ColumnSizingState) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onRowClick",
+        "type": "((row: TData) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "rowActions",
+        "type": "((row: TData) => React.ReactNode) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "bulkActions",
+        "type": "((selectedRows: TData[]) => React.ReactNode) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onAdd",
+        "type": "(() => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onProcessedDataChange",
+        "type": "((data: TData[]) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "isLoading",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "emptyMessage",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "emptyIcon",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "noResultsMessage",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "error",
+        "type": "Error | null | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onErrorRetry",
+        "type": "(() => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "className",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "returnType": "React.JSX.Element",
+    "related": []
+  },
+  {
+    "id": "@skyra/ui::DataTableProps",
+    "name": "DataTableProps",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "columns",
+        "type": "ColumnDef<TData, unknown>[]",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "data",
+        "type": "TData[]",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "features",
+        "type": "DataTableFeatures | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "sorting",
+        "type": "SortingState[] | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onSortingChange",
+        "type": "((sorting: SortingState[]) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "pagination",
+        "type": "PaginationState | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onPaginationChange",
+        "type": "((pagination: PaginationState) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "pageCount",
+        "type": "number | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "totalRows",
+        "type": "number | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "manualPagination",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "pageSizeOptions",
+        "type": "number[] | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "rowSelection",
+        "type": "RowSelectionState | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onRowSelectionChange",
+        "type": "((selection: RowSelectionState) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "isRowDisabled",
+        "type": "((row: TData) => boolean) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "globalFilter",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onGlobalFilterChange",
+        "type": "((filter: string) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "columnFilters",
+        "type": "ColumnFiltersState | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onColumnFiltersChange",
+        "type": "((filters: ColumnFiltersState) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "columnVisibility",
+        "type": "VisibilityState | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onColumnVisibilityChange",
+        "type": "((visibility: VisibilityState) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "columnSizing",
+        "type": "ColumnSizingState | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onColumnSizingChange",
+        "type": "((sizing: ColumnSizingState) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onRowClick",
+        "type": "((row: TData) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "rowActions",
+        "type": "((row: TData) => React.ReactNode) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "bulkActions",
+        "type": "((selectedRows: TData[]) => React.ReactNode) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onAdd",
+        "type": "(() => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onProcessedDataChange",
+        "type": "((data: TData[]) => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "isLoading",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "emptyMessage",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "emptyIcon",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "noResultsMessage",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "error",
+        "type": "Error | null | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "onErrorRetry",
+        "type": "(() => void) | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "className",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "related": []
+  },
+  {
     "id": "@skyra/ui::DateField",
     "name": "DateField",
     "packageId": "@skyra/ui",
@@ -7699,97 +7506,97 @@
         "name": "value",
         "type": "string | Date | null | undefined",
         "required": false,
-        "description": "Selected ISO date string (YYYY-MM-DD) or Date object"
+        "description": ""
       },
       {
         "name": "onChange",
         "type": "((date: string | null) => void) | undefined",
         "required": false,
-        "description": "Change handler returning ISO date string YYYY-MM-DD or null"
+        "description": ""
       },
       {
         "name": "minDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Minimum selectable ISO date"
+        "description": ""
       },
       {
         "name": "maxDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Maximum selectable ISO date"
+        "description": ""
       },
       {
         "name": "disabledDate",
         "type": "((date: Date) => boolean) | undefined",
         "required": false,
-        "description": "Predicate to disable specific dates"
+        "description": ""
       },
       {
         "name": "label",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Field label"
+        "description": ""
       },
       {
         "name": "helper",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Helper text"
+        "description": ""
       },
       {
         "name": "description",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Description text"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error message"
+        "description": ""
       },
       {
         "name": "placeholder",
         "type": "string | undefined",
         "required": false,
-        "description": "Placeholder"
+        "description": ""
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Disabled state"
+        "description": ""
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Required flag"
+        "description": ""
       },
       {
         "name": "clearable",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Clearable"
+        "description": ""
       },
       {
         "name": "format",
         "type": "string | undefined",
         "required": false,
-        "description": "Display format (e.g. DD/MM/YYYY, MM/DD/YYYY, YYYY-MM-DD, DD MMM YYYY)"
+        "description": ""
       },
       {
         "name": "id",
         "type": "string | undefined",
         "required": false,
-        "description": "Custom ID"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "returnType": "React.JSX.Element",
@@ -7809,97 +7616,97 @@
         "name": "value",
         "type": "string | Date | null | undefined",
         "required": false,
-        "description": "Selected ISO date string (YYYY-MM-DD) or Date object"
+        "description": ""
       },
       {
         "name": "onChange",
         "type": "((date: string | null) => void) | undefined",
         "required": false,
-        "description": "Change handler returning ISO date string YYYY-MM-DD or null"
+        "description": ""
       },
       {
         "name": "minDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Minimum selectable ISO date"
+        "description": ""
       },
       {
         "name": "maxDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Maximum selectable ISO date"
+        "description": ""
       },
       {
         "name": "disabledDate",
         "type": "((date: Date) => boolean) | undefined",
         "required": false,
-        "description": "Predicate to disable specific dates"
+        "description": ""
       },
       {
         "name": "label",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Field label"
+        "description": ""
       },
       {
         "name": "helper",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Helper text"
+        "description": ""
       },
       {
         "name": "description",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Description text"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error message"
+        "description": ""
       },
       {
         "name": "placeholder",
         "type": "string | undefined",
         "required": false,
-        "description": "Placeholder"
+        "description": ""
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Disabled state"
+        "description": ""
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Required flag"
+        "description": ""
       },
       {
         "name": "clearable",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Clearable"
+        "description": ""
       },
       {
         "name": "format",
         "type": "string | undefined",
         "required": false,
-        "description": "Display format (e.g. DD/MM/YYYY, MM/DD/YYYY, YYYY-MM-DD, DD MMM YYYY)"
+        "description": ""
       },
       {
         "name": "id",
         "type": "string | undefined",
         "required": false,
-        "description": "Custom ID"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "related": []
@@ -7919,79 +7726,79 @@
         "name": "value",
         "type": "DateRangeValue | undefined",
         "required": false,
-        "description": "Controlled value"
+        "description": ""
       },
       {
         "name": "onChange",
         "type": "((value: DateRangeValue) => void) | undefined",
         "required": false,
-        "description": "Change handler"
+        "description": ""
       },
       {
         "name": "minDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Minimum selectable date"
+        "description": ""
       },
       {
         "name": "maxDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Maximum selectable date"
+        "description": ""
       },
       {
         "name": "label",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Label"
+        "description": ""
       },
       {
         "name": "helper",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Helper text"
+        "description": ""
       },
       {
         "name": "description",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Description"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error message"
+        "description": ""
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Disabled"
+        "description": ""
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Required"
+        "description": ""
       },
       {
         "name": "clearable",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Clearable"
+        "description": ""
       },
       {
         "name": "id",
         "type": "string | undefined",
         "required": false,
-        "description": "Custom ID"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "returnType": "React.JSX.Element",
@@ -8011,79 +7818,79 @@
         "name": "value",
         "type": "DateRangeValue | undefined",
         "required": false,
-        "description": "Controlled value"
+        "description": ""
       },
       {
         "name": "onChange",
         "type": "((value: DateRangeValue) => void) | undefined",
         "required": false,
-        "description": "Change handler"
+        "description": ""
       },
       {
         "name": "minDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Minimum selectable date"
+        "description": ""
       },
       {
         "name": "maxDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Maximum selectable date"
+        "description": ""
       },
       {
         "name": "label",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Label"
+        "description": ""
       },
       {
         "name": "helper",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Helper text"
+        "description": ""
       },
       {
         "name": "description",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Description"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error message"
+        "description": ""
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Disabled"
+        "description": ""
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Required"
+        "description": ""
       },
       {
         "name": "clearable",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Clearable"
+        "description": ""
       },
       {
         "name": "id",
         "type": "string | undefined",
         "required": false,
-        "description": "Custom ID"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "related": []
@@ -8128,73 +7935,73 @@
         "name": "value",
         "type": "DateTimeValue | undefined",
         "required": false,
-        "description": "Value object with date (YYYY-MM-DD) and time"
+        "description": ""
       },
       {
         "name": "onChange",
         "type": "((value: DateTimeValue) => void) | undefined",
         "required": false,
-        "description": "Change handler"
+        "description": ""
       },
       {
         "name": "minDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Min selectable date"
+        "description": ""
       },
       {
         "name": "maxDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Max selectable date"
+        "description": ""
       },
       {
         "name": "label",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Label for combined field"
+        "description": ""
       },
       {
         "name": "helper",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Helper text"
+        "description": ""
       },
       {
         "name": "description",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Description"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error message"
+        "description": ""
       },
       {
         "name": "timeFormat",
         "type": "\"12h\" | \"24h\" | undefined",
         "required": false,
-        "description": "Time format (12h or 24h)"
+        "description": ""
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Disabled"
+        "description": ""
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Required"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "returnType": "React.JSX.Element",
@@ -8214,73 +8021,73 @@
         "name": "value",
         "type": "DateTimeValue | undefined",
         "required": false,
-        "description": "Value object with date (YYYY-MM-DD) and time"
+        "description": ""
       },
       {
         "name": "onChange",
         "type": "((value: DateTimeValue) => void) | undefined",
         "required": false,
-        "description": "Change handler"
+        "description": ""
       },
       {
         "name": "minDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Min selectable date"
+        "description": ""
       },
       {
         "name": "maxDate",
         "type": "string | Date | undefined",
         "required": false,
-        "description": "Max selectable date"
+        "description": ""
       },
       {
         "name": "label",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Label for combined field"
+        "description": ""
       },
       {
         "name": "helper",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Helper text"
+        "description": ""
       },
       {
         "name": "description",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Description"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error message"
+        "description": ""
       },
       {
         "name": "timeFormat",
         "type": "\"12h\" | \"24h\" | undefined",
         "required": false,
-        "description": "Time format (12h or 24h)"
+        "description": ""
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Disabled"
+        "description": ""
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Required"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "related": []
@@ -9226,6 +9033,27 @@
     "related": []
   },
   {
+    "id": "@skyra/ui::DynamicForm",
+    "name": "DynamicForm",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "component",
+    "description": "",
+    "status": "stable",
+    "signature": "declare function DynamicForm<TValues extends FormValues = FormValues>(props: DynamicFormProps<TValues> &",
+    "properties": [
+      {
+        "name": "props",
+        "type": "DynamicFormProps<TValues> & { children?: React.ReactNode; submitLabel?: string; }",
+        "required": true,
+        "description": ""
+      }
+    ],
+    "returnType": "React.JSX.Element",
+    "related": []
+  },
+  {
     "id": "@skyra/ui::DynamicSelect",
     "name": "DynamicSelect",
     "packageId": "@skyra/ui",
@@ -9240,199 +9068,193 @@
         "name": "options",
         "type": "T[]",
         "required": true,
-        "description": "Array of available options"
+        "description": ""
       },
       {
         "name": "value",
         "type": "string | string[] | T | T[] | null | undefined",
         "required": false,
-        "description": "Selected value: single item, array of items, or null"
+        "description": ""
       },
       {
         "name": "onChange",
         "type": "(value: T | T[] | null) => void",
         "required": true,
-        "description": "Callback fired when selection changes"
+        "description": ""
       },
       {
         "name": "mode",
         "type": "DynamicSelectMode | undefined",
         "required": false,
-        "description": "Selection mode"
+        "description": ""
       },
       {
         "name": "searchable",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Whether search input is enabled in dropdown"
+        "description": ""
       },
       {
         "name": "search",
         "type": "DynamicSelectSearchConfig | undefined",
         "required": false,
-        "description": "Detailed search configuration"
+        "description": ""
       },
       {
         "name": "clearable",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Allow clearing selection"
+        "description": ""
       },
       {
         "name": "selectAll",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Enable \"Select All\" toggle in multi-select mode"
+        "description": ""
       },
       {
         "name": "maxVisibleValues",
         "type": "number | \"auto\" | undefined",
         "required": false,
-        "description": "Visible tokens count or 'auto' dynamic width calculation"
+        "description": ""
       },
       {
         "name": "maxSelections",
         "type": "number | undefined",
         "required": false,
-        "description": "Maximum number of selectable items in multi-select mode"
+        "description": ""
       },
       {
         "name": "grouping",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Group options by group property or optionGroup extractor"
+        "description": ""
       },
       {
         "name": "loading",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Loading state indicator"
+        "description": ""
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Disabled state"
+        "description": ""
       },
       {
         "name": "allowCreate",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Allow creating new option when search doesn't match"
+        "description": ""
       },
       {
         "name": "virtualized",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Virtualized list (future-ready config)"
+        "description": ""
       },
       {
         "name": "dropdownWidth",
         "type": "number | \"auto\" | \"match\" | undefined",
         "required": false,
-        "description": "Width of dropdown panel"
+        "description": ""
       },
       {
         "name": "maxMenuHeight",
         "type": "number | undefined",
         "required": false,
-        "description": "Maximum height of options list in px"
+        "description": ""
       },
       {
         "name": "placeholder",
         "type": "string | undefined",
         "required": false,
-        "description": "Placeholder text"
+        "description": ""
       },
       {
         "name": "label",
         "type": "string | undefined",
         "required": false,
-        "description": "Field label"
+        "description": ""
       },
       {
         "name": "description",
         "type": "string | undefined",
         "required": false,
-        "description": "Helper / description text below field"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error message"
+        "description": ""
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Required field marker"
+        "description": ""
       },
       {
         "name": "id",
         "type": "string | undefined",
         "required": false,
-        "description": "Custom ID"
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
       },
       {
         "name": "optionLabel",
         "type": "((option: T) => string) | undefined",
         "required": false,
-        "description": "Custom extractor for option label"
+        "description": ""
       },
       {
         "name": "optionValue",
         "type": "((option: T) => string) | undefined",
         "required": false,
-        "description": "Custom extractor for option value"
+        "description": ""
       },
       {
         "name": "optionGroup",
         "type": "((option: T) => string) | undefined",
         "required": false,
-        "description": "Custom extractor for option group"
+        "description": ""
       },
       {
         "name": "optionDescription",
         "type": "((option: T) => string | undefined) | undefined",
         "required": false,
-        "description": "Custom extractor for option description"
+        "description": ""
       },
       {
         "name": "optionDisabled",
         "type": "((option: T) => boolean) | undefined",
         "required": false,
-        "description": "Custom extractor for option disabled state"
-      },
-      {
-        "name": "renderOption",
-        "type": "((option: T, state: { selected: boolean; focused: boolean; }) => React.ReactNode) | undefined",
-        "required": false,
-        "description": "Custom option renderer"
-      },
-      {
-        "name": "renderValue",
-        "type": "((option: T | T[]) => React.ReactNode) | undefined",
-        "required": false,
-        "description": "Custom selected value renderer"
+        "description": ""
       },
       {
         "name": "onSearch",
         "type": "((query: string) => void) | undefined",
         "required": false,
-        "description": "Async search callback"
+        "description": ""
       },
       {
         "name": "onCreateOption",
         "type": "((query: string) => void) | undefined",
         "required": false,
-        "description": "Callback when user creates a new option"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "returnType": "React.JSX.Element",
@@ -9465,199 +9287,193 @@
         "name": "options",
         "type": "T[]",
         "required": true,
-        "description": "Array of available options"
+        "description": ""
       },
       {
         "name": "value",
         "type": "string | string[] | T | T[] | null | undefined",
         "required": false,
-        "description": "Selected value: single item, array of items, or null"
+        "description": ""
       },
       {
         "name": "onChange",
         "type": "(value: T | T[] | null) => void",
         "required": true,
-        "description": "Callback fired when selection changes"
+        "description": ""
       },
       {
         "name": "mode",
         "type": "DynamicSelectMode | undefined",
         "required": false,
-        "description": "Selection mode"
+        "description": ""
       },
       {
         "name": "searchable",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Whether search input is enabled in dropdown"
+        "description": ""
       },
       {
         "name": "search",
         "type": "DynamicSelectSearchConfig | undefined",
         "required": false,
-        "description": "Detailed search configuration"
+        "description": ""
       },
       {
         "name": "clearable",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Allow clearing selection"
+        "description": ""
       },
       {
         "name": "selectAll",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Enable \"Select All\" toggle in multi-select mode"
+        "description": ""
       },
       {
         "name": "maxVisibleValues",
         "type": "number | \"auto\" | undefined",
         "required": false,
-        "description": "Visible tokens count or 'auto' dynamic width calculation"
+        "description": ""
       },
       {
         "name": "maxSelections",
         "type": "number | undefined",
         "required": false,
-        "description": "Maximum number of selectable items in multi-select mode"
+        "description": ""
       },
       {
         "name": "grouping",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Group options by group property or optionGroup extractor"
+        "description": ""
       },
       {
         "name": "loading",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Loading state indicator"
+        "description": ""
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Disabled state"
+        "description": ""
       },
       {
         "name": "allowCreate",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Allow creating new option when search doesn't match"
+        "description": ""
       },
       {
         "name": "virtualized",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Virtualized list (future-ready config)"
+        "description": ""
       },
       {
         "name": "dropdownWidth",
         "type": "number | \"auto\" | \"match\" | undefined",
         "required": false,
-        "description": "Width of dropdown panel"
+        "description": ""
       },
       {
         "name": "maxMenuHeight",
         "type": "number | undefined",
         "required": false,
-        "description": "Maximum height of options list in px"
+        "description": ""
       },
       {
         "name": "placeholder",
         "type": "string | undefined",
         "required": false,
-        "description": "Placeholder text"
+        "description": ""
       },
       {
         "name": "label",
         "type": "string | undefined",
         "required": false,
-        "description": "Field label"
+        "description": ""
       },
       {
         "name": "description",
         "type": "string | undefined",
         "required": false,
-        "description": "Helper / description text below field"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error message"
+        "description": ""
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Required field marker"
+        "description": ""
       },
       {
         "name": "id",
         "type": "string | undefined",
         "required": false,
-        "description": "Custom ID"
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
       },
       {
         "name": "optionLabel",
         "type": "((option: T) => string) | undefined",
         "required": false,
-        "description": "Custom extractor for option label"
+        "description": ""
       },
       {
         "name": "optionValue",
         "type": "((option: T) => string) | undefined",
         "required": false,
-        "description": "Custom extractor for option value"
+        "description": ""
       },
       {
         "name": "optionGroup",
         "type": "((option: T) => string) | undefined",
         "required": false,
-        "description": "Custom extractor for option group"
+        "description": ""
       },
       {
         "name": "optionDescription",
         "type": "((option: T) => string | undefined) | undefined",
         "required": false,
-        "description": "Custom extractor for option description"
+        "description": ""
       },
       {
         "name": "optionDisabled",
         "type": "((option: T) => boolean) | undefined",
         "required": false,
-        "description": "Custom extractor for option disabled state"
-      },
-      {
-        "name": "renderOption",
-        "type": "((option: T, state: { selected: boolean; focused: boolean; }) => React.ReactNode) | undefined",
-        "required": false,
-        "description": "Custom option renderer"
-      },
-      {
-        "name": "renderValue",
-        "type": "((option: T | T[]) => React.ReactNode) | undefined",
-        "required": false,
-        "description": "Custom selected value renderer"
+        "description": ""
       },
       {
         "name": "onSearch",
         "type": "((query: string) => void) | undefined",
         "required": false,
-        "description": "Async search callback"
+        "description": ""
       },
       {
         "name": "onCreateOption",
         "type": "((query: string) => void) | undefined",
         "required": false,
-        "description": "Callback when user creates a new option"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "related": []
@@ -10556,7 +10372,7 @@
     "properties": [
       {
         "name": "format",
-        "type": "\"csv\" | \"xlsx\" | \"xls\"",
+        "type": "\"csv\" | \"xlsx\" | \"xls\" | \"json\" | \"tsv\"",
         "required": true,
         "description": "Target export format"
       },
@@ -10606,7 +10422,7 @@
     "properties": [
       {
         "name": "format",
-        "type": "\"csv\" | \"xlsx\" | \"xls\"",
+        "type": "\"csv\" | \"xlsx\" | \"xls\" | \"json\" | \"tsv\"",
         "required": true,
         "description": "Target export format"
       },
@@ -11446,49 +11262,49 @@
         "name": "label",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Label text shown above the input"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error message — sets error state and shows message"
+        "description": ""
       },
       {
         "name": "helper",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Helper text shown below the input"
+        "description": ""
       },
       {
         "name": "helperText",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Helper text alias"
+        "description": ""
       },
       {
         "name": "description",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Description text shown below the input (alias for helper)"
+        "description": ""
       },
       {
         "name": "status",
         "type": "\"warning\" | \"success\" | \"default\" | \"error\" | undefined",
         "required": false,
-        "description": "Status variant for borders/accents"
+        "description": ""
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Show required asterisk"
+        "description": ""
       },
       {
         "name": "leftAdornment",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Left adornment or prefix"
+        "description": ""
       },
       {
         "name": "prefix",
@@ -11506,7 +11322,7 @@
         "name": "rightAdornment",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Right adornment or suffix"
+        "description": ""
       },
       {
         "name": "suffix",
@@ -11524,31 +11340,25 @@
         "name": "loading",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Loading state with inline spinner"
+        "description": ""
       },
       {
         "name": "clearable",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Allow clearing input value"
+        "description": ""
       },
       {
         "name": "onClear",
         "type": "(() => void) | undefined",
         "required": false,
-        "description": "Clear callback"
+        "description": ""
       },
       {
         "name": "showCount",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Show character count when maxLength is set"
-      },
-      {
-        "name": "wrapperClassName",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Wrapper className"
+        "description": ""
       }
     ],
     "related": []
@@ -11567,49 +11377,49 @@
         "name": "label",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Label text shown above the input"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error message — sets error state and shows message"
+        "description": ""
       },
       {
         "name": "helper",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Helper text shown below the input"
+        "description": ""
       },
       {
         "name": "helperText",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Helper text alias"
+        "description": ""
       },
       {
         "name": "description",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Description text shown below the input (alias for helper)"
+        "description": ""
       },
       {
         "name": "status",
         "type": "\"warning\" | \"success\" | \"default\" | \"error\" | undefined",
         "required": false,
-        "description": "Status variant for borders/accents"
+        "description": ""
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Show required asterisk"
+        "description": ""
       },
       {
         "name": "leftAdornment",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Left adornment or prefix"
+        "description": ""
       },
       {
         "name": "prefix",
@@ -11627,7 +11437,7 @@
         "name": "rightAdornment",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Right adornment or suffix"
+        "description": ""
       },
       {
         "name": "suffix",
@@ -11645,31 +11455,25 @@
         "name": "loading",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Loading state with inline spinner"
+        "description": ""
       },
       {
         "name": "clearable",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Allow clearing input value"
+        "description": ""
       },
       {
         "name": "onClear",
         "type": "(() => void) | undefined",
         "required": false,
-        "description": "Clear callback"
+        "description": ""
       },
       {
         "name": "showCount",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Show character count when maxLength is set"
-      },
-      {
-        "name": "wrapperClassName",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Wrapper className"
+        "description": ""
       }
     ],
     "related": []
@@ -12486,148 +12290,6 @@
     "related": []
   },
   {
-    "id": "@skyra/ui::NativeSelect",
-    "name": "NativeSelect",
-    "packageId": "@skyra/ui",
-    "capabilityId": "ui/components",
-    "exportPath": "@skyra/ui",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare const NativeSelect: React.FC<NativeSelectProps>",
-    "properties": [
-      {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "error",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "helper",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "required",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "options",
-        "type": "SelectOption$1[]",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "placeholder",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "wrapperClassName",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/ui::NativeSelectOption",
-    "name": "NativeSelectOption",
-    "packageId": "@skyra/ui",
-    "capabilityId": "ui/components",
-    "exportPath": "@skyra/ui",
-    "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "value",
-        "type": "string",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "label",
-        "type": "string",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "disabled",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/ui::NativeSelectProps",
-    "name": "NativeSelectProps",
-    "packageId": "@skyra/ui",
-    "capabilityId": "ui/components",
-    "exportPath": "@skyra/ui",
-    "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "error",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "helper",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "required",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "options",
-        "type": "SelectOption$1[]",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "placeholder",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "wrapperClassName",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "related": []
-  },
-  {
     "id": "@skyra/ui::NotificationBar",
     "name": "NotificationBar",
     "packageId": "@skyra/ui",
@@ -12642,58 +12304,45 @@
         "name": "type",
         "type": "NotificationType | undefined",
         "required": false,
-        "description": "Notification tone"
+        "description": ""
       },
       {
         "name": "title",
         "type": "React.ReactNode",
         "required": true,
-        "description": "Title text"
+        "description": ""
       },
       {
         "name": "message",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Detailed message text or rich node"
+        "description": ""
       },
       {
         "name": "code",
         "type": "string | undefined",
         "required": false,
-        "description": "Optional response code badge (e.g. SUCCESS_200, ERR_404)"
+        "description": ""
       },
       {
         "name": "duration",
         "type": "number | undefined",
         "required": false,
-        "description": "Duration in ms before auto-dismissing. 0 means persistent"
+        "description": ""
       },
       {
         "name": "onClose",
         "type": "(() => void) | undefined",
         "required": false,
-        "description": "Callback fired on dismissal"
+        "description": ""
       },
       {
         "name": "icon",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Custom icon override"
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Additional CSS class"
-      },
-      {
-        "name": "style",
-        "type": "React.CSSProperties | undefined",
-        "required": false,
         "description": ""
       }
     ],
-    "returnType": "React.JSX.Element | null",
     "related": []
   },
   {
@@ -12710,53 +12359,41 @@
         "name": "type",
         "type": "NotificationType | undefined",
         "required": false,
-        "description": "Notification tone"
+        "description": ""
       },
       {
         "name": "title",
         "type": "React.ReactNode",
         "required": true,
-        "description": "Title text"
+        "description": ""
       },
       {
         "name": "message",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Detailed message text or rich node"
+        "description": ""
       },
       {
         "name": "code",
         "type": "string | undefined",
         "required": false,
-        "description": "Optional response code badge (e.g. SUCCESS_200, ERR_404)"
+        "description": ""
       },
       {
         "name": "duration",
         "type": "number | undefined",
         "required": false,
-        "description": "Duration in ms before auto-dismissing. 0 means persistent"
+        "description": ""
       },
       {
         "name": "onClose",
         "type": "(() => void) | undefined",
         "required": false,
-        "description": "Callback fired on dismissal"
+        "description": ""
       },
       {
         "name": "icon",
         "type": "React.ReactNode",
-        "required": false,
-        "description": "Custom icon override"
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Additional CSS class"
-      },
-      {
-        "name": "style",
-        "type": "React.CSSProperties | undefined",
         "required": false,
         "description": ""
       }
@@ -13727,91 +13364,19 @@
     "packageId": "@skyra/ui",
     "capabilityId": "ui/components",
     "exportPath": "@skyra/ui",
-    "kind": "component",
+    "kind": "function",
     "description": "",
     "status": "stable",
-    "signature": "declare const PdfViewer: React.FC<PdfViewerProps>",
+    "signature": "declare function PdfViewer(",
     "properties": [
       {
-        "name": "title",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Document title"
-      },
-      {
-        "name": "src",
-        "type": "string | undefined",
-        "required": false,
-        "description": "PDF URL or Blob string"
-      },
-      {
-        "name": "totalPages",
-        "type": "number | undefined",
-        "required": false,
-        "description": "Total pages count"
-      },
-      {
-        "name": "initialPage",
-        "type": "number | undefined",
-        "required": false,
-        "description": "Initial page index (1-based)"
-      },
-      {
-        "name": "initialZoom",
-        "type": "number | undefined",
-        "required": false,
-        "description": "Initial zoom level in percentage (e.g. 100)"
-      },
-      {
-        "name": "renderPage",
-        "type": "((page: number, zoom: number) => React.ReactNode) | undefined",
-        "required": false,
-        "description": "Custom page renderer for custom preview layouts"
-      },
-      {
-        "name": "onPageChange",
-        "type": "((page: number) => void) | undefined",
-        "required": false,
-        "description": "Page change callback"
-      },
-      {
-        "name": "onPrint",
-        "type": "(() => void) | undefined",
-        "required": false,
-        "description": "Print action callback"
-      },
-      {
-        "name": "onDownload",
-        "type": "(() => void) | undefined",
-        "required": false,
-        "description": "Download action callback"
-      },
-      {
-        "name": "loading",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": "Loading state indicator"
-      },
-      {
-        "name": "error",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Error state message"
-      },
-      {
-        "name": "height",
-        "type": "string | number | undefined",
-        "required": false,
-        "description": "Height of viewer container"
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Additional CSS class"
+        "name": "{ title, src, initialPage, initialZoom, workerSrc, onPageChange, onPrint, onDownload, height, className, }",
+        "type": "PdfViewerProps",
+        "required": true,
+        "description": ""
       }
     ],
-    "returnType": "React.JSX.Element",
+    "returnType": "React.ReactElement<{ ref: React.RefObject<any>; class: string; style: { height: string; }; 'initial-page': number; 'initial-zoom': number; }, string | React.JSXElementConstructor<any>>",
     "related": []
   },
   {
@@ -13828,79 +13393,79 @@
         "name": "title",
         "type": "string | undefined",
         "required": false,
-        "description": "Document title"
+        "description": ""
       },
       {
         "name": "src",
-        "type": "string | undefined",
+        "type": "string | Blob | ArrayBuffer | undefined",
         "required": false,
-        "description": "PDF URL or Blob string"
+        "description": ""
       },
       {
         "name": "totalPages",
         "type": "number | undefined",
         "required": false,
-        "description": "Total pages count"
+        "description": ""
       },
       {
         "name": "initialPage",
         "type": "number | undefined",
         "required": false,
-        "description": "Initial page index (1-based)"
+        "description": ""
       },
       {
         "name": "initialZoom",
         "type": "number | undefined",
         "required": false,
-        "description": "Initial zoom level in percentage (e.g. 100)"
+        "description": ""
       },
       {
-        "name": "renderPage",
-        "type": "((page: number, zoom: number) => React.ReactNode) | undefined",
+        "name": "workerSrc",
+        "type": "string | undefined",
         "required": false,
-        "description": "Custom page renderer for custom preview layouts"
+        "description": ""
       },
       {
         "name": "onPageChange",
         "type": "((page: number) => void) | undefined",
         "required": false,
-        "description": "Page change callback"
+        "description": ""
       },
       {
         "name": "onPrint",
         "type": "(() => void) | undefined",
         "required": false,
-        "description": "Print action callback"
+        "description": ""
       },
       {
         "name": "onDownload",
         "type": "(() => void) | undefined",
         "required": false,
-        "description": "Download action callback"
+        "description": ""
       },
       {
         "name": "loading",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Loading state indicator"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error state message"
+        "description": ""
       },
       {
         "name": "height",
         "type": "string | number | undefined",
         "required": false,
-        "description": "Height of viewer container"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "related": []
@@ -14428,7 +13993,7 @@
       },
       {
         "name": "variant",
-        "type": "\"danger\" | \"warning\" | \"primary\" | \"success\" | undefined",
+        "type": "\"primary\" | \"danger\" | \"warning\" | \"success\" | undefined",
         "required": false,
         "description": "Color tone"
       },
@@ -14490,7 +14055,7 @@
       },
       {
         "name": "variant",
-        "type": "\"danger\" | \"warning\" | \"primary\" | \"success\" | undefined",
+        "type": "\"primary\" | \"danger\" | \"warning\" | \"success\" | undefined",
         "required": false,
         "description": "Color tone"
       },
@@ -14522,6 +14087,319 @@
     "related": []
   },
   {
+    "id": "@skyra/ui::QRCode",
+    "name": "QRCode",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "component",
+    "description": "",
+    "status": "stable",
+    "signature": "declare const QRCode: React.FC<QRCodeProps>",
+    "properties": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "description": "The string payload to encode in the QR code."
+      },
+      {
+        "name": "'aria-label'",
+        "type": "string | undefined",
+        "required": false,
+        "description": "Accessible label describing the QR code destination/content."
+      },
+      {
+        "name": "className",
+        "type": "string | undefined",
+        "required": false,
+        "description": "Custom CSS class for the wrapper element."
+      }
+    ],
+    "related": []
+  },
+  {
+    "id": "@skyra/ui::QRCodeConfigurator",
+    "name": "QRCodeConfigurator",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "component",
+    "description": "",
+    "status": "stable",
+    "signature": "declare const QRCodeConfigurator: React.FC<QRCodeConfiguratorProps>",
+    "properties": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "errorCorrectionLevel",
+        "type": "\"L\" | \"M\" | \"Q\" | \"H\"",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "margin",
+        "type": "number",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "scale",
+        "type": "number",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "darkColor",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "lightColor",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "onChange",
+        "type": "(updates: Partial<Omit<QRCodeConfiguratorProps, \"onChange\">>) => void",
+        "required": true,
+        "description": ""
+      }
+    ],
+    "returnType": "React.JSX.Element",
+    "related": []
+  },
+  {
+    "id": "@skyra/ui::QRCodeConfiguratorProps",
+    "name": "QRCodeConfiguratorProps",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "errorCorrectionLevel",
+        "type": "\"L\" | \"M\" | \"Q\" | \"H\"",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "margin",
+        "type": "number",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "scale",
+        "type": "number",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "darkColor",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "lightColor",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "onChange",
+        "type": "(updates: Partial<Omit<QRCodeConfiguratorProps, \"onChange\">>) => void",
+        "required": true,
+        "description": ""
+      }
+    ],
+    "related": []
+  },
+  {
+    "id": "@skyra/ui::QRCodeExportMenu",
+    "name": "QRCodeExportMenu",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "component",
+    "description": "",
+    "status": "stable",
+    "signature": "declare const QRCodeExportMenu: React.FC<QRCodeExportMenuProps>",
+    "properties": [
+      {
+        "name": "filename",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "returnType": "React.JSX.Element",
+    "related": []
+  },
+  {
+    "id": "@skyra/ui::QRCodeExportMenuProps",
+    "name": "QRCodeExportMenuProps",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "filename",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "related": []
+  },
+  {
+    "id": "@skyra/ui::QRCodePreview",
+    "name": "QRCodePreview",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "component",
+    "description": "",
+    "status": "stable",
+    "signature": "declare const QRCodePreview: React.FC<QRCodePreviewProps>",
+    "properties": [
+      {
+        "name": "filename",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "returnType": "React.JSX.Element",
+    "related": []
+  },
+  {
+    "id": "@skyra/ui::QRCodePreviewProps",
+    "name": "QRCodePreviewProps",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "filename",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "related": []
+  },
+  {
+    "id": "@skyra/ui::QRCodeProps",
+    "name": "QRCodeProps",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "description": "The string payload to encode in the QR code."
+      },
+      {
+        "name": "'aria-label'",
+        "type": "string | undefined",
+        "required": false,
+        "description": "Accessible label describing the QR code destination/content."
+      },
+      {
+        "name": "className",
+        "type": "string | undefined",
+        "required": false,
+        "description": "Custom CSS class for the wrapper element."
+      }
+    ],
+    "related": []
+  },
+  {
+    "id": "@skyra/ui::QRCodeScanabilityStatus",
+    "name": "QRCodeScanabilityStatus",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "component",
+    "description": "",
+    "status": "stable",
+    "signature": "declare function QRCodeScanabilityStatus(",
+    "properties": [
+      {
+        "name": "{ value, margin, darkColor, lightColor }",
+        "type": "QRCodeValidationProps",
+        "required": true,
+        "description": ""
+      }
+    ],
+    "returnType": "React.JSX.Element",
+    "related": []
+  },
+  {
+    "id": "@skyra/ui::QRCodeValidationProps",
+    "name": "QRCodeValidationProps",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "interface",
+    "description": "",
+    "status": "stable",
+    "properties": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "description": ""
+      },
+      {
+        "name": "margin",
+        "type": "number | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "darkColor",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      },
+      {
+        "name": "lightColor",
+        "type": "string | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "related": []
+  },
+  {
     "id": "@skyra/ui::Radio",
     "name": "Radio",
     "packageId": "@skyra/ui",
@@ -14535,7 +14413,7 @@
       {
         "name": "label",
         "type": "React.ReactNode",
-        "required": true,
+        "required": false,
         "description": ""
       },
       {
@@ -14868,7 +14746,7 @@
       {
         "name": "label",
         "type": "React.ReactNode",
-        "required": true,
+        "required": false,
         "description": ""
       },
       {
@@ -14976,37 +14854,6 @@
         "type": "((query: string) => void) | undefined",
         "required": false,
         "description": "Callback triggered when user submits search (e.g. presses Enter)"
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/ui::SelectOption",
-    "name": "SelectOption",
-    "packageId": "@skyra/ui",
-    "capabilityId": "ui/components",
-    "exportPath": "@skyra/ui",
-    "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "value",
-        "type": "string",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "label",
-        "type": "string",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "disabled",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
       }
     ],
     "related": []
@@ -15591,7 +15438,6 @@
         "description": "Additional CSS class"
       }
     ],
-    "returnType": "React.JSX.Element",
     "related": []
   },
   {
@@ -16230,12 +16076,6 @@
         "type": "boolean | undefined",
         "required": false,
         "description": ""
-      },
-      {
-        "name": "wrapperClassName",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
       }
     ],
     "related": []
@@ -16321,12 +16161,6 @@
         "type": "boolean | undefined",
         "required": false,
         "description": ""
-      },
-      {
-        "name": "wrapperClassName",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
       }
     ],
     "related": []
@@ -16346,79 +16180,79 @@
         "name": "value",
         "type": "string | undefined",
         "required": false,
-        "description": "Time string (e.g., \"14:30\" for 24h, or \"02:30 PM\" for 12h)"
+        "description": ""
       },
       {
         "name": "onChange",
         "type": "((time: string) => void) | undefined",
         "required": false,
-        "description": "Change handler"
+        "description": ""
       },
       {
         "name": "format",
         "type": "\"12h\" | \"24h\" | undefined",
         "required": false,
-        "description": "Time format: 12-hour with AM/PM or 24-hour military"
+        "description": ""
       },
       {
         "name": "minuteStep",
         "type": "number | undefined",
         "required": false,
-        "description": "Minute step (e.g. 1, 5, 10, 15, 30)"
+        "description": ""
       },
       {
         "name": "label",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Label"
+        "description": ""
       },
       {
         "name": "helper",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Helper text"
+        "description": ""
       },
       {
         "name": "description",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Description"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error message"
+        "description": ""
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Disabled"
+        "description": ""
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Required"
+        "description": ""
       },
       {
         "name": "clearable",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Clearable"
+        "description": ""
       },
       {
         "name": "id",
         "type": "string | undefined",
         "required": false,
-        "description": "Custom ID"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "returnType": "React.JSX.Element",
@@ -16438,79 +16272,79 @@
         "name": "value",
         "type": "string | undefined",
         "required": false,
-        "description": "Time string (e.g., \"14:30\" for 24h, or \"02:30 PM\" for 12h)"
+        "description": ""
       },
       {
         "name": "onChange",
         "type": "((time: string) => void) | undefined",
         "required": false,
-        "description": "Change handler"
+        "description": ""
       },
       {
         "name": "format",
         "type": "\"12h\" | \"24h\" | undefined",
         "required": false,
-        "description": "Time format: 12-hour with AM/PM or 24-hour military"
+        "description": ""
       },
       {
         "name": "minuteStep",
         "type": "number | undefined",
         "required": false,
-        "description": "Minute step (e.g. 1, 5, 10, 15, 30)"
+        "description": ""
       },
       {
         "name": "label",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Label"
+        "description": ""
       },
       {
         "name": "helper",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Helper text"
+        "description": ""
       },
       {
         "name": "description",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Description"
+        "description": ""
       },
       {
         "name": "error",
         "type": "string | undefined",
         "required": false,
-        "description": "Error message"
+        "description": ""
       },
       {
         "name": "disabled",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Disabled"
+        "description": ""
       },
       {
         "name": "required",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Required"
+        "description": ""
       },
       {
         "name": "clearable",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Clearable"
+        "description": ""
       },
       {
         "name": "id",
         "type": "string | undefined",
         "required": false,
-        "description": "Custom ID"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Additional CSS class"
+        "description": ""
       }
     ],
     "related": []
@@ -16528,13 +16362,13 @@
     "properties": [
       {
         "name": "value",
-        "type": "[string, string] | TimeRangeValue | null | undefined",
+        "type": "TimeRangeValue | undefined",
         "required": false,
         "description": ""
       },
       {
         "name": "onChange",
-        "type": "((range: [string, string] | null) => void) | undefined",
+        "type": "((value: TimeRangeValue) => void) | undefined",
         "required": false,
         "description": ""
       },
@@ -16563,12 +16397,6 @@
         "description": ""
       },
       {
-        "name": "helperText",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
         "name": "description",
         "type": "React.ReactNode",
         "required": false,
@@ -16587,26 +16415,8 @@
         "description": ""
       },
       {
-        "name": "readOnly",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
         "name": "required",
         "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "clearable",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "placeholder",
-        "type": "string | undefined",
         "required": false,
         "description": ""
       },
@@ -16638,13 +16448,13 @@
     "properties": [
       {
         "name": "value",
-        "type": "[string, string] | TimeRangeValue | null | undefined",
+        "type": "TimeRangeValue | undefined",
         "required": false,
         "description": ""
       },
       {
         "name": "onChange",
-        "type": "((range: [string, string] | null) => void) | undefined",
+        "type": "((value: TimeRangeValue) => void) | undefined",
         "required": false,
         "description": ""
       },
@@ -16673,12 +16483,6 @@
         "description": ""
       },
       {
-        "name": "helperText",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
         "name": "description",
         "type": "React.ReactNode",
         "required": false,
@@ -16697,26 +16501,8 @@
         "description": ""
       },
       {
-        "name": "readOnly",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
         "name": "required",
         "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "clearable",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "placeholder",
-        "type": "string | undefined",
         "required": false,
         "description": ""
       },
@@ -16746,13 +16532,13 @@
     "status": "stable",
     "properties": [
       {
-        "name": "startTime",
+        "name": "start",
         "type": "string",
         "required": true,
         "description": ""
       },
       {
-        "name": "endTime",
+        "name": "end",
         "type": "string",
         "required": true,
         "description": ""
@@ -16774,19 +16560,19 @@
         "name": "label",
         "type": "string",
         "required": true,
-        "description": "Label for the action button"
+        "description": ""
       },
       {
         "name": "onClick",
-        "type": "(e: React.MouseEvent<HTMLButtonElement>) => void",
+        "type": "(e: React.MouseEvent<HTMLButtonElement> | Event) => void",
         "required": true,
-        "description": "Callback fired on action click"
+        "description": ""
       },
       {
         "name": "altText",
         "type": "string | undefined",
         "required": false,
-        "description": "Accessible alternative text for screen readers"
+        "description": ""
       }
     ],
     "related": []
@@ -16873,73 +16659,73 @@
         "name": "id",
         "type": "string | undefined",
         "required": false,
-        "description": "Explicit custom identifier"
+        "description": ""
       },
       {
         "name": "type",
-        "type": "NotificationType | undefined",
+        "type": "NotificationType$1 | undefined",
         "required": false,
-        "description": "Toast semantic category"
+        "description": ""
       },
       {
         "name": "title",
         "type": "React.ReactNode",
         "required": true,
-        "description": "Title or primary headline"
+        "description": ""
       },
       {
         "name": "message",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Description or body text"
+        "description": ""
       },
       {
         "name": "code",
         "type": "string | undefined",
         "required": false,
-        "description": "Optional response or error code badge"
+        "description": ""
       },
       {
         "name": "duration",
         "type": "number | undefined",
         "required": false,
-        "description": "Duration in ms before auto-dismissal. 0 or persistent means no auto-dismissal"
+        "description": ""
       },
       {
         "name": "persistent",
         "type": "boolean | undefined",
         "required": false,
-        "description": "Whether the notification remains until user dismisses manually"
+        "description": ""
       },
       {
         "name": "action",
         "type": "ToastAction | undefined",
         "required": false,
-        "description": "Optional interactive action button"
+        "description": ""
       },
       {
         "name": "icon",
         "type": "React.ReactNode",
         "required": false,
-        "description": "Custom icon override"
+        "description": ""
       },
       {
         "name": "onClose",
         "type": "(() => void) | undefined",
         "required": false,
-        "description": "Callback fired when toast is closed"
+        "description": ""
       },
       {
         "name": "className",
         "type": "string | undefined",
         "required": false,
-        "description": "Custom CSS class"
+        "description": ""
       },
       {
         "name": "style",
         "type": "React.CSSProperties | undefined",
         "required": false,
-        "description": "Custom inline styles"
+        "description": ""
       }
     ],
     "related": []
@@ -16972,13 +16758,13 @@
         "name": "maxVisible",
         "type": "number | undefined",
         "required": false,
-        "description": "Maximum number of toasts visible simultaneously (default: 5)"
+        "description": ""
       },
       {
         "name": "position",
         "type": "ToastPosition | undefined",
         "required": false,
-        "description": "Default viewport position (default: 'top-right')"
+        "description": ""
       },
       {
         "name": "children",
@@ -17004,13 +16790,13 @@
         "name": "maxVisible",
         "type": "number | undefined",
         "required": false,
-        "description": "Maximum number of toasts visible simultaneously (default: 5)"
+        "description": ""
       },
       {
         "name": "position",
         "type": "ToastPosition | undefined",
         "required": false,
-        "description": "Default viewport position (default: 'top-right')"
+        "description": ""
       },
       {
         "name": "children",
@@ -17057,7 +16843,7 @@
         "description": ""
       }
     ],
-    "returnType": "React.JSX.Element | null",
+    "returnType": "React.JSX.Element",
     "related": []
   },
   {
@@ -17806,55 +17592,13 @@
     "related": []
   },
   {
-    "id": "@skyra/ui::parseISODate",
-    "name": "parseISODate",
-    "packageId": "@skyra/ui",
-    "capabilityId": "ui/components",
-    "exportPath": "@skyra/ui",
-    "kind": "function",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function parseISODate(val?: string | Date | null): Date | null;",
-    "properties": [
-      {
-        "name": "val",
-        "type": "string | Date | null | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "returnType": "Date | null",
-    "related": []
-  },
-  {
-    "id": "@skyra/ui::toISODate",
-    "name": "toISODate",
-    "packageId": "@skyra/ui",
-    "capabilityId": "ui/components",
-    "exportPath": "@skyra/ui",
-    "kind": "function",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function toISODate(d: Date): string;",
-    "properties": [
-      {
-        "name": "d",
-        "type": "Date",
-        "required": true,
-        "description": ""
-      }
-    ],
-    "returnType": "string",
-    "related": []
-  },
-  {
     "id": "@skyra/ui::toast",
     "name": "toast",
     "packageId": "@skyra/ui",
     "capabilityId": "ui/components",
     "exportPath": "@skyra/ui",
     "kind": "function",
-    "description": "Imperative toast function to trigger notifications from anywhere in the application.",
+    "description": "",
     "status": "stable",
     "signature": "declare function toast(options: ToastOptions): string;",
     "properties": [
@@ -17880,6 +17624,27 @@
     "signature": "declare function useCommandRegistry(): CommandRegistryContextValue;",
     "properties": [],
     "returnType": "CommandRegistryContextValue",
+    "related": []
+  },
+  {
+    "id": "@skyra/ui::useDataTableState",
+    "name": "useDataTableState",
+    "packageId": "@skyra/ui",
+    "capabilityId": "ui/components",
+    "exportPath": "@skyra/ui",
+    "kind": "function",
+    "description": "",
+    "status": "stable",
+    "signature": "declare function useDataTableState(props?: UseDataTableStateProps):",
+    "properties": [
+      {
+        "name": "props",
+        "type": "UseDataTableStateProps | undefined",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "returnType": "{ sorting: SortingState[]; onSortingChange: (newSorting: SortingState[]) => void; pagination: PaginationState; onPaginationChange: (newPagination: PaginationState) => void; visibility: VisibilityState; onVisibilityChange: (newVisibility: VisibilityState) => void; selection: RowSelectionState; onRowSelectionChange: (newSelection: RowSelectionState) => void; globalFilter: string; onGlobalFilterChange: (filter: string) => void; columnFilters: ColumnFiltersState; onColumnFiltersChange: (filters: ColumnFiltersState) => void; columnSizing: ColumnSizingState; onColumnSizingChange: (sizing: ColumnSizingState) => void; resetFilters: () => void; resetSorting: () => void; }",
     "related": []
   },
   {

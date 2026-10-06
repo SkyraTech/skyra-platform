@@ -1,8 +1,8 @@
 /**
  * @id data-table-basic
  * @title Basic Data Table
- * @apiId @skyra/data-table::DynamicDataTable
- * @packageId @skyra/data-table
+ * @apiId @skyra/ui::DataTable
+ * @packageId @skyra-tech-platform/data-table
  */
 import React from 'react';
 import { DataTable } from '@skyra/ui';

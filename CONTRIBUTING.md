@@ -12,7 +12,7 @@ The repository is managed as a Turborepo/pnpm monorepo.
 
 ## 3. Package Layers & Dependency Direction
 Packages follow a strict dependency hierarchy:
-- **Layer 1 (Runtime-neutral):** `@skyra/design-tokens`, `@skyra/utils`, `@skyra/validation`.
+- **Layer 1 (Runtime-neutral):** `@skyra-tech-platform/design-tokens`, `@skyra/utils`, `@skyra/validation`.
 - **Layer 2 (React UI Primitives):** `@skyra/ui`, `@skyra/data-table`, `@skyra/dynamic-form`, `@skyra/dialogs`, `@skyra/app-shell`.
 - **Layer 3 (Advanced Modules):** `@skyra/data-export`, `@skyra/qr`.
 

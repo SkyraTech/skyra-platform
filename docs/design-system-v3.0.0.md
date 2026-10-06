@@ -26,8 +26,8 @@ for global namespace safety when multiple libraries coexist.
 
 **Consuming applications install tokens:**
 ```css
-@import '@skyra/design-tokens/tokens.css';
-@import '@skyra/design-tokens/tokens.dark.css';
+@import '@skyra-tech-platform/design-tokens/tokens.css';
+@import '@skyra-tech-platform/design-tokens/tokens.dark.css';
 ```
 
 **Zero Hard-Coded Values Rule:**

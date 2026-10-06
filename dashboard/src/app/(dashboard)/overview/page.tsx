@@ -1,4 +1,4 @@
-﻿import { Card } from '@skyra/ui';
+import { Card } from '@skyra/ui';
 import Link from 'next/link';
 import { docsRegistry } from '../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../docs-system/bootstrap';
@@ -10,9 +10,9 @@ export default function OverviewPage() {
   const packages = docsRegistry.getPackages();
 
   const getLayer = (id: string) => {
-    if (['@skyra/design-tokens', '@skyra/utils', '@skyra/validation'].includes(id)) return 'Layer 1';
+    if (['@skyra-tech-platform/design-tokens', '@skyra/utils', '@skyra/validation'].includes(id)) return 'Layer 1';
     if (['@skyra/ui', '@skyra/app-shell', '@skyra/dialogs', '@skyra/data-table', '@skyra-tech-platform/dynamic-form'].includes(id)) return 'Layer 2';
-    if (['@skyra/data-export', '@skyra/qr'].includes(id)) return 'Layer 3';
+    if (['@skyra/data-export', '@skyra-tech-platform/qr'].includes(id)) return 'Layer 3';
     return 'Layer 3';
   };
 
@@ -44,7 +44,7 @@ export default function OverviewPage() {
         {sortedPackages.map((pkg) => {
           const layer = getLayer(pkg.id);
           const status = pkg.status === 'stable' ? 'Ready' : pkg.status;
-          const route = `/packages/${pkg.id.replace('@skyra/', '')}`;
+          const route = `/packages/${pkg.id.replace(/^@skyra(-tech-platform)?\//, '')}`;
           
           return (
             <Link key={pkg.id} href={route} style={{ textDecoration: 'none', display: 'block' }}>

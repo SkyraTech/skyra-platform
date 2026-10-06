@@ -1,9 +1,8 @@
 import React from 'react';
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
-import { generateQRCode } from '../src/generate';
-import { renderToSVGString } from '../src/render/svg';
-import { QRCode } from '../src/react/QRCode';
+import { generateQRCode, renderToSVGString } from '@skyra-tech-platform/qr';
+import { QRCode } from '../src/components/QRCode';
 
 describe('@skyra/qr - Core Generation', () => {
   it('generates a valid matrix for a string payload', () => {

@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import React from 'react';
 import { render, screen, fireEvent, act, cleanup } from '@testing-library/react';
-import { NotificationBar } from '../src/react/NotificationBar';
+import { NotificationBar } from '../src/components/NotificationBar';
 
 describe('NotificationBar', () => {
   beforeEach(() => cleanup());

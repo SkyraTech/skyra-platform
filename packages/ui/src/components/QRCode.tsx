@@ -3,7 +3,7 @@
  * Accessible React component for rendering QR Codes via SVG.
  */
 import React, { useMemo } from 'react';
-import { generateQRCode, buildSVGPath, QRCodeOptions, QRCodeRenderOptions } from '../core';
+import { generateQRCode, buildSVGPath, QRCodeOptions, QRCodeRenderOptions } from '@skyra-tech-platform/qr';
 
 export interface QRCodeProps extends QRCodeOptions, QRCodeRenderOptions, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
   /** The string payload to encode in the QR code. */

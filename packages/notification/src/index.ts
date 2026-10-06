@@ -1,3 +1,2 @@
 import './skyra-notification-bar';
-export { SkyraNotificationBarElement } from './skyra-notification-bar';
-export * from './react/NotificationBar';
+export { SkyraNotificationBarElement, type NotificationType } from './skyra-notification-bar';

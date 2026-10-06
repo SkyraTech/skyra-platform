@@ -1,6 +1,6 @@
 /* Platform Dashboard — Global Styles */
-@import '@skyra/design-tokens/tokens.css';
-@import '@skyra/design-tokens/reset.css';
+@import '@skyra-tech-platform/design-tokens/tokens.css';
+@import '@skyra-tech-platform/design-tokens/reset.css';
 @import '@skyra/ui/styles.css';
 
 /* Dashboard-specific layout helpers */

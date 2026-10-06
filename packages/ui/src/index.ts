@@ -3,11 +3,11 @@
  *
  * Reusable UI primitives for the Skyra Platform.
  * All components are visually derived from skyra-erp (read-only reference).
- * Layer 2 — depends on @skyra/design-tokens.
+ * Layer 2 — depends on @skyra-tech-platform/design-tokens.
  *
  * Usage:
- *   import '@skyra/design-tokens/tokens.css';
- *   import '@skyra/design-tokens/reset.css';
+ *   import '@skyra-tech-platform/design-tokens/tokens.css';
+ *   import '@skyra-tech-platform/design-tokens/reset.css';
  *   import '@skyra/ui/styles.css';
  *   import { Button, Input, DynamicSelect, StatusBadge } from '@skyra/ui';
  */
@@ -142,8 +142,13 @@ export { Divider } from './components/Divider';
 export type { DividerProps } from './components/Divider';
 
 // ── Document & Export Controls ──
-export { PdfViewer } from '@skyra-tech-platform/pdf-viewer/react';
-export type { PdfViewerProps } from '@skyra-tech-platform/pdf-viewer/react';
+export { PdfViewer } from './components/PdfViewer';
+export type { PdfViewerProps } from './components/PdfViewer';
+
+export { QRCode } from './components/QRCode';
+export type { QRCodeProps } from './components/QRCode';
+export { QRCodeScanabilityStatus, QRCodeExportMenu, QRCodePreview, QRCodeConfigurator } from './components/QRCodeComponents';
+export type { QRCodeValidationProps, QRCodeExportMenuProps, QRCodePreviewProps, QRCodeConfiguratorProps } from './components/QRCodeComponents';
 
 export { PrintButton } from './components/PrintButton';
 export type { PrintButtonProps } from './components/PrintButton';
