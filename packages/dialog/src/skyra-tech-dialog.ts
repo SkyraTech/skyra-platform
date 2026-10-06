@@ -43,7 +43,10 @@ export class SkyraTechDialog extends BaseElement {
     return ['open', 'mode', 'size', 'side', 'drawer-width', 'hide-close-button'];
   }
 
-  get open() { return this.hasAttribute('open'); }
+  get open() { 
+    const val = this.getAttribute('open');
+    return val !== null && val !== 'false' && val !== 'undefined';
+  }
   set open(val: boolean) { 
     if (val) this.setAttribute('open', '');
     else this.removeAttribute('open');
@@ -107,7 +110,7 @@ export class SkyraTechDialog extends BaseElement {
     if (oldVal === newVal) return;
     
     if (name === 'open') {
-      const isOpen = this.hasAttribute('open');
+      const isOpen = this.open;
       if (this._dialogEl) {
         if (isOpen && !this._dialogEl.open) {
           this._triggerElement = document.activeElement as HTMLElement;
@@ -131,13 +134,17 @@ export class SkyraTechDialog extends BaseElement {
   }
 
   private _updateHeaderVisibility() {
-    const titleSlot = this.shadowRoot!.querySelector('slot[name="title"]') as HTMLSlotElement;
-    const hasTitle = titleSlot.assignedNodes().length > 0;
+    const titleSlot = this.shadowRoot?.querySelector('slot[name="title"]') as HTMLSlotElement;
+    const hasTitle = titleSlot ? titleSlot.assignedNodes().length > 0 : false;
     const hideClose = this.hasAttribute('hide-close-button');
     
-    const header = this.shadowRoot!.querySelector('#header') as HTMLElement;
-    header.toggleAttribute('hidden', !hasTitle && hideClose);
-    this._closeBtn.style.display = hideClose ? 'none' : 'flex';
+    const header = this.shadowRoot?.querySelector('#header') as HTMLElement;
+    if (header) {
+      header.toggleAttribute('hidden', !hasTitle && hideClose);
+    }
+    if (this._closeBtn) {
+      this._closeBtn.style.display = hideClose ? 'none' : 'flex';
+    }
   }
 
   private _applyDynamicStyles() {

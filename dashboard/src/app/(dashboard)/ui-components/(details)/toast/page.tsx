@@ -1,15 +1,9 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  ToastProvider,
-  useToast,
-  toast,
-  Button,
-  DynamicSelect,
-  Card,
-  Badge,
-} from '@skyra/ui';
+import { ToastProvider, useToast, toast, Card, Badge } from '@/components/ui';
+import '@skyra-tech-platform/button';
+import '@skyra-tech-platform/dynamic-select';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import {
   CheckCircle2,
@@ -42,7 +36,7 @@ function ToastShowcaseInner() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
           <DemoBlock title="Standard Feedback Toasts">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', padding: '0.5rem 0' }}>
-              <Button
+              <skyra-tech-button
                 variant="primary"
                 onClick={() =>
                   addToast({
@@ -56,9 +50,9 @@ function ToastShowcaseInner() {
               >
                 <CheckCircle2 size={16} />
                 <span>Trigger Success (5s)</span>
-              </Button>
+              </skyra-tech-button>
 
-              <Button
+              <skyra-tech-button
                 variant="danger"
                 onClick={() =>
                   addToast({
@@ -72,9 +66,9 @@ function ToastShowcaseInner() {
               >
                 <AlertCircle size={16} />
                 <span>Trigger Error (6s)</span>
-              </Button>
+              </skyra-tech-button>
 
-              <Button
+              <skyra-tech-button
                 variant="outline"
                 onClick={() =>
                   addToast({
@@ -88,9 +82,9 @@ function ToastShowcaseInner() {
               >
                 <AlertTriangle size={16} />
                 <span>Trigger Warning (7s)</span>
-              </Button>
+              </skyra-tech-button>
 
-              <Button
+              <skyra-tech-button
                 variant="outline"
                 onClick={() =>
                   addToast({
@@ -104,9 +98,9 @@ function ToastShowcaseInner() {
               >
                 <Info size={16} />
                 <span>Trigger Info (4s)</span>
-              </Button>
+              </skyra-tech-button>
 
-              <Button
+              <skyra-tech-button
                 variant="ghost"
                 onClick={() =>
                   addToast({
@@ -119,13 +113,13 @@ function ToastShowcaseInner() {
               >
                 <Bell size={16} />
                 <span>Trigger Neutral (5s)</span>
-              </Button>
+              </skyra-tech-button>
             </div>
           </DemoBlock>
 
           <DemoBlock title="Actions &amp; Persistent Notifications">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', padding: '0.5rem 0' }}>
-              <Button
+              <skyra-tech-button
                 variant="outline"
                 onClick={() =>
                   addToast({
@@ -149,9 +143,9 @@ function ToastShowcaseInner() {
               >
                 <RotateCcw size={16} />
                 <span>Persistent Error + Action Button</span>
-              </Button>
+              </skyra-tech-button>
 
-              <Button
+              <skyra-tech-button
                 variant="primary"
                 onClick={() => {
                   const id = toast({
@@ -174,14 +168,14 @@ function ToastShowcaseInner() {
               >
                 <Play size={16} />
                 <span>Async Toast Update Flow</span>
-              </Button>
+              </skyra-tech-button>
 
               <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--skyra-border)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <span style={{ fontSize: '0.85rem', color: 'var(--skyra-text-muted)' }}>
                     Active Toasts: <Badge variant="primary" size="sm">{toasts.length}</Badge>
                   </span>
-                  <Button
+                  <skyra-tech-button
                     variant="danger"
                     size="sm"
                     disabled={toasts.length === 0}
@@ -189,7 +183,7 @@ function ToastShowcaseInner() {
                   >
                     <Trash2 size={14} />
                     <span>Dismiss All</span>
-                  </Button>
+                  </skyra-tech-button>
                 </div>
               </div>
             </div>
@@ -205,7 +199,7 @@ function ToastShowcaseInner() {
               Change Viewport Position:
             </span>
             <div style={{ width: '220px' }}>
-              <DynamicSelect
+              <skyra-tech-dynamic-select
                 value={position}
                 onChange={(val) => {
                   if (val && !Array.isArray(val) && 'value' in val) {
@@ -222,7 +216,7 @@ function ToastShowcaseInner() {
                 ]}
               />
             </div>
-            <Button
+            <skyra-tech-button
               variant="outline"
               size="sm"
               onClick={() =>
@@ -235,7 +229,7 @@ function ToastShowcaseInner() {
               }
             >
               Test Selected Position
-            </Button>
+            </skyra-tech-button>
           </div>
         </Card>
       </DemoSection>

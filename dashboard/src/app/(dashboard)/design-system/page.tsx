@@ -1,6 +1,6 @@
 ﻿import { bootstrapRegistry } from '@/docs-system/bootstrap';
 import { docsRegistry } from '@/docs-system/registry';
-import { Card, Badge, Divider } from '@skyra/ui';
+import { Card, Badge, Divider } from '@/components/ui';;
 
 export const metadata = { title: 'Design System — Skyra Platform Dashboard' };
 

@@ -1,7 +1,9 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { Input, SearchInput, NumberInput, PasswordInput, Textarea } from '@skyra/ui';
+import { SearchInput, NumberInput, PasswordInput } from '@/components/ui';
+import '@skyra-tech-platform/input';
+import '@skyra-tech-platform/textarea';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import { Mail, Globe, Lock, User, Hash } from 'lucide-react';
 
@@ -28,19 +30,19 @@ export default function InputsShowcasePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
           <DemoBlock title="Validation Status Variants">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%' }}>
-              <Input
+              <skyra-tech-input
                 label="Customer Legal Name"
                 value="Acme Global Industries"
                 status="success"
                 helperText="Verified against global entity registry."
               />
-              <Input
+              <skyra-tech-input
                 label="Corporate Tax Identifier"
                 value="INVALID-TAX-ID"
                 status="error"
                 error="Tax ID must follow format XX-XXXXXXX"
               />
-              <Input
+              <skyra-tech-input
                 label="Credit Limit Allocation"
                 value="$950,000"
                 status="warning"
@@ -51,18 +53,18 @@ export default function InputsShowcasePage() {
 
           <DemoBlock title="Adornments &amp; Clear Actions">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%' }}>
-              <Input
+              <skyra-tech-input
                 label="Work Email"
                 prefix={<Mail size={16} />}
                 placeholder="name@company.com"
               />
-              <Input
+              <skyra-tech-input
                 label="Custom Tenant Domain"
                 prefix="https://"
                 suffix=".skyra.io"
                 placeholder="workspace"
               />
-              <Input
+              <skyra-tech-input
                 label="Project Title"
                 value={textVal}
                 onChange={(e) => setTextVal(e.target.value)}
@@ -137,7 +139,7 @@ export default function InputsShowcasePage() {
         <div style={{ width: '100%' }}>
           <DemoBlock title="Auto-Resizing Description Textarea">
             <div style={{ width: '100%' }}>
-              <Textarea
+              <skyra-tech-textarea
                 label="Project Scope &amp; Technical Overview"
                 placeholder="Type multiple paragraphs to see auto-resize in action..."
                 value={descVal}

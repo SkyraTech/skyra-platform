@@ -1,17 +1,8 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  EmptyState,
-  EmptyStateIcon,
-  EmptyStateTitle,
-  EmptyStateDescription,
-  EmptyStateActions,
-  Button,
-  SearchInput,
-  Card,
-  Badge,
-} from '@skyra/ui';
+import { EmptyState, EmptyStateIcon, EmptyStateTitle, EmptyStateDescription, EmptyStateActions, SearchInput, Card, Badge } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 
 export default function EmptyStateShowcasePage() {
@@ -46,8 +37,8 @@ export default function EmptyStateShowcasePage() {
                 You haven&apos;t uploaded any financial or tax documents to this workspace yet.
               </EmptyStateDescription>
               <EmptyStateActions>
-                <Button variant="primary">Upload Document</Button>
-                <Button variant="outline">Learn More</Button>
+                <skyra-tech-button variant="primary">Upload Document</skyra-tech-button>
+                <skyra-tech-button variant="outline">Learn More</skyra-tech-button>
               </EmptyStateActions>
             </EmptyState>
           </DemoBlock>
@@ -65,7 +56,7 @@ export default function EmptyStateShowcasePage() {
                 Create your first sales invoice to begin tracking payments and receivables.
               </EmptyStateDescription>
               <EmptyStateActions>
-                <Button variant="primary">Create Invoice</Button>
+                <skyra-tech-button variant="primary">Create Invoice</skyra-tech-button>
               </EmptyStateActions>
             </EmptyState>
           </DemoBlock>
@@ -95,9 +86,9 @@ export default function EmptyStateShowcasePage() {
                 We couldn&apos;t find any records matching &quot;{searchTerm || 'query'}&quot;. Try adjusting your search keywords.
               </EmptyStateDescription>
               <EmptyStateActions>
-                <Button variant="ghost" size="sm" onClick={() => setSearchTerm('')}>
+                <skyra-tech-button variant="ghost" size="sm" onClick={() => setSearchTerm('')}>
                   Clear Search
-                </Button>
+                </skyra-tech-button>
               </EmptyStateActions>
             </EmptyState>
           </DemoBlock>

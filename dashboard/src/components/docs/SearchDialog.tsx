@@ -6,7 +6,7 @@ import { Search, X, Package, Layout, FileCode2, Palette, Accessibility, Smartpho
 import { docsRegistry } from '../../docs-system/registry';
 import { bootstrapRegistry } from '../../docs-system/bootstrap';
 import { buildSearchIndex, searchDocumentation, SearchDocument } from '../../docs-system/search';
-import { Badge } from '@skyra/ui';
+import { Badge } from '@/components/ui';;
 
 // Map result types to icons and colors
 const TypeConfig = {

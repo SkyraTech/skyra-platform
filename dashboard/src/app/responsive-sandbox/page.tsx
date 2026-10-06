@@ -1,7 +1,9 @@
 ﻿'use client';
 import React from 'react';
-import { Button, Input, Card } from '@skyra/ui';
-import { DynamicForm } from '@skyra/ui';
+import { Card } from '@/components/ui';
+import '@skyra-tech-platform/button';
+import '@skyra-tech-platform/input';;
+import '@skyra-tech-platform/dynamic-form';;
 
 export default function SandboxPage() {
   return (
@@ -14,12 +16,12 @@ export default function SandboxPage() {
           Resize the viewport from the parent studio to observe how grid columns collapse and typography scales.
         </p>
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <Button>Primary</Button>
-          <Button variant="outline">Secondary</Button>
+          <skyra-tech-button>Primary</skyra-tech-button>
+          <skyra-tech-button variant="outline">Secondary</skyra-tech-button>
         </div>
       </Card>
       
-      <DynamicForm 
+      <skyra-tech-dynamic-form 
         fieldsets={[
           {
             title: 'Responsive Grid Form',

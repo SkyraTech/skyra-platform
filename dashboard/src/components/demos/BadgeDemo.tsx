@@ -1,6 +1,6 @@
 ﻿'use client';
 import React from 'react';
-import { Badge, StatusBadge, StatusConfig } from '@skyra/ui';
+import { Badge, StatusBadge, StatusConfig } from '@/components/ui';;
 import { DemoSection, DemoBlock } from './DemoSection';
 
 const MOCK_STATUS_MAP: Record<string, StatusConfig> = {

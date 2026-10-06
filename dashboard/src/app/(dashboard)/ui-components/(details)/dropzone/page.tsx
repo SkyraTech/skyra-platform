@@ -1,14 +1,7 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  Dropzone,
-  FileUploadList,
-  FileUploadItem,
-  FileRejection,
-  Alert,
-  Badge,
-} from '@skyra/ui';
+import { Dropzone, FileUploadList, FileUploadItem, FileRejection, Alert, Badge } from '@/components/ui';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 
 export default function DropzoneShowcasePage() {

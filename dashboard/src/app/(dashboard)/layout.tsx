@@ -16,16 +16,8 @@ if (typeof window !== 'undefined') {
   registerAppShell();
 }
 
-// Add TypeScript declaration for custom element
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'skyra-tech-app-shell': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
-        class?: string;
-      };
-    }
-  }
-}
+
+
 
 function DashboardSidebarHeader() {
   return (

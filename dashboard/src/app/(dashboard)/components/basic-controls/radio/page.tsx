@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { Radio } from '@skyra/ui';
+import '@skyra-tech-platform/radio';;
 import { DocsLayout } from '@/components/docs/DocsLayout';
 import { DocsHeader } from '@/components/docs/DocsHeader';
 import { PackageMeta } from '@/components/docs/PackageMeta';
@@ -74,8 +74,8 @@ export default function RadioDocsPage() {
 <skyra-tech-radio name="plan" value="pro" label="Pro Plan" checked></skyra-tech-radio>`}
       >
         <div className="flex flex-col gap-4">
-          <Radio name="plan" value="basic" label="Basic Plan" />
-          <Radio name="plan" value="pro" label="Pro Plan" defaultChecked />
+          <skyra-tech-radio name="plan" value="basic" label="Basic Plan" />
+          <skyra-tech-radio name="plan" value="pro" label="Pro Plan" defaultChecked />
         </div>
       </LiveExample>
 
@@ -86,12 +86,12 @@ export default function RadioDocsPage() {
         language="tsx"
         title="Disabled"
         description="Prevent user interaction."
-        code={`<Radio label="Disabled Unchecked" disabled />
-<Radio label="Disabled Checked" defaultChecked disabled />`}
+        code={`<skyra-tech-radio label="Disabled Unchecked" disabled />
+<skyra-tech-radio label="Disabled Checked" defaultChecked disabled />`}
       >
         <div className="flex flex-col gap-4">
-          <Radio label="Disabled Unchecked" disabled />
-          <Radio label="Disabled Checked" defaultChecked disabled />
+          <skyra-tech-radio label="Disabled Unchecked" disabled />
+          <skyra-tech-radio label="Disabled Checked" defaultChecked disabled />
         </div>
       </LiveExample>
 
@@ -100,12 +100,12 @@ export default function RadioDocsPage() {
         language="tsx"
         title="Helper & Error"
         description="Provide additional guidance or validation feedback."
-        code={`<Radio label="Subscribe" helper="We will never spam you." />
-<Radio label="Accept Terms" required error="You must accept the terms to proceed." />`}
+        code={`<skyra-tech-radio label="Subscribe" helper="We will never spam you." />
+<skyra-tech-radio label="Accept Terms" required error="You must accept the terms to proceed." />`}
       >
         <div className="flex flex-col gap-4">
-          <Radio label="Subscribe" helper="We will never spam you." />
-          <Radio label="Accept Terms" required error="You must accept the terms to proceed." />
+          <skyra-tech-radio label="Subscribe" helper="We will never spam you." />
+          <skyra-tech-radio label="Accept Terms" required error="You must accept the terms to proceed." />
         </div>
       </LiveExample>
 
@@ -119,26 +119,26 @@ export default function RadioDocsPage() {
         description="Example of a React controlled radio group."
         code={`const [selected, setSelected] = useState('free');
 
-<Radio name="planGroup" value="free" label="Free Plan" checked={selected === 'free'} onChange={() => setSelected('free')} />
-<Radio name="planGroup" value="pro" label="Pro Plan" checked={selected === 'pro'} onChange={() => setSelected('pro')} />
-<Radio name="planGroup" value="enterprise" label="Enterprise" checked={selected === 'enterprise'} onChange={() => setSelected('enterprise')} />`}
+<skyra-tech-radio name="planGroup" value="free" label="Free Plan" checked={selected === 'free'} onChange={() => setSelected('free')} />
+<skyra-tech-radio name="planGroup" value="pro" label="Pro Plan" checked={selected === 'pro'} onChange={() => setSelected('pro')} />
+<skyra-tech-radio name="planGroup" value="enterprise" label="Enterprise" checked={selected === 'enterprise'} onChange={() => setSelected('enterprise')} />`}
       >
         <div className="p-8 border border-[var(--skyra-border)] rounded-md flex flex-col gap-4 max-w-sm">
-          <Radio 
+          <skyra-tech-radio 
             name="planGroup" 
             value="free" 
             label="Free Plan" 
             checked={selected === 'free'}
             onChange={() => setSelected('free')}
           />
-          <Radio 
+          <skyra-tech-radio 
             name="planGroup" 
             value="pro" 
             label="Pro Plan" 
             checked={selected === 'pro'}
             onChange={() => setSelected('pro')}
           />
-          <Radio 
+          <skyra-tech-radio 
             name="planGroup" 
             value="enterprise" 
             label="Enterprise Plan" 
@@ -250,9 +250,9 @@ export default function RadioDocsPage() {
       <HeadingAnchor id="responsive">Responsive Behavior</HeadingAnchor>
       <ResponsiveDemo 
         description="The Radio component is designed to wrap long text elegantly on small viewports while maintaining perfect alignment with the radio control itself. It uses Flexbox to ensure the control remains at the top rather than centering vertically. The touch target is a minimum of 44x44px for accessibility on mobile devices."
-        desktop={<Radio label="Standard desktop layout with a concise label." />}
-        mobile={<Radio label="Short label" />}
-        fullWidth={<Radio label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the radio." helper="The helper text also wraps to match the label." />}
+        desktop={<skyra-tech-radio label="Standard desktop layout with a concise label." />}
+        mobile={<skyra-tech-radio label="Short label" />}
+        fullWidth={<skyra-tech-radio label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the radio." helper="The helper text also wraps to match the label." />}
       />
 
       <HeadingAnchor id="related">Related Components</HeadingAnchor>

@@ -2,7 +2,9 @@
 
 import React, { useState } from 'react';
 import { processTableData } from '@skyra-tech-platform/data-table';
-import { DataTable, ColumnDef, useDataTableState, StatusBadge, StatusConfig, Button } from '@skyra/ui';
+import {  ColumnDef, useDataTableState, StatusBadge, StatusConfig  } from '@skyra-tech-platform/data-table';
+import '@skyra-tech-platform/data-table';
+import '@skyra-tech-platform/button';;
 import { downloadCsv } from '@skyra-tech-platform/data-export';
 import { MOCK_TRANSACTIONS, MockTransaction } from '@/components/demos/MockData';
 import { Eye, Edit, Trash2, Download, RefreshCw, AlertCircle } from 'lucide-react';
@@ -294,7 +296,7 @@ export default function DataTablePage() {
       </section>
 
       {/* ── Main DataTable Component ── */}
-      <DataTable<MockTransaction>
+      <skyra-tech-data-table<MockTransaction>
         data={activeData}
         columns={columns}
         features={featureConfig}
@@ -349,21 +351,21 @@ export default function DataTablePage() {
         )}
         bulkActions={(selected) => (
           <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <Button 
+            <skyra-tech-button 
               variant="outline" 
               size="sm" 
               onClick={() => handleExportSelected(selected)}
             >
               <Download size={13} style={{ marginRight: '4px' }} />
               Export Selected ({selected.length})
-            </Button>
-            <Button 
+            </skyra-tech-button>
+            <skyra-tech-button 
               variant="danger" 
               size="sm" 
               onClick={() => alert(`Simulating deletion of ${selected.length} records.`)}
             >
               Delete Selected
-            </Button>
+            </skyra-tech-button>
           </div>
         )}
       />

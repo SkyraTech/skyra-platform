@@ -1,15 +1,8 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  DropdownMenu,
-  MenuItem,
-  MenuGroup,
-  MenuSeparator,
-  CheckboxMenuItem,
-  RadioMenuItem,
-  Button,
-} from '@skyra/ui';
+import { DropdownMenu, MenuItem, MenuGroup, MenuSeparator, CheckboxMenuItem, RadioMenuItem } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import {
   MoreVertical,
@@ -54,7 +47,7 @@ export default function DropdownMenuShowcasePage() {
           <DemoBlock title="Declarative Action Menu">
             <div style={{ padding: '1rem 0' }}>
               <DropdownMenu
-                trigger={<Button variant="primary">Actions Menu</Button>}
+                trigger={<skyra-tech-button variant="primary">Actions Menu</skyra-tech-button>}
                 items={[
                   { label: 'Edit Record', icon: <Edit3 size={15} />, shortcut: '⌘E', onClick: () => setLastAction('Edit Record') },
                   { label: 'Duplicate Entry', icon: <Copy size={15} />, shortcut: '⌘D', onClick: () => setLastAction('Duplicate Entry') },
@@ -73,9 +66,9 @@ export default function DropdownMenuShowcasePage() {
             <div style={{ padding: '1rem 0' }}>
               <DropdownMenu
                 trigger={
-                  <Button variant="ghost" size="sm" style={{ padding: '0.4rem', borderRadius: '50%' }}>
+                  <skyra-tech-button variant="ghost" size="sm" style={{ padding: '0.4rem', borderRadius: '50%' }}>
                     <MoreVertical size={18} />
-                  </Button>
+                  </skyra-tech-button>
                 }
                 items={[
                   { label: 'View Details', onClick: () => setLastAction('View Details') },
@@ -94,7 +87,7 @@ export default function DropdownMenuShowcasePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
           <DemoBlock title="Account &amp; Navigation Menu">
             <div style={{ padding: '1rem 0' }}>
-              <DropdownMenu trigger={<Button variant="outline">My Account</Button>}>
+              <DropdownMenu trigger={<skyra-tech-button variant="outline">My Account</skyra-tech-button>}>
                 <MenuGroup label="Personal">
                   <MenuItem icon={<User size={15} />} onClick={() => setLastAction('Profile Settings')}>
                     Profile &amp; Account
@@ -119,7 +112,7 @@ export default function DropdownMenuShowcasePage() {
 
           <DemoBlock title="View Options (Checkbox &amp; Radio Items)">
             <div style={{ padding: '1rem 0' }}>
-              <DropdownMenu trigger={<Button variant="outline">View Settings</Button>}>
+              <DropdownMenu trigger={<skyra-tech-button variant="outline">View Settings</skyra-tech-button>}>
                 <MenuGroup label="Display Filters">
                   <CheckboxMenuItem
                     checked={showDrafts}

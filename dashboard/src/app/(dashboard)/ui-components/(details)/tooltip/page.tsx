@@ -1,7 +1,8 @@
 ﻿'use client';
 
 import React from 'react';
-import { Tooltip, Button, StatusBadge } from '@skyra/ui';
+import { Tooltip, StatusBadge } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import { HelpCircle, AlertTriangle, ShieldCheck } from 'lucide-react';
 
@@ -45,19 +46,19 @@ export default function TooltipShowcasePage() {
         <DemoBlock title="Top, Bottom, Left, Right Placements">
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', padding: '2rem 0' }}>
             <Tooltip content="Tooltip positioned on top" placement="top">
-              <Button variant="outline">Top Tooltip</Button>
+              <skyra-tech-button variant="outline">Top Tooltip</skyra-tech-button>
             </Tooltip>
             <Tooltip content="Tooltip positioned on bottom" placement="bottom">
-              <Button variant="outline">Bottom Tooltip</Button>
+              <skyra-tech-button variant="outline">Bottom Tooltip</skyra-tech-button>
             </Tooltip>
             <Tooltip content="Tooltip positioned on left" placement="left">
-              <Button variant="outline">Left Tooltip</Button>
+              <skyra-tech-button variant="outline">Left Tooltip</skyra-tech-button>
             </Tooltip>
             <Tooltip content="Tooltip positioned on right" placement="right">
-              <Button variant="outline">Right Tooltip</Button>
+              <skyra-tech-button variant="outline">Right Tooltip</skyra-tech-button>
             </Tooltip>
             <Tooltip content="Auto-positioned based on collision detection" placement="auto">
-              <Button variant="primary">Auto Collision</Button>
+              <skyra-tech-button variant="primary">Auto Collision</skyra-tech-button>
             </Tooltip>
           </div>
         </DemoBlock>
@@ -69,10 +70,10 @@ export default function TooltipShowcasePage() {
           <DemoBlock title="Cluster Health Telemetry Popover">
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 0' }}>
               <Tooltip content={RichStatusContent} placement="top">
-                <Button variant="outline" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <skyra-tech-button variant="outline" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <ShieldCheck size={16} color="var(--skyra-success)" />
                   <span>Inspect Cluster Telemetry</span>
-                </Button>
+                </skyra-tech-button>
               </Tooltip>
             </div>
           </DemoBlock>

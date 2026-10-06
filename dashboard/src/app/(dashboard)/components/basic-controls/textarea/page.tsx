@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React from 'react';
-import { Textarea } from '@skyra/ui';
+import '@skyra-tech-platform/textarea';;
 import { DocsLayout } from '@/components/docs/DocsLayout';
 import { DocsHeader } from '@/components/docs/DocsHeader';
 import { PackageMeta } from '@/components/docs/PackageMeta';
@@ -69,7 +69,7 @@ export default function TextareaDocsPage() {
 
 <skyra-tech-textarea placeholder="Enter your notes..." label="Notes"></skyra-tech-textarea>`}
       >
-        <Textarea label="Notes" placeholder="Enter your notes..." />
+        <skyra-tech-textarea label="Notes" placeholder="Enter your notes..." />
       </LiveExample>
 
       <HeadingAnchor id="examples">Examples</HeadingAnchor>
@@ -79,10 +79,10 @@ export default function TextareaDocsPage() {
         language="tsx"
         title="Auto Resizing"
         description="Automatically adjusts height based on content."
-        code={`<Textarea label="Auto Resizing" autoResize minRows={2} maxRows={5} placeholder="Type multiple lines..." />`}
+        code={`<skyra-tech-textarea label="Auto Resizing" autoResize minRows={2} maxRows={5} placeholder="Type multiple lines..." />`}
       >
         <div style={{ width: '100%', maxWidth: '400px' }}>
-          <Textarea label="Auto Resizing" autoResize minRows={2} maxRows={5} placeholder="Type multiple lines..." />
+          <skyra-tech-textarea label="Auto Resizing" autoResize minRows={2} maxRows={5} placeholder="Type multiple lines..." />
         </div>
       </LiveExample>
 
@@ -91,10 +91,10 @@ export default function TextareaDocsPage() {
         language="tsx"
         title="Fixed Rows"
         description="Textarea with a fixed number of rows."
-        code={`<Textarea label="Fixed Rows" rows={4} placeholder="Always 4 rows tall..." />`}
+        code={`<skyra-tech-textarea label="Fixed Rows" rows={4} placeholder="Always 4 rows tall..." />`}
       >
         <div style={{ width: '100%', maxWidth: '400px' }}>
-          <Textarea label="Fixed Rows" rows={4} placeholder="Always 4 rows tall..." />
+          <skyra-tech-textarea label="Fixed Rows" rows={4} placeholder="Always 4 rows tall..." />
         </div>
       </LiveExample>
 
@@ -103,12 +103,12 @@ export default function TextareaDocsPage() {
         language="tsx"
         title="Validation"
         description="Required fields and error states."
-        code={`<Textarea label="Required" required placeholder="Cannot be empty" />
-<Textarea label="Error State" error="This field is required." defaultValue="Invalid text" />`}
+        code={`<skyra-tech-textarea label="Required" required placeholder="Cannot be empty" />
+<skyra-tech-textarea label="Error State" error="This field is required." defaultValue="Invalid text" />`}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '400px' }}>
-          <Textarea label="Required" required placeholder="Cannot be empty" />
-          <Textarea label="Error State" error="This field is required." defaultValue="Invalid text" />
+          <skyra-tech-textarea label="Required" required placeholder="Cannot be empty" />
+          <skyra-tech-textarea label="Error State" error="This field is required." defaultValue="Invalid text" />
         </div>
       </LiveExample>
 
@@ -117,10 +117,10 @@ export default function TextareaDocsPage() {
         language="tsx"
         title="Character Count"
         description="Display character count limit."
-        code={`<Textarea label="Biography" showCount maxLength={100} defaultValue="A brief note." />`}
+        code={`<skyra-tech-textarea label="Biography" showCount maxLength={100} defaultValue="A brief note." />`}
       >
         <div style={{ width: '100%', maxWidth: '400px' }}>
-          <Textarea label="Biography" showCount maxLength={100} defaultValue="A brief note." />
+          <skyra-tech-textarea label="Biography" showCount maxLength={100} defaultValue="A brief note." />
         </div>
       </LiveExample>
 
@@ -129,17 +129,17 @@ export default function TextareaDocsPage() {
         language="tsx"
         title="Disabled and Readonly"
         description="Textareas that cannot be edited."
-        code={`<Textarea label="Disabled" disabled defaultValue="You cannot edit this." />
-<Textarea label="Readonly" readOnly defaultValue="Fixed text." />`}
+        code={`<skyra-tech-textarea label="Disabled" disabled defaultValue="You cannot edit this." />
+<skyra-tech-textarea label="Readonly" readOnly defaultValue="Fixed text." />`}
       >
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', width: '100%', maxWidth: '800px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', textTransform: 'uppercase' }}>Disabled</span>
-            <Textarea disabled defaultValue="You cannot edit this." />
+            <skyra-tech-textarea disabled defaultValue="You cannot edit this." />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', textTransform: 'uppercase' }}>Readonly</span>
-            <Textarea readOnly defaultValue="Fixed text." />
+            <skyra-tech-textarea readOnly defaultValue="Fixed text." />
           </div>
         </div>
       </LiveExample>
@@ -149,10 +149,10 @@ export default function TextareaDocsPage() {
         language="tsx"
         title="Helper Text"
         description="Helpful description displayed below the textarea."
-        code={`<Textarea label="Helper Text" helperText="Helpful description goes here." />`}
+        code={`<skyra-tech-textarea label="Helper Text" helperText="Helpful description goes here." />`}
       >
         <div style={{ width: '100%', maxWidth: '400px' }}>
-          <Textarea label="Helper Text" helperText="Helpful description goes here." />
+          <skyra-tech-textarea label="Helper Text" helperText="Helpful description goes here." />
         </div>
       </LiveExample>
 
@@ -325,9 +325,9 @@ export default function TextareaDocsPage() {
       <HeadingAnchor id="responsive">Responsive Behavior</HeadingAnchor>
       <ResponsiveDemo 
         description="Textarea expands to 100% of container width. When autoResize is true, it adjusts its height based on the text wrapping across different viewports."
-        desktop={<Textarea label="Notes" defaultValue="Some long text..." />}
-        mobile={<Textarea label="Notes" defaultValue="Some long text..." />}
-        fullWidth={<Textarea label="Notes" defaultValue="Some long text..." />}
+        desktop={<skyra-tech-textarea label="Notes" defaultValue="Some long text..." />}
+        mobile={<skyra-tech-textarea label="Notes" defaultValue="Some long text..." />}
+        fullWidth={<skyra-tech-textarea label="Notes" defaultValue="Some long text..." />}
       />
 
       <HeadingAnchor id="related">Related Components</HeadingAnchor>

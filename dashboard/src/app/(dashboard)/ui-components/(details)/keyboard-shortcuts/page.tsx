@@ -1,15 +1,9 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  KeyboardShortcutProvider,
-  useKeyboardShortcut,
-  Kbd,
-  Button,
-  Card,
-  Badge,
-  Input,
-} from '@skyra/ui';
+import { KeyboardShortcutProvider, useKeyboardShortcut, Kbd, Card, Badge } from '@/components/ui';
+import '@skyra-tech-platform/button';
+import '@skyra-tech-platform/input';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import {
   Keyboard,
@@ -86,9 +80,9 @@ export default function KeyboardShortcutsShowcase() {
               Shortcut Triggered: {lastEvent}
             </span>
           </div>
-          <Button variant="ghost" size="sm" onClick={() => setLastEvent(null)}>
+          <skyra-tech-button variant="ghost" size="sm" onClick={() => setLastEvent(null)}>
             Clear
-          </Button>
+          </skyra-tech-button>
         </div>
       )}
 
@@ -107,7 +101,7 @@ export default function KeyboardShortcutsShowcase() {
                 <p style={{ fontSize: '0.875rem', color: 'var(--skyra-text-muted)', margin: 0 }}>
                   Typing inside text inputs does NOT trigger global shortcuts like <Kbd shortcut="ctrl+s" size="xs" /> or <Kbd shortcut="alt+n" size="xs" />. Try typing here:
                 </p>
-                <Input
+                <skyra-tech-input
                   value={textInputVal}
                   onChange={(e) => setTextInputVal(e.target.value)}
                   placeholder="Type here and press Ctrl+S (no global hijack)..."

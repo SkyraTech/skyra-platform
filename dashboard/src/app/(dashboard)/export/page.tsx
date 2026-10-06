@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React from 'react';
-import { ExportButton, ExportMenu } from '@skyra/ui';
+import { ExportButton, ExportMenu } from '@/components/ui';;
 import { exportToCsv, exportToExcel } from '@skyra-tech-platform/data-export';
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import { ExportWorkbench } from './ExportWorkbench';

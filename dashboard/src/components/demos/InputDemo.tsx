@@ -1,6 +1,7 @@
 ﻿'use client';
 import React, { useState } from 'react';
-import { Input, Textarea } from '@skyra/ui';
+import '@skyra-tech-platform/input';
+import '@skyra-tech-platform/textarea';;
 import { Search, Mail } from 'lucide-react';
 import { DemoSection, DemoBlock } from './DemoSection';
 
@@ -15,7 +16,7 @@ export function InputDemo() {
     >
       <DemoBlock title="Standard Input">
         <div style={{ width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <Input 
+          <skyra-tech-input 
             label="Email Address" 
             required 
             placeholder="john@example.com"
@@ -23,17 +24,17 @@ export function InputDemo() {
             value={val}
             onChange={(e) => setVal(e.target.value)}
           />
-          <Input 
+          <skyra-tech-input 
             label="Search Query" 
             placeholder="Search documents..."
             rightAdornment={<Search size={16} />}
           />
-          <Input 
+          <skyra-tech-input 
             label="Disabled Field" 
             value="Cannot edit this"
             disabled
           />
-          <Input 
+          <skyra-tech-input 
             label="Username" 
             required 
             error="This username is already taken"
@@ -44,7 +45,7 @@ export function InputDemo() {
 
       <DemoBlock title="Textarea">
         <div style={{ width: '100%', maxWidth: '400px' }}>
-          <Textarea 
+          <skyra-tech-textarea 
             label="Description" 
             placeholder="Enter a detailed description..."
             helper="Maximum 500 characters."

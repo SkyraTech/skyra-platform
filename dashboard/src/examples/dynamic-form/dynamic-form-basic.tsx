@@ -5,7 +5,7 @@
  * @packageId @skyra-tech-platform/dynamic-form
  */
 import React from 'react';
-import { DynamicForm } from '@skyra/ui';
+import '@skyra-tech-platform/dynamic-form';;
 
 export default function DynamicFormBasicExample() {
   const fields = [
@@ -16,7 +16,7 @@ export default function DynamicFormBasicExample() {
 
   return (
     <div style={{ maxWidth: '400px' }}>
-      <DynamicForm 
+      <skyra-tech-dynamic-form 
         fields={fields}
         onSubmit={(data: any) => alert(JSON.stringify(data, null, 2))}
       />

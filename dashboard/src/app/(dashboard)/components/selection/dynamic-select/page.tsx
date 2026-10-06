@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { DynamicSelect } from '@skyra/ui';
+import '@skyra-tech-platform/dynamic-select';;
 import { DocsLayout } from '@/components/docs/DocsLayout';
 import { DocsHeader } from '@/components/docs/DocsHeader';
 import { PackageMeta } from '@/components/docs/PackageMeta';
@@ -119,7 +119,7 @@ export default function DynamicSelectDocsPage() {
 </script>`}
       >
         <div style={{ width: '100%', maxWidth: '380px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-          <DynamicSelect
+          <skyra-tech-dynamic-select
             options={frameworks}
             label="Favorite Framework"
             placeholder="Choose one..."
@@ -136,7 +136,7 @@ export default function DynamicSelectDocsPage() {
         language="tsx"
         title="Searchable & Clearable"
         description="Filter options with full-text search across label, value, and description."
-        code={`<DynamicSelect
+        code={`<skyra-tech-dynamic-select
   options={options}
   label="Search Frameworks"
   searchable
@@ -145,7 +145,7 @@ export default function DynamicSelectDocsPage() {
 />`}
       >
         <div style={{ width: '100%', maxWidth: '380px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-          <DynamicSelect
+          <skyra-tech-dynamic-select
             options={countries}
             label="Country"
             placeholder="Search a country..."
@@ -162,7 +162,7 @@ export default function DynamicSelectDocsPage() {
         language="tsx"
         title="Multiple Selection with Chips"
         description="Select multiple options displayed as removable chip tokens."
-        code={`<DynamicSelect
+        code={`<skyra-tech-dynamic-select
   options={options}
   mode="multiple"
   label="Tech Stack"
@@ -173,7 +173,7 @@ export default function DynamicSelectDocsPage() {
 />`}
       >
         <div style={{ width: '100%', maxWidth: '480px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-          <DynamicSelect
+          <skyra-tech-dynamic-select
             options={frameworks}
             mode="multiple"
             label="Tech Stack"
@@ -197,7 +197,7 @@ export default function DynamicSelectDocsPage() {
   { value: 'nestjs', label: 'NestJS', group: 'Backend' },
 ];
 
-<DynamicSelect
+<skyra-tech-dynamic-select
   options={options}
   grouping
   searchable
@@ -205,7 +205,7 @@ export default function DynamicSelectDocsPage() {
 />`}
       >
         <div style={{ width: '100%', maxWidth: '380px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-          <DynamicSelect
+          <skyra-tech-dynamic-select
             options={frameworks}
             label="Choose by Category"
             placeholder="Select a framework..."
@@ -227,10 +227,10 @@ export default function DynamicSelectDocsPage() {
   { value: 'enterprise', label: 'Enterprise', disabled: true },
 ];
 
-<DynamicSelect options={plans} onChange={setValue} />`}
+<skyra-tech-dynamic-select options={plans} onChange={setValue} />`}
       >
         <div style={{ width: '100%', maxWidth: '380px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-          <DynamicSelect
+          <skyra-tech-dynamic-select
             options={withDisabled}
             label="Subscription Plan"
             placeholder="Choose a plan..."
@@ -244,7 +244,7 @@ export default function DynamicSelectDocsPage() {
         language="tsx"
         title="Allow Create"
         description="When no match is found, allow users to create new options on the fly."
-        code={`<DynamicSelect
+        code={`<skyra-tech-dynamic-select
   options={options}
   mode="multiple"
   searchable
@@ -254,7 +254,7 @@ export default function DynamicSelectDocsPage() {
 />`}
       >
         <div style={{ width: '100%', maxWidth: '480px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-          <DynamicSelect
+          <skyra-tech-dynamic-select
             options={frameworks.slice(0, 4)}
             mode="multiple"
             label="Tags (type to create)"
@@ -274,12 +274,12 @@ export default function DynamicSelectDocsPage() {
         language="tsx"
         title="Loading, Disabled & Error"
         description="Component states for async loading, form disabling, and validation errors."
-        code={`<DynamicSelect options={[]} loading label="Loading" onChange={() => {}} />
-<DynamicSelect options={options} disabled label="Disabled" onChange={() => {}} />
-<DynamicSelect options={options} error="Selection required" label="Error State" onChange={() => {}} />`}
+        code={`<skyra-tech-dynamic-select options={[]} loading label="Loading" onChange={() => {}} />
+<skyra-tech-dynamic-select options={options} disabled label="Disabled" onChange={() => {}} />
+<skyra-tech-dynamic-select options={options} error="Selection required" label="Error State" onChange={() => {}} />`}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%', maxWidth: '380px', justifyContent: 'flex-start' }}>
-          <DynamicSelect
+          <skyra-tech-dynamic-select
             options={[]}
             loading
             label="Loading options..."
@@ -287,14 +287,14 @@ export default function DynamicSelectDocsPage() {
             value={loadingVal}
             onChange={setLoadingVal}
           />
-          <DynamicSelect
+          <skyra-tech-dynamic-select
             options={frameworks}
             disabled
             label="Disabled Select"
             placeholder="Not editable"
             onChange={() => {}}
           />
-          <DynamicSelect
+          <skyra-tech-dynamic-select
             options={frameworks}
             error="A framework selection is required."
             label="Error State"
@@ -472,7 +472,7 @@ export default function DynamicSelectDocsPage() {
       <ResponsiveDemo
         description="The Dynamic Select expands to 100% of its container. Chip tokens overflow into a +N badge when the trigger becomes too narrow. Dropdown opens relative to the trigger and remains within viewport bounds."
         desktop={
-          <DynamicSelect
+          <skyra-tech-dynamic-select
             options={frameworks}
             label="Framework"
             placeholder="Select..."
@@ -480,7 +480,7 @@ export default function DynamicSelectDocsPage() {
           />
         }
         mobile={
-          <DynamicSelect
+          <skyra-tech-dynamic-select
             options={frameworks}
             label="Framework"
             placeholder="Select..."
@@ -488,7 +488,7 @@ export default function DynamicSelectDocsPage() {
           />
         }
         fullWidth={
-          <DynamicSelect
+          <skyra-tech-dynamic-select
             options={frameworks}
             label="Framework"
             placeholder="Select..."

@@ -1,4 +1,4 @@
-﻿import type { ApiMetadata } from './metadata';
+import type { ApiMetadata } from './metadata';
 
 type BehavioralMetadata = Pick<ApiMetadata, 'design' | 'accessibility' | 'responsive'>;
 
@@ -37,7 +37,7 @@ export const behavioralMetadataMap: Record<string, BehavioralMetadata> = {
       tabletBehavior: 'Displays full table.'
     }
   },
-  '@skyra/dialogs::Dialog': {
+  '@skyra-tech-platform/dialog::skyra-tech-dialog': {
     design: {
       states: ['open', 'closed']
     },

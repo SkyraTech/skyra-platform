@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { Switch } from '@skyra/ui';
+import '@skyra-tech-platform/switch';;
 import { DocsLayout } from '@/components/docs/DocsLayout';
 import { DocsHeader } from '@/components/docs/DocsHeader';
 import { PackageMeta } from '@/components/docs/PackageMeta';
@@ -73,7 +73,7 @@ export default function SwitchDocsPage() {
 <skyra-tech-switch label="Airplane Mode"></skyra-tech-switch>`}
       >
         <div className="flex flex-col gap-4">
-          <Switch 
+          <skyra-tech-switch 
             label="Airplane Mode"
             description="Disable all wireless connections."
             checked={airplaneMode}
@@ -90,18 +90,18 @@ export default function SwitchDocsPage() {
         language="tsx"
         title="Visual Variants"
         description="The switch supports several visual variants including compact, labeled, icon, and outline modes."
-        code={`<Switch label="Default" />
-<Switch label="Compact" variant="compact" />
-<Switch label="Labeled" variant="labeled" defaultChecked />
-<Switch label="Icon" variant="icon" defaultChecked />
-<Switch label="Outline" variant="outline" defaultChecked />`}
+        code={`<skyra-tech-switch label="Default" />
+<skyra-tech-switch label="Compact" variant="compact" />
+<skyra-tech-switch label="Labeled" variant="labeled" defaultChecked />
+<skyra-tech-switch label="Icon" variant="icon" defaultChecked />
+<skyra-tech-switch label="Outline" variant="outline" defaultChecked />`}
       >
         <div className="flex flex-col gap-4">
-          <Switch label="Default" />
-          <Switch label="Compact" variant="compact" />
-          <Switch label="Labeled" variant="labeled" defaultChecked />
-          <Switch label="Icon" variant="icon" defaultChecked />
-          <Switch label="Outline" variant="outline" defaultChecked />
+          <skyra-tech-switch label="Default" />
+          <skyra-tech-switch label="Compact" variant="compact" />
+          <skyra-tech-switch label="Labeled" variant="labeled" defaultChecked />
+          <skyra-tech-switch label="Icon" variant="icon" defaultChecked />
+          <skyra-tech-switch label="Outline" variant="outline" defaultChecked />
         </div>
       </LiveExample>
 
@@ -110,14 +110,14 @@ export default function SwitchDocsPage() {
         language="tsx"
         title="Sizes"
         description="Available in small, medium (default), and large sizes."
-        code={`<Switch label="Small Size" size="sm" />
-<Switch label="Medium Size" size="md" />
-<Switch label="Large Size" size="lg" />`}
+        code={`<skyra-tech-switch label="Small Size" size="sm" />
+<skyra-tech-switch label="Medium Size" size="md" />
+<skyra-tech-switch label="Large Size" size="lg" />`}
       >
         <div className="flex flex-col gap-4">
-          <Switch label="Small Size" size="sm" />
-          <Switch label="Medium Size" size="md" />
-          <Switch label="Large Size" size="lg" />
+          <skyra-tech-switch label="Small Size" size="sm" />
+          <skyra-tech-switch label="Medium Size" size="md" />
+          <skyra-tech-switch label="Large Size" size="lg" />
         </div>
       </LiveExample>
 
@@ -126,18 +126,18 @@ export default function SwitchDocsPage() {
         language="tsx"
         title="States"
         description="Demonstrating disabled, readonly, loading, and error states."
-        code={`<Switch label="Disabled" disabled />
-<Switch label="Disabled Checked" disabled defaultChecked />
-<Switch label="Read-only" readOnly defaultChecked />
-<Switch label="Loading" loading defaultChecked />
-<Switch label="Error State" error="Network connectivity required." />`}
+        code={`<skyra-tech-switch label="Disabled" disabled />
+<skyra-tech-switch label="Disabled Checked" disabled defaultChecked />
+<skyra-tech-switch label="Read-only" readOnly defaultChecked />
+<skyra-tech-switch label="Loading" loading defaultChecked />
+<skyra-tech-switch label="Error State" error="Network connectivity required." />`}
       >
         <div className="flex flex-col gap-4">
-          <Switch label="Disabled" disabled />
-          <Switch label="Disabled Checked" disabled defaultChecked />
-          <Switch label="Read-only" readOnly defaultChecked />
-          <Switch label="Loading" loading defaultChecked />
-          <Switch label="Error State" error="Network connectivity required." />
+          <skyra-tech-switch label="Disabled" disabled />
+          <skyra-tech-switch label="Disabled Checked" disabled defaultChecked />
+          <skyra-tech-switch label="Read-only" readOnly defaultChecked />
+          <skyra-tech-switch label="Loading" loading defaultChecked />
+          <skyra-tech-switch label="Error State" error="Network connectivity required." />
         </div>
       </LiveExample>
 
@@ -246,9 +246,9 @@ export default function SwitchDocsPage() {
       <HeadingAnchor id="responsive">Responsive Behavior</HeadingAnchor>
       <ResponsiveDemo 
         description="The Switch component handles varying label lengths effectively while preserving alignment. Using CSS flexbox inside the Shadow DOM, the switch track remains vertically aligned to the top of multi-line text, ensuring predictable behavior on mobile devices."
-        desktop={<Switch label="Standard desktop layout with a concise label." />}
-        mobile={<Switch label="Short label" />}
-        fullWidth={<Switch label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the switch control." description="The helper text also wraps to match the label." />}
+        desktop={<skyra-tech-switch label="Standard desktop layout with a concise label." />}
+        mobile={<skyra-tech-switch label="Short label" />}
+        fullWidth={<skyra-tech-switch label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the switch control." description="The helper text also wraps to match the label." />}
       />
 
       <HeadingAnchor id="related">Related Components</HeadingAnchor>

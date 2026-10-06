@@ -1,7 +1,8 @@
 {
   "name": "@skyra-tech-platform/dialog",
   "version": "0.1.0",
-  "private": true,
+  "description": "Framework-agnostic Web Component Dialog for the Skyra Platform",
+  "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,5 +23,11 @@
   "devDependencies": {
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "restricted"
   }
 }

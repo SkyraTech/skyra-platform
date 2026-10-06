@@ -44,30 +44,63 @@ importers:
       '@skyra-tech-platform/app-shell':
         specifier: workspace:^
         version: link:../packages/app-shell
+      '@skyra-tech-platform/button':
+        specifier: workspace:*
+        version: link:../packages/button
+      '@skyra-tech-platform/checkbox':
+        specifier: workspace:*
+        version: link:../packages/checkbox
       '@skyra-tech-platform/data-export':
         specifier: workspace:*
         version: link:../packages/data-export
       '@skyra-tech-platform/data-table':
         specifier: workspace:*
         version: link:../packages/data-table
+      '@skyra-tech-platform/date-time':
+        specifier: workspace:*
+        version: link:../packages/date-time
       '@skyra-tech-platform/design-tokens':
         specifier: workspace:*
         version: link:../packages/design-tokens
+      '@skyra-tech-platform/dialog':
+        specifier: workspace:*
+        version: link:../packages/dialog
+      '@skyra-tech-platform/dynamic-form':
+        specifier: workspace:*
+        version: link:../packages/dynamic-form
+      '@skyra-tech-platform/dynamic-select':
+        specifier: workspace:*
+        version: link:../packages/dynamic-select
+      '@skyra-tech-platform/input':
+        specifier: workspace:*
+        version: link:../packages/input
+      '@skyra-tech-platform/notification':
+        specifier: workspace:*
+        version: link:../packages/notification
+      '@skyra-tech-platform/pdf-viewer':
+        specifier: workspace:*
+        version: link:../packages/pdf-viewer
       '@skyra-tech-platform/qr':
         specifier: workspace:^
         version: link:../packages/qr
+      '@skyra-tech-platform/radio':
+        specifier: workspace:*
+        version: link:../packages/radio
+      '@skyra-tech-platform/switch':
+        specifier: workspace:*
+        version: link:../packages/switch
+      '@skyra-tech-platform/textarea':
+        specifier: workspace:*
+        version: link:../packages/textarea
+      '@skyra-tech-platform/toast':
+        specifier: workspace:*
+        version: link:../packages/toast
       '@skyra-tech-platform/utils':
         specifier: workspace:*
         version: link:../packages/utils
       '@skyra-tech-platform/validation':
         specifier: workspace:*
         version: link:../packages/validation
-      '@skyra/dialogs':
-        specifier: workspace:*
-        version: link:../packages/dialogs
-      '@skyra/ui':
-        specifier: workspace:*
-        version: link:../packages/ui
       lucide-react:
         specifier: ^1.33.0
         version: 1.43.0(react@19.2.4)
@@ -216,37 +249,6 @@ importers:
       typescript:
         specifier: ^5.0.0
         version: 5.9.3
-
-  packages/dialogs:
-    dependencies:
-      '@skyra-tech-platform/dialog':
-        specifier: workspace:^
-        version: link:../dialog
-      '@skyra/ui':
-        specifier: workspace:*
-        version: link:../ui
-    devDependencies:
-      '@types/react':
-        specifier: ^19
-        version: 19.2.18
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.2.7(@types/react@19.2.18)
-      lucide-react:
-        specifier: ^1.33.0
-        version: 1.43.0(react@19.2.4)
-      react:
-        specifier: 19.2.4
-        version: 19.2.4
-      react-dom:
-        specifier: 19.2.4
-        version: 19.2.4(react@19.2.4)
-      typescript:
-        specifier: ^5.7.0
-        version: 5.9.3
-      vitest:
-        specifier: ^2.1.8
-        version: 2.1.9(@types/node@20.19.43)(jsdom@25.0.1(canvas@2.11.2))(lightningcss@1.33.0)
 
   packages/dynamic-form:
     dependencies:

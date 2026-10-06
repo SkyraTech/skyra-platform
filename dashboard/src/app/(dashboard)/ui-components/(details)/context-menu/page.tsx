@@ -1,14 +1,8 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  ContextMenu,
-  MenuItem,
-  MenuGroup,
-  MenuSeparator,
-  Badge,
-  Button,
-} from '@skyra/ui';
+import { ContextMenu, MenuItem, MenuGroup, MenuSeparator, Badge } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import {
   MousePointer,

@@ -1,7 +1,10 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { Popover, Button, Input, Switch, Badge } from '@skyra/ui';
+import { Popover, Badge } from '@/components/ui';
+import '@skyra-tech-platform/button';
+import '@skyra-tech-platform/input';
+import '@skyra-tech-platform/switch';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import { Settings, Filter, Sliders, Info, Bell, Shield } from 'lucide-react';
 
@@ -27,7 +30,7 @@ export default function PopoverShowcasePage() {
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', padding: '2rem 0' }}>
             <Popover
               placement="top"
-              trigger={<Button variant="outline">Top Placement</Button>}
+              trigger={<skyra-tech-button variant="outline">Top Placement</skyra-tech-button>}
               content={
                 <div style={{ padding: '0.25rem' }}>
                   <div style={{ fontWeight: 700, marginBottom: '0.25rem' }}>Top Popover</div>
@@ -40,7 +43,7 @@ export default function PopoverShowcasePage() {
 
             <Popover
               placement="bottom"
-              trigger={<Button variant="outline">Bottom Placement</Button>}
+              trigger={<skyra-tech-button variant="outline">Bottom Placement</skyra-tech-button>}
               content={
                 <div style={{ padding: '0.25rem' }}>
                   <div style={{ fontWeight: 700, marginBottom: '0.25rem' }}>Bottom Popover</div>
@@ -53,7 +56,7 @@ export default function PopoverShowcasePage() {
 
             <Popover
               placement="left"
-              trigger={<Button variant="outline">Left Placement</Button>}
+              trigger={<skyra-tech-button variant="outline">Left Placement</skyra-tech-button>}
               content={
                 <div style={{ padding: '0.25rem' }}>
                   <div style={{ fontWeight: 700, marginBottom: '0.25rem' }}>Left Popover</div>
@@ -66,7 +69,7 @@ export default function PopoverShowcasePage() {
 
             <Popover
               placement="right"
-              trigger={<Button variant="outline">Right Placement</Button>}
+              trigger={<skyra-tech-button variant="outline">Right Placement</skyra-tech-button>}
               content={
                 <div style={{ padding: '0.25rem' }}>
                   <div style={{ fontWeight: 700, marginBottom: '0.25rem' }}>Right Popover</div>
@@ -90,11 +93,11 @@ export default function PopoverShowcasePage() {
                 align="start"
                 minWidth={280}
                 trigger={
-                  <Button variant="primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <skyra-tech-button variant="primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <Filter size={16} />
                     <span>Filter Records</span>
                     <Badge variant="primary" size="sm">2 Active</Badge>
-                  </Button>
+                  </skyra-tech-button>
                 }
                 content={
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -105,7 +108,7 @@ export default function PopoverShowcasePage() {
                       <label style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', display: 'block', marginBottom: '0.25rem' }}>
                         Search Keyword
                       </label>
-                      <Input
+                      <skyra-tech-input
                         value={filterQuery}
                         onChange={(e) => setFilterQuery(e.target.value)}
                         placeholder="Search invoices..."
@@ -113,11 +116,11 @@ export default function PopoverShowcasePage() {
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.25rem' }}>
                       <span style={{ fontSize: '0.85rem' }}>Only Overdue</span>
-                      <Switch defaultChecked variant="compact" />
+                      <skyra-tech-switch defaultChecked variant="compact" />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', marginTop: '0.5rem', paddingTop: '0.5rem', borderTop: '1px solid var(--skyra-border)' }}>
-                      <Button variant="ghost" size="sm" onClick={() => setFilterQuery('')}>Reset</Button>
-                      <Button variant="primary" size="sm">Apply</Button>
+                      <skyra-tech-button variant="ghost" size="sm" onClick={() => setFilterQuery('')}>Reset</skyra-tech-button>
+                      <skyra-tech-button variant="primary" size="sm">Apply</skyra-tech-button>
                     </div>
                   </div>
                 }
@@ -132,10 +135,10 @@ export default function PopoverShowcasePage() {
                 align="end"
                 minWidth={300}
                 trigger={
-                  <Button variant="outline" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <skyra-tech-button variant="outline" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <Settings size={16} />
                     <span>User Preferences</span>
-                  </Button>
+                  </skyra-tech-button>
                 }
                 content={
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -148,7 +151,7 @@ export default function PopoverShowcasePage() {
                         <div style={{ fontSize: '0.85rem', fontWeight: 600 }}>Real-time Notifications</div>
                         <div style={{ fontSize: '0.75rem', color: 'var(--skyra-text-muted)' }}>Receive audit alerts</div>
                       </div>
-                      <Switch
+                      <skyra-tech-switch
                         checked={notificationsEnabled}
                         onChange={setNotificationsEnabled}
                         variant="default"
@@ -159,7 +162,7 @@ export default function PopoverShowcasePage() {
                         <div style={{ fontSize: '0.85rem', fontWeight: 600 }}>Two-Factor Auth</div>
                         <div style={{ fontSize: '0.75rem', color: 'var(--skyra-text-muted)' }}>Require hardware key</div>
                       </div>
-                      <Switch defaultChecked variant="default" />
+                      <skyra-tech-switch defaultChecked variant="default" />
                     </div>
                   </div>
                 }
@@ -173,17 +176,17 @@ export default function PopoverShowcasePage() {
       <DemoSection title="3. Controlled Lifecycle Management" desc="Full programmatic control over open/close state." erpSource="Platform Foundation">
         <DemoBlock title="Programmatic Popover Triggering">
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 0' }}>
-            <Button
+            <skyra-tech-button
               variant="outline"
               onClick={() => setControlledOpen(!controlledOpen)}
             >
               {controlledOpen ? 'Close Programmatically' : 'Open Programmatically'}
-            </Button>
+            </skyra-tech-button>
 
             <Popover
               open={controlledOpen}
               onOpenChange={setControlledOpen}
-              trigger={<Button variant="primary">Controlled Popover Anchor</Button>}
+              trigger={<skyra-tech-button variant="primary">Controlled Popover Anchor</skyra-tech-button>}
               content={
                 <div style={{ padding: '0.5rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>

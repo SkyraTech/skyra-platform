@@ -1,15 +1,8 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  CommandPalette,
-  CommandPaletteTrigger,
-  Command,
-  Button,
-  Card,
-  Badge,
-  Kbd,
-} from '@skyra/ui';
+import { CommandPalette, CommandPaletteTrigger, Command, Card, Badge, Kbd } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import {
   Search,
@@ -142,9 +135,9 @@ export default function CommandPaletteShowcase() {
               Last Command: {lastExecuted}
             </span>
           </div>
-          <Button variant="ghost" size="sm" onClick={() => setLastExecuted(null)}>
+          <skyra-tech-button variant="ghost" size="sm" onClick={() => setLastExecuted(null)}>
             Clear
-          </Button>
+          </skyra-tech-button>
         </div>
       )}
 
@@ -164,10 +157,10 @@ export default function CommandPaletteShowcase() {
                   <span>Search commands & actions...</span>
                 </CommandPaletteTrigger>
 
-                <Button variant="primary" onClick={() => setOpenGrouped(true)}>
+                <skyra-tech-button variant="primary" onClick={() => setOpenGrouped(true)}>
                   <CommandIcon size={16} />
                   <span>Open Full Palette</span>
-                </Button>
+                </skyra-tech-button>
               </div>
             </div>
           </DemoBlock>

@@ -1,7 +1,8 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { Radio, RadioGroup } from '@skyra/ui';
+import { RadioGroup } from '@/components/ui';
+import '@skyra-tech-platform/radio';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 
 const PAYMENT_METHODS = [
@@ -31,21 +32,21 @@ export default function RadioShowcasePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
           <DemoBlock title="Controlled Standalone Radios">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Radio
+              <skyra-tech-radio
                 name="standalone"
                 value="card"
                 label="Credit Card Payment"
                 checked={singleVal === 'card'}
                 onChange={() => setSingleVal('card')}
               />
-              <Radio
+              <skyra-tech-radio
                 name="standalone"
                 value="paypal"
                 label="PayPal Account"
                 checked={singleVal === 'paypal'}
                 onChange={() => setSingleVal('paypal')}
               />
-              <Radio
+              <skyra-tech-radio
                 name="standalone"
                 value="cash"
                 label="Cash on Delivery (Disabled)"
@@ -55,7 +56,7 @@ export default function RadioShowcasePage() {
           </DemoBlock>
 
           <DemoBlock title="Error & Required State">
-            <Radio
+            <skyra-tech-radio
               name="required_opt"
               value="val1"
               label="Mandatory Subscription Option"

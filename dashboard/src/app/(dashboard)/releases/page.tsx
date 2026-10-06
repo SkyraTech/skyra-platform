@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Card, Badge, Divider } from '@skyra/ui';
+import { Card, Badge, Divider } from '@/components/ui';;
 import { docsRegistry } from '../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../docs-system/bootstrap';
 import type { ReleaseMetadata, ReleaseChange } from '../../../docs-system/metadata';

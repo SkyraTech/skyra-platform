@@ -6,13 +6,13 @@
  * @capabilityId ui/components
  */
 import React from 'react';
-import { QRCode } from '@skyra/ui';
+import '@skyra-tech-platform/qr';;
 
 export default function QRReactExample() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
       <p>Scan to visit Skyra Platform:</p>
-      <QRCode 
+      <skyra-tech-qr-code 
         value="https://skyra.com" 
         width={200}
       />

@@ -1,7 +1,8 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { Card, Button } from '@skyra/ui';
+import { Card } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import type { ExampleMetadata } from '../../docs-system/metadata';
 // We import the static mapping of IDs to components
 import { exampleComponents } from '../../docs-system/example-components';
@@ -24,22 +25,22 @@ export function ExampleViewer({ example }: ExampleViewerProps) {
           {example.title}
         </h3>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <Button 
+          <skyra-tech-button 
             variant={view === 'preview' ? 'primary' : 'outline'} 
             size="sm" 
             onClick={() => setView('preview')}
           >
             <Eye size={14} style={{ marginRight: '0.375rem' }} />
             Preview
-          </Button>
-          <Button 
+          </skyra-tech-button>
+          <skyra-tech-button 
             variant={view === 'code' ? 'primary' : 'outline'} 
             size="sm" 
             onClick={() => setView('code')}
           >
             <Code size={14} style={{ marginRight: '0.375rem' }} />
             Code
-          </Button>
+          </skyra-tech-button>
         </div>
       </div>
 

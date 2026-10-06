@@ -1,16 +1,9 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  Tabs,
-  TabsList,
-  TabsTrigger,
-  TabsContent,
-  Button,
-  Input,
-  Badge,
-  Card,
-} from '@skyra/ui';
+import { Tabs, TabsList, TabsTrigger, TabsContent, Badge, Card } from '@/components/ui';
+import '@skyra-tech-platform/button';
+import '@skyra-tech-platform/input';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import {
   User,
@@ -68,8 +61,8 @@ export default function TabsShowcasePage() {
                       Manage your profile information, email preferences, and personal workspace settings.
                     </p>
                     <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem' }}>
-                      <Input defaultValue="Alex Rivers" placeholder="Full name" />
-                      <Button variant="primary">Save Changes</Button>
+                      <skyra-tech-input defaultValue="Alex Rivers" placeholder="Full name" />
+                      <skyra-tech-button variant="primary">Save Changes</skyra-tech-button>
                     </div>
                   </div>
                 </TabsContent>
@@ -80,7 +73,7 @@ export default function TabsShowcasePage() {
                     <p style={{ color: 'var(--skyra-text-muted)', fontSize: '0.875rem' }}>
                       Two-factor authentication is currently active on this account.
                     </p>
-                    <Button variant="outline">Manage 2FA Hardware Keys</Button>
+                    <skyra-tech-button variant="outline">Manage 2FA Hardware Keys</skyra-tech-button>
                   </div>
                 </TabsContent>
 
@@ -90,7 +83,7 @@ export default function TabsShowcasePage() {
                     <p style={{ color: 'var(--skyra-text-muted)', fontSize: '0.875rem' }}>
                       Current Plan: <strong>Enterprise Tier ($499/mo)</strong>
                     </p>
-                    <Button variant="primary">Update Payment Method</Button>
+                    <skyra-tech-button variant="primary">Update Payment Method</skyra-tech-button>
                   </div>
                 </TabsContent>
               </Tabs>
@@ -191,9 +184,9 @@ export default function TabsShowcasePage() {
           <DemoBlock title="Controlled Tabs State">
             <div style={{ padding: '1rem 0' }}>
               <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                <Button size="sm" variant={controlledTab === 'general' ? 'primary' : 'outline'} onClick={() => setControlledTab('general')}>Select General</Button>
-                <Button size="sm" variant={controlledTab === 'billing' ? 'primary' : 'outline'} onClick={() => setControlledTab('billing')}>Select Billing</Button>
-                <Button size="sm" variant={controlledTab === 'advanced' ? 'primary' : 'outline'} onClick={() => setControlledTab('advanced')}>Select Advanced</Button>
+                <skyra-tech-button size="sm" variant={controlledTab === 'general' ? 'primary' : 'outline'} onClick={() => setControlledTab('general')}>Select General</skyra-tech-button>
+                <skyra-tech-button size="sm" variant={controlledTab === 'billing' ? 'primary' : 'outline'} onClick={() => setControlledTab('billing')}>Select Billing</skyra-tech-button>
+                <skyra-tech-button size="sm" variant={controlledTab === 'advanced' ? 'primary' : 'outline'} onClick={() => setControlledTab('advanced')}>Select Advanced</skyra-tech-button>
               </div>
 
               <Tabs value={controlledTab} onValueChange={setControlledTab}>

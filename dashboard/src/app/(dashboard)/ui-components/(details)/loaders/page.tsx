@@ -1,18 +1,8 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  Spinner,
-  Progress,
-  CircularProgress,
-  Skeleton,
-  SkeletonText,
-  SkeletonAvatar,
-  SkeletonTable,
-  DataLoader,
-  OverlayLoader,
-  Button
-} from '@skyra/ui';
+import { Spinner, Progress, CircularProgress, Skeleton, SkeletonText, SkeletonAvatar, SkeletonTable, DataLoader, OverlayLoader } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 
 export default function LoadersShowcasePage() {
@@ -76,8 +66,8 @@ export default function LoadersShowcasePage() {
               <Progress value={progressVal} label="Processing Data Stream" showLabel />
               <Progress value={40} size="sm" />
               <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
-                <Button size="sm" variant="outline" onClick={() => setProgressVal((v) => Math.max(0, v - 15))}>-15%</Button>
-                <Button size="sm" variant="outline" onClick={() => setProgressVal((v) => Math.min(100, v + 15))}>+15%</Button>
+                <skyra-tech-button size="sm" variant="outline" onClick={() => setProgressVal((v) => Math.max(0, v - 15))}>-15%</skyra-tech-button>
+                <skyra-tech-button size="sm" variant="outline" onClick={() => setProgressVal((v) => Math.min(100, v + 15))}>+15%</skyra-tech-button>
               </div>
             </div>
           </DemoBlock>
@@ -117,10 +107,10 @@ export default function LoadersShowcasePage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
             <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--skyra-text)' }}>Simulate State:</span>
-            <Button size="sm" variant={dataState === 'loading' ? 'primary' : 'outline'} onClick={() => setDataState('loading')}>Loading</Button>
-            <Button size="sm" variant={dataState === 'success' ? 'primary' : 'outline'} onClick={() => setDataState('success')}>Success</Button>
-            <Button size="sm" variant={dataState === 'empty' ? 'primary' : 'outline'} onClick={() => setDataState('empty')}>Empty</Button>
-            <Button size="sm" variant={dataState === 'error' ? 'primary' : 'outline'} onClick={() => setDataState('error')}>Error</Button>
+            <skyra-tech-button size="sm" variant={dataState === 'loading' ? 'primary' : 'outline'} onClick={() => setDataState('loading')}>Loading</skyra-tech-button>
+            <skyra-tech-button size="sm" variant={dataState === 'success' ? 'primary' : 'outline'} onClick={() => setDataState('success')}>Success</skyra-tech-button>
+            <skyra-tech-button size="sm" variant={dataState === 'empty' ? 'primary' : 'outline'} onClick={() => setDataState('empty')}>Empty</skyra-tech-button>
+            <skyra-tech-button size="sm" variant={dataState === 'error' ? 'primary' : 'outline'} onClick={() => setDataState('error')}>Error</skyra-tech-button>
           </div>
 
           <div style={{ background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', borderRadius: 'var(--skyra-radius-lg)', padding: '1.5rem' }}>
@@ -156,9 +146,9 @@ export default function LoadersShowcasePage() {
               Contains sensitive server routing rules and security keys. The loading overlay will block interaction cleanly.
             </p>
             <div style={{ marginTop: '1rem' }}>
-              <Button size="sm" onClick={() => { setOverlayActive(true); setTimeout(() => setOverlayActive(false), 2500); }}>
+              <skyra-tech-button size="sm" onClick={() => { setOverlayActive(true); setTimeout(() => setOverlayActive(false), 2500); }}>
                 Simulate 2.5s Background Operation
-              </Button>
+              </skyra-tech-button>
             </div>
             <OverlayLoader loading={overlayActive} message="Updating cluster security policies..." />
           </div>

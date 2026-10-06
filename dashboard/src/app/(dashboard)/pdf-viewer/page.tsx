@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React from 'react';
-import { PdfViewer } from '@skyra/ui';
+import '@skyra-tech-platform/pdf-viewer';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 
 export default function PdfViewerShowcasePage() {
@@ -20,7 +20,7 @@ export default function PdfViewerShowcasePage() {
         <div style={{ width: '100%' }}>
           <DemoBlock title="Live PDF Viewer Instance">
             <div style={{ width: '100%', height: '620px' }}>
-              <PdfViewer
+              <skyra-tech-pdf-viewer
                 src="/sample-document.pdf"
                 title="Q3-2026-Financial-Audit-Report.pdf"
                 totalPages={8}

@@ -1,6 +1,6 @@
 ﻿'use client';
 import React, { useState } from 'react';
-import { Button } from '@skyra/ui';
+import '@skyra-tech-platform/button';;
 import { Monitor, Smartphone, Tablet } from 'lucide-react';
 
 const VIEWPORTS = [
@@ -44,7 +44,7 @@ export default function ResponsiveStudioPage() {
 
       <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '1rem', borderBottom: '1px solid var(--skyra-border)', marginBottom: '2rem' }}>
         {VIEWPORTS.map(vp => (
-          <Button 
+          <skyra-tech-button 
             key={vp.width}
             variant={activeWidth === vp.width ? 'primary' : 'outline'}
             size="sm"
@@ -52,7 +52,7 @@ export default function ResponsiveStudioPage() {
             leftIcon={vp.icon}
           >
             {vp.name} ({vp.width}px)
-          </Button>
+          </skyra-tech-button>
         ))}
       </div>
 

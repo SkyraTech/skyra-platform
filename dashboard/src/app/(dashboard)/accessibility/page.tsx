@@ -1,6 +1,9 @@
 ﻿'use client';
 import React, { useEffect, useState, useRef } from 'react';
-import { Button, Input, Checkbox, Card, Alert, Divider } from '@skyra/ui';
+import { Card, Alert, Divider } from '@/components/ui';
+import '@skyra-tech-platform/button';
+import '@skyra-tech-platform/input';
+import '@skyra-tech-platform/checkbox';;
 
 export default function AccessibilityStudioPage() {
   const [results, setResults] = useState<any>(null);
@@ -68,7 +71,7 @@ export default function AccessibilityStudioPage() {
 
       <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1rem' }}>Automated Audit</h2>
       <div style={{ marginBottom: '2rem' }}>
-        <Button onClick={runAudit} isLoading={running}>Run Axe-Core Audit on Test Surface</Button>
+        <skyra-tech-button onClick={runAudit} loading={running}>Run Axe-Core Audit on Test Surface</skyra-tech-button>
       </div>
 
       {results && (
@@ -112,10 +115,10 @@ export default function AccessibilityStudioPage() {
       <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1rem' }}>Test Target Surface</h2>
       <div ref={containerRef} style={{ padding: '2rem', background: 'var(--skyra-surface)', border: '1px dashed var(--skyra-border)', borderRadius: 'var(--skyra-radius-xl)' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '400px' }}>
-          <Input label="Email Address" required placeholder="name@example.com" />
-          <Input label="Search" placeholder="Search..." aria-label="Search" />
-          <Checkbox label="I agree to the terms and conditions" />
-          <Button variant="primary">Submit Form</Button>
+          <skyra-tech-input label="Email Address" required placeholder="name@example.com" />
+          <skyra-tech-input label="Search" placeholder="Search..." aria-label="Search" />
+          <skyra-tech-checkbox label="I agree to the terms and conditions" />
+          <skyra-tech-button variant="primary">Submit Form</skyra-tech-button>
         </div>
       </div>
 

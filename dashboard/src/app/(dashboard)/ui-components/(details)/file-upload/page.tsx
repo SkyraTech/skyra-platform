@@ -1,19 +1,8 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  FileUpload,
-  FileUploadTrigger,
-  FileUploadList,
-  FileUploadItem,
-  FileUploadDropzone,
-  FileUploadStatus,
-  FileRejection,
-  Button,
-  Badge,
-  Card,
-  Alert,
-} from '@skyra/ui';
+import { FileUpload, FileUploadTrigger, FileUploadList, FileUploadItem, FileUploadDropzone, FileUploadStatus, FileRejection, Badge, Card, Alert } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 
 export default function FileUploadShowcasePage() {
@@ -104,14 +93,14 @@ export default function FileUploadShowcasePage() {
             >
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <FileUploadTrigger>
-                  <Button variant="outline">
+                  <skyra-tech-button variant="outline">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '6px' }}>
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                       <polyline points="17 8 12 3 7 8" />
                       <line x1="12" y1="3" x2="12" y2="15" />
                     </svg>
                     Select PDF Document
-                  </Button>
+                  </skyra-tech-button>
                 </FileUploadTrigger>
 
                 {singleRejections.length > 0 && (
@@ -219,7 +208,7 @@ export default function FileUploadShowcasePage() {
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '500px' }}>
             <FileUploadTrigger>
-              <Button disabled variant="outline">Browse Files (Disabled)</Button>
+              <skyra-tech-button disabled variant="outline">Browse Files (Disabled)</skyra-tech-button>
             </FileUploadTrigger>
             <FileUploadList>
               <FileUploadItem

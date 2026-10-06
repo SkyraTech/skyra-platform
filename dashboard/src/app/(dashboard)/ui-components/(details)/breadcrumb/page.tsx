@@ -1,15 +1,7 @@
 ﻿'use client';
 
 import React from 'react';
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-  BreadcrumbPage,
-  BreadcrumbEllipsis,
-} from '@skyra/ui';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage, BreadcrumbEllipsis } from '@/components/ui';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import { ChevronRight, Slash, Home } from 'lucide-react';
 

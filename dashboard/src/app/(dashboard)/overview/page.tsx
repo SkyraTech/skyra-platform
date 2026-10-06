@@ -1,4 +1,4 @@
-import { Card } from '@skyra/ui';
+import { Card } from '@/components/ui';;
 import Link from 'next/link';
 import { docsRegistry } from '../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../docs-system/bootstrap';

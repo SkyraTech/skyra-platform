@@ -1,15 +1,7 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  DateField,
-  DateRangeField,
-  TimeField,
-  TimeRangeField,
-  DateTimeField,
-  DateTimeRangeField,
-  Calendar,
-} from '@skyra/ui';
+import { DateField, DateRangeField, TimeField, TimeRangeField, DateTimeField, DateTimeRangeField, Calendar } from '@/components/ui';;
 import { DocsLayout } from '@/components/docs/DocsLayout';
 import { DocsHeader } from '@/components/docs/DocsHeader';
 import { PackageMeta } from '@/components/docs/PackageMeta';
@@ -88,7 +80,7 @@ export default function DateTimeDocsPage() {
       </h3>
       <LiveExample 
         language="tsx"
-        code={`import { DateField } from '@skyra/ui';
+        code={`import { DateField } from '@/components/ui';;
 
 export function Example() {
   const [date, setDate] = useState('2026-09-09');

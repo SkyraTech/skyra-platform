@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { Input } from '@skyra/ui';
+import '@skyra-tech-platform/input';;
 import { DocsLayout } from '@/components/docs/DocsLayout';
 import { DocsHeader } from '@/components/docs/DocsHeader';
 import { PackageMeta } from '@/components/docs/PackageMeta';
@@ -72,7 +72,7 @@ export default function InputDocsPage() {
 
 <skyra-tech-input placeholder="Enter text" label="Full Name"></skyra-tech-input>`}
       >
-        <Input label="Full Name" placeholder="Enter text" />
+        <skyra-tech-input label="Full Name" placeholder="Enter text" />
       </LiveExample>
 
       <HeadingAnchor id="examples">Examples</HeadingAnchor>
@@ -82,14 +82,14 @@ export default function InputDocsPage() {
         language="tsx"
         title="Input Types"
         description="Native text types are supported, like email or password."
-        code={`<Input type="text" label="Text" />
-<Input type="email" label="Email" />
-<Input type="password" label="Password" />`}
+        code={`<skyra-tech-input type="text" label="Text" />
+<skyra-tech-input type="email" label="Email" />
+<skyra-tech-input type="password" label="Password" />`}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '400px' }}>
-          <Input type="text" label="Text" />
-          <Input type="email" label="Email" />
-          <Input type="password" label="Password" />
+          <skyra-tech-input type="text" label="Text" />
+          <skyra-tech-input type="email" label="Email" />
+          <skyra-tech-input type="password" label="Password" />
         </div>
       </LiveExample>
 
@@ -98,27 +98,27 @@ export default function InputDocsPage() {
         language="tsx"
         title="States"
         description="Disabled, readonly, and loading states."
-        code={`<Input disabled label="Disabled" value="Can't edit me" />
-<Input readOnly label="Readonly" value="Fixed value" />
-<Input loading label="Loading" placeholder="Please wait..." />
-<Input error="Invalid field" label="Error" />`}
+        code={`<skyra-tech-input disabled label="Disabled" value="Can't edit me" />
+<skyra-tech-input readOnly label="Readonly" value="Fixed value" />
+<skyra-tech-input loading label="Loading" placeholder="Please wait..." />
+<skyra-tech-input error="Invalid field" label="Error" />`}
       >
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', width: '100%', maxWidth: '800px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', textTransform: 'uppercase' }}>Disabled</span>
-            <Input disabled value="Can't edit me" />
+            <skyra-tech-input disabled value="Can't edit me" />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', textTransform: 'uppercase' }}>Readonly</span>
-            <Input readOnly value="Fixed value" />
+            <skyra-tech-input readOnly value="Fixed value" />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', textTransform: 'uppercase' }}>Loading</span>
-            <Input loading placeholder="Please wait..." />
+            <skyra-tech-input loading placeholder="Please wait..." />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', textTransform: 'uppercase' }}>Error</span>
-            <Input error="Invalid field" defaultValue="Bad input" />
+            <skyra-tech-input error="Invalid field" defaultValue="Bad input" />
           </div>
         </div>
       </LiveExample>
@@ -128,12 +128,12 @@ export default function InputDocsPage() {
         language="tsx"
         title="Labels & Helpers"
         description="Labels, helper text, and required indicators."
-        code={`<Input label="Username" helperText="Must be unique" />
-<Input label="Email" required helperText="We will not spam you" />`}
+        code={`<skyra-tech-input label="Username" helperText="Must be unique" />
+<skyra-tech-input label="Email" required helperText="We will not spam you" />`}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '400px' }}>
-          <Input label="Username" helperText="Must be unique" />
-          <Input label="Email" required helperText="We will not spam you" />
+          <skyra-tech-input label="Username" helperText="Must be unique" />
+          <skyra-tech-input label="Email" required helperText="We will not spam you" />
         </div>
       </LiveExample>
 
@@ -142,14 +142,14 @@ export default function InputDocsPage() {
         language="tsx"
         title="Prefix / Suffix & Clearable"
         description="Leading/trailing content or a clear button."
-        code={`<Input label="Email" leftAdornment={<Mail size={16} />} />
-<Input label="Search" rightAdornment={<Search size={16} />} />
-<Input label="Clearable" clearable defaultValue="Clear me" />`}
+        code={`<skyra-tech-input label="Email" leftAdornment={<Mail size={16} />} />
+<skyra-tech-input label="Search" rightAdornment={<Search size={16} />} />
+<skyra-tech-input label="Clearable" clearable defaultValue="Clear me" />`}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '400px' }}>
-          <Input label="Email" leftAdornment={<Mail size={16} />} />
-          <Input label="Search" rightAdornment={<Search size={16} />} />
-          <Input label="Clearable" clearable defaultValue="Clear me" />
+          <skyra-tech-input label="Email" leftAdornment={<Mail size={16} />} />
+          <skyra-tech-input label="Search" rightAdornment={<Search size={16} />} />
+          <skyra-tech-input label="Clearable" clearable defaultValue="Clear me" />
         </div>
       </LiveExample>
       
@@ -158,10 +158,10 @@ export default function InputDocsPage() {
         language="tsx"
         title="Character Count"
         description="Display character count limit."
-        code={`<Input label="Handle" showCount maxLength={15} defaultValue="skyra" />`}
+        code={`<skyra-tech-input label="Handle" showCount maxLength={15} defaultValue="skyra" />`}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '400px' }}>
-          <Input label="Handle" showCount maxLength={15} defaultValue="skyra" />
+          <skyra-tech-input label="Handle" showCount maxLength={15} defaultValue="skyra" />
         </div>
       </LiveExample>
 
@@ -308,9 +308,9 @@ export default function InputDocsPage() {
       <HeadingAnchor id="responsive">Responsive Behavior</HeadingAnchor>
       <ResponsiveDemo 
         description="Input expands to 100% of container. Text truncates properly inside the input."
-        desktop={<Input label="Handle" defaultValue="@skyra" />}
-        mobile={<Input label="Handle" defaultValue="@skyra" />}
-        fullWidth={<Input label="Handle" defaultValue="@skyra" />}
+        desktop={<skyra-tech-input label="Handle" defaultValue="@skyra" />}
+        mobile={<skyra-tech-input label="Handle" defaultValue="@skyra" />}
+        fullWidth={<skyra-tech-input label="Handle" defaultValue="@skyra" />}
       />
 
       <HeadingAnchor id="related">Related Components</HeadingAnchor>

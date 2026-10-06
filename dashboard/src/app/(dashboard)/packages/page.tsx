@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Badge, Button } from '@skyra/ui';
+import { Card, Badge } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import { docsRegistry } from '../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../docs-system/bootstrap';
 import type { PackageMetadata } from '../../../docs-system/metadata';
@@ -53,9 +54,9 @@ export default function PackagesPage() {
                 {pkg.exports.length} export(s)
               </span>
               <Link href={`/packages/${pkg.id.split('/').pop()}`} style={{ textDecoration: 'none' }}>
-                <Button variant="outline" size="sm">
+                <skyra-tech-button variant="outline" size="sm">
                   View Details
-                </Button>
+                </skyra-tech-button>
               </Link>
             </div>
           </Card>

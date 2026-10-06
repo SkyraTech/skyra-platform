@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { Button } from '@skyra/ui';
+import '@skyra-tech-platform/button';;
 import { DocsLayout } from '@/components/docs/DocsLayout';
 import { DocsHeader } from '@/components/docs/DocsHeader';
 import { PackageMeta } from '@/components/docs/PackageMeta';
@@ -74,7 +74,7 @@ export default function ButtonDocsPage() {
   Save changes
 </skyra-tech-button>`}
       >
-        <Button variant="primary">Save changes</Button>
+        <skyra-tech-button variant="primary">Save changes</skyra-tech-button>
       </LiveExample>
 
       <HeadingAnchor id="examples">Examples</HeadingAnchor>
@@ -84,19 +84,19 @@ export default function ButtonDocsPage() {
         language="tsx"
         title="Variants"
         description="Compare the available visual variants."
-        code={`<Button variant="primary">Primary</Button>
-<Button variant="orange">Orange</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="danger">Danger</Button>
-<Button variant="link">Link</Button>`}
+        code={`<skyra-tech-button variant="primary">Primary</skyra-tech-button>
+<skyra-tech-button variant="orange">Orange</skyra-tech-button>
+<skyra-tech-button variant="outline">Outline</skyra-tech-button>
+<skyra-tech-button variant="ghost">Ghost</skyra-tech-button>
+<skyra-tech-button variant="danger">Danger</skyra-tech-button>
+<skyra-tech-button variant="link">Link</skyra-tech-button>`}
       >
-        <Button variant="primary">Primary</Button>
-        <Button variant="orange">Orange</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
-        <Button variant="danger">Danger</Button>
-        <Button variant="link">Link</Button>
+        <skyra-tech-button variant="primary">Primary</skyra-tech-button>
+        <skyra-tech-button variant="orange">Orange</skyra-tech-button>
+        <skyra-tech-button variant="outline">Outline</skyra-tech-button>
+        <skyra-tech-button variant="ghost">Ghost</skyra-tech-button>
+        <skyra-tech-button variant="danger">Danger</skyra-tech-button>
+        <skyra-tech-button variant="link">Link</skyra-tech-button>
       </LiveExample>
 
       <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--skyra-text)', marginBottom: '0.75rem' }}>Sizes</h3>
@@ -104,13 +104,13 @@ export default function ButtonDocsPage() {
         language="tsx"
         title="Sizes"
         description="Choose the appropriate button size for your layout."
-        code={`<Button size="sm">Small</Button>
-<Button size="md">Medium</Button>
-<Button size="lg">Large</Button>`}
+        code={`<skyra-tech-button size="sm">Small</skyra-tech-button>
+<skyra-tech-button size="md">Medium</skyra-tech-button>
+<skyra-tech-button size="lg">Large</skyra-tech-button>`}
       >
-        <Button size="sm">Small</Button>
-        <Button size="md">Medium</Button>
-        <Button size="lg">Large</Button>
+        <skyra-tech-button size="sm">Small</skyra-tech-button>
+        <skyra-tech-button size="md">Medium</skyra-tech-button>
+        <skyra-tech-button size="lg">Large</skyra-tech-button>
       </LiveExample>
 
       <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--skyra-text)', marginBottom: '0.75rem' }}>States</h3>
@@ -118,34 +118,34 @@ export default function ButtonDocsPage() {
         language="tsx"
         title="States"
         description="See disabled, loading, and full-width states."
-        code={`<Button disabled>Disabled</Button>
-<Button isLoading loadingText="Saving...">Loading</Button>
-<Button fullWidth>Full Width Button</Button>`}
+        code={`<skyra-tech-button disabled>Disabled</skyra-tech-button>
+<skyra-tech-button loading loading-text="Saving...">Loading</skyra-tech-button>
+<skyra-tech-button full-width>Full Width Button</skyra-tech-button>`}
       >
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', width: '100%', maxWidth: '800px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', textTransform: 'uppercase' }}>Disabled</span>
-            <div><Button disabled>Disabled</Button></div>
+            <div><skyra-tech-button disabled>Disabled</skyra-tech-button></div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', textTransform: 'uppercase' }}>Loading</span>
             <div>
-              <Button 
-                isLoading={loading1} 
-                loadingText="Saving..." 
+              <skyra-tech-button 
+                loading={loading1} 
+                loading-text="Saving..." 
                 onClick={() => {
                   setLoading1(true);
                   setTimeout(() => setLoading1(false), 2000);
                 }}
               >
                 Click to load
-              </Button>
+              </skyra-tech-button>
             </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', textTransform: 'uppercase' }}>Full Width</span>
             <div style={{ width: '100%' }}>
-              <Button fullWidth>Full Width Button</Button>
+              <skyra-tech-button full-width>Full Width Button</skyra-tech-button>
             </div>
           </div>
         </div>
@@ -156,17 +156,17 @@ export default function ButtonDocsPage() {
         language="tsx"
         title="Icons"
         description="Buttons can include leading and trailing icons, or be icon-only."
-        code={`<Button leftIcon={<Mail size={16} />}>Email</Button>
-<Button rightIcon={<ArrowRight size={16} />}>Continue</Button>
-<Button iconOnly aria-label="Delete" variant="danger">
+        code={`<skyra-tech-button leftIcon={<Mail size={16} />}>Email</skyra-tech-button>
+<skyra-tech-button rightIcon={<ArrowRight size={16} />}>Continue</skyra-tech-button>
+<skyra-tech-button icon-only aria-label="Delete" variant="danger">
   <Trash2 size={18} />
-</Button>`}
+</skyra-tech-button>`}
       >
-        <Button leftIcon={<Mail size={16} />}>Email</Button>
-        <Button rightIcon={<ArrowRight size={16} />}>Continue</Button>
-        <Button iconOnly aria-label="Delete" variant="danger">
+        <skyra-tech-button leftIcon={<Mail size={16} />}>Email</skyra-tech-button>
+        <skyra-tech-button rightIcon={<ArrowRight size={16} />}>Continue</skyra-tech-button>
+        <skyra-tech-button icon-only aria-label="Delete" variant="danger">
           <Trash2 size={18} />
-        </Button>
+        </skyra-tech-button>
       </LiveExample>
 
       <HeadingAnchor id="usage">Usage Guidance</HeadingAnchor>
@@ -338,9 +338,9 @@ export default function ButtonDocsPage() {
       <HeadingAnchor id="responsive">Responsive Behavior</HeadingAnchor>
       <ResponsiveDemo 
         description="The button natively handles text truncation if constrained. When fullWidth is true, it expands to 100% of its containing block, making it ideal for mobile bottom sheets or narrow forms. Touch targets are maintained at a minimum of 44x44px across all viewports to comply with WCAG 2.1 mobile requirements."
-        desktop={<Button variant="primary">Submit Data</Button>}
-        mobile={<Button variant="primary">Submit</Button>}
-        fullWidth={<Button variant="primary" fullWidth>Submit Form</Button>}
+        desktop={<skyra-tech-button variant="primary">Submit Data</skyra-tech-button>}
+        mobile={<skyra-tech-button variant="primary">Submit</skyra-tech-button>}
+        fullWidth={<skyra-tech-button variant="primary" full-width>Submit Form</skyra-tech-button>}
       />
 
       <HeadingAnchor id="related">Related Components</HeadingAnchor>

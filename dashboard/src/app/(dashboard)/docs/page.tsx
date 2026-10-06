@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from '@skyra/ui';
+import { Card } from '@/components/ui';;
 
 export const metadata = { title: 'Documentation Architecture — Skyra Platform' };
 

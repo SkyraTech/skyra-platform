@@ -1,10 +1,15 @@
 import React from 'react';
-import { Card, Badge, Button } from '@skyra/ui';
+import { Card, Badge } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import { docsRegistry } from '../../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../../docs-system/bootstrap';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Package, ArrowLeft, Terminal, Box, PlayCircle, Code, History, BookOpen } from 'lucide-react';
+
+import { DocsLayout } from '@/components/docs/DocsLayout';
+import { DocsHeader } from '@/components/docs/DocsHeader';
+import { HeadingAnchor } from '@/components/docs/HeadingAnchor';
 
 // Initialize the registry for SSR/SSG.
 bootstrapRegistry();
@@ -48,73 +53,71 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
     'utils':         '/docs/utils',
     'validation':    '/docs/validation',
     'data-export':   '/docs/data-export',
+    'dialog':        '/components/overlays/dialog',
+    'dynamic-form':  '/components/forms/dynamic-form',
   };
   const docsHref = DOCS_PAGES[slug];
 
+  const toc = [
+    { id: 'installation', label: 'Installation' },
+    { id: 'capabilities', label: 'Capabilities' },
+    { id: 'exports', label: 'Public Exports' },
+    { id: 'dependencies', label: 'Dependencies' },
+    { id: 'recent-changes', label: 'Recent Changes' },
+  ];
+
   return (
-    <div className="dash-page" style={{ padding: '2rem 1rem', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <DocsLayout toc={toc}>
       
       {/* Navigation */}
-      <div>
+      <div style={{ marginBottom: '1.5rem' }}>
         <Link href="/packages" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--skyra-text-muted)', textDecoration: 'none', fontSize: '0.875rem' }}>
           <ArrowLeft size={16} /> Back to Packages
         </Link>
       </div>
 
-      {/* Header */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', paddingBottom: '2rem', borderBottom: '1px solid var(--skyra-border)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '48px', height: '48px', borderRadius: 'var(--skyra-radius-md)', background: 'var(--skyra-primary-light)', color: 'var(--skyra-primary)' }}>
-            <Package size={24} />
+      <DocsHeader 
+        title={pkg.name}
+        description={pkg.description || 'Core platform capability.'}
+        breadcrumbs={[
+          { label: 'Platform', href: '/overview' },
+          { label: 'Packages', href: '/packages' },
+          { label: pkg.name }
+        ]}
+        badges={[
+          { label: pkg.status, variant: pkg.status === 'stable' ? 'stable' : pkg.status === 'experimental' ? 'experimental' : 'planned' },
+          { label: `v${pkg.version}`, variant: 'tech' },
+          { label: pkg.runtime, variant: 'tech' }
+        ]}
+      />
+
+      {docsHref && (
+        <div style={{ marginBottom: '3rem', display: 'flex', gap: '1rem', alignItems: 'center', padding: '1rem', background: 'var(--skyra-bg-muted)', borderRadius: 'var(--skyra-radius-md)', border: '1px solid var(--skyra-border)' }}>
+          <BookOpen size={24} style={{ color: 'var(--skyra-primary)' }} />
+          <div style={{ flex: 1 }}>
+            <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: 'var(--skyra-text)' }}>Dedicated Documentation</h3>
+            <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--skyra-text-muted)' }}>This package has a dedicated deep-dive documentation page with live examples and API details.</p>
           </div>
-          <h1 style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 800, fontSize: '2rem', color: 'var(--skyra-text)', margin: 0 }}>
-            {pkg.name}
-          </h1>
-          <Badge variant={pkg.status === 'stable' ? 'success' : pkg.status === 'experimental' ? 'warning' : 'neutral'}>
-            {pkg.status}
-          </Badge>
-          <Badge variant="neutral">
-            v{pkg.version}
-          </Badge>
-          <Badge variant="neutral">
-            {pkg.runtime}
-          </Badge>
-          {docsHref && (
-            <Link href={docsHref} style={{ textDecoration: 'none', marginLeft: 'auto' }}>
-              <Button variant="primary" size="sm" style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                <BookOpen size={14} /> View Documentation
-              </Button>
-            </Link>
-          )}
+          <Link href={docsHref} style={{ textDecoration: 'none' }}>
+            <skyra-tech-button variant="primary">View Documentation</skyra-tech-button>
+          </Link>
         </div>
-        <p style={{ color: 'var(--skyra-text-muted)', fontSize: '1.125rem', maxWidth: '800px', margin: 0, lineHeight: 1.6 }}>
-          {pkg.description || 'Core platform capability.'}
-        </p>
-      </div>
+      )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: '2rem', alignItems: 'start' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
         
-        {/* Main Content */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-          
-          {/* Installation */}
-          <section>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--skyra-text)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Terminal size={20} /> Installation
-            </h2>
-            <div style={{ background: 'var(--skyra-bg-muted)', padding: '1.25rem', borderRadius: 'var(--skyra-radius-md)', border: '1px solid var(--skyra-border)', fontFamily: 'var(--skyra-font-mono, monospace)', fontSize: '0.875rem', color: 'var(--skyra-text)' }}>
-              {`pnpm add ${pkg.name}`}
-            </div>
-            <p style={{ fontSize: '0.875rem', color: 'var(--skyra-text-muted)', marginTop: '0.75rem' }}>
-              Note: Packages are currently consumed via the internal workspace registry.
-            </p>
-          </section>
+        <section id="installation">
+          <HeadingAnchor id="installation" level={2}>Installation</HeadingAnchor>
+          <div style={{ background: 'var(--skyra-bg-muted)', padding: '1.25rem', borderRadius: 'var(--skyra-radius-md)', border: '1px solid var(--skyra-border)', fontFamily: 'var(--skyra-font-mono, monospace)', fontSize: '0.875rem', color: 'var(--skyra-text)', marginTop: '1rem' }}>
+            {`pnpm add ${pkg.name}`}
+          </div>
+          <p style={{ fontSize: '0.875rem', color: 'var(--skyra-text-muted)', marginTop: '0.75rem' }}>
+            Note: Packages are currently consumed via the internal workspace registry.
+          </p>
+        </section>
 
-          {/* Capabilities */}
-          <section>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--skyra-text)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Box size={20} /> Capabilities
-            </h2>
+        <section id="capabilities">
+          <HeadingAnchor id="capabilities" level={2}>Capabilities</HeadingAnchor>
             {capabilities.length > 0 ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {capabilities.map((cap) => (
@@ -154,14 +157,14 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
                     )}
                     
                     <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--skyra-border)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                       <Link href={`/packages/${params.slug}/${cap.id.split('/')[1]}`} style={{ textDecoration: 'none' }}>
-                         <Button variant="outline" size="sm">
+                       <Link href={`/packages/${slug}/${cap.id.split('/')[1]}`} style={{ textDecoration: 'none' }}>
+                         <skyra-tech-button variant="outline" size="sm">
                             <Code size={14} style={{ marginRight: '0.5rem' }} /> APIs
-                         </Button>
+                         </skyra-tech-button>
                        </Link>
-                       <Button variant="outline" size="sm" disabled>
+                       <skyra-tech-button variant="outline" size="sm" disabled>
                           <PlayCircle size={14} style={{ marginRight: '0.5rem' }} /> Examples (Phase 10.4)
-                       </Button>
+                       </skyra-tech-button>
                     </div>
                   </Card>
                 ))}
@@ -171,19 +174,74 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
                 No authored capability metadata found for this package yet.
               </div>
             )}
-          </section>
+        </section>
 
-        </div>
+        <section id="exports">
+          <HeadingAnchor id="exports" level={2}>Public Exports</HeadingAnchor>
+          {pkg.exports.length > 0 ? (
+            <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {pkg.exports.map(exp => (
+                <li key={exp} style={{ fontSize: '0.875rem', color: 'var(--skyra-text-muted)', fontFamily: 'var(--skyra-font-mono, monospace)', background: 'var(--skyra-bg-muted)', padding: '0.75rem', borderRadius: 'var(--skyra-radius-md)', border: '1px solid var(--skyra-border)' }}>
+                  {exp}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div style={{ fontSize: '0.875rem', color: 'var(--skyra-text-subtle)' }}>No public exports defined.</div>
+          )}
+        </section>
 
-        {/* Sidebar / Metadata */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          
-          {/* Recent Changes */}
-          {releases.length > 0 && (
+        <section id="dependencies">
+          <HeadingAnchor id="dependencies" level={2}>Dependencies & Peers</HeadingAnchor>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
             <Card style={{ padding: '1.5rem' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--skyra-text)', margin: '0 0 1rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <History size={16} /> Recent Changes
+              <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--skyra-text)', margin: '0 0 1rem 0' }}>
+                Runtime Dependencies
               </h3>
+              {Object.keys(pkg.dependencies).length > 0 ? (
+                <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  {Object.entries(pkg.dependencies).map(([dep, version]) => (
+                    <li key={dep} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.875rem' }}>
+                      <span style={{ color: 'var(--skyra-text)', fontWeight: 500 }}>{dep}</span>
+                      <span style={{ color: 'var(--skyra-text-muted)', fontFamily: 'var(--skyra-font-mono, monospace)' }}>{version as React.ReactNode}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div style={{ fontSize: '0.875rem', color: 'var(--skyra-text-subtle)' }}>No runtime dependencies.</div>
+              )}
+            </Card>
+
+            <Card style={{ padding: '1.5rem' }}>
+              <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--skyra-text)', margin: '0 0 1rem 0' }}>
+                Peer Dependencies
+              </h3>
+              {Object.keys(pkg.peerDependencies).length > 0 ? (
+                <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  {Object.entries(pkg.peerDependencies).map(([dep, version]) => {
+                    const isOptional = pkg.optionalPeerDependencies?.includes(dep);
+                    return (
+                      <li key={dep} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.875rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <span style={{ color: 'var(--skyra-text)', fontWeight: 500 }}>{dep}</span>
+                          {isOptional && <Badge variant="neutral" size="sm">Optional</Badge>}
+                        </div>
+                        <span style={{ color: 'var(--skyra-text-muted)', fontFamily: 'var(--skyra-font-mono, monospace)' }}>{version as React.ReactNode}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : (
+                <div style={{ fontSize: '0.875rem', color: 'var(--skyra-text-subtle)' }}>No peer dependencies.</div>
+              )}
+            </Card>
+          </div>
+        </section>
+
+        {releases.length > 0 && (
+          <section id="recent-changes">
+            <HeadingAnchor id="recent-changes" level={2}>Recent Changes</HeadingAnchor>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {releases.slice(0, 3).map((release) => {
                   const pkgChanges = release.packages.find(p => p.packageId === id)?.changes || [];
@@ -215,73 +273,10 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
                    See all releases
                  </Link>
               </div>
-            </Card>
-          )}
-          
-          {/* Public Exports */}
-          <Card style={{ padding: '1.5rem' }}>
-            <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--skyra-text)', margin: '0 0 1rem 0' }}>
-              Public Exports
-            </h3>
-            {pkg.exports.length > 0 ? (
-              <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                {pkg.exports.map(exp => (
-                  <li key={exp} style={{ fontSize: '0.875rem', color: 'var(--skyra-text-muted)', fontFamily: 'var(--skyra-font-mono, monospace)', background: 'var(--skyra-bg-muted)', padding: '0.25rem 0.5rem', borderRadius: 'var(--skyra-radius-sm)', border: '1px solid var(--skyra-border)' }}>
-                    {exp}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div style={{ fontSize: '0.875rem', color: 'var(--skyra-text-subtle)' }}>No public exports defined.</div>
-            )}
-          </Card>
-
-          {/* Peer Dependencies */}
-          <Card style={{ padding: '1.5rem' }}>
-            <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--skyra-text)', margin: '0 0 1rem 0' }}>
-              Peer Dependencies
-            </h3>
-            {Object.keys(pkg.peerDependencies).length > 0 ? (
-              <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                {Object.entries(pkg.peerDependencies).map(([dep, version]) => {
-                  const isOptional = pkg.optionalPeerDependencies?.includes(dep);
-                  return (
-                    <li key={dep} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.875rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ color: 'var(--skyra-text)' }}>{dep}</span>
-                        {isOptional && <Badge variant="neutral" size="sm">Optional</Badge>}
-                      </div>
-                      <span style={{ color: 'var(--skyra-text-subtle)', fontFamily: 'var(--skyra-font-mono, monospace)' }}>{version}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : (
-              <div style={{ fontSize: '0.875rem', color: 'var(--skyra-text-subtle)' }}>No peer dependencies.</div>
-            )}
-          </Card>
-
-          {/* Dependencies */}
-          <Card style={{ padding: '1.5rem' }}>
-            <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--skyra-text)', margin: '0 0 1rem 0' }}>
-              Dependencies
-            </h3>
-            {Object.keys(pkg.dependencies).length > 0 ? (
-              <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                {Object.entries(pkg.dependencies).map(([dep, version]) => (
-                  <li key={dep} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.875rem' }}>
-                    <span style={{ color: 'var(--skyra-text)' }}>{dep}</span>
-                    <span style={{ color: 'var(--skyra-text-subtle)', fontFamily: 'var(--skyra-font-mono, monospace)' }}>{version}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div style={{ fontSize: '0.875rem', color: 'var(--skyra-text-subtle)' }}>No runtime dependencies.</div>
-            )}
-          </Card>
-
-        </div>
+            </div>
+          </section>
+        )}
       </div>
-    </div>
+    </DocsLayout>
   );
 }

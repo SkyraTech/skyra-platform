@@ -1,7 +1,9 @@
 ﻿'use client';
 
 import React from 'react';
-import { PrintButton, DownloadButton } from '@skyra/ui';
+import '@skyra-tech-platform/button';
+const PrintButton = (props: any) => <skyra-tech-button {...props}>Print</skyra-tech-button>;
+const DownloadButton = (props: any) => <skyra-tech-button {...props}>Download</skyra-tech-button>;;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 
 export default function PrintShowcasePage() {

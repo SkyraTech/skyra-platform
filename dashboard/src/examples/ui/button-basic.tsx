@@ -5,23 +5,23 @@
  * @packageId @skyra/ui
  */
 import React from 'react';
-import { Button } from '@skyra/ui';
+import '@skyra-tech-platform/button';;
 
 export default function ButtonBasicExample() {
   return (
     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-      <Button variant="primary" onClick={() => alert('Clicked primary!')}>
+      <skyra-tech-button variant="primary" onClick={() => alert('Clicked primary!')}>
         Primary
-      </Button>
-      <Button variant="ghost" onClick={() => alert('Clicked ghost!')}>
+      </skyra-tech-button>
+      <skyra-tech-button variant="ghost" onClick={() => alert('Clicked ghost!')}>
         Ghost
-      </Button>
-      <Button variant="outline" onClick={() => alert('Clicked outline!')}>
+      </skyra-tech-button>
+      <skyra-tech-button variant="outline" onClick={() => alert('Clicked outline!')}>
         Outline
-      </Button>
-      <Button variant="danger" onClick={() => alert('Clicked danger!')}>
+      </skyra-tech-button>
+      <skyra-tech-button variant="danger" onClick={() => alert('Clicked danger!')}>
         Danger
-      </Button>
+      </skyra-tech-button>
     </div>
   );
 }

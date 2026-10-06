@@ -1,7 +1,8 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { NotificationBar, Button } from '@skyra/ui';
+import { NotificationBar } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import { CheckCircle2, AlertOctagon, Info, AlertTriangle, Bell } from 'lucide-react';
 
@@ -64,9 +65,9 @@ export default function NotificationsShowcasePage() {
       <DemoSection title="2. Timed Auto-Dismissal with Progress Countdown" desc="Synchronized countdown bar pausing on hover/focus and resuming seamlessly on mouse leave." erpSource="Platform Foundation">
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <Button size="sm" onClick={() => setShow2s(true)}>Spawn 2s Notification</Button>
-            <Button size="sm" onClick={() => setShow5s(true)}>Spawn 5s Notification</Button>
-            <Button size="sm" variant="outline" onClick={() => setShowManual(true)}>Reset Manual Persistent</Button>
+            <skyra-tech-button size="sm" onClick={() => setShow2s(true)}>Spawn 2s Notification</skyra-tech-button>
+            <skyra-tech-button size="sm" onClick={() => setShow5s(true)}>Spawn 5s Notification</skyra-tech-button>
+            <skyra-tech-button size="sm" variant="outline" onClick={() => setShowManual(true)}>Reset Manual Persistent</skyra-tech-button>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '0.5rem' }}>

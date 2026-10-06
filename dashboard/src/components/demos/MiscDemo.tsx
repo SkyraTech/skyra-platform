@@ -1,6 +1,7 @@
 ﻿'use client';
 import React, { useState } from 'react';
-import { Checkbox, Alert, Spinner, Divider, Card, PhoneInputField, LogoUploader } from '@skyra/ui';
+import { Alert, Spinner, Divider, Card, PhoneInputField, LogoUploader } from '@/components/ui';
+import '@skyra-tech-platform/checkbox';;
 import { DemoSection, DemoBlock } from './DemoSection';
 
 export function MiscDemo() {
@@ -16,7 +17,7 @@ export function MiscDemo() {
       <DemoBlock title="Card & Checkbox">
         <Card style={{ maxWidth: '300px', width: '100%' }}>
           <h4 style={{ margin: '0 0 1rem 0', fontSize: '1rem' }}>Settings</h4>
-          <Checkbox 
+          <skyra-tech-checkbox 
             label="Enable notifications" 
             checked={checked}
             onChange={(e) => setChecked(e.target.checked)}

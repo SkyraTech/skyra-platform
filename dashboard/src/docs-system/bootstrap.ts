@@ -8,7 +8,7 @@ import appShellPkg from '../../../packages/app-shell/package.json';
 import dataExportPkg from '../../../packages/data-export/package.json';
 import dataTablePkg from '../../../packages/data-table/package.json';
 import designTokensPkg from '../../../packages/design-tokens/package.json';
-import dialogsPkg from '../../../packages/dialogs/package.json';
+import dialogsPkg from '../../../packages/dialog/package.json';
 import dynamicFormPkg from '../../../packages/dynamic-form/package.json';
 import qrPkg from '../../../packages/qr/package.json';
 import uiPkg from '../../../packages/ui/package.json';
@@ -23,7 +23,7 @@ const runtimeMap: Record<string, RuntimeCategory> = {
   '@skyra-tech-platform/data-export':  'mixed',
   '@skyra-tech-platform/data-table': 'mixed',
   '@skyra-tech-platform/design-tokens':'design-tokens',
-  '@skyra/dialogs':      'react-browser',
+  '@skyra-tech-platform/dialog': 'runtime-neutral',
   '@skyra-tech-platform/dynamic-form': 'mixed',
   '@skyra-tech-platform/qr': 'runtime-neutral',
   '@skyra/ui':           'react-browser',
@@ -78,7 +78,7 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     exportPath: '@skyra-tech-platform/data-table',
     runtime: 'mixed',
     description: 'Enterprise-grade, accessible, and responsive data table with sorting, pagination, filtering, and column configuration.',
-    usageNote: "import { DataTable } from '@skyra/ui';",
+    usageNote: "import '@skyra-tech-platform/data-table';",
     status: 'stable',
   },
 
@@ -95,15 +95,15 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     status: 'stable',
   },
 
-  // @skyra/dialogs
+  // @skyra-tech-platform/dialog
   {
     id: 'dialogs/core',
-    packageId: '@skyra/dialogs',
+    packageId: '@skyra-tech-platform/dialog',
     name: 'Dialogs & Overlays',
-    exportPath: '@skyra/dialogs',
-    runtime: 'react-browser',
+    exportPath: '@skyra-tech-platform/dialog',
+    runtime: 'runtime-neutral',
     description: 'Accessible modal dialogs, confirmation sheets, and overlay primitives built on platform design tokens.',
-    usageNote: "import { Dialog, DialogContent, DialogHeader } from '@skyra/dialogs';",
+    usageNote: "import '@skyra-tech-platform/dialog';",
     status: 'stable',
   },
 
@@ -115,7 +115,7 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     exportPath: '@skyra-tech-platform/dynamic-form',
     runtime: 'mixed',
     description: 'Schema-driven form engine with validation, conditional fields, multi-step support, and full accessibility.',
-    usageNote: "import { DynamicForm } from '@skyra/ui';",
+    usageNote: "import '@skyra-tech-platform/dynamic-form';",
     status: 'stable',
   },
 
@@ -139,7 +139,7 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     exportPath: '@skyra/ui',
     runtime: 'react-browser',
     description: 'React component adapter for QR code rendering. Wraps the runtime-neutral core and exposes an accessible, responsive SVG QR Code component.',
-    usageNote: "import { QRCode } from '@skyra/ui';",
+    usageNote: "import '@skyra-tech-platform/qr';;",
     status: 'stable',
     related: ['qr/core'],
   },
@@ -152,7 +152,7 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     exportPath: '@skyra/ui',
     runtime: 'react-browser',
     description: 'Core accessible UI primitives: Button, Badge, Card, Avatar, Input, Select, Checkbox, Radio, Switch, Tabs, Tooltip, Popover, and more.',
-    usageNote: "import { Button, Card, Badge } from '@skyra/ui';",
+    usageNote: "import { Card, Badge } from '@/components/ui';\nimport '@skyra-tech-platform/button';",
     status: 'stable',
   },
 

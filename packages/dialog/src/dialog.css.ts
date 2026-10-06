@@ -10,8 +10,11 @@ dialog {
   color: var(--skyra-text);
   margin: auto;
   box-shadow: var(--skyra-shadow-lg);
-  display: flex;
   flex-direction: column;
+}
+
+dialog[open] {
+  display: flex;
 }
 
 dialog::backdrop {

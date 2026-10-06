@@ -1,15 +1,9 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-  Button,
-  Badge,
-  Input,
-} from '@skyra/ui';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, Badge } from '@/components/ui';
+import '@skyra-tech-platform/button';
+import '@skyra-tech-platform/input';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import {
   FileText,
@@ -81,9 +75,9 @@ export default function AccordionShowcasePage() {
                   </AccordionTrigger>
                   <AccordionContent>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                      <Input defaultValue="Skyra Systems Ltd" placeholder="Legal business name" />
-                      <Input defaultValue="GB 992 481 023" placeholder="Tax registration number" />
-                      <Button variant="primary" size="sm">Save &amp; Continue</Button>
+                      <skyra-tech-input defaultValue="Skyra Systems Ltd" placeholder="Legal business name" />
+                      <skyra-tech-input defaultValue="GB 992 481 023" placeholder="Tax registration number" />
+                      <skyra-tech-button variant="primary" size="sm">Save &amp; Continue</skyra-tech-button>
                     </div>
                   </AccordionContent>
                 </AccordionItem>
@@ -97,7 +91,7 @@ export default function AccordionShowcasePage() {
                   </AccordionTrigger>
                   <AccordionContent>
                     <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem' }}>Direct Debit (BACS / SEPA) active.</p>
-                    <Button variant="outline" size="sm">Add Credit Card</Button>
+                    <skyra-tech-button variant="outline" size="sm">Add Credit Card</skyra-tech-button>
                   </AccordionContent>
                 </AccordionItem>
 

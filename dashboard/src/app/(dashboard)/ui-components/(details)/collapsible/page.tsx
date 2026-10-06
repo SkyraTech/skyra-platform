@@ -1,14 +1,10 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent,
-  Button,
-  Input,
-  Switch,
-} from '@skyra/ui';
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui';
+import '@skyra-tech-platform/button';
+import '@skyra-tech-platform/input';
+import '@skyra-tech-platform/switch';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import {
   ChevronDown,
@@ -38,7 +34,7 @@ export default function CollapsibleShowcasePage() {
           <DemoBlock title="Advanced Search Filter Region">
             <div style={{ padding: '1rem 0' }}>
               <div style={{ marginBottom: '0.75rem' }}>
-                <Input placeholder="Search records..." />
+                <skyra-tech-input placeholder="Search records..." />
               </div>
 
               <Collapsible defaultOpen={false}>
@@ -53,13 +49,13 @@ export default function CollapsibleShowcasePage() {
                   <div style={{ background: 'var(--skyra-bg)', padding: '1rem', borderRadius: 'var(--skyra-radius-md)', marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <span style={{ fontSize: '0.85rem' }}>Case Sensitive Search</span>
-                      <Switch variant="compact" />
+                      <skyra-tech-switch variant="compact" />
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <span style={{ fontSize: '0.85rem' }}>Include Archived Items</span>
-                      <Switch variant="compact" />
+                      <skyra-tech-switch variant="compact" />
                     </div>
-                    <Input placeholder="Filter by batch UUID..." />
+                    <skyra-tech-input placeholder="Filter by batch UUID..." />
                   </div>
                 </CollapsibleContent>
               </Collapsible>
@@ -109,9 +105,9 @@ export default function CollapsibleShowcasePage() {
           <DemoBlock title="Controlled Programmatic Toggling">
             <div style={{ padding: '1rem 0' }}>
               <div style={{ marginBottom: '1rem' }}>
-                <Button size="sm" variant="outline" onClick={() => setControlledOpen(!controlledOpen)}>
+                <skyra-tech-button size="sm" variant="outline" onClick={() => setControlledOpen(!controlledOpen)}>
                   {controlledOpen ? 'Collapse External' : 'Expand External'}
-                </Button>
+                </skyra-tech-button>
               </div>
 
               <Collapsible open={controlledOpen} onOpenChange={setControlledOpen}>

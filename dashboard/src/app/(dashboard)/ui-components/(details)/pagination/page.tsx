@@ -1,20 +1,8 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationPrevious,
-  PaginationNext,
-  PaginationFirst,
-  PaginationLast,
-  PaginationEllipsis,
-  DynamicSelect,
-  Card,
-  Badge,
-} from '@skyra/ui';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationFirst, PaginationLast, PaginationEllipsis, Card, Badge } from '@/components/ui';
+import '@skyra-tech-platform/dynamic-select';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 
 // Mock invoice dataset for realistic table integration
@@ -170,7 +158,7 @@ export default function PaginationShowcasePage() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ fontSize: '0.8rem', color: 'var(--skyra-text-muted)' }}>Rows per page:</span>
               <div style={{ width: '90px' }}>
-                <DynamicSelect
+                <skyra-tech-dynamic-select
                   value={pageSize}
                   onChange={(val) => {
                     if (val && !Array.isArray(val) && 'value' in val) {

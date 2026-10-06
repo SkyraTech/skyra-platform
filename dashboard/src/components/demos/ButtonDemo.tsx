@@ -1,6 +1,6 @@
 ﻿'use client';
 import React, { useState } from 'react';
-import { Button } from '@skyra/ui';
+import '@skyra-tech-platform/button';;
 import { Mail, ArrowRight, Trash2 } from 'lucide-react';
 import { DemoSection, DemoBlock } from './DemoSection';
 
@@ -14,31 +14,31 @@ export function ButtonDemo() {
       erpSource="[B] PLATFORM EXTRACTION (ui.css .btn-*)"
     >
       <DemoBlock title="Variants">
-        <Button variant="primary">Primary</Button>
-        <Button variant="orange">Orange</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
-        <Button variant="danger">Danger</Button>
+        <skyra-tech-button variant="primary">Primary</skyra-tech-button>
+        <skyra-tech-button variant="orange">Orange</skyra-tech-button>
+        <skyra-tech-button variant="outline">Outline</skyra-tech-button>
+        <skyra-tech-button variant="ghost">Ghost</skyra-tech-button>
+        <skyra-tech-button variant="danger">Danger</skyra-tech-button>
       </DemoBlock>
 
       <DemoBlock title="Sizes & Icons">
-        <Button size="sm">Small</Button>
-        <Button size="md" leftIcon={<Mail size={16} />}>Medium with Icon</Button>
-        <Button size="lg" rightIcon={<ArrowRight size={18} />}>Large with Icon</Button>
-        <Button size="md" variant="outline" iconOnly aria-label="Delete"><Trash2 size={16} /></Button>
+        <skyra-tech-button size="sm">Small</skyra-tech-button>
+        <skyra-tech-button size="md" leftIcon={<Mail size={16} />}>Medium with Icon</skyra-tech-button>
+        <skyra-tech-button size="lg" rightIcon={<ArrowRight size={18} />}>Large with Icon</skyra-tech-button>
+        <skyra-tech-button size="md" variant="outline" icon-only aria-label="Delete"><Trash2 size={16} /></skyra-tech-button>
       </DemoBlock>
 
       <DemoBlock title="Interactive States">
-        <Button disabled>Disabled</Button>
-        <Button 
-          isLoading={loading} 
+        <skyra-tech-button disabled>Disabled</skyra-tech-button>
+        <skyra-tech-button 
+          loading={loading} 
           onClick={() => {
             setLoading(true);
             setTimeout(() => setLoading(false), 2000);
           }}
         >
           Click to Load
-        </Button>
+        </skyra-tech-button>
       </DemoBlock>
     </DemoSection>
   );

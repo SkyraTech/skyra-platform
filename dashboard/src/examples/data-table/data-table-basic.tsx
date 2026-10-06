@@ -5,7 +5,7 @@
  * @packageId @skyra-tech-platform/data-table
  */
 import React from 'react';
-import { DataTable } from '@skyra/ui';
+import '@skyra-tech-platform/data-table';;
 
 export default function DataTableBasicExample() {
   const data = [
@@ -22,7 +22,7 @@ export default function DataTableBasicExample() {
 
   return (
     <div style={{ border: '1px solid var(--skyra-border)', borderRadius: 'var(--skyra-radius-md)', overflow: 'hidden' }}>
-      <DataTable 
+      <skyra-tech-data-table 
         data={data} 
         columns={columns} 
       />

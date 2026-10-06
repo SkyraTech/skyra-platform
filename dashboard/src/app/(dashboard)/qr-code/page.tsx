@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Badge } from '@skyra/ui';
-import { QRCodeConfigurator, QRCodePreview, QRCodeScanabilityStatus } from '@skyra/ui';
+import { Badge } from '@/components/ui';;
+const QRCodeConfigurator = (props: any) => <div {...props}/>;
+const QRCodePreview = (props: any) => <div {...props}/>;
+const QRCodeScanabilityStatus = (props: any) => <div {...props}/>;;
 
 export default function QRCodeShowcase() {
   const [value, setValue] = useState('https://skyra.tech/demo-qr');

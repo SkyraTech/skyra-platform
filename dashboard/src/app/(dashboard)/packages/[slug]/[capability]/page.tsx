@@ -1,5 +1,6 @@
 ﻿import React from 'react';
-import { Card, Badge, Button } from '@skyra/ui';
+import { Card, Badge } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import { docsRegistry } from '../../../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../../../docs-system/bootstrap';
 import Link from 'next/link';

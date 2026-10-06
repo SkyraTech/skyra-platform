@@ -1,7 +1,8 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { Checkbox, CheckboxGroup } from '@skyra/ui';
+import { CheckboxGroup } from '@/components/ui';
+import '@skyra-tech-platform/checkbox';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 
 const PERMISSIONS = [
@@ -33,13 +34,13 @@ export default function CheckboxShowcasePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
           <DemoBlock title="Standard Checked / Unchecked">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Checkbox
+              <skyra-tech-checkbox
                 label="Enable Email Notifications"
                 description="Receive daily digest and invoice status updates"
                 checked={checked1}
                 onChange={(e) => setChecked1(e.target.checked)}
               />
-              <Checkbox
+              <skyra-tech-checkbox
                 label="Two-Factor Authentication Enforced"
                 checked={checked2}
                 onChange={(e) => setChecked2(e.target.checked)}
@@ -49,7 +50,7 @@ export default function CheckboxShowcasePage() {
 
           <DemoBlock title="Indeterminate (Tri-State)">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Checkbox
+              <skyra-tech-checkbox
                 label="Select All Items (Partial)"
                 description="Some children in the tree are selected"
                 checked={indeterminate}
@@ -71,16 +72,16 @@ export default function CheckboxShowcasePage() {
 
           <DemoBlock title="Disabled & Error States">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Checkbox
+              <skyra-tech-checkbox
                 label="Restricted Policy (Disabled Unchecked)"
                 disabled
               />
-              <Checkbox
+              <skyra-tech-checkbox
                 label="Compliance Required (Disabled Checked)"
                 checked
                 disabled
               />
-              <Checkbox
+              <skyra-tech-checkbox
                 label="Accept Terms & Conditions"
                 required
                 error="You must agree to the Terms of Service"

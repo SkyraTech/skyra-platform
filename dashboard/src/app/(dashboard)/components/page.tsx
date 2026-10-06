@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { ChevronRight, Layers } from 'lucide-react';
 
@@ -25,6 +25,13 @@ const COMPONENT_GROUPS = [
     ]
   },
   {
+    title: 'Layout',
+    description: 'Application scaffolding and structure.',
+    items: [
+      { href: '/components/app-shell', label: 'App Shell', desc: 'Framework-agnostic application layout component.', status: 'stable', tech: 'Web Component' },
+    ]
+  },
+  {
     title: 'Forms',
     description: 'Complex data entry and validation structures.',
     items: [
@@ -44,7 +51,7 @@ const COMPONENT_GROUPS = [
     title: 'Data Display',
     description: 'Complex data visualization and tabular display.',
     items: [
-      { href: '#', label: 'Data Table', desc: 'Virtualised data grid with sorting and filtering.', status: 'planned', tech: 'React' },
+      { href: '#', label: 'Data Table', desc: 'Virtualised data grid with sorting and filtering.', status: 'planned', tech: 'Web Component' },
     ]
   },
   {

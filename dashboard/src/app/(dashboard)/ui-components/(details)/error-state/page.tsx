@@ -1,18 +1,8 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import {
-  ErrorState,
-  ErrorStateIcon,
-  ErrorStateTitle,
-  ErrorStateDescription,
-  ErrorStateActions,
-  ErrorStateDetails,
-  Button,
-  Card,
-  Badge,
-  Spinner,
-} from '@skyra/ui';
+import { ErrorState, ErrorStateIcon, ErrorStateTitle, ErrorStateDescription, ErrorStateActions, ErrorStateDetails, Card, Badge, Spinner } from '@/components/ui';
+import '@skyra-tech-platform/button';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 
 export default function ErrorStateShowcasePage() {
@@ -54,9 +44,9 @@ export default function ErrorStateShowcasePage() {
                 <p style={{ fontSize: '0.85rem', color: 'var(--skyra-text-muted)', marginTop: '4px' }}>
                   The simulated network connection was restored.
                 </p>
-                <Button variant="outline" size="sm" onClick={handleReset} style={{ marginTop: '1rem' }}>
+                <skyra-tech-button variant="outline" size="sm" onClick={handleReset} style={{ marginTop: '1rem' }}>
                   Simulate Failure Again
-                </Button>
+                </skyra-tech-button>
               </div>
             ) : (
               <ErrorState variant="outline">
@@ -66,7 +56,7 @@ export default function ErrorStateShowcasePage() {
                   We were unable to establish a secure connection to the billing service. Please check your internet connection and try again.
                 </ErrorStateDescription>
                 <ErrorStateActions>
-                  <Button variant="primary" onClick={handleSimulatedRetry} disabled={isRetrying}>
+                  <skyra-tech-button variant="primary" onClick={handleSimulatedRetry} disabled={isRetrying}>
                     {isRetrying ? (
                       <>
                         <Spinner size="sm" style={{ marginRight: '6px' }} />
@@ -75,8 +65,8 @@ export default function ErrorStateShowcasePage() {
                     ) : (
                       'Try Again'
                     )}
-                  </Button>
-                  <Button variant="ghost">Report Issue</Button>
+                  </skyra-tech-button>
+                  <skyra-tech-button variant="ghost">Report Issue</skyra-tech-button>
                 </ErrorStateActions>
               </ErrorState>
             )}
@@ -90,7 +80,7 @@ export default function ErrorStateShowcasePage() {
                 The server encountered an unexpected error while preparing your export file.
               </ErrorStateDescription>
               <ErrorStateActions>
-                <Button variant="primary" onClick={() => {}}>Retry Export</Button>
+                <skyra-tech-button variant="primary" onClick={() => {}}>Retry Export</skyra-tech-button>
               </ErrorStateActions>
               <ErrorStateDetails
                 errorCode="ERR_STREAM_TERMINATED"
@@ -118,7 +108,7 @@ export default function ErrorStateShowcasePage() {
                   WebSocket connection dropped unexpectedly.
                 </ErrorStateDescription>
                 <ErrorStateActions>
-                  <Button variant="outline" size="sm">Reconnect</Button>
+                  <skyra-tech-button variant="outline" size="sm">Reconnect</skyra-tech-button>
                 </ErrorStateActions>
               </ErrorState>
             </Card>
@@ -132,7 +122,7 @@ export default function ErrorStateShowcasePage() {
                 You do not have administrative privileges to view or modify this ledger section.
               </ErrorStateDescription>
               <ErrorStateActions>
-                <Button variant="outline" size="sm">Request Access</Button>
+                <skyra-tech-button variant="outline" size="sm">Request Access</skyra-tech-button>
               </ErrorStateActions>
             </ErrorState>
           </DemoBlock>

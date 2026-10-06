@@ -1,7 +1,11 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { ExportButton, ExportMenu, Button, Input, Checkbox, DynamicSelect } from '@skyra/ui';
+import { ExportButton, ExportMenu } from '@/components/ui';
+import '@skyra-tech-platform/button';
+import '@skyra-tech-platform/input';
+import '@skyra-tech-platform/checkbox';
+import '@skyra-tech-platform/dynamic-select';;
 import { ExportFormat, ExportScope, ExportColumn } from '@skyra-tech-platform/data-export';
 
 const ALL_DATA = [
@@ -48,7 +52,7 @@ export function ExportWorkbench() {
           
           <div>
             <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.25rem', color: 'var(--skyra-text-muted)' }}>Export Format</label>
-            <DynamicSelect 
+            <skyra-tech-dynamic-select 
               value={{ value: format, label: format.toUpperCase() }} 
               onChange={(val: any) => setFormat(val?.value as ExportFormat)} 
               options={[
@@ -62,7 +66,7 @@ export function ExportWorkbench() {
 
           <div>
             <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.25rem', color: 'var(--skyra-text-muted)' }}>Dataset Scope</label>
-            <DynamicSelect 
+            <skyra-tech-dynamic-select 
               value={{ value: scope, label: scope === 'all' ? 'All Records' : scope === 'page' ? 'Current Page Only' : scope === 'filtered' ? 'Filtered Records' : 'Selected Records Only' }} 
               onChange={(val: any) => setScope(val?.value as ExportScope)} 
               options={[
@@ -76,7 +80,7 @@ export function ExportWorkbench() {
 
           <div>
             <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.25rem', color: 'var(--skyra-text-muted)' }}>Filename</label>
-            <Input value={filename} onChange={(e) => setFilename(e.target.value)} placeholder="export" />
+            <skyra-tech-input value={filename} onChange={(e) => setFilename(e.target.value)} placeholder="export" />
           </div>
         </div>
 
@@ -85,7 +89,7 @@ export function ExportWorkbench() {
           <h3 style={{ fontSize: '1rem', fontWeight: 600, margin: 0, color: 'var(--skyra-text)' }}>Columns</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             {ALL_COLUMNS.map((col) => (
-              <Checkbox
+              <skyra-tech-checkbox
                 key={col.key}
                 checked={selectedColumns.includes(col.key)}
                 onChange={(e) => {
@@ -104,16 +108,16 @@ export function ExportWorkbench() {
         {/* OPTIONS */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <h3 style={{ fontSize: '1rem', fontWeight: 600, margin: 0, color: 'var(--skyra-text)' }}>Export Options</h3>
-          <Checkbox checked={headers} onChange={(e) => setHeaders(e.target.checked)} label="Include Column Headers" />
+          <skyra-tech-checkbox checked={headers} onChange={(e) => setHeaders(e.target.checked)} label="Include Column Headers" />
           
           {format === 'csv' && (
             <>
-              <Checkbox checked={includeBom} onChange={(e) => setIncludeBom(e.target.checked)} label="Include UTF-8 BOM" />
-              <Checkbox checked={protectFormulas} onChange={(e) => setProtectFormulas(e.target.checked)} label="CSV Formula Protection" />
+              <skyra-tech-checkbox checked={includeBom} onChange={(e) => setIncludeBom(e.target.checked)} label="Include UTF-8 BOM" />
+              <skyra-tech-checkbox checked={protectFormulas} onChange={(e) => setProtectFormulas(e.target.checked)} label="CSV Formula Protection" />
               
               <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.25rem', color: 'var(--skyra-text-muted)' }}>CSV Delimiter</label>
-                <DynamicSelect 
+                <skyra-tech-dynamic-select 
                   value={{ value: delimiter, label: delimiter === ',' ? 'Comma (,)' : delimiter === ';' ? 'Semicolon (;)' : 'Pipe (|)' }} 
                   onChange={(val: any) => setDelimiter(val?.value || ',')} 
                   options={[
@@ -128,7 +132,7 @@ export function ExportWorkbench() {
 
           <div>
             <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.25rem', color: 'var(--skyra-text-muted)' }}>Null/Empty Representation</label>
-            <Input value={nullValue} onChange={(e) => setNullValue(e.target.value)} placeholder="Leave blank for standard" />
+            <skyra-tech-input value={nullValue} onChange={(e) => setNullValue(e.target.value)} placeholder="Leave blank for standard" />
           </div>
         </div>
       </div>

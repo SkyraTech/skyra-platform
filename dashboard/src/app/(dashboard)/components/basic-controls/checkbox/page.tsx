@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { Checkbox } from '@skyra/ui';
+import '@skyra-tech-platform/checkbox';;
 import { DocsLayout } from '@/components/docs/DocsLayout';
 import { DocsHeader } from '@/components/docs/DocsHeader';
 import { PackageMeta } from '@/components/docs/PackageMeta';
@@ -71,7 +71,7 @@ export default function CheckboxDocsPage() {
 
 <skyra-tech-checkbox label="Accept terms and conditions"></skyra-tech-checkbox>`}
       >
-        <Checkbox label="Accept terms and conditions" />
+        <skyra-tech-checkbox label="Accept terms and conditions" />
       </LiveExample>
 
       <HeadingAnchor id="examples">Examples</HeadingAnchor>
@@ -81,14 +81,14 @@ export default function CheckboxDocsPage() {
         language="tsx"
         title="States"
         description="Checkboxes can be checked, unchecked, or indeterminate."
-        code={`<Checkbox label="Checked" defaultChecked />
-<Checkbox label="Unchecked" />
-<Checkbox label="Indeterminate" indeterminate />`}
+        code={`<skyra-tech-checkbox label="Checked" defaultChecked />
+<skyra-tech-checkbox label="Unchecked" />
+<skyra-tech-checkbox label="Indeterminate" indeterminate />`}
       >
         <div className="flex flex-col gap-4">
-          <Checkbox label="Checked" defaultChecked />
-          <Checkbox label="Unchecked" />
-          <Checkbox label="Indeterminate" indeterminate />
+          <skyra-tech-checkbox label="Checked" defaultChecked />
+          <skyra-tech-checkbox label="Unchecked" />
+          <skyra-tech-checkbox label="Indeterminate" indeterminate />
         </div>
       </LiveExample>
 
@@ -97,14 +97,14 @@ export default function CheckboxDocsPage() {
         language="tsx"
         title="Disabled"
         description="Prevent user interaction."
-        code={`<Checkbox label="Disabled Unchecked" disabled />
-<Checkbox label="Disabled Checked" defaultChecked disabled />
-<Checkbox label="Disabled Indeterminate" indeterminate disabled />`}
+        code={`<skyra-tech-checkbox label="Disabled Unchecked" disabled />
+<skyra-tech-checkbox label="Disabled Checked" defaultChecked disabled />
+<skyra-tech-checkbox label="Disabled Indeterminate" indeterminate disabled />`}
       >
         <div className="flex flex-col gap-4">
-          <Checkbox label="Disabled Unchecked" disabled />
-          <Checkbox label="Disabled Checked" defaultChecked disabled />
-          <Checkbox label="Disabled Indeterminate" indeterminate disabled />
+          <skyra-tech-checkbox label="Disabled Unchecked" disabled />
+          <skyra-tech-checkbox label="Disabled Checked" defaultChecked disabled />
+          <skyra-tech-checkbox label="Disabled Indeterminate" indeterminate disabled />
         </div>
       </LiveExample>
 
@@ -113,12 +113,12 @@ export default function CheckboxDocsPage() {
         language="tsx"
         title="Helper & Error"
         description="Provide additional guidance or validation feedback."
-        code={`<Checkbox label="Subscribe" helper="We will never spam you." />
-<Checkbox label="Accept Terms" required error="You must accept the terms to proceed." />`}
+        code={`<skyra-tech-checkbox label="Subscribe" helper="We will never spam you." />
+<skyra-tech-checkbox label="Accept Terms" required error="You must accept the terms to proceed." />`}
       >
         <div className="flex flex-col gap-4">
-          <Checkbox label="Subscribe" helper="We will never spam you." />
-          <Checkbox label="Accept Terms" required error="You must accept the terms to proceed." />
+          <skyra-tech-checkbox label="Subscribe" helper="We will never spam you." />
+          <skyra-tech-checkbox label="Accept Terms" required error="You must accept the terms to proceed." />
         </div>
       </LiveExample>
 
@@ -223,9 +223,9 @@ export default function CheckboxDocsPage() {
       <HeadingAnchor id="responsive">Responsive Behavior</HeadingAnchor>
       <ResponsiveDemo 
         description="The Checkbox component is designed to wrap long text elegantly on small viewports while maintaining perfect alignment with the checkbox control itself. It uses Flexbox to ensure the control remains at the top rather than centering vertically. The touch target is a minimum of 44x44px for accessibility on mobile devices."
-        desktop={<Checkbox label="Standard desktop layout with a concise label." />}
-        mobile={<Checkbox label="Short label" />}
-        fullWidth={<Checkbox label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the checkbox." helper="The helper text also wraps to match the label." />}
+        desktop={<skyra-tech-checkbox label="Standard desktop layout with a concise label." />}
+        mobile={<skyra-tech-checkbox label="Short label" />}
+        fullWidth={<skyra-tech-checkbox label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the checkbox." helper="The helper text also wraps to match the label." />}
       />
 
       <HeadingAnchor id="related">Related Components</HeadingAnchor>
