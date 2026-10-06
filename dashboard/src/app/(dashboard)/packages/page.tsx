@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Card, Badge, Button } from '@skyra/ui';
 import { docsRegistry } from '../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../docs-system/bootstrap';
@@ -52,7 +52,7 @@ export default function PackagesPage() {
               <span style={{ fontSize: '0.75rem', color: 'var(--skyra-text-subtle)' }}>
                 {pkg.exports.length} export(s)
               </span>
-              <Link href={`/packages/${pkg.id.replace('@skyra/', '')}`} style={{ textDecoration: 'none' }}>
+              <Link href={`/packages/${pkg.id.split('/').pop()}`} style={{ textDecoration: 'none' }}>
                 <Button variant="outline" size="sm">
                   View Details
                 </Button>

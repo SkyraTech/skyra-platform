@@ -91,6 +91,10 @@ const NAV_GROUPS = [
       { href: '/design-system', label: 'Design System',        icon: Palette },
       { href: '/accessibility', label: 'Accessibility Studio', icon: Eye },
       { href: '/responsive',    label: 'Viewport Studio',      icon: Monitor },
+      { href: '/docs/design-tokens', label: 'Design Tokens',  icon: Palette },
+      { href: '/docs/utils',         label: 'Utils',           icon: WrapText },
+      { href: '/docs/validation',    label: 'Validation',      icon: FileText },
+      { href: '/docs/data-export',   label: 'Data Export',     icon: Download },
     ]
   },
   {

@@ -4,7 +4,7 @@ import { docsRegistry } from '../../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../../docs-system/bootstrap';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Package, ArrowLeft, Terminal, Box, PlayCircle, Code, History } from 'lucide-react';
+import { Package, ArrowLeft, Terminal, Box, PlayCircle, Code, History, BookOpen } from 'lucide-react';
 
 // Initialize the registry for SSR/SSG.
 bootstrapRegistry();
@@ -16,8 +16,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const pkg = docsRegistry.getPackages().find(p => p.id.endsWith(`/${params.slug}`));
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const pkg = docsRegistry.getPackages().find(p => p.id.endsWith(`/${slug}`));
   
   if (!pkg) {
     return { title: 'Package Not Found' };
@@ -26,19 +27,29 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   return { title: `${pkg.name} — Skyra Platform` };
 }
 
-export default function PackageDetailPage({ params }: { params: { slug: string } }) {
-  const pkg = docsRegistry.getPackages().find(p => p.id.endsWith(`/${params.slug}`));
+export default async function PackageDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const pkg = docsRegistry.getPackages().find(p => p.id.endsWith(`/${slug}`));
 
   if (!pkg) {
     notFound();
   }
   
-  const id = pkg.id;
+  const id = pkg!.id;
 
   const capabilities = docsRegistry.getCapabilitiesForPackage(id);
   const releases = docsRegistry.getReleases()
     .filter(r => r.packages.some(p => p.packageId === id))
     .reverse();
+
+  // Frozen packages with dedicated documentation pages
+  const DOCS_PAGES: Record<string, string> = {
+    'design-tokens': '/docs/design-tokens',
+    'utils':         '/docs/utils',
+    'validation':    '/docs/validation',
+    'data-export':   '/docs/data-export',
+  };
+  const docsHref = DOCS_PAGES[slug];
 
   return (
     <div className="dash-page" style={{ padding: '2rem 1rem', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -68,6 +79,13 @@ export default function PackageDetailPage({ params }: { params: { slug: string }
           <Badge variant="neutral">
             {pkg.runtime}
           </Badge>
+          {docsHref && (
+            <Link href={docsHref} style={{ textDecoration: 'none', marginLeft: 'auto' }}>
+              <Button variant="primary" size="sm" style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                <BookOpen size={14} /> View Documentation
+              </Button>
+            </Link>
+          )}
         </div>
         <p style={{ color: 'var(--skyra-text-muted)', fontSize: '1.125rem', maxWidth: '800px', margin: 0, lineHeight: 1.6 }}>
           {pkg.description || 'Core platform capability.'}
