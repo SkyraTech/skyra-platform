@@ -33,9 +33,9 @@
     "@skyra-tech-platform/notification": "workspace:*",
     "@skyra-tech-platform/toast": "workspace:*",
     "@skyra-tech-platform/qr": "workspace:*",
-    "@skyra/data-export": "workspace:*",
+    "@skyra-tech-platform/data-export": "workspace:*",
     "@skyra-tech-platform/design-tokens": "workspace:*",
-    "@skyra/utils": "workspace:*",
+    "@skyra-tech-platform/utils": "workspace:*",
     "pdfjs-dist": "4.10.38",
     "@skyra-tech-platform/dynamic-form": "workspace:*",
     "@skyra-tech-platform/data-table": "workspace:*"

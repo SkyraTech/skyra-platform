@@ -1,5 +1,5 @@
 /**
- * @skyra/utils — currency.ts
+ * @skyra-tech-platform/utils — currency.ts
  *
  * Pure TypeScript currency utilities.
  * Zero DOM / Zero React / Zero browser dependencies.

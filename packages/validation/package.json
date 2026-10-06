@@ -1,5 +1,5 @@
 {
-  "name": "@skyra/validation",
+  "name": "@skyra-tech-platform/validation",
   "version": "0.1.0",
   "description": "Skyra Platform authoritative Zod validation schemas — zero DOM/React/CSS dependencies",
   "type": "module",

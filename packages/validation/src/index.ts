@@ -1,5 +1,5 @@
 /**
- * @skyra/validation
+ * @skyra-tech-platform/validation
  *
  * Authoritative Zod validation schemas for the Skyra Platform.
  * Zero DOM / Zero React / Zero browser / Zero CSS dependencies.

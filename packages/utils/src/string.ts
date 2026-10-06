@@ -1,5 +1,5 @@
 /**
- * @skyra/utils — string.ts
+ * @skyra-tech-platform/utils — string.ts
  *
  * Pure TypeScript string utilities.
  * Zero DOM / Zero React / Zero browser dependencies.

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { ExportButton, ExportMenu, Button, Input, Checkbox, DynamicSelect } from '@skyra/ui';
-import { ExportFormat, ExportScope, ExportColumn } from '@skyra/data-export';
+import { ExportFormat, ExportScope, ExportColumn } from '@skyra-tech-platform/data-export';
 
 const ALL_DATA = [
   { id: 'TX-1001', customer: 'Acme Global Corp', amount: 14250.00, status: 'Paid', date: '2026-09-01' },

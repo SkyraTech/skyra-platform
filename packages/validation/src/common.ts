@@ -1,5 +1,5 @@
 /**
- * @skyra/validation — common.ts
+ * @skyra-tech-platform/validation — common.ts
  *
  * Authoritative Zod schemas for common field types.
  * Zero DOM / Zero React / Zero browser dependencies.

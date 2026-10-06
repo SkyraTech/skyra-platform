@@ -1,4 +1,4 @@
-# @skyra/validation
+# @skyra-tech-platform/validation
 
 ## Overview
 Skyra Platform authoritative Zod validation schemas — zero DOM/React/CSS dependencies. Used for validating common platform data shapes.
@@ -8,7 +8,7 @@ Runtime-neutral (Node.js / Browser)
 
 ## Installation
 ```bash
-pnpm add @skyra/validation
+pnpm add @skyra-tech-platform/validation
 ```
 
 ## Public API
@@ -16,7 +16,7 @@ pnpm add @skyra/validation
 
 ## Basic Usage
 ```ts
-import { emailSchema } from '@skyra/validation';
+import { emailSchema } from '@skyra-tech-platform/validation';
 
 const result = emailSchema.safeParse('test@skyra.tech');
 ```

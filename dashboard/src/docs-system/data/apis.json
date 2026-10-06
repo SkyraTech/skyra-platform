@@ -1,691 +1,10 @@
 [
   {
-    "id": "@skyra/app-shell::ApplicationShell",
-    "name": "ApplicationShell",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare const ApplicationShell: React.FC<ApplicationShellProps>",
-    "properties": [
-      {
-        "name": "children",
-        "type": "React.ReactNode",
-        "required": true,
-        "description": "The content of the application, usually consisting of Sidebar, Header, and MainContent"
-      },
-      {
-        "name": "defaultCollapsed",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": "Initial collapsed state on desktop"
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Optional class name"
-      },
-      {
-        "name": "style",
-        "type": "React.CSSProperties | undefined",
-        "required": false,
-        "description": "Optional inline styles"
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::ApplicationShellProps",
-    "name": "ApplicationShellProps",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "children",
-        "type": "React.ReactNode",
-        "required": true,
-        "description": "The content of the application, usually consisting of Sidebar, Header, and MainContent"
-      },
-      {
-        "name": "defaultCollapsed",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": "Initial collapsed state on desktop"
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Optional class name"
-      },
-      {
-        "name": "style",
-        "type": "React.CSSProperties | undefined",
-        "required": false,
-        "description": "Optional inline styles"
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::Header",
-    "name": "Header",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare const Header: React.FC<HeaderProps>",
-    "properties": [
-      {
-        "name": "children",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "leftNode",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": "Component to render the left region (often title or toggle)"
-      },
-      {
-        "name": "centerNode",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": "Component to render in the center (often breadcrumbs or search)"
-      },
-      {
-        "name": "rightNode",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": "Component to render on the right (often actions/profile)"
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "style",
-        "type": "React.CSSProperties | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::HeaderProps",
-    "name": "HeaderProps",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "children",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "leftNode",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": "Component to render the left region (often title or toggle)"
-      },
-      {
-        "name": "centerNode",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": "Component to render in the center (often breadcrumbs or search)"
-      },
-      {
-        "name": "rightNode",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": "Component to render on the right (often actions/profile)"
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "style",
-        "type": "React.CSSProperties | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::MainContent",
-    "name": "MainContent",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare const MainContent: React.FC<MainContentProps>",
-    "properties": [
-      {
-        "name": "children",
-        "type": "React.ReactNode",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "id",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "style",
-        "type": "React.CSSProperties | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::MainContentProps",
-    "name": "MainContentProps",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "children",
-        "type": "React.ReactNode",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "id",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "style",
-        "type": "React.CSSProperties | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::ShellContextValue",
-    "name": "ShellContextValue",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "isCollapsed",
-        "type": "boolean",
-        "required": true,
-        "description": "True if sidebar is collapsed on desktop"
-      },
-      {
-        "name": "setCollapsed",
-        "type": "(collapsed: boolean | ((prev: boolean) => boolean)) => void",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "isMobileOpen",
-        "type": "boolean",
-        "required": true,
-        "description": "True if sidebar is open on mobile"
-      },
-      {
-        "name": "setMobileOpen",
-        "type": "(open: boolean | ((prev: boolean) => boolean)) => void",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "isMobile",
-        "type": "boolean",
-        "required": true,
-        "description": "True if the viewport is currently < 768px"
-      },
-      {
-        "name": "toggleSidebar",
-        "type": "() => void",
-        "required": true,
-        "description": "Toggles the sidebar on desktop, or opens the drawer on mobile"
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::ShellProvider",
-    "name": "ShellProvider",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare const ShellProvider: React.FC<ShellProviderProps>",
-    "properties": [
-      {
-        "name": "children",
-        "type": "React.ReactNode",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "defaultCollapsed",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::ShellProviderProps",
-    "name": "ShellProviderProps",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "children",
-        "type": "React.ReactNode",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "defaultCollapsed",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::Sidebar",
-    "name": "Sidebar",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare const Sidebar: React.FC<SidebarProps>",
-    "properties": [
-      {
-        "name": "children",
-        "type": "React.ReactNode",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "id",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Custom ID for the sidebar (useful for aria-controls)"
-      },
-      {
-        "name": "'aria-label'",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Accessible label for the sidebar"
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "style",
-        "type": "React.CSSProperties | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::SidebarFooter",
-    "name": "SidebarFooter",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function SidebarFooter(",
-    "properties": [
-      {
-        "name": "{ children, className, style }",
-        "type": "{ children: ReactNode; className?: string; style?: React.CSSProperties; }",
-        "required": true,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::SidebarHeader",
-    "name": "SidebarHeader",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function SidebarHeader(",
-    "properties": [
-      {
-        "name": "{ children, className, style }",
-        "type": "{ children: ReactNode; className?: string; style?: React.CSSProperties; }",
-        "required": true,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::SidebarItem",
-    "name": "SidebarItem",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare const SidebarItem: React.FC<SidebarItemProps>",
-    "properties": [
-      {
-        "name": "icon",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "label",
-        "type": "string",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "active",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "disabled",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "badge",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "as",
-        "type": "React.ElementType<any, keyof React.JSX.IntrinsicElements> | undefined",
-        "required": false,
-        "description": "Render prop or slot approach if consumers want to use Next.js <Link> or router"
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::SidebarItemProps",
-    "name": "SidebarItemProps",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "icon",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "label",
-        "type": "string",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "active",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "disabled",
-        "type": "boolean | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "badge",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "as",
-        "type": "React.ElementType<any, keyof React.JSX.IntrinsicElements> | undefined",
-        "required": false,
-        "description": "Render prop or slot approach if consumers want to use Next.js <Link> or router"
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::SidebarNavigation",
-    "name": "SidebarNavigation",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function SidebarNavigation(",
-    "properties": [
-      {
-        "name": "{ children, className, style }",
-        "type": "{ children: ReactNode; className?: string; style?: React.CSSProperties; }",
-        "required": true,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::SidebarProps",
-    "name": "SidebarProps",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "interface",
-    "description": "",
-    "status": "stable",
-    "properties": [
-      {
-        "name": "children",
-        "type": "React.ReactNode",
-        "required": true,
-        "description": ""
-      },
-      {
-        "name": "id",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Custom ID for the sidebar (useful for aria-controls)"
-      },
-      {
-        "name": "'aria-label'",
-        "type": "string | undefined",
-        "required": false,
-        "description": "Accessible label for the sidebar"
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false,
-        "description": ""
-      },
-      {
-        "name": "style",
-        "type": "React.CSSProperties | undefined",
-        "required": false,
-        "description": ""
-      }
-    ],
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::SidebarSection",
-    "name": "SidebarSection",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function SidebarSection(",
-    "properties": [
-      {
-        "name": "{ children, title, className, style }",
-        "type": "{ children: ReactNode; title?: string; className?: string; style?: React.CSSProperties; }",
-        "required": true,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::SidebarToggle",
-    "name": "SidebarToggle",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "component",
-    "description": "Pre-built toggle button to place in the header leftNode",
-    "status": "stable",
-    "signature": "declare function SidebarToggle(",
-    "properties": [
-      {
-        "name": "{ iconDesktop, iconMobile, className, style, }",
-        "type": "{ iconDesktop?: ReactNode; iconMobile?: ReactNode; className?: string; style?: React.CSSProperties; }",
-        "required": true,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::SkipLink",
-    "name": "SkipLink",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "component",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function SkipLink(",
-    "properties": [
-      {
-        "name": "{ targetId, label }",
-        "type": "{ targetId?: string; label?: string; }",
-        "required": true,
-        "description": ""
-      }
-    ],
-    "returnType": "React.JSX.Element",
-    "related": []
-  },
-  {
-    "id": "@skyra/app-shell::useShell",
-    "name": "useShell",
-    "packageId": "@skyra/app-shell",
-    "capabilityId": "app-shell/layout",
-    "exportPath": "@skyra/app-shell",
-    "kind": "function",
-    "description": "",
-    "status": "stable",
-    "signature": "declare function useShell(): ShellContextValue;",
-    "properties": [],
-    "returnType": "ShellContextValue",
-    "related": []
-  },
-  {
-    "id": "@skyra/data-export::BaseExportOptions",
+    "id": "@skyra-tech-platform/data-export::BaseExportOptions",
     "name": "BaseExportOptions",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -712,11 +31,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::CsvDownloadOptions",
+    "id": "@skyra-tech-platform/data-export::CsvDownloadOptions",
     "name": "CsvDownloadOptions",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -731,11 +50,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::CsvExportOptions",
+    "id": "@skyra-tech-platform/data-export::CsvExportOptions",
     "name": "CsvExportOptions",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -768,11 +87,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::ExcelDownloadOptions",
+    "id": "@skyra-tech-platform/data-export::ExcelDownloadOptions",
     "name": "ExcelDownloadOptions",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -787,11 +106,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::ExcelExportOptions",
+    "id": "@skyra-tech-platform/data-export::ExcelExportOptions",
     "name": "ExcelExportOptions",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -812,11 +131,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::ExcelSheetConfig",
+    "id": "@skyra-tech-platform/data-export::ExcelSheetConfig",
     "name": "ExcelSheetConfig",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -843,11 +162,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::ExportColumn",
+    "id": "@skyra-tech-platform/data-export::ExportColumn",
     "name": "ExportColumn",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -880,11 +199,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::ExportFormat",
+    "id": "@skyra-tech-platform/data-export::ExportFormat",
     "name": "ExportFormat",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -893,11 +212,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::ExportScope",
+    "id": "@skyra-tech-platform/data-export::ExportScope",
     "name": "ExportScope",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -906,11 +225,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::JsonDownloadOptions",
+    "id": "@skyra-tech-platform/data-export::JsonDownloadOptions",
     "name": "JsonDownloadOptions",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -925,11 +244,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::JsonExportOptions",
+    "id": "@skyra-tech-platform/data-export::JsonExportOptions",
     "name": "JsonExportOptions",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -944,11 +263,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::TsvDownloadOptions",
+    "id": "@skyra-tech-platform/data-export::TsvDownloadOptions",
     "name": "TsvDownloadOptions",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -963,11 +282,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::TsvExportOptions",
+    "id": "@skyra-tech-platform/data-export::TsvExportOptions",
     "name": "TsvExportOptions",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -975,11 +294,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::downloadCsv",
+    "id": "@skyra-tech-platform/data-export::downloadCsv",
     "name": "downloadCsv",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "function",
     "description": "Triggers browser download of CSV data.",
     "status": "stable",
@@ -1002,11 +321,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::downloadExcel",
+    "id": "@skyra-tech-platform/data-export::downloadExcel",
     "name": "downloadExcel",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "function",
     "description": "Triggers browser download of Excel spreadsheet.",
     "status": "stable",
@@ -1029,11 +348,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::downloadJson",
+    "id": "@skyra-tech-platform/data-export::downloadJson",
     "name": "downloadJson",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "function",
     "description": "Triggers browser download of JSON data.",
     "status": "stable",
@@ -1056,11 +375,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::downloadTsv",
+    "id": "@skyra-tech-platform/data-export::downloadTsv",
     "name": "downloadTsv",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "function",
     "description": "Triggers browser download of TSV data.",
     "status": "stable",
@@ -1083,11 +402,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::escapeCsvCell",
+    "id": "@skyra-tech-platform/data-export::escapeCsvCell",
     "name": "escapeCsvCell",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "function",
     "description": "Escapes a single cell value for CSV formatting.\nQuotes containing strings, strings with delimiter, or newlines are wrapped in quotes.\nOptional protection against CSV formula injection.",
     "status": "stable",
@@ -1122,11 +441,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::exportToCsv",
+    "id": "@skyra-tech-platform/data-export::exportToCsv",
     "name": "exportToCsv",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "function",
     "description": "Pure CSV string generator.",
     "status": "stable",
@@ -1149,11 +468,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::exportToExcel",
+    "id": "@skyra-tech-platform/data-export::exportToExcel",
     "name": "exportToExcel",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -1161,11 +480,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::exportToExcelXml",
+    "id": "@skyra-tech-platform/data-export::exportToExcelXml",
     "name": "exportToExcelXml",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "function",
     "description": "Pure XML Spreadsheet 2003 string generator.\nProduces structured Excel files with formatting, header styles, and typed cells.",
     "status": "stable",
@@ -1188,11 +507,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::exportToJson",
+    "id": "@skyra-tech-platform/data-export::exportToJson",
     "name": "exportToJson",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "function",
     "description": "Pure JSON string generator.",
     "status": "stable",
@@ -1215,11 +534,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::exportToTsv",
+    "id": "@skyra-tech-platform/data-export::exportToTsv",
     "name": "exportToTsv",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "function",
     "description": "Pure TSV string generator.\nSimply calls exportToCsv with tab delimiter.",
     "status": "stable",
@@ -1242,11 +561,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::formatDate",
+    "id": "@skyra-tech-platform/data-export::formatDate",
     "name": "formatDate",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "function",
     "description": "",
     "status": "stable",
@@ -1269,11 +588,11 @@
     "related": []
   },
   {
-    "id": "@skyra/data-export::generateExcelXml",
+    "id": "@skyra-tech-platform/data-export::generateExcelXml",
     "name": "generateExcelXml",
-    "packageId": "@skyra/data-export",
+    "packageId": "@skyra-tech-platform/data-export",
     "capabilityId": "data-export/csv",
-    "exportPath": "@skyra/data-export",
+    "exportPath": "@skyra-tech-platform/data-export",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -17757,11 +17076,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::CURRENCY_CONFIGS",
+    "id": "@skyra-tech-platform/utils::CURRENCY_CONFIGS",
     "name": "CURRENCY_CONFIGS",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -17769,11 +17088,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::CommandLike",
+    "id": "@skyra-tech-platform/utils::CommandLike",
     "name": "CommandLike",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -17824,11 +17143,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::CurrencyConfig",
+    "id": "@skyra-tech-platform/utils::CurrencyConfig",
     "name": "CurrencyConfig",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -17861,11 +17180,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::DateInput",
+    "id": "@skyra-tech-platform/utils::DateInput",
     "name": "DateInput",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -17874,11 +17193,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::KeyboardEventLike",
+    "id": "@skyra-tech-platform/utils::KeyboardEventLike",
     "name": "KeyboardEventLike",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -17923,11 +17242,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::ModifierKey",
+    "id": "@skyra-tech-platform/utils::ModifierKey",
     "name": "ModifierKey",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -17936,11 +17255,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::ScoredCommand",
+    "id": "@skyra-tech-platform/utils::ScoredCommand",
     "name": "ScoredCommand",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -17961,11 +17280,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::ShortcutConflict",
+    "id": "@skyra-tech-platform/utils::ShortcutConflict",
     "name": "ShortcutConflict",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "interface",
     "description": "Validates a list of shortcut definitions and reports duplicate / conflicting keybindings.",
     "status": "stable",
@@ -17986,11 +17305,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::ShortcutDescriptor",
+    "id": "@skyra-tech-platform/utils::ShortcutDescriptor",
     "name": "ShortcutDescriptor",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "interface",
     "description": "",
     "status": "stable",
@@ -18047,11 +17366,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::SupportedCurrency",
+    "id": "@skyra-tech-platform/utils::SupportedCurrency",
     "name": "SupportedCurrency",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -18060,11 +17379,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::addDays",
+    "id": "@skyra-tech-platform/utils::addDays",
     "name": "addDays",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Add days to a date and return a new Date.",
     "status": "stable",
@@ -18087,11 +17406,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::amountInWords",
+    "id": "@skyra-tech-platform/utils::amountInWords",
     "name": "amountInWords",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Convert a numeric amount to words (Indian numbering system for INR).\nUsed for invoice amount-in-words display.",
     "status": "stable",
@@ -18114,11 +17433,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::capitalize",
+    "id": "@skyra-tech-platform/utils::capitalize",
     "name": "capitalize",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Capitalize the first letter of a string.",
     "status": "stable",
@@ -18135,11 +17454,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::detectShortcutConflicts",
+    "id": "@skyra-tech-platform/utils::detectShortcutConflicts",
     "name": "detectShortcutConflicts",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "",
     "status": "stable",
@@ -18156,11 +17475,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::filterCommands",
+    "id": "@skyra-tech-platform/utils::filterCommands",
     "name": "filterCommands",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Deterministic command search filter.\nReturns filtered and sorted list of commands matching the query.\n\nScoring rules:\n- Exact label match: 100\n- Label starts with query: 80\n- Label contains word starting with query: 60\n- Label contains query substring: 40\n- Exact keyword match: 50\n- Keyword starts with query: 35\n- Description contains query: 20",
     "status": "stable",
@@ -18183,11 +17502,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::formatCurrency",
+    "id": "@skyra-tech-platform/utils::formatCurrency",
     "name": "formatCurrency",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Format a numeric amount as a locale-aware currency string.",
     "status": "stable",
@@ -18216,11 +17535,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::formatDate",
+    "id": "@skyra-tech-platform/utils::formatDate",
     "name": "formatDate",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Format a date as a locale-aware display string.",
     "status": "stable",
@@ -18243,11 +17562,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::formatRelativeTime",
+    "id": "@skyra-tech-platform/utils::formatRelativeTime",
     "name": "formatRelativeTime",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Return a relative time string (e.g. \"3 days ago\", \"in 2 hours\").",
     "status": "stable",
@@ -18270,11 +17589,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::formatShortcut",
+    "id": "@skyra-tech-platform/utils::formatShortcut",
     "name": "formatShortcut",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Formats a shortcut for human-readable display on specific platform (mac vs windows/linux).\nSafe for SSR (defaults to standard readable cross-platform format if platform is undefined).",
     "status": "stable",
@@ -18297,11 +17616,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::getInitials",
+    "id": "@skyra-tech-platform/utils::getInitials",
     "name": "getInitials",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Generate a user's initials from a full name (max 2 letters).",
     "status": "stable",
@@ -18324,11 +17643,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::isInputElement",
+    "id": "@skyra-tech-platform/utils::isInputElement",
     "name": "isInputElement",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Detects if a DOM node or event target is an interactive text input element.",
     "status": "stable",
@@ -18345,11 +17664,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::isPast",
+    "id": "@skyra-tech-platform/utils::isPast",
     "name": "isPast",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Return whether a date is in the past (before now).",
     "status": "stable",
@@ -18366,11 +17685,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::isToday",
+    "id": "@skyra-tech-platform/utils::isToday",
     "name": "isToday",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Return whether a date is today.",
     "status": "stable",
@@ -18387,11 +17706,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::isValidEmail",
+    "id": "@skyra-tech-platform/utils::isValidEmail",
     "name": "isValidEmail",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Check if a string is a valid email address (basic RFC pattern).",
     "status": "stable",
@@ -18408,11 +17727,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::maskString",
+    "id": "@skyra-tech-platform/utils::maskString",
     "name": "maskString",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Mask a string, showing only the last N characters.\nUseful for API keys, account numbers.",
     "status": "stable",
@@ -18441,11 +17760,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::matchesShortcutKey",
+    "id": "@skyra-tech-platform/utils::matchesShortcutKey",
     "name": "matchesShortcutKey",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Matches a KeyboardEvent against a shortcut string.\nAccounts for platform-neutral mod (Cmd on Mac, Ctrl on Win/Linux).",
     "status": "stable",
@@ -18474,11 +17793,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::normalizePhone",
+    "id": "@skyra-tech-platform/utils::normalizePhone",
     "name": "normalizePhone",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Normalize a phone number to digits only.",
     "status": "stable",
@@ -18495,11 +17814,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::normalizeShortcut",
+    "id": "@skyra-tech-platform/utils::normalizeShortcut",
     "name": "normalizeShortcut",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Normalizes a shortcut string to a standard canonical format.\nExample: 'Cmd + Shift + P' -> 'mod+shift+p'",
     "status": "stable",
@@ -18516,11 +17835,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::normalizeWhitespace",
+    "id": "@skyra-tech-platform/utils::normalizeWhitespace",
     "name": "normalizeWhitespace",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Remove leading/trailing whitespace and collapse internal whitespace.",
     "status": "stable",
@@ -18537,11 +17856,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::parseMoney",
+    "id": "@skyra-tech-platform/utils::parseMoney",
     "name": "parseMoney",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Safely parse a string or number into a finite monetary value.\nReturns 0 for invalid inputs.",
     "status": "stable",
@@ -18558,11 +17877,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::parseShortcut",
+    "id": "@skyra-tech-platform/utils::parseShortcut",
     "name": "parseShortcut",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Parses a shortcut string into a structured descriptor.",
     "status": "stable",
@@ -18579,11 +17898,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::roundMoney",
+    "id": "@skyra-tech-platform/utils::roundMoney",
     "name": "roundMoney",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Round a monetary value to avoid floating-point artifacts.\nUses banker's rounding (rounds half to even) for precision.",
     "status": "stable",
@@ -18606,11 +17925,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::simpleId",
+    "id": "@skyra-tech-platform/utils::simpleId",
     "name": "simpleId",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Generate a simple unique ID string (not cryptographically secure).\nUse nanoid for crypto-grade IDs in production.",
     "status": "stable",
@@ -18633,11 +17952,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::startOfDay",
+    "id": "@skyra-tech-platform/utils::startOfDay",
     "name": "startOfDay",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Return the start of a day (midnight UTC).",
     "status": "stable",
@@ -18654,11 +17973,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::toISODate",
+    "id": "@skyra-tech-platform/utils::toISODate",
     "name": "toISODate",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Format a date as ISO 8601 date string (YYYY-MM-DD).",
     "status": "stable",
@@ -18675,11 +17994,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::toSlug",
+    "id": "@skyra-tech-platform/utils::toSlug",
     "name": "toSlug",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Convert a string to a URL-safe slug.",
     "status": "stable",
@@ -18696,11 +18015,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::toTitleCase",
+    "id": "@skyra-tech-platform/utils::toTitleCase",
     "name": "toTitleCase",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "Convert a string to title case.",
     "status": "stable",
@@ -18717,11 +18036,11 @@
     "related": []
   },
   {
-    "id": "@skyra/utils::truncate",
+    "id": "@skyra-tech-platform/utils::truncate",
     "name": "truncate",
-    "packageId": "@skyra/utils",
+    "packageId": "@skyra-tech-platform/utils",
     "capabilityId": "utils/core",
-    "exportPath": "@skyra/utils",
+    "exportPath": "@skyra-tech-platform/utils",
     "kind": "function",
     "description": "",
     "status": "stable",
@@ -18750,11 +18069,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::AddressInput",
+    "id": "@skyra-tech-platform/validation::AddressInput",
     "name": "AddressInput",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -18763,11 +18082,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::BankAccountInput",
+    "id": "@skyra-tech-platform/validation::BankAccountInput",
     "name": "BankAccountInput",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -18776,11 +18095,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::ClientInput",
+    "id": "@skyra-tech-platform/validation::ClientInput",
     "name": "ClientInput",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -18789,11 +18108,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::OrgInput",
+    "id": "@skyra-tech-platform/validation::OrgInput",
     "name": "OrgInput",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -18802,11 +18121,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::OrgUpdateInput",
+    "id": "@skyra-tech-platform/validation::OrgUpdateInput",
     "name": "OrgUpdateInput",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -18815,11 +18134,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::UserProfileInput",
+    "id": "@skyra-tech-platform/validation::UserProfileInput",
     "name": "UserProfileInput",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "type",
     "description": "",
     "status": "stable",
@@ -18828,11 +18147,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::addressSchema",
+    "id": "@skyra-tech-platform/validation::addressSchema",
     "name": "addressSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18840,11 +18159,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::bankAccountSchema",
+    "id": "@skyra-tech-platform/validation::bankAccountSchema",
     "name": "bankAccountSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18852,11 +18171,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::clientSchema",
+    "id": "@skyra-tech-platform/validation::clientSchema",
     "name": "clientSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18864,11 +18183,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::currencyCodeSchema",
+    "id": "@skyra-tech-platform/validation::currencyCodeSchema",
     "name": "currencyCodeSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18876,11 +18195,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::emailSchema",
+    "id": "@skyra-tech-platform/validation::emailSchema",
     "name": "emailSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18888,11 +18207,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::gstinSchema",
+    "id": "@skyra-tech-platform/validation::gstinSchema",
     "name": "gstinSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18900,11 +18219,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::hexColorSchema",
+    "id": "@skyra-tech-platform/validation::hexColorSchema",
     "name": "hexColorSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18912,11 +18231,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::isoDateSchema",
+    "id": "@skyra-tech-platform/validation::isoDateSchema",
     "name": "isoDateSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18924,11 +18243,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::longTextSchema",
+    "id": "@skyra-tech-platform/validation::longTextSchema",
     "name": "longTextSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18936,11 +18255,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::nameSchema",
+    "id": "@skyra-tech-platform/validation::nameSchema",
     "name": "nameSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18948,11 +18267,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::nonNegativeIntSchema",
+    "id": "@skyra-tech-platform/validation::nonNegativeIntSchema",
     "name": "nonNegativeIntSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18960,11 +18279,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::orgSchema",
+    "id": "@skyra-tech-platform/validation::orgSchema",
     "name": "orgSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18972,11 +18291,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::panSchema",
+    "id": "@skyra-tech-platform/validation::panSchema",
     "name": "panSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18984,11 +18303,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::percentageSchema",
+    "id": "@skyra-tech-platform/validation::percentageSchema",
     "name": "percentageSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -18996,11 +18315,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::phoneSchema",
+    "id": "@skyra-tech-platform/validation::phoneSchema",
     "name": "phoneSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -19008,11 +18327,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::pinCodeSchema",
+    "id": "@skyra-tech-platform/validation::pinCodeSchema",
     "name": "pinCodeSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -19020,11 +18339,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::positiveAmountSchema",
+    "id": "@skyra-tech-platform/validation::positiveAmountSchema",
     "name": "positiveAmountSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -19032,11 +18351,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::shortTextSchema",
+    "id": "@skyra-tech-platform/validation::shortTextSchema",
     "name": "shortTextSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -19044,11 +18363,11 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::urlSchema",
+    "id": "@skyra-tech-platform/validation::urlSchema",
     "name": "urlSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
@@ -19056,15 +18375,42 @@
     "related": []
   },
   {
-    "id": "@skyra/validation::userProfileSchema",
+    "id": "@skyra-tech-platform/validation::userProfileSchema",
     "name": "userProfileSchema",
-    "packageId": "@skyra/validation",
+    "packageId": "@skyra-tech-platform/validation",
     "capabilityId": "validation/core",
-    "exportPath": "@skyra/validation",
+    "exportPath": "@skyra-tech-platform/validation",
     "kind": "constant",
     "description": "",
     "status": "stable",
     "properties": [],
+    "related": []
+  },
+  {
+    "id": "@skyra-tech-platform/app-shell::skyra-tech-app-shell",
+    "name": "skyra-tech-app-shell",
+    "packageId": "@skyra-tech-platform/app-shell",
+    "capabilityId": "app-shell/layout",
+    "exportPath": "@skyra-tech-platform/app-shell",
+    "kind": "component",
+    "description": "Framework-agnostic Web Component for application layout.",
+    "status": "stable",
+    "signature": "class SkyraAppShell extends HTMLElement",
+    "properties": [
+      {
+        "name": "collapsed",
+        "type": "boolean",
+        "required": false,
+        "description": "Controls whether the sidebar is collapsed on desktop."
+      },
+      {
+        "name": "mobile-open",
+        "type": "boolean",
+        "required": false,
+        "description": "Controls whether the sidebar drawer is open on mobile viewports."
+      }
+    ],
+    "returnType": "HTMLElement",
     "related": []
   }
 ]

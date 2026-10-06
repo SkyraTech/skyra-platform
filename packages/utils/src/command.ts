@@ -1,5 +1,5 @@
 /**
- * @skyra/utils — Command Search and Filtering
+ * @skyra-tech-platform/utils — Command Search and Filtering
  *
  * Pure TypeScript deterministic search algorithm for command items.
  * Evaluates label, description, and keywords with scoring.

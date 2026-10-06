@@ -49,8 +49,8 @@ Migration must NEVER:
 
 ```
 Step 1: @skyra-tech-platform/design-tokens
-Step 2: @skyra/utils
-Step 3: @skyra/validation
+Step 2: @skyra-tech-platform/utils
+Step 3: @skyra-tech-platform/validation
 Step 4: @skyra/ui
 Step 5: @skyra/data-table
 Step 6: @skyra/dynamic-form
@@ -89,13 +89,13 @@ Step 8: @skyra/invoice
 
 ---
 
-### Step 2: `@skyra/utils` (Low Risk)
+### Step 2: `@skyra-tech-platform/utils` (Low Risk)
 
 **What Changes:**
-- Replace local utility files with imports from `@skyra/utils`:
-  - `src/lib/utils/amountInWords.ts` → `import { amountInWords } from '@skyra/utils'`
-  - `src/lib/utils/geoUtils.ts` → `import { geoData, getStatesByCountry } from '@skyra/utils'`
-  - `src/lib/dialCodes.ts` → `import { dialCodes } from '@skyra/utils'`
+- Replace local utility files with imports from `@skyra-tech-platform/utils`:
+  - `src/lib/utils/amountInWords.ts` → `import { amountInWords } from '@skyra-tech-platform/utils'`
+  - `src/lib/utils/geoUtils.ts` → `import { geoData, getStatesByCountry } from '@skyra-tech-platform/utils'`
+  - `src/lib/dialCodes.ts` → `import { dialCodes } from '@skyra-tech-platform/utils'`
 - Delete superseded local files after import verification.
 
 **Dashboard Verification:**
@@ -110,13 +110,13 @@ Step 8: @skyra/invoice
 
 ---
 
-### Step 3: `@skyra/validation` (Low Risk)
+### Step 3: `@skyra-tech-platform/validation` (Low Risk)
 
 **What Changes:**
 - Replace local validation schemas:
-  - `src/lib/validations/invoice.ts` → imports from `@skyra/validation`
-  - `src/lib/validations/organization.ts` → imports from `@skyra/validation`
-  - `src/lib/validations/bank.ts` → imports from `@skyra/validation`
+  - `src/lib/validations/invoice.ts` → imports from `@skyra-tech-platform/validation`
+  - `src/lib/validations/organization.ts` → imports from `@skyra-tech-platform/validation`
+  - `src/lib/validations/bank.ts` → imports from `@skyra-tech-platform/validation`
 
 **Dashboard Verification:**
 - Test all Zod schemas in Validation Studio with valid and invalid payloads.
@@ -300,7 +300,7 @@ Before any migration PR is merged:
 When bootstrapping a new Skyra product (CRM, Billing):
 
 ```bash
-pnpm add @skyra-tech-platform/design-tokens @skyra/utils @skyra/validation @skyra/ui @skyra/data-table @skyra/dynamic-form @skyra/dialogs
+pnpm add @skyra-tech-platform/design-tokens @skyra-tech-platform/utils @skyra-tech-platform/validation @skyra/ui @skyra/data-table @skyra/dynamic-form @skyra/dialogs
 # Add @skyra/invoice only if invoice functionality is required
 ```
 

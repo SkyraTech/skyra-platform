@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { processTableData } from '@skyra-tech-platform/data-table';
 import { DataTable, ColumnDef, useDataTableState, StatusBadge, StatusConfig, Button } from '@skyra/ui';
-import { downloadCsv } from '@skyra/data-export';
+import { downloadCsv } from '@skyra-tech-platform/data-export';
 import { MOCK_TRANSACTIONS, MockTransaction } from '@/components/demos/MockData';
 import { Eye, Edit, Trash2, Download, RefreshCw, AlertCircle } from 'lucide-react';
 

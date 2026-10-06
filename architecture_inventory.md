@@ -4,17 +4,17 @@
 | Package Path | Package Name | Purpose | Framework Dependency | Status | Target Architecture |
 |---|---|---|---|---|---|
 | `dashboard/` | `dashboard` | Showcase / QA App | Next.js, React | Compliant | Category D (Application) |
-| `packages/app-shell` | `@skyra/app-shell` | Layout Scaffold | React | Compliant | Category C (Adapter) |
+| `packages/app-shell` | `@skyra-tech-platform/app-shell` | Layout Scaffold | React | Compliant | Category C (Adapter) |
 | `packages/dialogs` | `@skyra/dialogs` | Dialog Adapters | React | Compliant | Category C (Adapter) |
 | `packages/ui` | `@skyra/ui` | UI Adapters | React | Compliant | Category C (Adapter) |
 
 ## 2. Pure Framework-Agnostic Utilities (No UI / No React)
 | Package Path | Package Name | Purpose | Framework Dependency | Status | Target Architecture |
 |---|---|---|---|---|---|
-| `packages/data-export` | `@skyra/data-export` | CSV/Excel Export | None | Compliant | Category A (Pure TS) |
+| `packages/data-export` | `@skyra-tech-platform/data-export` | CSV/Excel Export | None | Compliant | Category A (Pure TS) |
 | `packages/design-tokens` | `@skyra-tech-platform/design-tokens` | CSS Variables | None | Compliant | Category A (Pure TS) |
-| `packages/utils` | `@skyra/utils` | Pure Utilities | None | Compliant | Category A (Pure TS) |
-| `packages/validation` | `@skyra/validation` | Zod Validation | None | Compliant | Category A (Pure TS) |
+| `packages/utils` | `@skyra-tech-platform/utils` | Pure Utilities | None | Compliant | Category A (Pure TS) |
+| `packages/validation` | `@skyra-tech-platform/validation` | Zod Validation | None | Compliant | Category A (Pure TS) |
 
 ## 3. Compliant Web Components & Logic (`@skyra-tech-platform/*`)
 | Package Path | Package Name | Purpose | Framework Dependency | Status | Target Architecture |

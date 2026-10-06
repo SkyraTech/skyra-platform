@@ -5,15 +5,15 @@ import * as path from 'path';
 // Define target extraction map
 // We map exportPath -> package path and entry file
 const TARGETS = [
-  { capabilityId: 'app-shell/layout', packageId: '@skyra/app-shell', exportPath: '@skyra/app-shell', entry: 'packages/app-shell/dist/index.d.ts' },
-  { capabilityId: 'data-export/csv', packageId: '@skyra/data-export', exportPath: '@skyra/data-export', entry: 'packages/data-export/dist/index.d.ts' },
+  { capabilityId: 'app-shell/layout', packageId: '@skyra-tech-platform/app-shell', exportPath: '@skyra-tech-platform/app-shell', entry: 'packages/app-shell/dist/index.d.ts' },
+  { capabilityId: 'data-export/csv', packageId: '@skyra-tech-platform/data-export', exportPath: '@skyra-tech-platform/data-export', entry: 'packages/data-export/dist/index.d.ts' },
   { capabilityId: 'data-table/dynamic', packageId: '@skyra-tech-platform/data-table', exportPath: '@skyra-tech-platform/data-table', entry: 'packages/data-table/dist/index.d.ts' },
   { capabilityId: 'dialogs/core', packageId: '@skyra/dialogs', exportPath: '@skyra/dialogs', entry: 'packages/dialogs/dist/index.d.ts' },
   { capabilityId: 'dynamic-form/core', packageId: '@skyra-tech-platform/dynamic-form', exportPath: '@skyra-tech-platform/dynamic-form', entry: 'packages/dynamic-form/dist/index.d.ts' },
   { capabilityId: 'qr/core', packageId: '@skyra-tech-platform/qr', exportPath: '@skyra-tech-platform/qr', entry: 'packages/qr/dist/core.d.ts' },
   { capabilityId: 'ui/components', packageId: '@skyra/ui', exportPath: '@skyra/ui', entry: 'packages/ui/dist/index.d.ts' },
-  { capabilityId: 'utils/core', packageId: '@skyra/utils', exportPath: '@skyra/utils', entry: 'packages/utils/dist/index.d.ts' },
-  { capabilityId: 'validation/core', packageId: '@skyra/validation', exportPath: '@skyra/validation', entry: 'packages/validation/dist/index.d.ts' },
+  { capabilityId: 'utils/core', packageId: '@skyra-tech-platform/utils', exportPath: '@skyra-tech-platform/utils', entry: 'packages/utils/dist/index.d.ts' },
+  { capabilityId: 'validation/core', packageId: '@skyra-tech-platform/validation', exportPath: '@skyra-tech-platform/validation', entry: 'packages/validation/dist/index.d.ts' },
 ];
 
 const project = new Project();

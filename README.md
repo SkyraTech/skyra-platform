@@ -76,12 +76,12 @@ skyra-platform/
 | :--- | :--- | :--- |
 | [`@skyra/ui`](file:///packages/ui) | `0.1.0` | Production-grade accessible UI primitives (Inputs, Date/Time, Popover, Menu, Tabs, Accordion, Collapsible, Breadcrumbs, Loaders, Select, Switch, etc.) |
 | [`@skyra-tech-platform/design-tokens`](file:///packages/design-tokens) | `0.1.0` | Centralized `--skyra-*` CSS variable tokens for colors, typography, radii, spacing, elevations, and dark mode |
-| [`@skyra/utils`](file:///packages/utils) | `0.1.0` | Pure helper functions for currency formatting, date arithmetic, string utilities, and math |
-| [`@skyra/validation`](file:///packages/validation) | `0.1.0` | Reusable Zod schemas and validation helpers (GSTIN, PAN, email, phone, org rules) |
+| [`@skyra-tech-platform/utils`](file:///packages/utils) | `0.1.0` | Pure helper functions for currency formatting, date arithmetic, string utilities, and math |
+| [`@skyra-tech-platform/validation`](file:///packages/validation) | `0.1.0` | Reusable Zod schemas and validation helpers (GSTIN, PAN, email, phone, org rules) |
 | [`@skyra/data-table`](file:///packages/data-table) | `0.1.0` | Enterprise data grid with sorting, filtering, selection, and pagination hooks |
 | [`@skyra/dialogs`](file:///packages/dialogs) | `0.1.0` | Accessible dialogs, confirm dialogs, slide-out drawers, and sheets |
 | [`@skyra/dynamic-form`](file:///packages/dynamic-form) | `0.1.0` | Declarative form builder with real-time validation and conditional fields |
-| [`@skyra/data-export`](file:///packages/data-export) | `0.1.0` | Client-side CSV and Excel workbook generators |
+| [`@skyra-tech-platform/data-export`](file:///packages/data-export) | `0.1.0` | Client-side CSV and Excel workbook generators |
 
 ---
 

@@ -28,8 +28,8 @@
     "@skyra-tech-platform/radio": "workspace:^",
     "@skyra-tech-platform/switch": "workspace:^",
     "@skyra-tech-platform/textarea": "workspace:^",
-    "@skyra/utils": "workspace:*",
-    "@skyra/validation": "workspace:*"
+    "@skyra-tech-platform/utils": "workspace:*",
+    "@skyra-tech-platform/validation": "workspace:*"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.0",

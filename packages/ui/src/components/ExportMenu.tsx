@@ -8,7 +8,7 @@ import {
   FileText,
   Printer,
 } from 'lucide-react';
-import { downloadCsv, downloadExcel, ExportColumn } from '@skyra/data-export';
+import { downloadCsv, downloadExcel, ExportColumn } from '@skyra-tech-platform/data-export';
 import { Button } from './Button';
 import { DropdownMenu } from './DropdownMenu';
 

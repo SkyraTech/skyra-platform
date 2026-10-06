@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ExportButton, ExportMenu } from '@skyra/ui';
-import { exportToCsv, exportToExcel } from '@skyra/data-export';
+import { exportToCsv, exportToExcel } from '@skyra-tech-platform/data-export';
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import { ExportWorkbench } from './ExportWorkbench';
 
@@ -27,7 +27,7 @@ export default function ExportShowcasePage() {
     <div className="dash-page" style={{ padding: '2rem 1rem', maxWidth: '1200px', margin: '0 auto' }}>
       <div style={{ marginBottom: '2.5rem' }}>
         <h1 style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 800, fontSize: '1.75rem', color: 'var(--skyra-text)', margin: 0 }}>
-          Data Export Suite (@skyra/data-export)
+          Data Export Suite (@skyra-tech-platform/data-export)
         </h1>
         <p style={{ color: 'var(--skyra-text-muted)', fontSize: '0.95rem', marginTop: '0.5rem' }}>
           Pure TypeScript data export engine separating file formatting engines (CSV with RFC-4180 escaping, Excel XML Spreadsheet 2003) from reusable UI action controls.
@@ -71,8 +71,8 @@ export default function ExportShowcasePage() {
           24-Point Component Documentation & Verification
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', fontSize: '0.85rem' }}>
-          <div><strong>1. Name:</strong> ExportButton, ExportMenu, @skyra/data-export</div>
-          <div><strong>2. Package:</strong> <code>@skyra/ui</code> &amp; <code>@skyra/data-export</code></div>
+          <div><strong>1. Name:</strong> ExportButton, ExportMenu, @skyra-tech-platform/data-export</div>
+          <div><strong>2. Package:</strong> <code>@skyra/ui</code> &amp; <code>@skyra-tech-platform/data-export</code></div>
           <div><strong>3. Classification:</strong> [C] Platform Data Export Engine</div>
           <div><strong>4. Description:</strong> RFC-4180 CSV &amp; Excel XML generator with UI triggers</div>
           <div><strong>5. Rationale:</strong> Pure engine separation prevents UI bloat &amp; allows testability</div>

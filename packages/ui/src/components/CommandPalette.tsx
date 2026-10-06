@@ -15,7 +15,7 @@ import React, {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { Search, X, Command as CommandIcon } from 'lucide-react';
-import { filterCommands } from '@skyra/utils';
+import { filterCommands } from '@skyra-tech-platform/utils';
 import { Command, useCommandRegistry } from './CommandProvider';
 import { Kbd } from './Kbd';
 

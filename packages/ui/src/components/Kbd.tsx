@@ -1,7 +1,7 @@
 'use client';
 
 import React, { forwardRef, useEffect, useState } from 'react';
-import { formatShortcut } from '@skyra/utils';
+import { formatShortcut } from '@skyra-tech-platform/utils';
 
 export type KbdSize = 'xs' | 'sm' | 'md';
 

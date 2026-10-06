@@ -19,7 +19,7 @@
 3. **Build Shared Semantics, Not Shared Rendering** — Domain types, validation, and calculations are platform-neutral. UI rendering is platform-specific.
 4. **One-Way Dependency Flow** — Lower layers never import from higher layers. Zero circular dependencies.
 5. **Adapter Pattern** — Platform components expose callback props. Applications own persistence, auth, and API calls.
-6. **No DOM in Layer 1** — `@skyra/utils` and `@skyra/validation` contain zero browser/DOM/React/CSS dependencies. Safe for Node.js, edge, and future native mobile.
+6. **No DOM in Layer 1** — `@skyra-tech-platform/utils` and `@skyra-tech-platform/validation` contain zero browser/DOM/React/CSS dependencies. Safe for Node.js, edge, and future native mobile.
 
 ---
 
@@ -44,8 +44,8 @@
 +-------------------------------------------------------------------------------+
 | LAYER 1: DESIGN FOUNDATION  (zero DOM/browser/React/CSS dependencies)        |
 | @skyra-tech-platform/design-tokens — CSS Custom Properties (--skyra-*), dark mode CSS      |
-| @skyra/utils         — Pure TS: amountInWords, formatCurrency, geo, date     |
-| @skyra/validation    — Authoritative Zod Schemas                              |
+| @skyra-tech-platform/utils         — Pure TS: amountInWords, formatCurrency, geo, date     |
+| @skyra-tech-platform/validation    — Authoritative Zod Schemas                              |
 +-------------------------------------------------------------------------------+
                                (consumed by applications)
   +----------------------------+               +---------------------------------+
@@ -59,7 +59,7 @@
 ## 3. Package Dependency Graph
 
 ```
-@skyra-tech-platform/design-tokens   @skyra/utils   @skyra/validation (peer: zod)
+@skyra-tech-platform/design-tokens   @skyra-tech-platform/utils   @skyra-tech-platform/validation (peer: zod)
          |                  |                |
          +------------------+----------------+
                             |
@@ -79,8 +79,8 @@ Dependency matrix:
 | Package | design-tokens | utils | validation | ui | External |
 |---|---|---|---|---|---|
 | `@skyra-tech-platform/design-tokens` | — | — | — | — | none |
-| `@skyra/utils` | — | — | — | — | none |
-| `@skyra/validation` | — | — | — | — | `zod` (peer) |
+| `@skyra-tech-platform/utils` | — | — | — | — | none |
+| `@skyra-tech-platform/validation` | — | — | — | — | `zod` (peer) |
 | `@skyra/ui` | dep | — | — | — | `react` (peer), `lucide-react` (peer) |
 | `@skyra/data-table` | — | — | — | dep | `react` (peer), `lucide-react` (peer) |
 | `@skyra/dynamic-form` | — | — | — | dep | `react` (peer), `lucide-react` (peer) |
@@ -260,7 +260,7 @@ The platform will rename these to `--skyra-*` prefix while preserving the exact 
 SKYRA PLATFORM
       |
       +-- SHARED FOUNDATIONS (platform-neutral, no DOM)
-      |   @skyra/utils, @skyra/validation, @skyra/invoice (engine)
+      |   @skyra-tech-platform/utils, @skyra-tech-platform/validation, @skyra/invoice (engine)
       |
       +-- WEB RENDERING (current)
       |   @skyra/ui, @skyra/data-table, @skyra/dynamic-form, @skyra/dialogs
@@ -269,7 +269,7 @@ SKYRA PLATFORM
       +-- NATIVE MOBILE RENDERING [D] FUTURE
           @skyra/mobile-ui (architecture-approved name TBD)
           → React Native / Expo (technology pending formal approval)
-          → Consumes @skyra/utils, @skyra/validation, @skyra/invoice engine
+          → Consumes @skyra-tech-platform/utils, @skyra-tech-platform/validation, @skyra/invoice engine
           → Uses JS/TS token objects mapped to React Native StyleSheet
 ```
 
@@ -281,8 +281,8 @@ SKYRA PLATFORM
 skyra-platform/
 +-- packages/
 |   +-- design-tokens/      @skyra-tech-platform/design-tokens
-|   +-- utils/              @skyra/utils
-|   +-- validation/         @skyra/validation
+|   +-- utils/              @skyra-tech-platform/utils
+|   +-- validation/         @skyra-tech-platform/validation
 |   +-- ui/                 @skyra/ui
 |   +-- data-table/         @skyra/data-table
 |   +-- dynamic-form/       @skyra/dynamic-form

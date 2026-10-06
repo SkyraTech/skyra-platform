@@ -1,4 +1,4 @@
-# @skyra/data-export
+# @skyra-tech-platform/data-export
 
 ## Overview
 Pure CSV and Excel export engine for Skyra Platform.
@@ -8,7 +8,7 @@ Runtime-neutral (Node.js / Browser)
 
 ## Installation
 ```bash
-pnpm add @skyra/data-export
+pnpm add @skyra-tech-platform/data-export
 ```
 
 ## Public API
@@ -16,7 +16,7 @@ pnpm add @skyra/data-export
 
 ## Basic Usage
 ```ts
-import { generateCsv } from '@skyra/data-export';
+import { generateCsv } from '@skyra-tech-platform/data-export';
 
 const csvData = generateCsv(data, columns);
 ```

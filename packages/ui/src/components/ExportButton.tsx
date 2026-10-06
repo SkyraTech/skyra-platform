@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Download, FileSpreadsheet, FileJson, FileText } from 'lucide-react';
-import { downloadCsv, downloadExcel, downloadJson, downloadTsv, ExportColumn } from '@skyra/data-export';
+import { downloadCsv, downloadExcel, downloadJson, downloadTsv, ExportColumn } from '@skyra-tech-platform/data-export';
 import { Button, ButtonProps } from './Button';
 
 export interface ExportButtonProps<T extends Record<string, unknown> = Record<string, unknown>> extends Omit<ButtonProps, 'onClick'> {
@@ -23,7 +23,7 @@ export interface ExportButtonProps<T extends Record<string, unknown> = Record<st
 /**
  * @skyra/ui ExportButton
  *
- * One-click data export button delegating directly to @skyra/data-export engines.
+ * One-click data export button delegating directly to @skyra-tech-platform/data-export engines.
  */
 export function ExportButton<T extends Record<string, unknown> = Record<string, unknown>>({
   format = 'csv',

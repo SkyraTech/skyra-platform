@@ -16,7 +16,7 @@ import {
   normalizeShortcut,
   detectShortcutConflicts,
   ShortcutConflict,
-} from '@skyra/utils';
+} from '@skyra-tech-platform/utils';
 
 export interface ShortcutOptions {
   /** Description for documentation / shortcut showcase */

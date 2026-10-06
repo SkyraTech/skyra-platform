@@ -10,9 +10,9 @@ export default function OverviewPage() {
   const packages = docsRegistry.getPackages();
 
   const getLayer = (id: string) => {
-    if (['@skyra-tech-platform/design-tokens', '@skyra/utils', '@skyra/validation'].includes(id)) return 'Layer 1';
-    if (['@skyra/ui', '@skyra/app-shell', '@skyra/dialogs', '@skyra/data-table', '@skyra-tech-platform/dynamic-form'].includes(id)) return 'Layer 2';
-    if (['@skyra/data-export', '@skyra-tech-platform/qr'].includes(id)) return 'Layer 3';
+    if (['@skyra-tech-platform/design-tokens', '@skyra-tech-platform/utils', '@skyra-tech-platform/validation'].includes(id)) return 'Layer 1';
+    if (['@skyra/ui', '@skyra-tech-platform/app-shell', '@skyra/dialogs', '@skyra/data-table', '@skyra-tech-platform/dynamic-form'].includes(id)) return 'Layer 2';
+    if (['@skyra-tech-platform/data-export', '@skyra-tech-platform/qr'].includes(id)) return 'Layer 3';
     return 'Layer 3';
   };
 

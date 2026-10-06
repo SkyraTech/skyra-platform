@@ -1,5 +1,5 @@
 {
-  "name": "@skyra/utils",
+  "name": "@skyra-tech-platform/utils",
   "version": "0.1.0",
   "description": "Skyra Platform pure TypeScript utilities — zero DOM/React/CSS dependencies",
   "type": "module",

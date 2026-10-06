@@ -1,5 +1,5 @@
 ﻿/**
- * @skyra/utils — Keyboard Shortcut Utilities
+ * @skyra-tech-platform/utils — Keyboard Shortcut Utilities
  *
  * Pure TypeScript utilities for normalizing, parsing, formatting,
  * and matching keyboard shortcuts.

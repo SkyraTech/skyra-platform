@@ -1,5 +1,5 @@
 /**
- * @skyra/utils
+ * @skyra-tech-platform/utils
  *
  * Pure TypeScript utilities for the Skyra Platform.
  * Zero DOM / Zero React / Zero browser / Zero CSS dependencies.

@@ -1,10 +1,10 @@
 ﻿/**
  * @id utils-date-format
  * @title Date Formatting
- * @apiId @skyra/utils::formatDate
- * @packageId @skyra/utils
+ * @apiId @skyra-tech-platform/utils::formatDate
+ * @packageId @skyra-tech-platform/utils
  */
-import { formatDate } from '@skyra/utils';
+import { formatDate } from '@skyra-tech-platform/utils';
 
 export function runExample() {
   // Runtime-neutral utility function for standardizing dates

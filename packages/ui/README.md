@@ -31,7 +31,7 @@ export function Form() {
 ```
 
 ## Dependencies / Peer Dependencies
-- **Dependencies:** `@skyra-tech-platform/design-tokens`, `@skyra/data-export`, `@skyra/utils`
+- **Dependencies:** `@skyra-tech-platform/design-tokens`, `@skyra-tech-platform/data-export`, `@skyra-tech-platform/utils`
 - **Peer Dependencies:** `react`, `react-dom`, `lucide-react`
 
 ## Theming & Styling

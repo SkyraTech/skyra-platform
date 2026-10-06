@@ -19,54 +19,54 @@ import validationPkg from '../../../packages/validation/package.json';
 // Runtime classification — authored once, based on actual package architecture
 // ---------------------------------------------------------------------------
 const runtimeMap: Record<string, RuntimeCategory> = {
-  '@skyra/app-shell':    'react-browser',
-  '@skyra/data-export':  'react-browser',
+  '@skyra-tech-platform/app-shell':    'runtime-neutral',
+  '@skyra-tech-platform/data-export':  'mixed',
   '@skyra-tech-platform/data-table': 'mixed',
   '@skyra-tech-platform/design-tokens':'design-tokens',
   '@skyra/dialogs':      'react-browser',
   '@skyra-tech-platform/dynamic-form': 'mixed',
   '@skyra-tech-platform/qr': 'runtime-neutral',
   '@skyra/ui':           'react-browser',
-  '@skyra/utils':        'runtime-neutral',
-  '@skyra/validation':   'runtime-neutral',
+  '@skyra-tech-platform/utils':        'runtime-neutral',
+  '@skyra-tech-platform/validation':   'runtime-neutral',
 };
 
 // ---------------------------------------------------------------------------
 // Capability metadata — authored descriptions; machine data stays in package.json
 // ---------------------------------------------------------------------------
 const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
-  // @skyra/app-shell
+  // @skyra-tech-platform/app-shell
   {
     id: 'app-shell/layout',
-    packageId: '@skyra/app-shell',
+    packageId: '@skyra-tech-platform/app-shell',
     name: 'Application Shell Layout',
-    exportPath: '@skyra/app-shell',
-    runtime: 'react-browser',
-    description: 'Provides the core ApplicationShell, Sidebar, Header, MainContent, and navigation primitives for building an application-level layout scaffold.',
-    usageNote: "import { ApplicationShell, Sidebar, Header, MainContent } from '@skyra/app-shell';",
-    limitations: ['Requires a React 18+ host application.', 'Does not provide routing — integrate with your router of choice.'],
+    exportPath: '@skyra-tech-platform/app-shell',
+    runtime: 'runtime-neutral',
+    description: 'Framework-agnostic Web Component for building an application-level layout scaffold.',
+    usageNote: "import { registerAppShell } from '@skyra-tech-platform/app-shell';\nregisterAppShell();",
+    limitations: ['Does not provide routing — integrate with your router of choice.'],
     status: 'stable',
   },
 
-  // @skyra/data-export
+  // @skyra-tech-platform/data-export
   {
     id: 'data-export/csv',
-    packageId: '@skyra/data-export',
+    packageId: '@skyra-tech-platform/data-export',
     name: 'CSV Export',
-    exportPath: '@skyra/data-export',
-    runtime: 'react-browser',
-    description: 'Exports tabular data to comma-separated value files, consumable in Excel, Google Sheets, and other tools.',
-    usageNote: "import { exportToCSV } from '@skyra/data-export';",
+    exportPath: '@skyra-tech-platform/data-export',
+    runtime: 'mixed',
+    description: 'Exports tabular data to comma-separated value files. Generates raw strings or triggers browser downloads.',
+    usageNote: "import { exportToCSV } from '@skyra-tech-platform/data-export';",
     status: 'stable',
   },
   {
     id: 'data-export/excel',
-    packageId: '@skyra/data-export',
+    packageId: '@skyra-tech-platform/data-export',
     name: 'Excel Export',
-    exportPath: '@skyra/data-export',
-    runtime: 'react-browser',
-    description: 'Exports tabular data to .xlsx format using the configured spreadsheet adapter.',
-    usageNote: "import { exportToExcel } from '@skyra/data-export';",
+    exportPath: '@skyra-tech-platform/data-export',
+    runtime: 'mixed',
+    description: 'Exports tabular data to .xlsx/.xls format. Generates raw XML strings or triggers browser downloads.',
+    usageNote: "import { exportToExcel } from '@skyra-tech-platform/data-export';",
     status: 'stable',
   },
 
@@ -156,27 +156,27 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     status: 'stable',
   },
 
-  // @skyra/utils
+  // @skyra-tech-platform/utils
   {
     id: 'utils/core',
-    packageId: '@skyra/utils',
+    packageId: '@skyra-tech-platform/utils',
     name: 'Utilities',
-    exportPath: '@skyra/utils',
+    exportPath: '@skyra-tech-platform/utils',
     runtime: 'runtime-neutral',
-    description: 'Runtime-neutral utility helpers for date formatting, class name composition, string manipulation, and common type guards. Safe for Node.js and browser environments.',
-    usageNote: "import { formatDate, cn } from '@skyra/utils';",
+    description: 'Runtime-neutral utility helpers for date formatting, string manipulation, currency and commands. Safe for Node.js and browser environments.',
+    usageNote: "import { formatDate, formatCurrency, toSlug } from '@skyra-tech-platform/utils';",
     status: 'stable',
   },
 
-  // @skyra/validation
+  // @skyra-tech-platform/validation
   {
     id: 'validation/core',
-    packageId: '@skyra/validation',
+    packageId: '@skyra-tech-platform/validation',
     name: 'Validation',
-    exportPath: '@skyra/validation',
+    exportPath: '@skyra-tech-platform/validation',
     runtime: 'runtime-neutral',
     description: 'Runtime-neutral schema validation primitives for forms, API inputs, and data pipelines. Reusable across React, Node.js, and service environments.',
-    usageNote: "import { validate, required, minLength } from '@skyra/validation';",
+    usageNote: "import { emailSchema, orgSchema } from '@skyra-tech-platform/validation';",
     status: 'stable',
   },
 ];

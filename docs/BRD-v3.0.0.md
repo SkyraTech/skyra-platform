@@ -241,8 +241,8 @@ Rules:
 +-------------------------------------------------------------------------------+
 | LAYER 1: DESIGN FOUNDATION                                                    |
 | @skyra-tech-platform/design-tokens — CSS Custom Properties (--skyra-*), Dark Mode Overrides |
-| @skyra/utils         — Pure TS Utilities (amountInWords, currency, geo, date) |
-| @skyra/validation    — Authoritative Zod Schemas (Invoice, Payment, Org, Bank)|
+| @skyra-tech-platform/utils         — Pure TS Utilities (amountInWords, currency, geo, date) |
+| @skyra-tech-platform/validation    — Authoritative Zod Schemas (Invoice, Payment, Org, Bank)|
 +-------------------------------------------------------------------------------+
                                (consumed via workspace / registry imports)
                +--------------------------+--------------------------+
@@ -413,8 +413,8 @@ This is not a finalized decision.
           +---------------+---------------+
           |                               |
    SHARED FOUNDATIONS           SHARED BUSINESS LOGIC
-   @skyra/utils                 @skyra/invoice (engine)
-   @skyra/validation            @skyra/validation
+   @skyra-tech-platform/utils                 @skyra/invoice (engine)
+   @skyra-tech-platform/validation            @skyra-tech-platform/validation
    Domain Types                 Calculation Engine
    Configuration Models         Shared Schemas
           |
@@ -430,8 +430,8 @@ This is not a finalized decision.
 
 The following must remain platform-neutral (no DOM, CSS, browser APIs, or Next.js imports):
 
-- `@skyra/utils` — all calculation and formatting functions
-- `@skyra/validation` — all Zod schemas
+- `@skyra-tech-platform/utils` — all calculation and formatting functions
+- `@skyra-tech-platform/validation` — all Zod schemas
 - `@skyra/invoice` root export (types, engine, config) — no React imports
 
 ### 10.5 Future Mobile Package [D]
@@ -443,7 +443,7 @@ A future package `@skyra/mobile-ui` (or architecture-approved equivalent) may ev
 
 This package would consume:
 - Same Skyra semantic design tokens (mapped to React Native StyleSheet values)
-- Same `@skyra/utils` and `@skyra/validation`
+- Same `@skyra-tech-platform/utils` and `@skyra-tech-platform/validation`
 - Same `@skyra/invoice` calculation engine and types
 
 No business logic will be duplicated between web and mobile packages.
@@ -503,8 +503,8 @@ It does NOT force web React components to run in React Native or vice versa.
 Zero dependencies on React or browser DOM. Safe to import in Node.js, edge workers, and future React Native apps.
 
 - **`@skyra-tech-platform/design-tokens`**: Ships `tokens.css` and `tokens.dark.css`. Defines all `--skyra-*` CSS custom properties derived from ERP.
-- **`@skyra/utils`**: Pure deterministic TypeScript utilities (`amountInWords`, `formatCurrency`, `formatDate`, geographic data, dial codes). Zero DOM dependencies.
-- **`@skyra/validation`**: Authoritative Zod schemas for invoices, payments, organizations, banks, clients.
+- **`@skyra-tech-platform/utils`**: Pure deterministic TypeScript utilities (`amountInWords`, `formatCurrency`, `formatDate`, geographic data, dial codes). Zero DOM dependencies.
+- **`@skyra-tech-platform/validation`**: Authoritative Zod schemas for invoices, payments, organizations, banks, clients.
 
 ---
 
@@ -632,19 +632,19 @@ STANDARD SHOWCASE PAGE STRUCTURE
 | Package Directory | Package Name | Layer | Runtime | Dependencies |
 |---|---|---|---|---|
 | `packages/design-tokens` | `@skyra-tech-platform/design-tokens` | 1 | CSS | None |
-| `packages/utils` | `@skyra/utils` | 1 | Universal TS | None |
-| `packages/validation` | `@skyra/validation` | 1 | Universal TS | `zod` (peer) |
+| `packages/utils` | `@skyra-tech-platform/utils` | 1 | Universal TS | None |
+| `packages/validation` | `@skyra-tech-platform/validation` | 1 | Universal TS | `zod` (peer) |
 | `packages/ui` | `@skyra/ui` | 2 | React (Browser/SSR) | `@skyra-tech-platform/design-tokens`, `react` (peer), `lucide-react` (peer) |
 | `packages/data-table` | `@skyra/data-table` | 2 | React (Browser/SSR) | `@skyra/ui`, `react` (peer), `lucide-react` (peer) |
 | `packages/dynamic-form` | `@skyra/dynamic-form` | 2 | React (Browser/SSR) | `@skyra/ui`, `react` (peer), `lucide-react` (peer) |
 | `packages/dialogs` | `@skyra/dialogs` | 2 | React (Browser/SSR) | `@skyra/ui`, `react` (peer), `lucide-react` (peer) |
-| `packages/invoice` | `@skyra/invoice` | 3 | Hybrid | `@skyra/ui`, `@skyra/utils`, `@skyra/validation`, `jspdf`, `html2canvas`, `@react-email/components`, `nanoid` |
+| `packages/invoice` | `@skyra/invoice` | 3 | Hybrid | `@skyra/ui`, `@skyra-tech-platform/utils`, `@skyra-tech-platform/validation`, `jspdf`, `html2canvas`, `@react-email/components`, `nanoid` |
 | `dashboard/` | `skyra-platform-dashboard` | App | Next.js 16 | All workspace `@skyra/*` packages |
 
 ### 17.2 One-Way Dependency Graph
 
 ```
-@skyra-tech-platform/design-tokens  @skyra/utils  @skyra/validation
+@skyra-tech-platform/design-tokens  @skyra-tech-platform/utils  @skyra-tech-platform/validation
          |                 |               |
          +-----------------+---------------+
                            |
@@ -869,7 +869,7 @@ Every `packages/*` must contain:
 8-step non-destructive migration with mandatory dashboard verification at every step:
 
 ```
-Step 1: @skyra-tech-platform/design-tokens  →  Step 2: @skyra/utils  →  Step 3: @skyra/validation
+Step 1: @skyra-tech-platform/design-tokens  →  Step 2: @skyra-tech-platform/utils  →  Step 3: @skyra-tech-platform/validation
 →  Step 4: @skyra/ui  →  Step 5: @skyra/data-table  →  Step 6: @skyra/dynamic-form
 →  Step 7: @skyra/dialogs  →  Step 8: @skyra/invoice
 ```
@@ -940,7 +940,7 @@ COMPONENT ACCEPTANCE WORKFLOW
 |---|---|
 | OQ5 | jsPDF / html2canvas as bundled vs peer dependencies |
 | OQ6 | Dashboard deployment — internal Vercel preview vs local dev only |
-| OQ7 | Multi-currency roster for `@skyra/utils` v1 (INR, USD, EUR, GBP) |
+| OQ7 | Multi-currency roster for `@skyra-tech-platform/utils` v1 (INR, USD, EUR, GBP) |
 | OQ8 | LogoUploader optional storage helper presets |
 
 ### Category C — Future Product Decisions
@@ -959,7 +959,7 @@ COMPONENT ACCEPTANCE WORKFLOW
 ```
 PHASE 0 (NOW):    Specification finalization and formal approval
 PHASE 1:          Monorepo setup + @skyra-tech-platform/design-tokens + dashboard skeleton
-PHASE 2:          @skyra/utils + @skyra/validation (≥95% test coverage)
+PHASE 2:          @skyra-tech-platform/utils + @skyra-tech-platform/validation (≥95% test coverage)
 PHASE 3:          @skyra/ui + UI showcase section (ERP visual fidelity verified)
 PHASE 4:          @skyra/data-table + 9 table showcase designs
 PHASE 5:          @skyra/dynamic-form + 5 form showcase workflows

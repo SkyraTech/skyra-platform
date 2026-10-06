@@ -1,5 +1,5 @@
 /**
- * @skyra/validation — org.ts
+ * @skyra-tech-platform/validation — org.ts
  *
  * Organization and settings validation schemas.
  * Cross-product — used by ERP, CRM, Billing.

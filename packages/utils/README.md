@@ -1,4 +1,4 @@
-# @skyra/utils
+# @skyra-tech-platform/utils
 
 ## Overview
 Skyra Platform pure TypeScript utilities — zero DOM, React, or CSS dependencies. Contains helpers for dates, numbers, arrays, and standard string transformations.
@@ -8,7 +8,7 @@ Runtime-neutral (Node.js / Browser)
 
 ## Installation
 ```bash
-pnpm add @skyra/utils
+pnpm add @skyra-tech-platform/utils
 ```
 
 ## Public API
@@ -16,7 +16,7 @@ pnpm add @skyra/utils
 
 ## Basic Usage
 ```ts
-import { formatCurrency } from '@skyra/utils';
+import { formatCurrency } from '@skyra-tech-platform/utils';
 
 console.log(formatCurrency(1234.56, 'USD')); // $1,234.56
 ```

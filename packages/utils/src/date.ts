@@ -1,5 +1,5 @@
 /**
- * @skyra/utils — date.ts
+ * @skyra-tech-platform/utils — date.ts
  *
  * Pure TypeScript date/time utilities.
  * Zero DOM / Zero React / Zero browser dependencies.

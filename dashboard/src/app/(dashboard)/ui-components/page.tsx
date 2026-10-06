@@ -52,7 +52,7 @@ export default function UIComponentsPage() {
         UI Components Showcase
       </h1>
       <p style={{ color: 'var(--skyra-text-muted)', marginBottom: '2rem', maxWidth: '800px', fontSize: '0.95rem' }}>
-        Complete suite of reusable platform UI primitives from <code>@skyra/ui</code> and pure engines from <code>@skyra/data-export</code>. 
+        Complete suite of reusable platform UI primitives from <code>@skyra/ui</code> and pure engines from <code>@skyra-tech-platform/data-export</code>. 
         All components are strictly typed, theme-aware, fully accessible (zero axe violations), and verified across all 7 canonical viewport breakpoints.
       </p>
 

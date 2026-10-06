@@ -65,7 +65,7 @@ export const behavioralMetadataMap: Record<string, BehavioralMetadata> = {
       desktopBehavior: 'Supports multi-column grid layouts.'
     }
   },
-  '@skyra/app-shell::ApplicationShell': {
+  '@skyra-tech-platform/app-shell::ApplicationShell': {
     accessibility: {
       semanticStructure: 'Uses <header>, <main>, <nav>, and <aside> landmarks.',
       keyboard: ['Standard landmark navigation']
