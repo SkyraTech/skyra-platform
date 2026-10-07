@@ -1,4 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { axe, toHaveNoViolations } from 'jest-axe';
+expect.extend(toHaveNoViolations);
 import './test-setup';
 import { SkyraTechDateField } from './skyra-tech-date-field';
 import { SkyraTechTimeField } from './skyra-tech-time-field';
@@ -47,6 +49,14 @@ describe('SkyraTechDateField', () => {
     expect(el.required).toBe(true);
   });
 
+  it('should have no axe violations', async () => {
+    const el = document.createElement('skyra-tech-date-field') as SkyraTechDateField;
+    el.label = 'Date Field';
+    document.body.appendChild(el);
+    const results = await axe(el);
+    expect(results).toHaveNoViolations();
+  });
+
   it('participates in forms', () => {
     const form = document.createElement('form');
     const el = document.createElement('skyra-tech-date-field') as SkyraTechDateField;
@@ -56,6 +66,14 @@ describe('SkyraTechDateField', () => {
     document.body.appendChild(form);
 
     expect(el.name).toBe('test_date');
+  });
+
+  it('should have no axe violations', async () => {
+    const el = document.createElement('skyra-tech-time-field') as SkyraTechTimeField;
+    el.label = 'Time Field';
+    document.body.appendChild(el);
+    const results = await axe(el);
+    expect(results).toHaveNoViolations();
   });
 
   it('supports checkValidity and reportValidity', () => {
@@ -110,6 +128,14 @@ describe('SkyraTechDateTimeField', () => {
     el.value = '2026-10-01T10:30';
     document.body.appendChild(el);
     expect(el.value).toBe('2026-10-01T10:30');
+  });
+
+  it('should have no axe violations', async () => {
+    const el = document.createElement('skyra-tech-date-time-field') as SkyraTechDateTimeField;
+    el.label = 'Date Time Field';
+    document.body.appendChild(el);
+    const results = await axe(el);
+    expect(results).toHaveNoViolations();
   });
 
   it('supports checkValidity and reportValidity', () => {

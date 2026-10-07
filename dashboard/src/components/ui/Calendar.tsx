@@ -40,7 +40,7 @@ export function Calendar({
     if (!el) return;
 
     if (disabledDate) {
-      (el as any).disabledDate = disabledDate;
+      (el as SkyraTechCalendarElement).disabledDate = disabledDate;
     }
 
     const handleChange = (e: Event) => {

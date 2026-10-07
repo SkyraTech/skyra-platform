@@ -175,7 +175,7 @@ export function DateTimeRangeField({
           {clearable && displayString && !disabled && !readOnly && (
             <span
               aria-hidden="true"
-              onClick={(e) => { e.stopPropagation(); handleClear(e as any); }}
+              onClick={(e) => { e.stopPropagation(); handleClear(e); }}
               style={{
                 background: 'none',
                 border: 'none',

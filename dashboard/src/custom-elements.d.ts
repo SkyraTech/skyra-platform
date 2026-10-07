@@ -1,6 +1,21 @@
 import React from 'react';
+import type { FieldDef, FieldsetDef, DynamicFormFeatures } from '@skyra-tech-platform/dynamic-form';
 
 declare global {
+  interface SkyraTechDateFieldElement extends HTMLElement {
+    disabledDate?: (date: Date) => boolean;
+  }
+  
+  interface SkyraTechCalendarElement extends HTMLElement {
+    disabledDate?: (date: Date) => boolean;
+  }
+  
+  interface SkyraTechDynamicFormElement extends HTMLElement {
+    fields: FieldDef[];
+    fieldsets: FieldsetDef[];
+    features: DynamicFormFeatures;
+  }
+
   namespace React {
     namespace JSX {
       interface IntrinsicElements {

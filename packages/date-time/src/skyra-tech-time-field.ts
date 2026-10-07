@@ -119,14 +119,14 @@ export class SkyraTechTimeField extends BaseClass {
           <button type="button" class="time-select-btn" id="hour-btn" aria-haspopup="listbox">
             <span id="hour-val">12</span> ${icons.chevronDown}
           </button>
-          <div class="popover" id="hour-pop" role="listbox" tabindex="-1"></div>
+          <div class="popover" id="hour-pop" role="listbox" aria-label="Select hour" tabindex="-1"></div>
           
           <span class="colon">:</span>
           
           <button type="button" class="time-select-btn" id="min-btn" aria-haspopup="listbox">
             <span id="min-val">00</span> ${icons.chevronDown}
           </button>
-          <div class="popover" id="min-pop" role="listbox" tabindex="-1"></div>
+          <div class="popover" id="min-pop" role="listbox" aria-label="Select minute" tabindex="-1"></div>
           
           ${is12h ? `
             <div class="am-pm-toggle" id="ampm-toggle">
@@ -158,7 +158,7 @@ export class SkyraTechTimeField extends BaseClass {
     let hHtml = '';
     for (let h = minH; h <= maxH; h++) {
       const s = String(h).padStart(2, '0');
-      hHtml += `<button type="button" class="option-btn" data-val="${s}">${s}</button>`;
+      hHtml += `<button type="button" role="option" class="option-btn" data-val="${s}">${s}</button>`;
     }
     this._hourPopover.innerHTML = hHtml;
 
@@ -166,7 +166,7 @@ export class SkyraTechTimeField extends BaseClass {
     const step = Math.max(1, Math.min(60, this.minuteStep));
     for (let m = 0; m < 60; m += step) {
       const s = String(m).padStart(2, '0');
-      mHtml += `<button type="button" class="option-btn" data-val="${s}">${s}</button>`;
+      mHtml += `<button type="button" role="option" class="option-btn" data-val="${s}">${s}</button>`;
     }
     this._minutePopover.innerHTML = mHtml;
   }

@@ -78,7 +78,7 @@ export default function DynamicFormDocsPage() {
 
 <script>
   const form = document.getElementById('my-form');
-  (form as any).fields = [
+  (form as SkyraTechDynamicFormElement).fields = [
     { name: 'firstName', label: 'First Name', type: 'text', required: true },
     { name: 'lastName', label: 'Last Name', type: 'text', required: true },
     { name: 'email', label: 'Email', type: 'email', required: true }
@@ -97,7 +97,7 @@ export default function DynamicFormDocsPage() {
               <skyra-tech-dynamic-form 
                 ref={(el: HTMLElement | null) => {
                   if (el) {
-                    (el as any).fields = [
+                    (el as SkyraTechDynamicFormElement).fields = [
                       { name: 'firstName', label: 'First Name', type: 'text', required: true },
                       { name: 'lastName', label: 'Last Name', type: 'text', required: true },
                       { name: 'email', label: 'Email', type: 'email', required: true }

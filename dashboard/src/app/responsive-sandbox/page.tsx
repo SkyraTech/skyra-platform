@@ -24,7 +24,7 @@ export default function SandboxPage() {
       <skyra-tech-dynamic-form 
         ref={(el: HTMLElement | null) => {
           if (el) {
-            (el as any).fieldsets = [
+            (el as SkyraTechDynamicFormElement).fieldsets = [
               {
                 title: 'Responsive Grid Form',
                 fields: [

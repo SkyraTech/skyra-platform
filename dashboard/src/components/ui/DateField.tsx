@@ -46,7 +46,7 @@ export function DateField({
     if (!el) return;
 
     if (disabledDate) {
-      (el as any).disabledDate = disabledDate;
+      (el as SkyraTechDateFieldElement).disabledDate = disabledDate;
     }
 
     const handleChange = (e: Event) => {
