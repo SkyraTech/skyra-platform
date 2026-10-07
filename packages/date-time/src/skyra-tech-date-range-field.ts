@@ -5,7 +5,7 @@ import './skyra-tech-calendar';
 const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
 export class SkyraTechDateRangeField extends BaseClass {
   static get observedAttributes() {
-    return ['start-value', 'end-value', 'min', 'max', 'disabled', 'required', 'clearable', 'placeholder', 'label', 'helper-text', 'error', 'invalid'];
+    return ['value', 'name', 'min', 'max', 'disabled', 'required', 'clearable', 'placeholder', 'label', 'helper-text', 'error', 'invalid'];
   }
   static formAssociated = true;
 
@@ -32,27 +32,22 @@ export class SkyraTechDateRangeField extends BaseClass {
 
   attributeChangedCallback(name: string, oldVal: string | null, newVal: string | null) {
     if (oldVal !== newVal && this.isConnected) {
-      if (name === 'start-value' || name === 'end-value') {
-        const val = { startDate: this.startValue, endDate: this.endValue };
+      if (name === 'value') {
         if (this._internals && typeof this._internals.setFormValue === 'function') {
-      this._internals.setFormValue(JSON.stringify(val));
-    }
-
+          this._internals.setFormValue(newVal);
+        }
       }
       this._updateUI();
     }
   }
 
-  get startValue() { return this.getAttribute('start-value') || ''; }
-  set startValue(v) { if (v) this.setAttribute('start-value', v); else this.removeAttribute('start-value'); }
-  get endValue() { return this.getAttribute('end-value') || ''; }
-  set endValue(v) { if (v) this.setAttribute('end-value', v); else this.removeAttribute('end-value'); }
-  
-  get value() { return { startDate: this.startValue || null, endDate: this.endValue || null }; }
-  set value(v: { startDate: string|null, endDate: string|null }) {
-    this.startValue = v.startDate || '';
-    this.endValue = v.endDate || '';
-  }
+  get value() { return this.getAttribute('value') || ''; }
+  set value(v) { if (v) this.setAttribute('value', v); else this.removeAttribute('value'); }
+  get startValue() { return this.value.split(',')[0] || ''; }
+  get endValue() { return this.value.split(',')[1] || ''; }
+  get name() { return this.getAttribute('name') || ''; }
+  set name(v) { if (v) this.setAttribute('name', v); else this.removeAttribute('name'); }
+
 
   get min() { return this.getAttribute('min') || ''; }
   set min(v) { if (v) this.setAttribute('min', v); else this.removeAttribute('min'); }
@@ -164,9 +159,8 @@ export class SkyraTechDateRangeField extends BaseClass {
       const custom = e as CustomEvent;
       const [startIso, endIso] = custom.detail.value;
       if (startIso !== this.startValue || endIso !== this.endValue) {
-        this.startValue = startIso || '';
-        this.endValue = endIso || '';
-        this.dispatchEvent(new CustomEvent('skyra-change', { detail: { value: { startDate: startIso, endDate: endIso } }, bubbles: true }));
+        this.value = `${startIso || ''},${endIso || ''}`;
+        this.dispatchEvent(new CustomEvent('skyra-change', { detail: { value: this.value }, bubbles: true }));
       }
       if (startIso && endIso) {
         this._setOpen(false);
@@ -175,9 +169,8 @@ export class SkyraTechDateRangeField extends BaseClass {
 
     clearBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      this.startValue = '';
-      this.endValue = '';
-      this.dispatchEvent(new CustomEvent('skyra-change', { detail: { value: { startDate: null, endDate: null } }, bubbles: true }));
+      this.value = ',';
+      this.dispatchEvent(new CustomEvent('skyra-change', { detail: { value: this.value }, bubbles: true }));
       this._updateUI();
     });
   }
@@ -194,9 +187,8 @@ export class SkyraTechDateRangeField extends BaseClass {
     }
     
     if (nextS !== this.startValue || nextE !== this.endValue) {
-      this.startValue = nextS;
-      this.endValue = nextE;
-      this.dispatchEvent(new CustomEvent('skyra-change', { detail: { value: { startDate: nextS || null, endDate: nextE || null } }, bubbles: true }));
+      this.value = `${nextS || ''},${nextE || ''}`;
+      this.dispatchEvent(new CustomEvent('skyra-change', { detail: { value: this.value }, bubbles: true }));
     } else {
       this._updateUI();
     }
@@ -263,7 +255,7 @@ export class SkyraTechDateRangeField extends BaseClass {
     if (this.min) this._calendar.setAttribute('min', this.min);
     if (this.max) this._calendar.setAttribute('max', this.max);
     
-    if (this.required && (!this.startValue || !this.endValue)) {
+    if (this.required && !this.value) {
       if (this._internals && typeof this._internals.setValidity === 'function') {
       this._internals.setValidity({ valueMissing: true }, 'Date range is required');
     }
@@ -275,8 +267,22 @@ export class SkyraTechDateRangeField extends BaseClass {
 
     }
   }
-}
 
+  public checkValidity() {
+    if (this._internals && typeof (this._internals as any).checkValidity === 'function') {
+      return (this._internals as any).checkValidity();
+    }
+    if (this.required && !this.value) return false;
+    return true;
+  }
+
+  public reportValidity() {
+    if (this._internals && typeof (this._internals as any).reportValidity === 'function') {
+      return (this._internals as any).reportValidity();
+    }
+    return this.checkValidity();
+  }
+}
 if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-date-range-field')) {
   customElements.define('skyra-tech-date-range-field', SkyraTechDateRangeField);
 }

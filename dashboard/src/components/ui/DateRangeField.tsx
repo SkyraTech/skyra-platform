@@ -47,7 +47,9 @@ export function DateRangeField({
 
     const handleChange = (e: Event) => {
       const custom = e as CustomEvent;
-      onChange?.(custom.detail.value);
+      const val = custom.detail.value || '';
+      const parts = val.split(',');
+      onChange?.({ startDate: parts[0] || null, endDate: parts[1] || null });
     };
 
     el.addEventListener('skyra-change', handleChange);
@@ -56,14 +58,14 @@ export function DateRangeField({
 
   const isoMin = minDate instanceof Date ? minDate.toISOString().split('T')[0] : minDate;
   const isoMax = maxDate instanceof Date ? maxDate.toISOString().split('T')[0] : maxDate;
+  const valString = `${value?.startDate || ''},${value?.endDate || ''}`;
 
   return (
     <skyra-tech-date-range-field
       ref={ref}
       id={id}
       class={className}
-      start-value={value?.startDate || undefined}
-      end-value={value?.endDate || undefined}
+      value={valString === ',' ? undefined : valString}
       min={isoMin || undefined}
       max={isoMax || undefined}
       label={label as string}

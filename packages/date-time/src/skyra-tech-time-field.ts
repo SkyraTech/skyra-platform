@@ -4,7 +4,7 @@ import { timeFieldCss } from './time-field.css';
 const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
 export class SkyraTechTimeField extends BaseClass {
   static get observedAttributes() {
-    return ['value', 'format', 'minute-step', 'disabled', 'required', 'clearable', 'label', 'helper-text', 'error', 'invalid'];
+    return ['value', 'name', 'format', 'minute-step', 'disabled', 'required', 'clearable', 'label', 'helper-text', 'error', 'invalid'];
   }
   static formAssociated = true;
 
@@ -384,8 +384,22 @@ export class SkyraTechTimeField extends BaseClass {
 
     }
   }
-}
 
+  public checkValidity() {
+    if (this._internals && typeof (this._internals as any).checkValidity === 'function') {
+      return (this._internals as any).checkValidity();
+    }
+    if (this.required && !this.value) return false;
+    return true;
+  }
+
+  public reportValidity() {
+    if (this._internals && typeof (this._internals as any).reportValidity === 'function') {
+      return (this._internals as any).reportValidity();
+    }
+    return this.checkValidity();
+  }
+}
 if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-time-field')) {
   customElements.define('skyra-tech-time-field', SkyraTechTimeField);
 }

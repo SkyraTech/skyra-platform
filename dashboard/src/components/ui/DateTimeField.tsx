@@ -45,7 +45,9 @@ export function DateTimeField({
 
     const handleChange = (e: Event) => {
       const custom = e as CustomEvent;
-      onChange?.(custom.detail.value);
+      const v = custom.detail.value;
+      const parts = v ? v.split('T') : [];
+      onChange?.({ date: parts[0] || null, time: parts[1] || '' });
     };
 
     el.addEventListener('skyra-change', handleChange);
@@ -54,13 +56,13 @@ export function DateTimeField({
 
   const isoMin = minDate instanceof Date ? minDate.toISOString().split('T')[0] : minDate;
   const isoMax = maxDate instanceof Date ? maxDate.toISOString().split('T')[0] : maxDate;
+  const valString = value.date ? (value.time ? `${value.date}T${value.time}` : value.date) : '';
 
   return (
     <skyra-tech-date-time-field
       ref={ref}
       class={className}
-      date-value={value.date || undefined}
-      time-value={value.time || undefined}
+      value={valString || undefined}
       min={isoMin || undefined}
       max={isoMax || undefined}
       label={label as string}

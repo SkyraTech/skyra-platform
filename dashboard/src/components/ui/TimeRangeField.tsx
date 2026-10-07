@@ -45,20 +45,23 @@ export function TimeRangeField({
 
     const handleChange = (e: Event) => {
       const custom = e as CustomEvent;
-      onChange?.(custom.detail.value);
+      const val = custom.detail.value || '';
+      const parts = val.split(',');
+      onChange?.({ start: parts[0] || '', end: parts[1] || '' });
     };
 
     el.addEventListener('skyra-change', handleChange);
     return () => el.removeEventListener('skyra-change', handleChange);
   }, [onChange]);
 
+  const valString = `${value?.start || ''},${value?.end || ''}`;
+
   return (
     <skyra-tech-time-range-field
       ref={ref}
       id={id}
       class={className}
-      start-value={value?.start || undefined}
-      end-value={value?.end || undefined}
+      value={valString === ',' ? undefined : valString}
       format={format}
       minute-step={minuteStep}
       label={label as string}

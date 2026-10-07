@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import '@skyra-tech-platform/switch';;
@@ -245,7 +245,7 @@ export default function SwitchDocsPage() {
 
       <HeadingAnchor id="responsive">Responsive Behavior</HeadingAnchor>
       <ResponsiveDemo 
-        helper-text="The Switch component handles varying label lengths effectively while preserving alignment. Using CSS flexbox inside the Shadow DOM, the switch track remains vertically aligned to the top of multi-line text, ensuring predictable behavior on mobile devices."
+        description="The Switch component handles varying label lengths effectively while preserving alignment. Using CSS flexbox inside the Shadow DOM, the switch track remains vertically aligned to the top of multi-line text, ensuring predictable behavior on mobile devices."
         desktop={<skyra-tech-switch label="Standard desktop layout with a concise label." />}
         mobile={<skyra-tech-switch label="Short label" />}
         fullWidth={<skyra-tech-switch label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the switch control." helper-text="The helper text also wraps to match the label." />}

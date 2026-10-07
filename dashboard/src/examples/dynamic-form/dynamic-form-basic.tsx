@@ -19,7 +19,7 @@ export default function DynamicFormBasicExample() {
       <skyra-tech-dynamic-form 
         ref={(el: HTMLElement | null) => {
           if (el) {
-            el.fields = fields;
+            (el as any).fields = fields;
             el.addEventListener("skyra-submit", (e: Event) => alert(JSON.stringify((e as CustomEvent).detail.values, null, 2)));
           }
         }}

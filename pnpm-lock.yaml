@@ -221,12 +221,21 @@ importers:
         specifier: workspace:*
         version: link:../design-tokens
     devDependencies:
+      '@vitest/coverage-v8':
+        specifier: ^2.1.9
+        version: 2.1.9(vitest@2.1.9(@types/node@20.19.43)(jsdom@25.0.1(canvas@2.11.2))(lightningcss@1.33.0))
+      jsdom:
+        specifier: ^25.0.1
+        version: 25.0.1(canvas@2.11.2)
       tsup:
         specifier: ^8.0.0
         version: 8.5.1(postcss@8.5.28)(tsx@4.23.15)(typescript@5.9.3)(yaml@2.9.1)
       typescript:
         specifier: ^5.0.0
         version: 5.9.3
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@20.19.43)(jsdom@25.0.1(canvas@2.11.2))(lightningcss@1.33.0)
 
   packages/design-tokens:
     devDependencies:

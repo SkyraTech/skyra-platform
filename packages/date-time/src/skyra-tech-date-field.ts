@@ -1,3 +1,4 @@
+console.log('AT TOP OF DATE FIELD');
 import { toISODate, parseISODate, icons } from './utils';
 import { dateFieldCss } from './date-field.css';
 import './skyra-tech-calendar';
@@ -66,6 +67,7 @@ export class SkyraTechDateField extends BaseClass {
   set invalid(v) { if (v) this.setAttribute('invalid', ''); else this.removeAttribute('invalid'); }
 
   get name() { return this.getAttribute('name') || ''; }
+  set name(v) { if (v) this.setAttribute('name', v); else this.removeAttribute('name'); }
   get form() { return this._internals.form; }
 
   // Additional props
@@ -261,8 +263,24 @@ export class SkyraTechDateField extends BaseClass {
 
     }
   }
-}
 
+  public checkValidity() {
+    if (this._internals && typeof (this._internals as any).checkValidity === 'function') {
+      return (this._internals as any).checkValidity();
+    }
+    if (this.required && !this.value) return false;
+    return true;
+  }
+
+  public reportValidity() {
+    if (this._internals && typeof (this._internals as any).reportValidity === 'function') {
+      return (this._internals as any).reportValidity();
+    }
+    return this.checkValidity();
+  }
+}
+console.log('EVALUATING DATE FIELD');
+console.log('typeof customElements in module:', typeof customElements);
 if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-date-field')) {
   customElements.define('skyra-tech-date-field', SkyraTechDateField);
 }
