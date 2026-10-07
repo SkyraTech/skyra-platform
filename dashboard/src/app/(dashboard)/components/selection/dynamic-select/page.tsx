@@ -168,7 +168,7 @@ export default function DynamicSelectDocsPage() {
   label="Tech Stack"
   searchable
   clearable
-  selectAll
+  select-all
   onChange={setValues}
 />`}
       >
@@ -180,7 +180,7 @@ export default function DynamicSelectDocsPage() {
             placeholder="Select frameworks..."
             searchable
             clearable
-            selectAll
+            select-all
             value={multiVal}
             onChange={(v) => setMultiVal(v as any[])}
           />
@@ -248,7 +248,7 @@ export default function DynamicSelectDocsPage() {
   options={options}
   mode="multiple"
   searchable
-  allowCreate
+  allow-create
   onCreateOption={(query) => console.log('Create:', query)}
   onChange={setValues}
 />`}
@@ -261,7 +261,7 @@ export default function DynamicSelectDocsPage() {
             placeholder="Select or type a new tag..."
             searchable
             clearable
-            allowCreate
+            allow-create
             value={creatableVal}
             onChange={(v) => setCreatableVal(v as any[])}
             onCreateOption={(q) => console.log('Create:', q)}
@@ -309,7 +309,7 @@ export default function DynamicSelectDocsPage() {
         doItems={[
           'Use for selecting from a dynamic or long list of options.',
           'Enable searchable when the options list exceeds 10 items.',
-          'Use mode="multiple" with selectAll for bulk selection workflows.',
+          'Use mode="multiple" with select-all for bulk selection workflows.',
           'Use grouping to organize large option sets into logical categories.',
           'Provide a descriptive label for every select instance.',
         ]}

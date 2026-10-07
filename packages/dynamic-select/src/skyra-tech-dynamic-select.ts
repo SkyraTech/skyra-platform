@@ -182,19 +182,46 @@ export class SkyraTechDynamicSelect extends BaseClass {
   private _updateInternals() {
     if (!this._internals) return;
     
+    // Validation
+    if (typeof this._internals.setValidity === 'function') {
+      if (this.required && this._value.length === 0) {
+        this._internals.setValidity({ valueMissing: true }, 'Please select an option');
+      } else {
+        this._internals.setValidity({});
+      }
+    }
+
     // In multi select, native form data supports multiple entries for the same name,
     // but ElementInternals setFormValue currently requires FormData to represent multiples,
     // or just appending strings. For simplicity we append strings.
     if (!this.name) return;
     
-    if (this._value.length === 0) {
-      this._internals.setFormValue(null);
-    } else {
-      const fd = new FormData();
-      this._value.forEach(v => fd.append(this.name!, this._getValue(v)));
-      this._internals.setFormValue(fd);
+    if (typeof this._internals.setFormValue === 'function') {
+      if (this._value.length === 0) {
+        this._internals.setFormValue(null);
+      } else {
+        const fd = new FormData();
+        this._value.forEach(v => fd.append(this.name!, this._getValue(v)));
+        this._internals.setFormValue(fd);
+      }
     }
   }
+
+  public checkValidity() {
+    if (this._internals && typeof (this._internals as any).checkValidity === 'function') {
+      return (this._internals as any).checkValidity();
+    }
+    if (this.required && this._value.length === 0) return false;
+    return true;
+  }
+
+  public reportValidity() {
+    if (this._internals && typeof (this._internals as any).reportValidity === 'function') {
+      return (this._internals as any).reportValidity();
+    }
+    return this.checkValidity();
+  }
+
 
   private _getFilteredOptions() {
     if (!this._searchQuery) return this._options;
@@ -510,7 +537,7 @@ export class SkyraTechDynamicSelect extends BaseClass {
     if (this._focusedIndex >= 0 && this._listbox) {
       const items = this._listbox.querySelectorAll('[data-skyra-option]');
       const activeEl = items[this._focusedIndex] as HTMLElement;
-      if (activeEl) {
+      if (activeEl && typeof activeEl.scrollIntoView === 'function') {
         activeEl.scrollIntoView({ block: 'nearest' });
       }
     }
