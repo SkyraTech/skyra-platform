@@ -1,0 +1,16 @@
+{
+  "name": "switch-consumer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@skyra-tech-platform/switch": "file:../../packages/switch/skyra-tech-platform-switch-0.1.0.tgz"
+  }
+}
