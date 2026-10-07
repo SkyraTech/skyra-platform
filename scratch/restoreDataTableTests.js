@@ -1,4 +1,7 @@
-// @ts-nocheck\nimport { describe, it, expect, beforeEach, afterEach } from 'vitest';
+const fs = require('fs');
+const path = 'c:/Users/VAMSHIKA/source/repos/skyra-tech-projects/skyra-platform/packages/data-table/src/skyra-tech-data-table.test.ts';
+
+const content = `import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import './skyra-tech-data-table';
 import { SkyraTechDataTable } from './skyra-tech-data-table';
 
@@ -37,8 +40,8 @@ describe('SkyraTechDataTable', () => {
 
     const rows = shadow.querySelectorAll('tbody tr');
     expect(rows.length).toBe(2);
-    expect(rows[0].querySelectorAll("td")[0].textContent).toBe('1');
-    expect(rows[0].querySelectorAll("td")[1].textContent).toBe('Alice');
+    expect(rows[0].querySelectorAll('td')[0].textContent).toBe('1');
+    expect(rows[0].querySelectorAll('td')[1].textContent).toBe('Alice');
   });
 
   it('renders loading state', () => {
@@ -48,7 +51,7 @@ describe('SkyraTechDataTable', () => {
     const shadow = element.shadowRoot!;
     const rows = shadow.querySelectorAll('tbody tr');
     expect(rows.length).toBeGreaterThan(0);
-    expect(rows[0].querySelector(".skyra-skeleton-bar")).not.toBeNull();
+    expect(rows[0].querySelector('.skyra-skeleton-bar')).not.toBeNull();
   });
 
   it('renders empty state', () => {
@@ -115,12 +118,12 @@ describe('SkyraTechDataTable', () => {
     const shadow = element.shadowRoot!;
     let rows = shadow.querySelectorAll('tbody tr');
     expect(rows.length).toBe(10);
-    expect(rows[0].querySelector("td").textContent).toBe('0');
+    expect(rows[0].querySelector('td').textContent).toBe('0');
 
     element.pagination = { pageIndex: 1, pageSize: 10 };
     rows = shadow.querySelectorAll('tbody tr');
     expect(rows.length).toBe(10);
-    expect(rows[0].querySelector("td").textContent).toBe('10');
+    expect(rows[0].querySelector('td').textContent).toBe('10');
   });
 
   it('handles filtering correctly', () => {
@@ -139,7 +142,7 @@ describe('SkyraTechDataTable', () => {
     const shadow = element.shadowRoot!;
     const rows = shadow.querySelectorAll('tbody tr');
     expect(rows.length).toBe(1);
-    expect(rows[0].querySelector("td").textContent).toBe('Alice');
+    expect(rows[0].querySelector('td').textContent).toBe('Alice');
   });
 
   it('handles global filtering', () => {
@@ -158,12 +161,12 @@ describe('SkyraTechDataTable', () => {
     const shadow = element.shadowRoot!;
     const rows = shadow.querySelectorAll('tbody tr');
     expect(rows.length).toBe(1);
-    expect(rows[0].querySelector("td").textContent).toBe('Bob');
+    expect(rows[0].querySelector('td').textContent).toBe('Bob');
   });
 
   it('renders cell slots correctly', () => {
     element.columns = [
-      { id: 'name', accessor: 'name', header: 'Name', cellSlot: (row: any) => `slot-name-${row.id}` }
+      { id: 'name', accessor: 'name', header: 'Name', cellSlot: (row) => \`slot-name-\${row.id}\` }
     ];
     element.data = [
       { id: 1, name: 'Alice' }
@@ -172,16 +175,20 @@ describe('SkyraTechDataTable', () => {
     const shadow = element.shadowRoot!;
     const slot = shadow.querySelector('tbody td slot');
     expect(slot).not.toBeNull();
-    expect(slot.getAttribute('name')).toBe('slot-name-1');
+    expect(slot?.getAttribute('name')).toBe('slot-name-1');
   });
 
   it('handles error state', () => {
     element.columns = [{ id: 'id', accessor: 'id', header: 'ID' }];
-    element.error = true;
+    element.error = 'Failed to load';
 
     const shadow = element.shadowRoot!;
-    const errorState = shadow.querySelector('.empty-state');
+    const errorState = shadow.querySelector('.error-state');
     expect(errorState).not.toBeNull();
-    expect(errorState.textContent).toContain('No results found');
+    expect(errorState?.textContent).toContain('Failed to load');
   });
 });
+`;
+
+fs.writeFileSync(path, content);
+console.log("Done");

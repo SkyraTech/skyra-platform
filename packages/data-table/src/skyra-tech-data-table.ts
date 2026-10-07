@@ -1,14 +1,12 @@
 import { dataTableStyles } from './skyra-tech-data-table.css';
 import { processTableData } from './processTableData';
-import { 
-  DataTableFeatures, 
+import { BaseColumnDef, DataTableFeatures, 
   SortingState, 
   PaginationState, 
   VisibilityState, 
   RowSelectionState, 
   ColumnFiltersState,
-  ColumnSizingState
-} from './types';
+  ColumnSizingState } from './types';
 
 // Icons used in DataTable
 const icons = {
@@ -24,8 +22,8 @@ const icons = {
 const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
 export class SkyraTechDataTable extends BaseClass {
   // Properties
-  private _data: any[] = [];
-  private _columns: any[] = [];
+  private _data: Record<string, unknown>[] = [];
+  private _columns: BaseColumnDef<Record<string, unknown>, unknown>[] = [];
   private _features: DataTableFeatures = {};
   
   // State
@@ -44,11 +42,11 @@ export class SkyraTechDataTable extends BaseClass {
   private _totalRows = 0;
   private _pageCount = 0;
   private _pageSizeOptions = [10, 20, 50, 100];
-  private _isRowDisabled?: (row: any) => boolean;
+  private _isRowDisabled?: (row: Record<string, unknown>) => boolean;
 
   // Rendered Data
-  private _processedData: any[] = [];
-  private _pageRows: any[] = [];
+  private _processedData: Record<string, unknown>[] = [];
+  private _pageRows: Record<string, unknown>[] = [];
 
   // DOM Elements
   private _root: ShadowRoot;
@@ -95,10 +93,10 @@ export class SkyraTechDataTable extends BaseClass {
   }
 
   // --- Property Setters ---
-  set data(val: any[]) { this._data = val || []; this.updateData(); }
+  set data(val: Record<string, unknown>[]) { this._data = val || []; this.updateData(); }
   get data() { return this._data; }
 
-  set columns(val: any[]) { this._columns = val || []; this.render(); }
+  set columns(val: BaseColumnDef<Record<string, unknown>, unknown>[]) { this._columns = val || []; this.render(); }
   get columns() { return this._columns; }
 
   set features(val: DataTableFeatures) { this._features = val || {}; this.render(); }
@@ -140,7 +138,7 @@ export class SkyraTechDataTable extends BaseClass {
   set totalRows(val: number) { this._totalRows = val; this.renderFooter(); }
   set pageCount(val: number) { this._pageCount = val; this.renderFooter(); }
   set pageSizeOptions(val: number[]) { this._pageSizeOptions = val || [10]; this.renderFooter(); }
-  set isRowDisabled(val: ((row: any) => boolean) | undefined) { this._isRowDisabled = val; this.renderBody(); }
+  set isRowDisabled(val: ((row: Record<string, unknown>) => boolean) | undefined) { this._isRowDisabled = val; this.renderBody(); }
 
   getCurrentPageRows() {
     return this._pageRows || [];
@@ -184,7 +182,7 @@ export class SkyraTechDataTable extends BaseClass {
 
   private get visibleCols() {
     return this._columns.filter(c => {
-      const id = c.id || c.accessor;
+      const id = (c.id || c.accessor) as string;
       return !this._visibility[id];
     });
   }
@@ -265,7 +263,7 @@ export class SkyraTechDataTable extends BaseClass {
       dropdown.className = 'col-vis-dropdown';
       
       this._columns.filter(c => c.hideable !== false).forEach(col => {
-        const id = col.id || col.accessor;
+        const id = (col.id || col.accessor) as string;
         const label = document.createElement('label');
         label.className = 'col-vis-label';
         const isChecked = !this._visibility[id];
@@ -314,8 +312,8 @@ export class SkyraTechDataTable extends BaseClass {
       th.style.width = '48px';
       th.style.textAlign = 'center';
       
-      const allSelected = this._pageRows.length > 0 && this._pageRows.every(r => this._selection[r.id]);
-      const someSelected = this._pageRows.some(r => this._selection[r.id]);
+      const allSelected = this._pageRows.length > 0 && this._pageRows.every(r => this._selection[String(r.id)]);
+      const someSelected = this._pageRows.some(r => this._selection[String(r.id)]);
       
       const cb = document.createElement('input');
       cb.type = 'checkbox';
@@ -329,8 +327,8 @@ export class SkyraTechDataTable extends BaseClass {
         const newSel = { ...this._selection };
         this._pageRows.forEach(r => {
           if (this._isRowDisabled && this._isRowDisabled(r)) return;
-          if (checked) newSel[r.id] = true;
-          else delete newSel[r.id];
+          if (checked) newSel[String(r.id)] = true;
+          else delete newSel[String(r.id)];
         });
         this._selection = newSel;
         this.dispatchEvent(new CustomEvent('skyra-selection-change', { detail: newSel }));
@@ -343,7 +341,7 @@ export class SkyraTechDataTable extends BaseClass {
     }
 
     cols.forEach(col => {
-      const id = col.id || col.accessor;
+      const id = (col.id || col.accessor) as string;
       const th = document.createElement('th');
       const isSortable = this._features.sorting && col.sortable;
       const customWidth = this._columnSizing[id] || col.width;
@@ -392,13 +390,13 @@ export class SkyraTechDataTable extends BaseClass {
         resizer.setAttribute('aria-label', `Resize column ${col.header || id}`);
         resizer.tabIndex = 0;
         
-        const currentSize = this._columnSizing[id] || col.size || 150;
+        const currentSize = this._columnSizing[id] || (col.width as number) || 150;
         resizer.setAttribute('aria-valuenow', String(currentSize));
         resizer.setAttribute('aria-valuemin', '50');
         resizer.setAttribute('aria-valuemax', '1000');
         
         resizer.addEventListener('keydown', (e) => {
-          let size = this._columnSizing[id] || col.size || 150;
+          let size = this._columnSizing[id] || (col.width as number) || 150;
           if (e.key === 'ArrowRight') size += 10;
           if (e.key === 'ArrowLeft') size -= 10;
           if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
@@ -410,7 +408,7 @@ export class SkyraTechDataTable extends BaseClass {
         
         resizer.addEventListener('pointerdown', (e) => {
           e.preventDefault();
-          const size = this._columnSizing[id] || col.size || 150;
+          const size = this._columnSizing[id] || (col.width as number) || 150;
           this.dispatchEvent(new CustomEvent('skyra-column-sizing-change', { detail: { ...this._columnSizing, [id]: size } }));
         });
         
@@ -505,7 +503,7 @@ export class SkyraTechDataTable extends BaseClass {
 
     this._pageRows.forEach(row => {
       const tr = document.createElement('tr');
-      const isSelected = Boolean(this._selection[row.id]);
+      const isSelected = Boolean(this._selection[String(row.id)]);
       const disabled = Boolean(this._isRowDisabled?.(row));
 
       if (isSelected) tr.classList.add('selected');
@@ -537,12 +535,12 @@ export class SkyraTechDataTable extends BaseClass {
         cb.type = 'checkbox';
         cb.checked = isSelected;
         cb.disabled = disabled;
-        cb.setAttribute('aria-label', `Select row ${row.id}`);
+        cb.setAttribute('aria-label', `Select row ${String(row.id)}`);
         cb.addEventListener('change', (e) => {
           const checked = (e.target as HTMLInputElement).checked;
           const newSel = { ...this._selection };
-          if (checked) newSel[row.id] = true;
-          else delete newSel[row.id];
+          if (checked) newSel[String(row.id)] = true;
+          else delete newSel[String(row.id)];
           
           this._selection = newSel;
           this.dispatchEvent(new CustomEvent('skyra-selection-change', { detail: newSel }));
@@ -555,7 +553,7 @@ export class SkyraTechDataTable extends BaseClass {
       }
 
       cols.forEach(col => {
-        const id = col.id || col.accessor;
+        const id = (col.id || col.accessor) as string;
         const td = document.createElement('td');
         if (col.align) td.style.textAlign = col.align;
         
@@ -572,7 +570,7 @@ export class SkyraTechDataTable extends BaseClass {
         const td = document.createElement('td');
         td.className = 'skyra-actions-cell';
         td.style.textAlign = 'right';
-        td.innerHTML = `<slot name="row-actions-${row.id}"></slot>`;
+        td.innerHTML = `<slot name="row-actions-${String(row.id)}"></slot>`;
         tr.appendChild(td);
       }
 

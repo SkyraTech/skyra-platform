@@ -33,7 +33,7 @@ export function ProfileForm() {
 ```
 
 ## Dependencies / Peer Dependencies
-- **Dependencies:** `@skyra/ui`, `@skyra-tech-platform/utils`, `@skyra-tech-platform/validation`
+- **Dependencies:** `@skyra-tech-platform/utils`, `@skyra-tech-platform/validation`
 - **Peer Dependencies:** `react`, `react-dom`, `lucide-react`
 
 ## Responsive Behavior

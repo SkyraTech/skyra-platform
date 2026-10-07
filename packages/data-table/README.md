@@ -23,9 +23,8 @@ export function UserTable({ users }) {
 }
 ```
 
-## Dependencies / Peer Dependencies
-- **Dependencies:** `@skyra/ui`
-- **Peer Dependencies:** `react`, `react-dom`, `lucide-react`
+
+
 
 ## Responsive Behavior
 Adapts to mobile viewports using advanced CSS Grid (`auto-fit`, `minmax`) for extreme resilience without fixed JS media queries.

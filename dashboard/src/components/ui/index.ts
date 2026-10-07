@@ -8,7 +8,7 @@ export * from './Card';
 export * from './CheckboxGroup';
 export * from './CircularProgress';
 export * from './Collapsible';
-export * from './ColumnFilterUI';
+
 export * from './CommandPalette';
 export * from './CommandProvider';
 export * from './ContextMenu';
