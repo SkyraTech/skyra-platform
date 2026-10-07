@@ -12,7 +12,7 @@ export interface SearchInputProps extends Omit<React.ComponentProps<'skyra-tech-
 }
 
 /**
- * @skyra/ui SearchInput
+ * @skyra-tech-platform/input SearchInput
  *
  * Specialized search input with search icon, clear button, and accessible semantics.
  */
@@ -56,12 +56,12 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
         clearable={clearable}
         value={value}
         onChange={onChange}
-        onClear={onClear}
-        leftAdornment={showSearchIcon ? <Search size={16} /> : undefined}
         onKeyDown={handleKeyDown}
         aria-label={props['aria-label'] ?? placeholder}
         {...props}
-      />
+      >
+        {showSearchIcon && <Search size={16} slot="left-icon" />}
+      </skyra-tech-input>
     );
   }
 );

@@ -10,7 +10,7 @@ export interface PasswordInputProps extends Omit<React.ComponentProps<'skyra-tec
 }
 
 /**
- * @skyra/ui PasswordInput
+ * @skyra-tech-platform/input PasswordInput
  *
  * Specialized password input with show/hide password toggle button.
  */
@@ -22,27 +22,28 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
       <skyra-tech-input
         ref={ref}
         type={isVisible ? 'text' : 'password'}
-        rightAdornment={
-          showToggle ? (
-            <button
-              type="button"
-              aria-label={isVisible ? 'Hide password' : 'Show password'}
-              onClick={() => setIsVisible((prev) => !prev)}
-              style={{
-                background: 'none',
-                border: 'none',
-                padding: '2px',
-                cursor: 'pointer',
-                color: 'var(--skyra-text-muted)',
-                display: 'flex',
-                alignItems: 'center' }}
-            >
-              {isVisible ? <EyeOff size={16} /> : <Eye size={16} />}
-            </button>
-          ) : undefined
-        }
         {...props}
-      />
+      >
+        {showToggle && (
+          <button
+            slot="right-icon"
+            type="button"
+            aria-label={isVisible ? 'Hide password' : 'Show password'}
+            onClick={() => setIsVisible((prev) => !prev)}
+            style={{
+              background: 'none',
+              border: 'none',
+              padding: '2px',
+              cursor: 'pointer',
+              color: 'var(--skyra-text-muted)',
+              display: 'flex',
+              alignItems: 'center'
+            }}
+          >
+            {isVisible ? <EyeOff size={16} /> : <Eye size={16} />}
+          </button>
+        )}
+      </skyra-tech-input>
     );
   }
 );

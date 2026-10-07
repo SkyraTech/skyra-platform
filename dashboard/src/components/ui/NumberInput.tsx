@@ -16,7 +16,7 @@ export interface NumberInputProps extends Omit<React.ComponentProps<'skyra-tech-
 }
 
 /**
- * @skyra/ui NumberInput
+ * @skyra-tech-platform/input NumberInput
  *
  * Number input with increment/decrement steppers, min/max bounds,
  * precision rounding, and keyboard controls.
@@ -91,46 +91,47 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
         disabled={disabled}
         onChange={handleChange as unknown as React.ChangeEventHandler<HTMLInputElement>}
         onKeyDown={handleKeyDown}
-        rightAdornment={
-          showSteppers ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-              <button
-                type="button"
-                aria-label="Decrease value"
-                disabled={disabled || (min !== undefined && numValue !== undefined && numValue <= min)}
-                onClick={() => handleStep(-step)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: '2px',
-                  cursor: 'pointer',
-                  color: 'var(--skyra-text-muted)',
-                  display: 'flex',
-                  alignItems: 'center' }}
-              >
-                <Minus size={14} />
-              </button>
-              <button
-                type="button"
-                aria-label="Increase value"
-                disabled={disabled || (max !== undefined && numValue !== undefined && numValue >= max)}
-                onClick={() => handleStep(step)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: '2px',
-                  cursor: 'pointer',
-                  color: 'var(--skyra-text-muted)',
-                  display: 'flex',
-                  alignItems: 'center' }}
-              >
-                <Plus size={14} />
-              </button>
-            </div>
-          ) : undefined
-        }
         {...props}
-      />
+      >
+        {showSteppers && (
+          <div slot="right-icon" style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+            <button
+              type="button"
+              aria-label="Decrease value"
+              disabled={disabled || (min !== undefined && numValue !== undefined && numValue <= min)}
+              onClick={() => handleStep(-step)}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: '2px',
+                cursor: 'pointer',
+                color: 'var(--skyra-text-muted)',
+                display: 'flex',
+                alignItems: 'center'
+              }}
+            >
+              <Minus size={14} />
+            </button>
+            <button
+              type="button"
+              aria-label="Increase value"
+              disabled={disabled || (max !== undefined && numValue !== undefined && numValue >= max)}
+              onClick={() => handleStep(step)}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: '2px',
+                cursor: 'pointer',
+                color: 'var(--skyra-text-muted)',
+                display: 'flex',
+                alignItems: 'center'
+              }}
+            >
+              <Plus size={14} />
+            </button>
+          </div>
+        )}
+      </skyra-tech-input>
     );
   }
 );

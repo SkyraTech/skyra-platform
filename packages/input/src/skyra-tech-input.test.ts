@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { defineSkyraTechInput } from './skyra-tech-input';
+import { defineSkyraTechInput, SkyraTechInput } from './skyra-tech-input';
 
 describe('SkyraTechInput Web Component', () => {
   let container: HTMLElement;
@@ -16,7 +16,7 @@ describe('SkyraTechInput Web Component', () => {
 
   const setup = (html: string) => {
     container.innerHTML = html;
-    return container.firstElementChild as any;
+    return container.firstElementChild as SkyraTechInput;
   };
 
   it('renders correctly', () => {

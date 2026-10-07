@@ -209,8 +209,8 @@ export class SkyraTechInput extends BaseClass {
 
   // --- Methods ---
 
-  checkValidity() { return this._internals && typeof (this._internals as any).checkValidity === 'function' ? (this._internals as any).checkValidity() : this._input.checkValidity(); }
-  reportValidity() { return this._internals && typeof (this._internals as any).reportValidity === 'function' ? (this._internals as any).reportValidity() : this._input.reportValidity(); }
+  checkValidity() { return this._internals && typeof (this._internals as unknown as { checkValidity: () => boolean }).checkValidity === 'function' ? (this._internals as unknown as { checkValidity: () => boolean }).checkValidity() : this._input.checkValidity(); }
+  reportValidity() { return this._internals && typeof (this._internals as unknown as { reportValidity: () => boolean }).reportValidity === 'function' ? (this._internals as unknown as { reportValidity: () => boolean }).reportValidity() : this._input.reportValidity(); }
   
   override focus(options?: FocusOptions) { this._input.focus(options); }
   override blur() { this._input.blur(); }
