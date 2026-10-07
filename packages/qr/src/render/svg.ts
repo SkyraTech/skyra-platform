@@ -1,5 +1,5 @@
 /**
- * @skyra/qr — render/svg.ts
+ * @skyra-tech-platform/qr — render/svg.ts
  * Deterministic SVG string generator for QRCodeMatrix.
  */
 import { QRCodeMatrix, QRCodeSVGOptions } from '../types';

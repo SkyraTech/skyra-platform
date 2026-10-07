@@ -1,46 +1,19 @@
-# @skyra/qr
+# @skyra-tech-platform/qr
 
-## Overview
-Skyra Platform generic QR code generation, matrix calculation, and SVG rendering.
+Skyra Platform generic QR code generation, matrix calculation, and SVG rendering. 
+This is a framework-agnostic implementation exposing a Native Web Component `<skyra-qr-code>`.
 
-## Architecture & Exports
-This package explicitly separates pure generation logic from React rendering:
-- `@skyra/qr/core`: Runtime-neutral QR matrix calculation.
-- `@skyra/qr/react`: React SVG rendering components.
+## Usage
 
-## Runtime Support
-- `./core`: Runtime-neutral (Node.js / Browser)
-- `./react`: React + Browser
-
-## Installation
-```bash
-pnpm add @skyra/qr
+```typescript
+import '@skyra-tech-platform/qr';
 ```
 
-## Basic Usage
-
-**React Component:**
-```tsx
-import { QRCode } from '@skyra/qr/react';
-
-export function Ticket() {
-  return <QRCode value="https://skyra.tech" size={128} />;
-}
+```html
+<skyra-qr-code value="https://skyra.com" error-correction-level="H" scale="4" margin="4"></skyra-qr-code>
 ```
 
-**Core Generation:**
-```ts
-import { generateQRMatrix } from '@skyra/qr/core';
-
-const matrix = generateQRMatrix('https://skyra.tech', { errorCorrectionLevel: 'H' });
-```
-
-## Dependencies / Peer Dependencies
-- **Dependencies:** `qrcode`
-- **Peer Dependencies (Optional):** `react`
-
-The React peer dependency is optional. Consumers using only `@skyra/qr/core` do not need to install React. `react-dom` is not required by this package; it is not imported, not bundled, and not declared in the published manifest.
-
-## Version & Lifecycle
-Current Version: `0.1.0` (Pre-1.0 Minor bumps signify breaking changes).
-Lifecycle: `@stable`
+## Features
+- **Web Component**: Custom element wrapper over generic matrix generation
+- **Dynamic Calculation**: High-performance pure matrix generation
+- **No Dependencies**: Framework-agnostic

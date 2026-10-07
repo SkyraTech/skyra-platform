@@ -30,7 +30,7 @@ export default function QRCodeShowcase() {
           <h1 style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 800, fontSize: '1.85rem', color: 'var(--skyra-text)', margin: 0 }}>
             QR Code Showcase
           </h1>
-          <Badge variant="primary" style={{ fontFamily: 'monospace' }}>@skyra/qr</Badge>
+          <Badge variant="primary" style={{ fontFamily: 'monospace' }}>@skyra-tech-platform/qr</Badge>
         </div>
         <p style={{ color: 'var(--skyra-text-muted)', maxWidth: '800px', fontSize: '0.95rem', margin: 0, lineHeight: 1.5 }}>
           Generate and preview highly scannable QR codes using Skyra Platform's reusable QR engine. Fully accessible SVG output.
@@ -121,9 +121,9 @@ export default function QRCodeShowcase() {
               overflowX: 'auto',
               lineHeight: 1.6
             }}>
-<span style={{ color: '#38BDF8' }}>import</span> {'{ '} <span style={{ color: '#FDE047' }}>QRCode</span> {' }'} <span style={{ color: '#38BDF8' }}>from</span> <span style={{ color: '#34D399' }}>'@skyra-tech-platform/qr'</span>;{'\n\n'}
-<span style={{ color: '#64748B' }}>// React Usage</span>{'\n'}
-{'<'}<span style={{ color: '#FDE047' }}>QRCode</span>{'\n'}
+<span style={{ color: '#38BDF8' }}>import</span> {'{ '} <span style={{ color: '#FDE047' }}>skyra-qr-code</span> {' }'} <span style={{ color: '#38BDF8' }}>from</span> <span style={{ color: '#34D399' }}>'@skyra-tech-platform/qr'</span>;{'\n\n'}
+<span style={{ color: '#64748B' }}>// Web Component Usage</span>{'\n'}
+{'<'}<span style={{ color: '#FDE047' }}>skyra-qr-code</span>{'\n'}
 {'  '}<span style={{ color: '#38BDF8' }}>value</span>={'{'}<span style={{ color: '#34D399' }}>'{value}'</span>{'}'}{'\n'}
 {'  '}<span style={{ color: '#38BDF8' }}>errorCorrectionLevel</span>={'{'}<span style={{ color: '#34D399' }}>'{errorCorrectionLevel}'</span>{'}'}{'\n'}
 {'  '}<span style={{ color: '#38BDF8' }}>margin</span>={'{'}<span style={{ color: '#FB923C' }}>{margin}</span>{'}'}{'\n'}
@@ -132,7 +132,7 @@ export default function QRCodeShowcase() {
 {'    '}<span style={{ color: '#38BDF8' }}>dark</span>: <span style={{ color: '#34D399' }}>'{darkColor}'</span>,{'\n'}
 {'    '}<span style={{ color: '#38BDF8' }}>light</span>: <span style={{ color: '#34D399' }}>'{lightColor}'</span>{'\n'}
 {'  '}{'}'}{'}'}{'\n'}
-{'/>'}
+&gt;&lt;/<span style={{ color: '#FDE047' }}>skyra-qr-code</span>&gt;
             </pre>
           </section>
 

@@ -1,5 +1,5 @@
 /**
- * @skyra/qr — types.ts
+ * @skyra-tech-platform/qr — types.ts
  * Generic QR Code types and interfaces.
  */
 

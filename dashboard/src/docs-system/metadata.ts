@@ -115,7 +115,7 @@ export interface CapabilityMetadata {
   name: string;
   packageId: string;
   description: string;
-  /** The export path for this capability, e.g. '@skyra/qr/core' */
+  /** The export path for this capability, e.g. '@skyra-tech-platform/qr/core' */
   exportPath: string;
   runtime: RuntimeCategory;
   /** Short usage note or code hint */

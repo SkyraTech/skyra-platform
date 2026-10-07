@@ -1,5 +1,5 @@
 /**
- * @skyra/qr — validation.ts
+ * @skyra-tech-platform/qr — validation.ts
  * Pure validation logic for QR Code generation.
  */
 import { QRCodeOptions, QRCodeErrorCorrectionLevel } from './types';

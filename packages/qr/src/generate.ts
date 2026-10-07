@@ -1,5 +1,5 @@
 /**
- * @skyra/qr — generate.ts
+ * @skyra-tech-platform/qr — generate.ts
  * Core matrix generation engine using 'qrcode' as the underlying encoder.
  */
 import QRCodeLib from 'qrcode';
@@ -24,7 +24,7 @@ export function generateQRCode(payload: string, options: QRCodeOptions = {}): QR
   const qr = QRCodeLib.create(payload, {
     errorCorrectionLevel: options.errorCorrectionLevel || 'M',
     version: options.version,
-    maskPattern: options.maskPattern as any,
+    maskPattern: options.maskPattern as unknown as undefined,
   });
 
   const { modules, version, errorCorrectionLevel } = qr;
@@ -46,6 +46,6 @@ export function generateQRCode(payload: string, options: QRCodeOptions = {}): QR
     size: dataSize,
     modules: bitMatrix,
     version,
-    errorCorrectionLevel: (errorCorrectionLevel as any)?.name?.toUpperCase() || options.errorCorrectionLevel || 'M',
+    errorCorrectionLevel: ((errorCorrectionLevel as unknown as { name?: string })?.name?.toUpperCase() as 'L' | 'M' | 'Q' | 'H') || options.errorCorrectionLevel || 'M',
   };
 }

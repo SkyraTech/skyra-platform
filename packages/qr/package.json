@@ -14,21 +14,17 @@
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
-    "lint": "echo 'lint: ok'",
     "test": "vitest run --passWithNoTests",
     "clean": "rm -rf dist"
   },
   "dependencies": {
     "qrcode": "^1.5.4"
   },
-  "peerDependenciesMeta": {
-    "react": {
-      "optional": true
-    }
-  },
   "devDependencies": {
+    "@types/jest-axe": "^3.5.9",
     "@types/qrcode": "^1.5.5",
     "@vitest/coverage-v8": "^2.1.8",
+    "jest-axe": "^9.0.0",
     "jsdom": "^25.0.0",
     "typescript": "^5.7.0",
     "vitest": "^2.1.8"

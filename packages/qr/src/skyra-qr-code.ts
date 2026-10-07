@@ -101,7 +101,7 @@ export class SkyraQRCodeElement extends BaseClass {
         </div>
       `;
     } catch (e) {
-      console.error('[@skyra/qr] Failed to generate QR code in web component:', e);
+      console.error('[@skyra-tech-platform/qr] Failed to generate QR code in web component:', e);
       this.shadowRoot.innerHTML = '';
     }
   }
