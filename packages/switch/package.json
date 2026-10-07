@@ -23,8 +23,7 @@
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:ui": "vitest --ui",
-    "lint": "echo 'lint ok'"
+    "test:ui": "vitest --ui"
   },
   "devDependencies": {
     "jsdom": "^25.0.0",
