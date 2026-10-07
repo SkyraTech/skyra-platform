@@ -22,7 +22,7 @@ export default function SandboxPage() {
       </Card>
       
       <skyra-tech-dynamic-form 
-        ref={(el: any) => {
+        ref={(el: HTMLElement | null) => {
           if (el) {
             el.fieldsets = [
               {

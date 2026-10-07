@@ -171,7 +171,7 @@ export interface FieldDef<TValues = Record<string, unknown>> {
   /** Custom validation function */
   validate?: (value: unknown, allValues: TValues) => string | undefined | Promise<string | undefined>;
   /** Custom render override (handled by framework adapters) */
-  render?: (props: FieldRenderProps<TValues>) => any;
+  render?: (props: FieldRenderProps<TValues>) => unknown;
   className?: string;
 }
 
@@ -278,7 +278,7 @@ export interface DynamicFormProps<TValues extends FormValues = FormValues> {
   onDirtyChange?: (isDirty: boolean) => void;
 
   /** Imperative form action ref (used by framework adapters) */
-  formRef?: any;
+  formRef?: HTMLElement | null;
 
   /** Danger zone section */
   showDangerZone?: boolean;

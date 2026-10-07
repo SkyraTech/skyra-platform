@@ -1,0 +1,225 @@
+{
+  "button": {
+    "deps": {},
+    "peers": {},
+    "devDeps": {
+      "typescript": "^5.0.0",
+      "tsup": "^8.0.0",
+      "vitest": "^2.1.8",
+      "jsdom": "^25.0.0"
+    },
+    "name": "@skyra-tech-platform/button",
+    "sourceFiles": [
+      "index.ts",
+      "skyra-tech-button.css.ts",
+      "skyra-tech-button.test.ts",
+      "skyra-tech-button.ts",
+      "test-setup.ts"
+    ]
+  },
+  "checkbox": {
+    "deps": {},
+    "peers": {},
+    "devDeps": {
+      "jsdom": "^25.0.0",
+      "tsup": "^8.0.0",
+      "typescript": "^5.0.0",
+      "vitest": "^2.1.9"
+    },
+    "name": "@skyra-tech-platform/checkbox",
+    "sourceFiles": [
+      "index.ts",
+      "skyra-tech-checkbox.css.ts",
+      "skyra-tech-checkbox.test.ts",
+      "skyra-tech-checkbox.ts",
+      "test-setup.ts"
+    ]
+  },
+  "date-time": {
+    "deps": {
+      "@skyra-tech-platform/design-tokens": "workspace:*"
+    },
+    "peers": {},
+    "devDeps": {
+      "tsup": "^8.0.0",
+      "typescript": "^5.0.0"
+    },
+    "name": "@skyra-tech-platform/date-time",
+    "sourceFiles": [
+      "calendar.css.ts",
+      "date-field.css.ts",
+      "date-range-field.css.ts",
+      "index.ts",
+      "skyra-tech-calendar.ts",
+      "skyra-tech-date-field.ts",
+      "skyra-tech-date-range-field.ts",
+      "skyra-tech-date-time-field.ts",
+      "skyra-tech-time-field.ts",
+      "skyra-tech-time-range-field.ts",
+      "time-field.css.ts",
+      "utils.ts"
+    ]
+  },
+  "dynamic-select": {
+    "deps": {},
+    "peers": {},
+    "devDeps": {
+      "typescript": "^5.0.0",
+      "tsup": "^8.0.0",
+      "vitest": "^2.1.8",
+      "jsdom": "^25.0.0"
+    },
+    "name": "@skyra-tech-platform/dynamic-select",
+    "sourceFiles": [
+      "index.ts",
+      "skyra-tech-dynamic-select.css.ts",
+      "skyra-tech-dynamic-select.test.ts",
+      "skyra-tech-dynamic-select.ts",
+      "test-setup.ts"
+    ]
+  },
+  "input": {
+    "deps": {},
+    "peers": {},
+    "devDeps": {
+      "jsdom": "^25.0.0",
+      "tsup": "^8.0.0",
+      "typescript": "^5.0.0",
+      "vitest": "^2.1.9"
+    },
+    "name": "@skyra-tech-platform/input",
+    "sourceFiles": [
+      "index.ts",
+      "skyra-tech-input.css.ts",
+      "skyra-tech-input.test.ts",
+      "skyra-tech-input.ts",
+      "test-setup.ts"
+    ]
+  },
+  "notification": {
+    "deps": {},
+    "peers": {},
+    "devDeps": {
+      "typescript": "^5.0.0",
+      "tsup": "^8.0.0",
+      "jsdom": "^25.0.0",
+      "vitest": "^2.0.0"
+    },
+    "name": "@skyra-tech-platform/notification",
+    "sourceFiles": [
+      "index.ts",
+      "skyra-notification-bar.ts"
+    ]
+  },
+  "pdf-viewer": {
+    "deps": {
+      "pdfjs-dist": "4.4.168"
+    },
+    "peers": {},
+    "devDeps": {
+      "@testing-library/jest-dom": "^6.4.0",
+      "jsdom": "^25.0.0",
+      "tsup": "^8.0.0",
+      "typescript": "^5.0.0",
+      "vitest": "^2.0.0"
+    },
+    "name": "@skyra-tech-platform/pdf-viewer",
+    "sourceFiles": [
+      "index.ts",
+      "skyra-pdf-viewer.ts"
+    ]
+  },
+  "qr": {
+    "deps": {
+      "qrcode": "^1.5.4"
+    },
+    "peers": {},
+    "devDeps": {
+      "@types/qrcode": "^1.5.5",
+      "@vitest/coverage-v8": "^2.1.8",
+      "jsdom": "^25.0.0",
+      "typescript": "^5.7.0",
+      "vitest": "^2.1.8"
+    },
+    "name": "@skyra-tech-platform/qr",
+    "sourceFiles": [
+      "core.ts",
+      "generate.ts",
+      "render",
+      "skyra-qr-code.ts",
+      "types.ts",
+      "validation.ts"
+    ]
+  },
+  "radio": {
+    "deps": {},
+    "peers": {},
+    "devDeps": {
+      "jsdom": "^25.0.0",
+      "tsup": "^8.0.0",
+      "typescript": "^5.0.0",
+      "vitest": "^2.1.9"
+    },
+    "name": "@skyra-tech-platform/radio",
+    "sourceFiles": [
+      "index.ts",
+      "skyra-tech-radio.css.ts",
+      "skyra-tech-radio.test.ts",
+      "skyra-tech-radio.ts",
+      "test-setup.ts"
+    ]
+  },
+  "switch": {
+    "deps": {},
+    "peers": {},
+    "devDeps": {
+      "typescript": "^5.0.0",
+      "tsup": "^8.0.0",
+      "vitest": "^2.1.8",
+      "jsdom": "^25.0.0"
+    },
+    "name": "@skyra-tech-platform/switch",
+    "sourceFiles": [
+      "index.ts",
+      "skyra-tech-switch.css.ts",
+      "skyra-tech-switch.test.ts",
+      "skyra-tech-switch.ts",
+      "test-setup.ts"
+    ]
+  },
+  "textarea": {
+    "deps": {},
+    "peers": {},
+    "devDeps": {
+      "@types/jest-axe": "^3.5.9",
+      "jest-axe": "^9.0.0",
+      "jsdom": "^25.0.0",
+      "tsup": "^8.0.0",
+      "typescript": "^5.0.0"
+    },
+    "name": "@skyra-tech-platform/textarea",
+    "sourceFiles": [
+      "index.ts",
+      "skyra-tech-textarea.css.ts",
+      "skyra-tech-textarea.test.ts",
+      "skyra-tech-textarea.ts"
+    ]
+  },
+  "toast": {
+    "deps": {
+      "@skyra-tech-platform/notification": "workspace:*"
+    },
+    "peers": {},
+    "devDeps": {
+      "typescript": "^5.0.0",
+      "tsup": "^8.0.0",
+      "jsdom": "^25.0.0",
+      "vitest": "^2.0.0"
+    },
+    "name": "@skyra-tech-platform/toast",
+    "sourceFiles": [
+      "index.ts",
+      "skyra-toast-viewport.ts"
+    ]
+  }
+}

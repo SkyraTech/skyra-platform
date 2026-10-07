@@ -17,10 +17,10 @@ export default function DynamicFormBasicExample() {
   return (
     <div style={{ maxWidth: '400px' }}>
       <skyra-tech-dynamic-form 
-        ref={(el: any) => {
+        ref={(el: HTMLElement | null) => {
           if (el) {
             el.fields = fields;
-            el.addEventListener('skyra-submit', (e: any) => alert(JSON.stringify(e.detail.values, null, 2)));
+            el.addEventListener("skyra-submit", (e: Event) => alert(JSON.stringify((e as CustomEvent).detail.values, null, 2)));
           }
         }}
       />

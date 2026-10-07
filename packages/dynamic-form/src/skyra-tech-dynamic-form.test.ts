@@ -102,10 +102,10 @@ describe('SkyraTechDynamicForm', () => {
     form.addEventListener('skyra-submit', submitSpy);
     
     const event = new Event('submit', { cancelable: true });
-    await (form as any)._handleSubmit(event);
+    await (form as unknown as { _handleSubmit: (e: Event) => Promise<void> })._handleSubmit(event);
     
     expect(submitSpy).toHaveBeenCalled();
-    const eventArg = submitSpy.mock.calls[0]![0] as any;
+    const eventArg = submitSpy.mock.calls[0]![0] as CustomEvent;
     expect(eventArg.detail.values.testField).toBe('Val');
   });
 

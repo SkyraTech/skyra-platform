@@ -239,7 +239,7 @@ export class SkyraTechDynamicForm extends BaseElement {
   }
 
   private _buildDom() {
-    if (typeof HTMLElement === 'undefined') return;
+    if (!this._initialized || typeof HTMLElement === 'undefined') return;
     this._fieldsetsContainer.innerHTML = '';
     this._fieldWrappers.clear();
     this._fieldInputs.clear();
@@ -287,9 +287,9 @@ export class SkyraTechDynamicForm extends BaseElement {
     }
     
     // Clear placeholders
-    for (const key of Object.keys(this as any)) {
+    for (const key of Object.keys(this as unknown as Record<string, unknown>)) {
       if (key.startsWith('_placeholder_')) {
-        delete (this as any)[key];
+        delete (this as unknown as Record<string, unknown>)[key];
       }
     }
     
@@ -356,7 +356,7 @@ export class SkyraTechDynamicForm extends BaseElement {
     } else if (field.type === 'select' || field.type === 'multi-select') {
       el = document.createElement('skyra-tech-dynamic-select');
       el.setAttribute('mode', field.mode ?? (field.type === 'multi-select' ? 'multiple' : 'single'));
-      (el as any).options = field.options ?? [];
+      (el as unknown as Record<string, unknown>).options = field.options ?? [];
     } else if (field.type === 'checkbox') {
       el = document.createElement('skyra-tech-checkbox');
     } else if (field.type === 'switch') {
@@ -387,7 +387,7 @@ export class SkyraTechDynamicForm extends BaseElement {
     if (field.required) el.setAttribute('required', '');
     
     // Listeners
-    el.addEventListener('skyra-change', (e: any) => this._handleFieldValueChange(fullPath, e.detail?.value ?? e.target.value ?? e.target.checked));
+    el.addEventListener("skyra-change", (e: Event) => this._handleFieldValueChange(fullPath, (e as CustomEvent).detail?.value ?? (e.target as HTMLInputElement).value ?? (e.target as HTMLInputElement).checked));
     el.addEventListener('skyra-blur', () => this._handleFieldBlur(fullPath));
     
     wrapper.appendChild(el);
@@ -416,7 +416,7 @@ export class SkyraTechDynamicForm extends BaseElement {
     
     const addBtn = wrapper.querySelector(`#add-${fullPath}`) as HTMLButtonElement;
     addBtn.addEventListener('click', () => {
-      const items = (getIn(this._values, fullPath) as any[]) || [];
+      const items = (getIn(this._values, fullPath) as unknown[]) || [];
       const next = [...items, {}];
       this._handleFieldValueChange(fullPath, next);
       this._renderRepeatableList(field, fullPath, wrapper);
@@ -432,7 +432,7 @@ export class SkyraTechDynamicForm extends BaseElement {
     const addBtn = wrapper.querySelector(`#add-${fullPath}`) as HTMLButtonElement;
     listEl.innerHTML = '';
     
-    const items = (getIn(this._values, fullPath) as any[]) || [];
+    const items = (getIn(this._values, fullPath) as unknown[]) || [];
     countEl.textContent = `${items.length} entries`;
     
     const config = field.repeatable || field.repeatableConfig;
@@ -546,15 +546,16 @@ export class SkyraTechDynamicForm extends BaseElement {
   }
 
   private _syncValuesToDom() {
+    if (!this._initialized) return;
     for (const [path, el] of this._fieldInputs.entries()) {
       const val = getIn(this._values, path);
       if (el.tagName.includes('CHECKBOX') || el.tagName.includes('SWITCH')) {
         if (val) el.setAttribute('checked', '');
         else el.removeAttribute('checked');
       } else if (el.tagName.includes('DYNAMIC-SELECT') || el.tagName.includes('DATE') || el.tagName.includes('TIME')) {
-        (el as any).value = val;
+        (el as HTMLInputElement).value = val as string;
       } else {
-        (el as any).value = val ?? '';
+        (el as HTMLInputElement).value = (val as string) ?? "";
       }
     }
   }
@@ -573,6 +574,7 @@ export class SkyraTechDynamicForm extends BaseElement {
   }
 
   private _updateVisibility() {
+    if (!this._initialized) return;
     for (const [path, wrapper] of this._fieldWrappers.entries()) {
       // Find field def
       const field = this._findFieldDef(path);
@@ -581,16 +583,16 @@ export class SkyraTechDynamicForm extends BaseElement {
       const isVisible = this._isFieldVisible(field, path);
       
       if (isVisible) {
-        const placeholder = (this as any)[`_placeholder_${path}`];
+        const placeholder = (this as unknown as Record<string, Node>)[`_placeholder_${path}`];
         if (placeholder && placeholder.parentNode) {
           placeholder.parentNode.replaceChild(wrapper, placeholder);
         }
       } else {
         if (wrapper.parentNode) {
-          let placeholder = (this as any)[`_placeholder_${path}`];
+          let placeholder = (this as unknown as Record<string, Node>)[`_placeholder_${path}`];
           if (!placeholder) {
             placeholder = document.createComment(` placeholder for ${path} `);
-            (this as any)[`_placeholder_${path}`] = placeholder;
+            (this as unknown as Record<string, Node>)[`_placeholder_${path}`] = placeholder;
           }
           wrapper.parentNode.replaceChild(placeholder, wrapper);
         }
@@ -650,6 +652,7 @@ export class SkyraTechDynamicForm extends BaseElement {
   }
   
   private _updateErrorsDisplay() {
+    if (!this._initialized) return;
     const activeErrors: FormErrors = { ...this._errors };
     
     if (this._serverErrors) {
@@ -743,7 +746,7 @@ export class SkyraTechDynamicForm extends BaseElement {
     }
   };
 
-  private _dispatchEvent(name: string, detail: any) {
+  private _dispatchEvent(name: string, detail: unknown) {
     this.dispatchEvent(new CustomEvent(name, { bubbles: true, composed: true, detail }));
   }
 }

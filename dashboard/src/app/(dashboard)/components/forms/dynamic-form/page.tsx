@@ -85,7 +85,7 @@ export default function DynamicFormDocsPage() {
   ];
   
   form.addEventListener('skyra-submit', (e) => {
-    console.log(e.detail.values);
+    console.log((e as CustomEvent).detail.values);
   });
 </script>`
           }
@@ -95,19 +95,19 @@ export default function DynamicFormDocsPage() {
           <LiveExample>
             <div style={{ maxWidth: 400, width: '100%' }}>
               <skyra-tech-dynamic-form 
-                ref={(el: any) => {
+                ref={(el: HTMLElement | null) => {
                   if (el) {
                     el.fields = [
                       { name: 'firstName', label: 'First Name', type: 'text', required: true },
                       { name: 'lastName', label: 'Last Name', type: 'text', required: true },
                       { name: 'email', label: 'Email', type: 'email', required: true }
                     ];
-                    el.addEventListener('skyra-submit', (e: any) => setBasicResult(e.detail.values));
+                    el.addEventListener("skyra-submit", (e: Event) => setBasicResult((e as CustomEvent).detail.values));
                   }
                 }}
               />
               <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
-                <skyra-tech-button onClick={() => (document.querySelector('skyra-tech-dynamic-form') as any)?.submit()}>Submit Form</skyra-tech-button>
+                <skyra-tech-button onClick={() => (document.querySelector('skyra-tech-dynamic-form') as HTMLElement & { submit: () => void })?.submit()}>Submit Form</skyra-tech-button>
               </div>
               {basicResult && (
                 <pre style={{ marginTop: '1rem', padding: '1rem', background: 'var(--skyra-surface)', border: '1px solid var(--skyra-border)', borderRadius: 'var(--skyra-radius-md)' }}>
