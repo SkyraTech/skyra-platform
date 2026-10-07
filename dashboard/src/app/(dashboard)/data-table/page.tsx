@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { processTableData } from '@skyra-tech-platform/data-table';
 import { StatusBadge, StatusConfig } from '@/components/ui';
-type ColumnDef<T> = any;
-const useDataTableState = (opts?: any): any => ({} as any);
+import { BaseColumnDef } from '@skyra-tech-platform/data-table';
+import { useDataTableState } from '@/components/ui/useDataTableState';
 import '@skyra-tech-platform/data-table';
 import '@skyra-tech-platform/button';;
 import { downloadCsv } from '@skyra-tech-platform/data-export';
@@ -18,7 +18,7 @@ const STATUS_MAP: Record<string, StatusConfig> = {
   DRAFT: { label: 'Draft', bg: 'var(--skyra-border)', color: 'var(--skyra-text-muted)' },
 };
 
-const columns: ColumnDef<MockTransaction>[] = [
+const columns: BaseColumnDef<MockTransaction>[] = [
   { 
     id: 'reference', 
     header: 'Reference', 
@@ -41,7 +41,7 @@ const columns: ColumnDef<MockTransaction>[] = [
     id: 'amount', 
     header: 'Amount', 
     accessor: 'amount',
-    cell: ({ value }) => <span style={{ fontWeight: 600 }}>${Number(value).toLocaleString()}</span>,
+    cellSlot: (row) => `amount-${row.reference}`,
     sortable: true,
     resizable: true,
     minWidth: 110,
@@ -61,7 +61,7 @@ const columns: ColumnDef<MockTransaction>[] = [
     id: 'status', 
     header: 'Status', 
     accessor: 'status',
-    cell: ({ value }) => <StatusBadge statusMap={STATUS_MAP} status={String(value)} size="sm" />,
+    cellSlot: (row) => `status-${row.reference}`,
     sortable: true,
     hideable: true,
     resizable: true,
@@ -322,55 +322,67 @@ export default function DataTablePage() {
         columnSizing={tableState.columnSizing}
         onColumnSizingChange={tableState.onColumnSizingChange}
         pageSizeOptions={[5, 10, 20]}
-        onAdd={() => alert('Add Record clicked!')}
-        rowActions={(item) => (
-          <div style={{ display: 'flex', gap: '0.4rem', justifyContent: 'flex-end' }}>
-            <button 
-              type="button"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--skyra-text-muted)', padding: '4px' }} 
-              onClick={() => alert(`View Reference: ${item.reference}`)}
-              aria-label={`View ${item.reference}`}
-            >
-              <Eye size={15} />
-            </button>
-            <button 
-              type="button"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--skyra-text-muted)', padding: '4px' }} 
-              onClick={() => alert(`Edit Reference: ${item.reference}`)}
-              aria-label={`Edit ${item.reference}`}
-            >
-              <Edit size={15} />
-            </button>
-            <button 
-              type="button"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--skyra-danger)', padding: '4px' }} 
-              onClick={() => alert(`Delete Reference: ${item.reference}`)}
-              aria-label={`Delete ${item.reference}`}
-            >
-              <Trash2 size={15} />
-            </button>
-          </div>
-        )}
-        bulkActions={(selected) => (
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <skyra-tech-button 
-              variant="outline" 
-              size="sm" 
-              onClick={() => handleExportSelected(selected)}
-            >
-              <Download size={13} style={{ marginRight: '4px' }} />
-              Export Selected ({selected.length})
-            </skyra-tech-button>
-            <skyra-tech-button 
-              variant="danger" 
-              size="sm" 
-              onClick={() => alert(`Simulating deletion of ${selected.length} records.`)}
-            >
-              Delete Selected
-            </skyra-tech-button>
-          </div>
-        )}
-      />
+        onAdd={() => alert('Add Record clicked!')}
+      >
+        {activeData.map((item) => (
+          <React.Fragment key={item.reference}>
+            <span slot={`amount-${item.reference}`} style={{ fontWeight: 600 }}>${Number(item.amount).toLocaleString()}</span>
+            <div slot={`status-${item.reference}`}>
+              <StatusBadge statusMap={STATUS_MAP} status={String(item.status)} size="sm" />
+            </div>
+            {featureConfig.rowActions && (
+              <div slot={`row-actions-${item.reference}`} style={{ display: 'flex', gap: '0.4rem', justifyContent: 'flex-end' }}>
+                <button 
+                  type="button"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--skyra-text-muted)', padding: '4px' }} 
+                  onClick={() => alert(`View Reference: ${item.reference}`)}
+                  aria-label={`View ${item.reference}`}
+                >
+                  <Eye size={15} />
+                </button>
+                <button 
+                  type="button"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--skyra-text-muted)', padding: '4px' }} 
+                  onClick={() => alert(`Edit Reference: ${item.reference}`)}
+                  aria-label={`Edit ${item.reference}`}
+                >
+                  <Edit size={15} />
+                </button>
+                <button 
+                  type="button"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--skyra-danger)', padding: '4px' }} 
+                  onClick={() => alert(`Delete Reference: ${item.reference}`)}
+                  aria-label={`Delete ${item.reference}`}
+                >
+                  <Trash2 size={15} />
+                </button>
+              </div>
+            )}
+          </React.Fragment>
+        ))}
+        {featureConfig.bulkActions && (
+          <div slot="bulk-actions" style={{ display: 'flex', gap: '0.5rem' }}>
+            <skyra-tech-button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => {
+                const selected = activeData.filter(r => tableState.selection[r.reference] || tableState.selection[r.id]);
+                handleExportSelected(selected);
+              }}
+            >
+              <Download size={13} style={{ marginRight: '4px' }} />
+              Export Selected
+            </skyra-tech-button>
+            <skyra-tech-button 
+              variant="danger" 
+              size="sm" 
+              onClick={() => alert(`Simulating deletion of selected records.`)}
+            >
+              Delete Selected
+            </skyra-tech-button>
+          </div>
+        )}
+      </skyra-tech-data-table>
     </div>
   );
 }
