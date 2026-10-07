@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import React, { useState } from 'react';
 import '@skyra-tech-platform/button';;
 import { Mail, ArrowRight, Trash2 } from 'lucide-react';
@@ -23,8 +23,14 @@ export function ButtonDemo() {
 
       <DemoBlock title="Sizes & Icons">
         <skyra-tech-button size="sm">Small</skyra-tech-button>
-        <skyra-tech-button size="md" leftIcon={<Mail size={16} />}>Medium with Icon</skyra-tech-button>
-        <skyra-tech-button size="lg" rightIcon={<ArrowRight size={18} />}>Large with Icon</skyra-tech-button>
+        <skyra-tech-button size="md">
+          <Mail size={16} slot="left-icon" />
+          Medium with Icon
+        </skyra-tech-button>
+        <skyra-tech-button size="lg">
+          Large with Icon
+          <ArrowRight size={18} slot="right-icon" />
+        </skyra-tech-button>
         <skyra-tech-button size="md" variant="outline" icon-only aria-label="Delete"><Trash2 size={16} /></skyra-tech-button>
       </DemoBlock>
 

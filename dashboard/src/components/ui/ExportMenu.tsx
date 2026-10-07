@@ -34,7 +34,7 @@ export interface ExportMenuProps<T extends Record<string, unknown> = Record<stri
 }
 
 /**
- * @skyra/ui ExportMenu
+ * @skyra-tech-platform/button ExportMenu
  *
  * Compact action dropdown menu offering CSV, Excel, PDF export, and Print.
  * Uses DropdownMenu for floating positioning and theme compliance.
@@ -74,11 +74,9 @@ export function ExportMenu<T extends Record<string, unknown> = Record<string, un
             type="button"
             variant="outline"
             disabled={disabled}
-            rightIcon={
-              <ChevronDown size={14} />
-            }
           >
             {label}
+            <ChevronDown slot="right-icon" size={14} />
           </skyra-tech-button>
         }
         items={items}

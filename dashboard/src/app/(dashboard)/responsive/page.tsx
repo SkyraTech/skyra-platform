@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import React, { useState } from 'react';
 import '@skyra-tech-platform/button';;
 import { Monitor, Smartphone, Tablet } from 'lucide-react';
@@ -49,8 +49,10 @@ export default function ResponsiveStudioPage() {
             variant={activeWidth === vp.width ? 'primary' : 'outline'}
             size="sm"
             onClick={() => setActiveWidth(vp.width)}
-            leftIcon={vp.icon}
           >
+            <div slot="left-icon" style={{ display: 'contents' }}>
+              {vp.icon}
+            </div>
             {vp.name} ({vp.width}px)
           </skyra-tech-button>
         ))}

@@ -21,7 +21,7 @@ export interface ExportButtonProps<T extends Record<string, unknown> = Record<st
 }
 
 /**
- * @skyra/ui ExportButton
+ * @skyra-tech-platform/button ExportButton
  *
  * One-click data export button delegating directly to @skyra-tech-platform/data-export engines.
  */
@@ -77,11 +77,13 @@ export function ExportButton<T extends Record<string, unknown> = Record<string, 
     <skyra-tech-button
       type="button"
       variant={variant}
-      leftIcon={leftIcon ?? defaultIcon}
       loading={isExporting}
       onClick={handleExport}
       {...rest}
     >
+      <div slot="left-icon" style={{ display: 'contents' }}>
+        {leftIcon ?? defaultIcon}
+      </div>
       {defaultLabel}
     </skyra-tech-button>
   );

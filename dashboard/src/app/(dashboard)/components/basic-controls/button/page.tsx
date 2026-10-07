@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import '@skyra-tech-platform/button';;
@@ -156,14 +156,26 @@ export default function ButtonDocsPage() {
         language="tsx"
         title="Icons"
         description="Buttons can include leading and trailing icons, or be icon-only."
-        code={`<skyra-tech-button leftIcon={<Mail size={16} />}>Email</skyra-tech-button>
-<skyra-tech-button rightIcon={<ArrowRight size={16} />}>Continue</skyra-tech-button>
+        code={`<skyra-tech-button>
+  <Mail size={16} slot="left-icon" />
+  Email
+</skyra-tech-button>
+<skyra-tech-button>
+  Continue
+  <ArrowRight size={16} slot="right-icon" />
+</skyra-tech-button>
 <skyra-tech-button icon-only aria-label="Delete" variant="danger">
   <Trash2 size={18} />
 </skyra-tech-button>`}
       >
-        <skyra-tech-button leftIcon={<Mail size={16} />}>Email</skyra-tech-button>
-        <skyra-tech-button rightIcon={<ArrowRight size={16} />}>Continue</skyra-tech-button>
+        <skyra-tech-button>
+          <Mail size={16} slot="left-icon" />
+          Email
+        </skyra-tech-button>
+        <skyra-tech-button>
+          Continue
+          <ArrowRight size={16} slot="right-icon" />
+        </skyra-tech-button>
         <skyra-tech-button icon-only aria-label="Delete" variant="danger">
           <Trash2 size={18} />
         </skyra-tech-button>
