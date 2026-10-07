@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import '@skyra-tech-platform/checkbox';;
@@ -113,11 +113,11 @@ export default function CheckboxDocsPage() {
         language="tsx"
         title="Helper & Error"
         description="Provide additional guidance or validation feedback."
-        code={`<skyra-tech-checkbox label="Subscribe" helper="We will never spam you." />
+        code={`<skyra-tech-checkbox label="Subscribe" helper-text="We will never spam you." />
 <skyra-tech-checkbox label="Accept Terms" required error="You must accept the terms to proceed." />`}
       >
         <div className="flex flex-col gap-4">
-          <skyra-tech-checkbox label="Subscribe" helper="We will never spam you." />
+          <skyra-tech-checkbox label="Subscribe" helper-text="We will never spam you." />
           <skyra-tech-checkbox label="Accept Terms" required error="You must accept the terms to proceed." />
         </div>
       </LiveExample>
@@ -225,7 +225,7 @@ export default function CheckboxDocsPage() {
         description="The Checkbox component is designed to wrap long text elegantly on small viewports while maintaining perfect alignment with the checkbox control itself. It uses Flexbox to ensure the control remains at the top rather than centering vertically. The touch target is a minimum of 44x44px for accessibility on mobile devices."
         desktop={<skyra-tech-checkbox label="Standard desktop layout with a concise label." />}
         mobile={<skyra-tech-checkbox label="Short label" />}
-        fullWidth={<skyra-tech-checkbox label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the checkbox." helper="The helper text also wraps to match the label." />}
+        fullWidth={<skyra-tech-checkbox label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the checkbox." helper-text="The helper text also wraps to match the label." />}
       />
 
       <HeadingAnchor id="related">Related Components</HeadingAnchor>

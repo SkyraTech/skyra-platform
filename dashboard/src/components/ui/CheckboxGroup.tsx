@@ -121,12 +121,13 @@ export function CheckboxGroup({
             <skyra-tech-checkbox
               key={opt.value}
               value={opt.value}
-              label={opt.label}
-              description={opt.description}
               checked={isChecked}
               disabled={isOptionDisabled}
               onChange={(e) => handleToggle(opt.value, e.target.checked)}
-            />
+            >
+              <div slot="label" style={{ display: 'contents' }}>{opt.label}</div>
+              {opt.description && <div slot="helper" style={{ display: 'contents' }}>{opt.description}</div>}
+            </skyra-tech-checkbox>
           );
         })}
       </div>

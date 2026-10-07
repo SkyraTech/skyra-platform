@@ -48,7 +48,7 @@ export function InputDemo() {
           <skyra-tech-textarea 
             label="Description" 
             placeholder="Enter a detailed description..."
-            helper="Maximum 500 characters."
+            helper-text="Maximum 500 characters."
             rows={4}
           />
         </div>

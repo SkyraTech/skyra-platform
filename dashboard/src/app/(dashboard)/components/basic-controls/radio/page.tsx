@@ -100,11 +100,11 @@ export default function RadioDocsPage() {
         language="tsx"
         title="Helper & Error"
         description="Provide additional guidance or validation feedback."
-        code={`<skyra-tech-radio label="Subscribe" helper="We will never spam you." />
+        code={`<skyra-tech-radio label="Subscribe" helper-text="We will never spam you." />
 <skyra-tech-radio label="Accept Terms" required error="You must accept the terms to proceed." />`}
       >
         <div className="flex flex-col gap-4">
-          <skyra-tech-radio label="Subscribe" helper="We will never spam you." />
+          <skyra-tech-radio label="Subscribe" helper-text="We will never spam you." />
           <skyra-tech-radio label="Accept Terms" required error="You must accept the terms to proceed." />
         </div>
       </LiveExample>
@@ -252,7 +252,7 @@ export default function RadioDocsPage() {
         description="The Radio component is designed to wrap long text elegantly on small viewports while maintaining perfect alignment with the radio control itself. It uses Flexbox to ensure the control remains at the top rather than centering vertically. The touch target is a minimum of 44x44px for accessibility on mobile devices."
         desktop={<skyra-tech-radio label="Standard desktop layout with a concise label." />}
         mobile={<skyra-tech-radio label="Short label" />}
-        fullWidth={<skyra-tech-radio label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the radio." helper="The helper text also wraps to match the label." />}
+        fullWidth={<skyra-tech-radio label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the radio." helper-text="The helper text also wraps to match the label." />}
       />
 
       <HeadingAnchor id="related">Related Components</HeadingAnchor>

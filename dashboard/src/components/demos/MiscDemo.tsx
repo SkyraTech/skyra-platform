@@ -21,7 +21,7 @@ export function MiscDemo() {
             label="Enable notifications" 
             checked={checked}
             onChange={(e) => setChecked(e.target.checked)}
-            helper="You can change this later."
+            helper-text="You can change this later."
           />
         </Card>
       </DemoBlock>
