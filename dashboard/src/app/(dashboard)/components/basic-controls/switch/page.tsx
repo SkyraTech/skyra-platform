@@ -75,7 +75,7 @@ export default function SwitchDocsPage() {
         <div className="flex flex-col gap-4">
           <skyra-tech-switch 
             label="Airplane Mode"
-            description="Disable all wireless connections."
+            helper-text="Disable all wireless connections."
             checked={airplaneMode}
             onChange={(c) => setAirplaneMode(c)}
           />
@@ -109,7 +109,7 @@ export default function SwitchDocsPage() {
       <LiveExample 
         language="tsx"
         title="Sizes"
-        description="Available in small, medium (default), and large sizes."
+        helper-text="Available in small, medium (default), and large sizes."
         code={`<skyra-tech-switch label="Small Size" size="sm" />
 <skyra-tech-switch label="Medium Size" size="md" />
 <skyra-tech-switch label="Large Size" size="lg" />`}
@@ -125,7 +125,7 @@ export default function SwitchDocsPage() {
       <LiveExample 
         language="tsx"
         title="States"
-        description="Demonstrating disabled, readonly, loading, and error states."
+        helper-text="Demonstrating disabled, readonly, loading, and error states."
         code={`<skyra-tech-switch label="Disabled" disabled />
 <skyra-tech-switch label="Disabled Checked" disabled defaultChecked />
 <skyra-tech-switch label="Read-only" readOnly defaultChecked />
@@ -245,10 +245,10 @@ export default function SwitchDocsPage() {
 
       <HeadingAnchor id="responsive">Responsive Behavior</HeadingAnchor>
       <ResponsiveDemo 
-        description="The Switch component handles varying label lengths effectively while preserving alignment. Using CSS flexbox inside the Shadow DOM, the switch track remains vertically aligned to the top of multi-line text, ensuring predictable behavior on mobile devices."
+        helper-text="The Switch component handles varying label lengths effectively while preserving alignment. Using CSS flexbox inside the Shadow DOM, the switch track remains vertically aligned to the top of multi-line text, ensuring predictable behavior on mobile devices."
         desktop={<skyra-tech-switch label="Standard desktop layout with a concise label." />}
         mobile={<skyra-tech-switch label="Short label" />}
-        fullWidth={<skyra-tech-switch label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the switch control." description="The helper text also wraps to match the label." />}
+        fullWidth={<skyra-tech-switch label="A very long label demonstrating how the text will wrap beautifully to multiple lines on constrained devices without breaking the alignment of the switch control." helper-text="The helper text also wraps to match the label." />}
       />
 
       <HeadingAnchor id="related">Related Components</HeadingAnchor>
