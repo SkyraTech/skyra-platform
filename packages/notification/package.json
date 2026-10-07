@@ -22,12 +22,15 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "lint": "echo 'lint ok'"
+    "test": "vitest run --coverage"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "tsup": "^8.0.0",
+    "@types/jest-axe": "^3.5.9",
+    "@vitest/coverage-v8": "^2.1.9",
+    "jest-axe": "^9.0.0",
     "jsdom": "^25.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
     "vitest": "^2.0.0"
   },
   "publishConfig": {
