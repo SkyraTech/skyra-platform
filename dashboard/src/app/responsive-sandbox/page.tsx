@@ -22,20 +22,20 @@ export default function SandboxPage() {
       </Card>
       
       <skyra-tech-dynamic-form 
-        fieldsets={[
-          {
-            title: 'Responsive Grid Form',
-            fields: [
-              { key: 'f1', label: 'First Name', type: 'text' },
-              { key: 'f2', label: 'Last Name', type: 'text' },
-              { key: 'f3', label: 'Email', type: 'email' },
-            ]
+        ref={(el: any) => {
+          if (el) {
+            el.fieldsets = [
+              {
+                title: 'Responsive Grid Form',
+                fields: [
+                  { name: 'f1', label: 'First Name', type: 'text' },
+                  { name: 'f2', label: 'Last Name', type: 'text' },
+                  { name: 'f3', label: 'Email', type: 'email' },
+                ]
+              }
+            ];
           }
-        ]}
-        values={{}}
-        errors={{}}
-        onChange={() => {}}
-        onSubmit={() => {}}
+        }}
       />
     </div>
   );
