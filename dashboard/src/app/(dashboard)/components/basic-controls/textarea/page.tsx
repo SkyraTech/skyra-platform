@@ -79,10 +79,10 @@ export default function TextareaDocsPage() {
         language="tsx"
         title="Auto Resizing"
         description="Automatically adjusts height based on content."
-        code={`<skyra-tech-textarea label="Auto Resizing" autoResize minRows={2} maxRows={5} placeholder="Type multiple lines..." />`}
+        code={`<skyra-tech-textarea label="Auto Resizing" auto-resize min-rows={2} max-rows={5} placeholder="Type multiple lines..." />`}
       >
         <div style={{ width: '100%', maxWidth: '400px' }}>
-          <skyra-tech-textarea label="Auto Resizing" autoResize minRows={2} maxRows={5} placeholder="Type multiple lines..." />
+          <skyra-tech-textarea label="Auto Resizing" auto-resize min-rows={2} max-rows={5} placeholder="Type multiple lines..." />
         </div>
       </LiveExample>
 
@@ -104,11 +104,11 @@ export default function TextareaDocsPage() {
         title="Validation"
         description="Required fields and error states."
         code={`<skyra-tech-textarea label="Required" required placeholder="Cannot be empty" />
-<skyra-tech-textarea label="Error State" error="This field is required." defaultValue="Invalid text" />`}
+<skyra-tech-textarea label="Error State" error="This field is required." value="Invalid text" />`}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '400px' }}>
           <skyra-tech-textarea label="Required" required placeholder="Cannot be empty" />
-          <skyra-tech-textarea label="Error State" error="This field is required." defaultValue="Invalid text" />
+          <skyra-tech-textarea label="Error State" error="This field is required." value="Invalid text" />
         </div>
       </LiveExample>
 
@@ -117,10 +117,10 @@ export default function TextareaDocsPage() {
         language="tsx"
         title="Character Count"
         description="Display character count limit."
-        code={`<skyra-tech-textarea label="Biography" showCount maxLength={100} defaultValue="A brief note." />`}
+        code={`<skyra-tech-textarea label="Biography" show-count maxLength={100} value="A brief note." />`}
       >
         <div style={{ width: '100%', maxWidth: '400px' }}>
-          <skyra-tech-textarea label="Biography" showCount maxLength={100} defaultValue="A brief note." />
+          <skyra-tech-textarea label="Biography" show-count maxLength={100} value="A brief note." />
         </div>
       </LiveExample>
 
@@ -129,17 +129,17 @@ export default function TextareaDocsPage() {
         language="tsx"
         title="Disabled and Readonly"
         description="Textareas that cannot be edited."
-        code={`<skyra-tech-textarea label="Disabled" disabled defaultValue="You cannot edit this." />
-<skyra-tech-textarea label="Readonly" readOnly defaultValue="Fixed text." />`}
+        code={`<skyra-tech-textarea label="Disabled" disabled value="You cannot edit this." />
+<skyra-tech-textarea label="Readonly" readOnly value="Fixed text." />`}
       >
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', width: '100%', maxWidth: '800px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', textTransform: 'uppercase' }}>Disabled</span>
-            <skyra-tech-textarea disabled defaultValue="You cannot edit this." />
+            <skyra-tech-textarea disabled value="You cannot edit this." />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--skyra-text-muted)', textTransform: 'uppercase' }}>Readonly</span>
-            <skyra-tech-textarea readOnly defaultValue="Fixed text." />
+            <skyra-tech-textarea readOnly value="Fixed text." />
           </div>
         </div>
       </LiveExample>
@@ -149,10 +149,10 @@ export default function TextareaDocsPage() {
         language="tsx"
         title="Helper Text"
         description="Helpful description displayed below the textarea."
-        code={`<skyra-tech-textarea label="Helper Text" helperText="Helpful description goes here." />`}
+        code={`<skyra-tech-textarea label="Helper Text" helper-text="Helpful description goes here." />`}
       >
         <div style={{ width: '100%', maxWidth: '400px' }}>
-          <skyra-tech-textarea label="Helper Text" helperText="Helpful description goes here." />
+          <skyra-tech-textarea label="Helper Text" helper-text="Helpful description goes here." />
         </div>
       </LiveExample>
 
@@ -161,7 +161,7 @@ export default function TextareaDocsPage() {
         doItems={[
           'Use for multiline text data like comments, notes, or messages.',
           'Provide a clear label and helper text for ambiguous fields.',
-          'Use autoResize to prevent uncomfortable internal scrolling for long text.'
+          'Use auto-resize to prevent uncomfortable internal scrolling for long text.'
         ]}
         dontItems={[
           'Do not use for short, single-line text (use Input instead).',
@@ -171,7 +171,7 @@ export default function TextareaDocsPage() {
 
       <HeadingAnchor id="api">API Reference</HeadingAnchor>
       <p style={{ color: 'var(--skyra-text-muted)', marginBottom: '2rem', lineHeight: 1.6 }}>
-        Skyra Platform uses Web Components. This means properties can be accessed via DOM properties (<code style={{ fontFamily: 'var(--skyra-font-mono)', fontSize: '0.85em', color: 'var(--skyra-primary)' }}>textarea.autoResize = true</code>) and attributes via HTML (<code style={{ fontFamily: 'var(--skyra-font-mono)', fontSize: '0.85em', color: 'var(--skyra-primary)' }}>auto-resize</code>).
+        Skyra Platform uses Web Components. This means properties can be accessed via DOM properties (<code style={{ fontFamily: 'var(--skyra-font-mono)', fontSize: '0.85em', color: 'var(--skyra-primary)' }}>textarea.auto-resize = true</code>) and attributes via HTML (<code style={{ fontFamily: 'var(--skyra-font-mono)', fontSize: '0.85em', color: 'var(--skyra-primary)' }}>auto-resize</code>).
       </p>
 
       <ApiTabs 
@@ -324,10 +324,10 @@ export default function TextareaDocsPage() {
 
       <HeadingAnchor id="responsive">Responsive Behavior</HeadingAnchor>
       <ResponsiveDemo 
-        description="Textarea expands to 100% of container width. When autoResize is true, it adjusts its height based on the text wrapping across different viewports."
-        desktop={<skyra-tech-textarea label="Notes" defaultValue="Some long text..." />}
-        mobile={<skyra-tech-textarea label="Notes" defaultValue="Some long text..." />}
-        fullWidth={<skyra-tech-textarea label="Notes" defaultValue="Some long text..." />}
+        description="Textarea expands to 100% of container width. When auto-resize is true, it adjusts its height based on the text wrapping across different viewports."
+        desktop={<skyra-tech-textarea label="Notes" value="Some long text..." />}
+        mobile={<skyra-tech-textarea label="Notes" value="Some long text..." />}
+        fullWidth={<skyra-tech-textarea label="Notes" value="Some long text..." />}
       />
 
       <HeadingAnchor id="related">Related Components</HeadingAnchor>

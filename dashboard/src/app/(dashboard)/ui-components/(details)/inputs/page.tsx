@@ -34,7 +34,7 @@ export default function InputsShowcasePage() {
                 label="Customer Legal Name"
                 value="Acme Global Industries"
                 status="success"
-                helperText="Verified against global entity registry."
+                helper-text="Verified against global entity registry."
               />
               <skyra-tech-input
                 label="Corporate Tax Identifier"
@@ -46,7 +46,7 @@ export default function InputsShowcasePage() {
                 label="Credit Limit Allocation"
                 value="$950,000"
                 status="warning"
-                helperText="Exceeds standard automated underwriting threshold ($500k)."
+                helper-text="Exceeds standard automated underwriting threshold ($500k)."
               />
             </div>
           </DemoBlock>
@@ -69,9 +69,9 @@ export default function InputsShowcasePage() {
                 value={textVal}
                 onChange={(e) => setTextVal(e.target.value)}
                 clearable
-                showCount
+                show-count
                 maxLength={40}
-                helperText="Clear button appears when input has value"
+                helper-text="Clear button appears when input has value"
               />
             </div>
           </DemoBlock>
@@ -109,11 +109,11 @@ export default function InputsShowcasePage() {
                 max={1000000}
                 step={500}
                 prefix="$"
-                helperText="Use Up/Down keyboard arrows or stepper buttons"
+                helper-text="Use Up/Down keyboard arrows or stepper buttons"
               />
               <NumberInput
                 label="Tax Rate Percentage (Precision 2)"
-                defaultValue={8.75}
+                value={8.75}
                 min={0}
                 max={100}
                 step={0.25}
@@ -128,14 +128,14 @@ export default function InputsShowcasePage() {
               label="Account Password"
               value={passVal}
               onChange={(e) => setPassVal(e.target.value)}
-              helperText="Click the eye icon to toggle password visibility (accessible button)"
+              helper-text="Click the eye icon to toggle password visibility (accessible button)"
             />
           </DemoBlock>
         </div>
       </DemoSection>
 
       {/* 3. Auto-Resizing Textarea */}
-      <DemoSection title="3. Auto-Resizing Textarea" desc="Multi-line input supporting auto-resize, minRows, maxRows, and character limit indicators." erpSource="ERP Description Inputs">
+      <DemoSection title="3. Auto-Resizing Textarea" desc="Multi-line input supporting auto-resize, min-rows, max-rows, and character limit indicators." erpSource="ERP Description Inputs">
         <div style={{ width: '100%' }}>
           <DemoBlock title="Auto-Resizing Description Textarea">
             <div style={{ width: '100%' }}>
@@ -144,12 +144,12 @@ export default function InputsShowcasePage() {
                 placeholder="Type multiple paragraphs to see auto-resize in action..."
                 value={descVal}
                 onChange={(e) => setDescVal(e.target.value)}
-                autoResize
-                minRows={3}
-                maxRows={8}
-                showCount
+                auto-resize
+                min-rows={3}
+                max-rows={8}
+                show-count
                 maxLength={500}
-                helperText="Automatically expands height as content grows without jumping scrollbars"
+                helper-text="Automatically expands height as content grows without jumping scrollbars"
               />
             </div>
           </DemoBlock>
