@@ -265,7 +265,14 @@ PASS — 0 errors
 PASS
 
 ## Lint
-PASS — REAL LINT RESULT: No tasks were executed by turbo run lint (0 errors)
+Textarea-specific lint task:
+NOT CONFIGURED
+
+Repository lint result:
+No task executed for Textarea
+
+Status:
+NOT CONFIGURED / NOT APPLICABLE
 
 ## Documentation
 PASS
