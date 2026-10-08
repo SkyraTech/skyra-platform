@@ -1,0 +1,409 @@
+'use client';
+
+import React, { useState, useEffect, useRef } from 'react';
+import { Badge, Tabs, Card, StatusBadge, Button } from '@/components/ui';
+import { 
+  analyzeScanability, 
+  QRContentBuilder, 
+  QRContactPayload, 
+  QRWifiPayload, 
+  QREventPayload, 
+  QREmailPayload, 
+  QRSmsPayload 
+} from '@skyra-tech-platform/qr';
+
+type QRType = 'url' | 'text' | 'email' | 'phone' | 'sms' | 'wifi' | 'vcard' | 'calendar';
+
+export default function QRStudio() {
+  const [activeType, setActiveType] = useState<QRType>('url');
+  
+  // Data State
+  const [url, setUrl] = useState('https://skyra.tech/demo-qr');
+  const [text, setText] = useState('Hello World');
+  const [email, setEmail] = useState<QREmailPayload>({ address: 'hello@skyra.tech', subject: '', body: '' });
+  const [phone, setPhone] = useState('+1234567890');
+  const [sms, setSms] = useState<QRSmsPayload>({ number: '+1234567890', message: 'Hello' });
+  const [wifi, setWifi] = useState<QRWifiPayload>({ ssid: 'Skyra_Guest', password: '', encryption: 'WPA', hidden: false });
+  const [contact, setContact] = useState<QRContactPayload>({ firstName: 'Jane', lastName: 'Doe', organization: 'Skyra Tech', phone: '+1234567890', email: 'jane.doe@skyra.tech' });
+  
+  const [event, setEvent] = useState<QREventPayload>({ 
+    title: 'Platform Launch', 
+    start: new Date(new Date().setHours(10, 0, 0, 0)), 
+    end: new Date(new Date().setHours(11, 0, 0, 0)),
+    location: 'Skyra HQ',
+    description: 'V2.2 Release',
+    allDay: false
+  });
+
+  // Config State
+  const [errorCorrection, setErrorCorrection] = useState<'L'|'M'|'Q'|'H'>('Q');
+  const [margin, setMargin] = useState(4);
+  const [scale, setScale] = useState(4);
+  const [darkColor, setDarkColor] = useState('#0f172a');
+  const [lightColor, setLightColor] = useState('#ffffff');
+  
+  const [generatedValue, setGeneratedValue] = useState('');
+  
+  // Analysis
+  const [scanStatus, setScanStatus] = useState<any>(null);
+
+  // Generate payload
+  useEffect(() => {
+    let payload = '';
+    try {
+      switch (activeType) {
+        case 'url': payload = QRContentBuilder.url(url); break;
+        case 'text': payload = QRContentBuilder.text(text); break;
+        case 'email': payload = QRContentBuilder.email(email); break;
+        case 'phone': payload = QRContentBuilder.phone(phone); break;
+        case 'sms': payload = QRContentBuilder.sms(sms); break;
+        case 'wifi': payload = QRContentBuilder.wifi(wifi); break;
+        case 'vcard': payload = QRContentBuilder.vcard(contact); break;
+        case 'calendar': payload = QRContentBuilder.calendar(event); break;
+      }
+    } catch (e) {
+      console.warn('Failed to build payload', e);
+    }
+    setGeneratedValue(payload);
+  }, [activeType, url, text, email, phone, sms, wifi, contact, event]);
+
+  useEffect(() => {
+    // We simulate matrix size for basic density analysis (a real app would use the matrix directly)
+    // We'll pass a dummy matrix size estimation for now.
+    const estVersion = Math.min(40, Math.max(1, Math.ceil(generatedValue.length / 20)));
+    
+    const analysis = analyzeScanability(
+      { size: 21 + (estVersion - 1) * 4, version: estVersion, modules: [], errorCorrectionLevel: errorCorrection }, 
+      margin, 
+      errorCorrection, 
+      darkColor, 
+      lightColor
+    );
+    setScanStatus(analysis);
+  }, [generatedValue, margin, errorCorrection, darkColor, lightColor]);
+
+  // Export handlers
+  const handleDownloadSVG = () => {
+    const qrElement = document.querySelector('skyra-qr-code');
+    if (!qrElement || !qrElement.shadowRoot) return;
+    const svg = qrElement.shadowRoot.querySelector('svg');
+    if (!svg) return;
+    
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'skyra-qr.svg';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadPNG = () => {
+    const qrElement = document.querySelector('skyra-qr-code');
+    if (!qrElement || !qrElement.shadowRoot) return;
+    const svg = qrElement.shadowRoot.querySelector('svg');
+    if (!svg) return;
+    
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    
+    // Convert to base64
+    const svg64 = btoa(unescape(encodeURIComponent(svgData)));
+    const b64Start = 'data:image/svg+xml;base64,';
+    const image64 = b64Start + svg64;
+
+    img.onload = () => {
+      // Use the SVG viewBox size or default
+      canvas.width = img.width || 300;
+      canvas.height = img.height || 300;
+      if (ctx) {
+        ctx.fillStyle = lightColor === 'transparent' ? '#ffffff' : lightColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+        const pngUrl = canvas.toDataURL('image/png');
+        const a = document.createElement('a');
+        a.href = pngUrl;
+        a.download = 'skyra-qr.png';
+        a.click();
+      }
+    };
+    img.src = image64;
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const tabs = [
+    { id: 'url', label: 'URL' },
+    { id: 'text', label: 'Text' },
+    { id: 'vcard', label: 'vCard' },
+    { id: 'wifi', label: 'Wi-Fi' },
+    { id: 'email', label: 'Email' },
+    { id: 'sms', label: 'SMS' },
+    { id: 'calendar', label: 'Calendar' }
+  ];
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(400px, 1.2fr) minmax(300px, 0.8fr)', gap: '2rem', alignItems: 'start' }} className="qr-studio-grid">
+      
+      {/* LEFT: Configuration */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        
+        {/* Data Type */}
+        <section style={{ background: 'var(--skyra-surface)', padding: '1.5rem', borderRadius: 'var(--skyra-radius-lg)', border: '1px solid var(--skyra-border)' }}>
+          <h2 style={{ fontSize: '1.1rem', fontWeight: 600, margin: '0 0 1rem 0' }}>Content Type</h2>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem' }}>
+            {tabs.map(tab => (
+              <button 
+                key={tab.id}
+                onClick={() => setActiveType(tab.id as QRType)}
+                style={{ 
+                  padding: '0.5rem 1rem', 
+                  borderRadius: 'var(--skyra-radius-md)', 
+                  border: activeType === tab.id ? '1px solid var(--skyra-primary)' : '1px solid var(--skyra-border)',
+                  background: activeType === tab.id ? 'var(--skyra-primary-alpha-10)' : 'transparent',
+                  color: activeType === tab.id ? 'var(--skyra-primary)' : 'var(--skyra-text)',
+                  cursor: 'pointer',
+                  fontWeight: 500,
+                  fontSize: '0.9rem'
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {activeType === 'url' && (
+              <div className="input-group">
+                <label>Website URL</label>
+                <input type="url" value={url} onChange={e => setUrl(e.target.value)} placeholder="https://..." style={inputStyle} />
+              </div>
+            )}
+
+            {activeType === 'text' && (
+              <div className="input-group">
+                <label>Text Content</label>
+                <textarea value={text} onChange={e => setText(e.target.value)} rows={4} style={inputStyle} />
+              </div>
+            )}
+
+            {activeType === 'vcard' && (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div className="input-group"><label>First Name</label><input type="text" value={contact.firstName} onChange={e => setContact({...contact, firstName: e.target.value})} style={inputStyle} /></div>
+                <div className="input-group"><label>Last Name</label><input type="text" value={contact.lastName} onChange={e => setContact({...contact, lastName: e.target.value})} style={inputStyle} /></div>
+                <div className="input-group"><label>Organization</label><input type="text" value={contact.organization} onChange={e => setContact({...contact, organization: e.target.value})} style={inputStyle} /></div>
+                <div className="input-group"><label>Phone</label><input type="tel" value={contact.phone} onChange={e => setContact({...contact, phone: e.target.value})} style={inputStyle} /></div>
+                <div className="input-group" style={{ gridColumn: '1 / -1' }}><label>Email</label><input type="email" value={contact.email} onChange={e => setContact({...contact, email: e.target.value})} style={inputStyle} /></div>
+              </div>
+            )}
+
+            {activeType === 'wifi' && (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div className="input-group" style={{ gridColumn: '1 / -1' }}><label>Network Name (SSID)</label><input type="text" value={wifi.ssid} onChange={e => setWifi({...wifi, ssid: e.target.value})} style={inputStyle} /></div>
+                <div className="input-group"><label>Password</label><input type="text" value={wifi.password} onChange={e => setWifi({...wifi, password: e.target.value})} style={inputStyle} /></div>
+                <div className="input-group"><label>Encryption</label>
+                  <select value={wifi.encryption} onChange={e => setWifi({...wifi, encryption: e.target.value as any})} style={inputStyle}>
+                    <option value="WPA">WPA/WPA2</option>
+                    <option value="WEP">WEP</option>
+                    <option value="nopass">None</option>
+                  </select>
+                </div>
+              </div>
+            )}
+
+            {activeType === 'email' && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div className="input-group"><label>Email Address</label><input type="email" value={email.address} onChange={e => setEmail({...email, address: e.target.value})} style={inputStyle} /></div>
+                <div className="input-group"><label>Subject</label><input type="text" value={email.subject} onChange={e => setEmail({...email, subject: e.target.value})} style={inputStyle} /></div>
+                <div className="input-group"><label>Body</label><textarea value={email.body} onChange={e => setEmail({...email, body: e.target.value})} rows={3} style={inputStyle} /></div>
+              </div>
+            )}
+
+            {activeType === 'sms' && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div className="input-group"><label>Phone Number</label><input type="tel" value={sms.number} onChange={e => setSms({...sms, number: e.target.value})} style={inputStyle} /></div>
+                <div className="input-group"><label>Message</label><textarea value={sms.message} onChange={e => setSms({...sms, message: e.target.value})} rows={3} style={inputStyle} /></div>
+              </div>
+            )}
+
+            {activeType === 'calendar' && (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div className="input-group" style={{ gridColumn: '1 / -1' }}><label>Event Title</label><input type="text" value={event.title} onChange={e => setEvent({...event, title: e.target.value})} style={inputStyle} /></div>
+                <div className="input-group" style={{ gridColumn: '1 / -1' }}><label>Location</label><input type="text" value={event.location} onChange={e => setEvent({...event, location: e.target.value})} style={inputStyle} /></div>
+                <div className="input-group" style={{ gridColumn: '1 / -1' }}><label>Description</label><textarea value={event.description} onChange={e => setEvent({...event, description: e.target.value})} rows={2} style={inputStyle} /></div>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Design / Configuration */}
+        <section style={{ background: 'var(--skyra-surface)', padding: '1.5rem', borderRadius: 'var(--skyra-radius-lg)', border: '1px solid var(--skyra-border)' }}>
+          <h2 style={{ fontSize: '1.1rem', fontWeight: 600, margin: '0 0 1rem 0' }}>Design & Validation</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            
+            <div className="input-group">
+              <label>Error Correction</label>
+              <select value={errorCorrection} onChange={e => setErrorCorrection(e.target.value as any)} style={inputStyle}>
+                <option value="L">Low (~7%)</option>
+                <option value="M">Medium (~15%)</option>
+                <option value="Q">Quartile (~25%)</option>
+                <option value="H">High (~30%)</option>
+              </select>
+            </div>
+            
+            <div className="input-group">
+              <label>Quiet Zone (Margin)</label>
+              <input type="number" min="0" max="10" value={margin} onChange={e => setMargin(parseInt(e.target.value, 10)||0)} style={inputStyle} />
+            </div>
+
+            <div className="input-group">
+              <label>Foreground Color</label>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <input type="color" value={darkColor} onChange={e => setDarkColor(e.target.value)} style={{ width: '40px', height: '40px', padding: '0', border: 'none' }} />
+                <input type="text" value={darkColor} onChange={e => setDarkColor(e.target.value)} style={{ ...inputStyle, flex: 1 }} />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label>Background Color</label>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <input type="color" value={lightColor} onChange={e => setLightColor(e.target.value)} style={{ width: '40px', height: '40px', padding: '0', border: 'none' }} />
+                <input type="text" value={lightColor} onChange={e => setLightColor(e.target.value)} style={{ ...inputStyle, flex: 1 }} />
+              </div>
+            </div>
+            
+          </div>
+        </section>
+      </div>
+
+      {/* RIGHT: Live Preview */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'sticky', top: '2rem' }}>
+        <div 
+          className="qr-print-container"
+          style={{ 
+            background: 'var(--skyra-surface)', 
+            padding: '2rem', 
+            borderRadius: 'var(--skyra-radius-lg)', 
+            border: '1px solid var(--skyra-border)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '400px'
+          }}
+        >
+          {generatedValue ? (
+            <skyra-qr-code
+              value={generatedValue}
+              error-correction-level={errorCorrection}
+              margin={margin}
+              scale={scale}
+              color-dark={darkColor}
+              color-light={lightColor}
+            />
+          ) : (
+            <div style={{ color: 'var(--skyra-text-muted)', textAlign: 'center' }}>
+              <p>Enter data to generate QR</p>
+            </div>
+          )}
+        </div>
+
+        {/* Scanability Status */}
+        {scanStatus && (
+          <div style={{ 
+            padding: '1rem', 
+            borderRadius: 'var(--skyra-radius-md)', 
+            border: \`1px solid \${scanStatus.overallStatus === 'PASS' ? 'var(--skyra-success)' : scanStatus.overallStatus === 'WARNING' ? 'var(--skyra-warning)' : 'var(--skyra-error)'}\`,
+            background: \`var(--skyra-\${scanStatus.overallStatus === 'PASS' ? 'success' : scanStatus.overallStatus === 'WARNING' ? 'warning' : 'error'}-alpha-10)\`
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+              <div style={{ 
+                width: '12px', height: '12px', borderRadius: '50%', 
+                background: \`var(--skyra-\${scanStatus.overallStatus === 'PASS' ? 'success' : scanStatus.overallStatus === 'WARNING' ? 'warning' : 'error'})\` 
+              }} />
+              <strong style={{ fontSize: '0.95rem' }}>
+                {scanStatus.overallStatus === 'PASS' ? 'Highly Scannable' : scanStatus.overallStatus === 'WARNING' ? 'Needs Attention' : 'Likely Difficult to Scan'}
+              </strong>
+            </div>
+            
+            {scanStatus.issues.length > 0 ? (
+              <ul style={{ margin: 0, paddingLeft: '1.5rem', fontSize: '0.85rem', color: 'var(--skyra-text-muted)' }}>
+                {scanStatus.issues.map((iss: string, i: number) => <li key={i}>{iss}</li>)}
+              </ul>
+            ) : (
+              <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--skyra-text-muted)' }}>Contrast ratio is {scanStatus.contrast}:1. Margins are sufficient.</p>
+            )}
+          </div>
+        )}
+
+        {/* Export Actions */}
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <button onClick={handleDownloadSVG} style={btnStyle}>Download SVG</button>
+          <button onClick={handleDownloadPNG} style={btnStyle}>Download PNG</button>
+          <button onClick={handlePrint} style={btnStyle}>Print</button>
+        </div>
+      </div>
+      
+      {/* GLOBAL STYLES FOR THE PAGE */}
+      <style>{\`
+        .input-group {
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+        }
+        .input-group label {
+          font-size: 0.85rem;
+          color: var(--skyra-text-muted);
+          font-weight: 500;
+        }
+        @media print {
+          body * {
+            visibility: hidden;
+          }
+          .qr-print-container, .qr-print-container * {
+            visibility: visible;
+          }
+          .qr-print-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: none !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      \`}</style>
+    </div>
+  );
+}
+
+const inputStyle = {
+  padding: '0.6rem 0.75rem',
+  borderRadius: 'var(--skyra-radius-md)',
+  border: '1px solid var(--skyra-border)',
+  background: 'var(--skyra-bg)',
+  color: 'var(--skyra-text)',
+  fontSize: '0.9rem',
+  outline: 'none',
+  fontFamily: 'inherit'
+};
+
+const btnStyle = {
+  padding: '0.6rem 1rem',
+  borderRadius: 'var(--skyra-radius-md)',
+  border: '1px solid var(--skyra-border)',
+  background: 'var(--skyra-surface)',
+  color: 'var(--skyra-text)',
+  cursor: 'pointer',
+  fontSize: '0.9rem',
+  fontWeight: 500,
+  flex: 1
+};
