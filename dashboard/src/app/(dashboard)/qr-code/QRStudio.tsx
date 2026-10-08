@@ -318,13 +318,13 @@ export default function QRStudio() {
           <div style={{ 
             padding: '1rem', 
             borderRadius: 'var(--skyra-radius-md)', 
-            border: \`1px solid \${scanStatus.overallStatus === 'PASS' ? 'var(--skyra-success)' : scanStatus.overallStatus === 'WARNING' ? 'var(--skyra-warning)' : 'var(--skyra-error)'}\`,
-            background: \`var(--skyra-\${scanStatus.overallStatus === 'PASS' ? 'success' : scanStatus.overallStatus === 'WARNING' ? 'warning' : 'error'}-alpha-10)\`
+            border: `1px solid ${scanStatus.overallStatus === 'PASS' ? 'var(--skyra-success)' : scanStatus.overallStatus === 'WARNING' ? 'var(--skyra-warning)' : 'var(--skyra-error)'}`,
+            background: `var(--skyra-${scanStatus.overallStatus === 'PASS' ? 'success' : scanStatus.overallStatus === 'WARNING' ? 'warning' : 'error'}-alpha-10)`
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
               <div style={{ 
                 width: '12px', height: '12px', borderRadius: '50%', 
-                background: \`var(--skyra-\${scanStatus.overallStatus === 'PASS' ? 'success' : scanStatus.overallStatus === 'WARNING' ? 'warning' : 'error'})\` 
+                background: `var(--skyra-${scanStatus.overallStatus === 'PASS' ? 'success' : scanStatus.overallStatus === 'WARNING' ? 'warning' : 'error'})` 
               }} />
               <strong style={{ fontSize: '0.95rem' }}>
                 {scanStatus.overallStatus === 'PASS' ? 'Highly Scannable' : scanStatus.overallStatus === 'WARNING' ? 'Needs Attention' : 'Likely Difficult to Scan'}
@@ -350,7 +350,7 @@ export default function QRStudio() {
       </div>
       
       {/* GLOBAL STYLES FOR THE PAGE */}
-      <style>{\`
+      <style>{`
         .input-group {
           display: flex;
           flex-direction: column;
@@ -380,7 +380,7 @@ export default function QRStudio() {
             justify-content: center;
           }
         }
-      \`}</style>
+      `}</style>
     </div>
   );
 }
