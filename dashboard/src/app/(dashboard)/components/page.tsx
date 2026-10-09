@@ -28,7 +28,7 @@ const COMPONENT_GROUPS = [
     title: 'Layout',
     description: 'Application scaffolding and structure.',
     items: [
-      { href: '/components/app-shell', label: 'App Shell', desc: 'Framework-agnostic application layout component.', status: 'stable', tech: 'Web Component' },
+      { href: '/components/layouts/app-shell', label: 'App Shell', desc: 'Framework-agnostic application layout component.', status: 'stable', tech: 'Web Component' },
     ]
   },
   {
@@ -72,7 +72,7 @@ const COMPONENT_GROUPS = [
     title: 'Utilities',
     description: 'Helper components and specialized rendering.',
     items: [
-      { href: '/components/qr', label: 'QR Code', desc: 'Framework-agnostic QR generation and styled rendering.', status: 'stable', tech: 'Web Component' },
+      { href: '/components/utilities/qr', label: 'QR Code', desc: 'Framework-agnostic QR generation and styled rendering.', status: 'stable', tech: 'Web Component' },
       { href: '#', label: 'Future components', desc: 'Placeholder for upcoming utilities.', status: 'planned', tech: 'Misc' },
     ]
   }

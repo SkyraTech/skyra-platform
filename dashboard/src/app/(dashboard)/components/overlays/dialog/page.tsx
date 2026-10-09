@@ -10,6 +10,10 @@ import { InstallCommand } from '@/components/docs/InstallCommand';
 import { LiveExample } from '@/components/docs/LiveExample';
 import { HeadingAnchor } from '@/components/docs/HeadingAnchor';
 import { CodeTabs } from '@/components/docs/CodeTabs';
+import { ApiTable } from '@/components/docs/ApiTable';
+import { FrameworkSupport } from '@/components/docs/FrameworkSupport';
+import { AccessibilityPanel } from '@/components/docs/AccessibilityPanel';
+import { RelatedComponents } from '@/components/docs/RelatedComponents';
 import { AlertTriangle, Trash2, Info } from 'lucide-react';
 
 export default function DialogDocsPage() {
@@ -51,6 +55,11 @@ export default function DialogDocsPage() {
   const toc = [
     { id: 'quick-start', label: 'Quick Start' },
     { id: 'examples', label: 'Examples' },
+    { id: 'usage', label: 'Usage Guidance' },
+    { id: 'api', label: 'API Reference' },
+    { id: 'frameworks', label: 'Framework Usage' },
+    { id: 'accessibility', label: 'Accessibility' },
+    { id: 'related', label: 'Related Components' },
     { id: 'technical', label: 'Technical Reference' },
   ];
 
@@ -233,6 +242,57 @@ export function Example() {
           </skyra-tech-dialog>
         </LiveExample>
       </div>
+
+      <HeadingAnchor id="usage">Usage Guidance</HeadingAnchor>
+      <p style={{ color: 'var(--skyra-text-muted)', marginBottom: '1.5rem', lineHeight: 1.6 }}>
+        Use the Dialog component for critical interactions, confirmations, or displaying forms that require the user's immediate attention. Overuse of modals can disrupt user flow, so they should be reserved for essential tasks.
+      </p>
+
+      <HeadingAnchor id="api">API Reference</HeadingAnchor>
+      <ApiTable 
+        rows={[
+          { name: 'open', type: 'boolean', defaultVal: 'false', description: 'Controls the visibility of the dialog.' },
+          { name: 'mode', type: '"modal" | "drawer"', defaultVal: '"modal"', description: 'The display mode of the dialog.' },
+          { name: 'side', type: '"left" | "right"', defaultVal: '"right"', description: 'For drawer mode: which side of the screen it appears.' },
+          { name: 'drawer-width', type: 'string', defaultVal: '"320px"', description: 'For drawer mode: the width of the drawer pane.' },
+          { name: 'size', type: '"sm" | "md" | "lg" | "xl" | "full"', defaultVal: '"md"', description: 'For modal mode: the max-width sizing tier.' },
+          { name: 'hide-close-button', type: 'boolean', defaultVal: 'false', description: 'Removes the default top-right close button.' }
+        ]}
+      />
+
+      <HeadingAnchor id="frameworks">Framework Usage</HeadingAnchor>
+      <FrameworkSupport 
+        frameworks={[
+          { 
+            name: 'React / Next.js', 
+            support: 'e2e', 
+            integration: <p>Use a React <code style={{fontFamily: 'var(--skyra-font-mono)'}}>useRef</code> to attach event listeners for <code style={{fontFamily: 'var(--skyra-font-mono)'}}>skyra-close</code> to sync state.</p> 
+          },
+          { 
+            name: 'Vanilla HTML / JS', 
+            support: 'e2e', 
+            integration: <p>Natively supported. Listen to <code style={{fontFamily: 'var(--skyra-font-mono)'}}>skyra-close</code> on the element directly.</p> 
+          }
+        ]}
+      />
+
+      <HeadingAnchor id="accessibility">Accessibility</HeadingAnchor>
+      <AccessibilityPanel 
+        features={[
+          <div key="sem"><strong style={{ color: 'var(--skyra-text)' }}>Semantic Structure:</strong> Built natively on the HTML <code>&lt;dialog&gt;</code> element for robust browser support.</div>,
+          <div key="foc"><strong style={{ color: 'var(--skyra-text)' }}>Focus:</strong> Automatically traps focus within the dialog when open and restores focus when closed.</div>,
+          <div key="kbd"><strong style={{ color: 'var(--skyra-text)' }}>Keyboard:</strong> Pressing <code>Escape</code> automatically dismisses the dialog. Tab navigation is strictly trapped within the active overlay boundaries.</div>,
+          <div key="ari"><strong style={{ color: 'var(--skyra-text)' }}>ARIA:</strong> Natively exposes <code>aria-modal="true"</code> and implies <code>role="dialog"</code>.</div>
+        ]}
+      />
+
+      <HeadingAnchor id="related">Related Components</HeadingAnchor>
+      <RelatedComponents 
+        components={[
+          { title: 'App Shell', description: 'Provides the main application layout architecture.', category: 'Layout', href: '/components/layouts/app-shell' },
+          { title: 'Button', description: 'Interactive trigger for opening dialogs.', category: 'Basic Controls', href: '/components/basic-controls/button' }
+        ]}
+      />
 
       <HeadingAnchor id="technical">Technical Reference</HeadingAnchor>
       <p style={{ color: 'var(--skyra-text-muted)' }}>

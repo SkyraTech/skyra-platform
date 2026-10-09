@@ -1,17 +1,17 @@
 'use client';
 
 import React from 'react';
-import { DocsLayout } from '../../../../components/docs/DocsLayout';
-import { PackageMeta } from '../../../../components/docs/PackageMeta';
-import { DocsHeader } from '../../../../components/docs/DocsHeader';
-import { CodeBlock } from '../../../../components/docs/CodeBlock';
-import { CodeTabs } from '../../../../components/docs/CodeTabs';
-import { Callout } from '../../../../components/docs/Callout';
-import { HeadingAnchor } from '../../../../components/docs/HeadingAnchor';
-import { LiveExample } from '../../../../components/docs/LiveExample';
-import { FrameworkSupport } from '../../../../components/docs/FrameworkSupport';
-import { InstallCommand } from '../../../../components/docs/InstallCommand';
-import { AccessibilityPanel } from '../../../../components/docs/AccessibilityPanel';
+import { DocsLayout } from '@/components/docs/DocsLayout';
+import { PackageMeta } from '@/components/docs/PackageMeta';
+import { DocsHeader } from '@/components/docs/DocsHeader';
+import { CodeBlock } from '@/components/docs/CodeBlock';
+import { CodeTabs } from '@/components/docs/CodeTabs';
+import { Callout } from '@/components/docs/Callout';
+import { HeadingAnchor } from '@/components/docs/HeadingAnchor';
+import { LiveExample } from '@/components/docs/LiveExample';
+import { FrameworkSupport } from '@/components/docs/FrameworkSupport';
+import { InstallCommand } from '@/components/docs/InstallCommand';
+import { AccessibilityPanel } from '@/components/docs/AccessibilityPanel';
 
 const TOC = [
   { id: 'overview',       label: 'Overview' },
@@ -88,7 +88,8 @@ export default function AppShellDocsPage() {
         title="App Shell"
         description="Framework-agnostic Web Component for application layout. Provides responsive sidebar, header, and content regions using Shadow DOM encapsulation."
         breadcrumbs={[
-          { label: 'Components' },
+          { label: 'Components', href: '/components' },
+          { label: 'Layout' },
           { label: 'App Shell' },
         ]}
         badges={[

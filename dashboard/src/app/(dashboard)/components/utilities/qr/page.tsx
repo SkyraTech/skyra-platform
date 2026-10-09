@@ -38,6 +38,7 @@ export default function QRDocsPage() {
         description="Framework-agnostic QR generation and styled rendering Web Component for the Skyra Tech Platform."
         breadcrumbs={[
           { label: 'Components', href: '/components' },
+          { label: 'Utilities' },
           { label: 'QR' }
         ]}
         badges={[
