@@ -1,40 +1,7 @@
 'use client';
 
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useId,
-  useCallback,
-  ReactNode,
-  forwardRef,
-} from 'react';
-
-/* ============================================================
-   COLLAPSIBLE CONTEXT
-   ============================================================ */
-
-export interface CollapsibleContextValue {
-  open: boolean;
-  toggleOpen: () => void;
-  disabled: boolean;
-  triggerId: string;
-  contentId: string;
-}
-
-const CollapsibleContext = createContext<CollapsibleContextValue | null>(null);
-
-function useCollapsibleContext() {
-  const context = useContext(CollapsibleContext);
-  if (!context) {
-    throw new Error('Collapsible compound components must be used within a Collapsible container.');
-  }
-  return context;
-}
-
-/* ============================================================
-   COLLAPSIBLE ROOT CONTAINER
-   ============================================================ */
+import React, { forwardRef, useEffect, useRef, ReactNode } from 'react';
+import '@skyra-tech-platform/collapsible';
 
 export interface CollapsibleProps {
   /** Controlled open state */
@@ -51,59 +18,54 @@ export interface CollapsibleProps {
   children: ReactNode;
 }
 
-/**
- * @skyra/ui Collapsible
- *
- * Independent single expandable region primitive (e.g. Advanced Filters, Developer Details).
- * Distinct from Accordion (which coordinates collections of items).
- */
-export function Collapsible({
-  open: controlledOpen,
-  defaultOpen = false,
-  onOpenChange,
-  disabled = false,
-  className = '',
-  children,
-}: CollapsibleProps) {
-  const isControlled = controlledOpen !== undefined;
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const isOpen = isControlled ? Boolean(controlledOpen) : uncontrolledOpen;
+export const Collapsible = forwardRef<HTMLElement, CollapsibleProps>(
+  ({ open, defaultOpen, onOpenChange, disabled, className, children, ...props }, ref) => {
+    const internalRef = useRef<HTMLElement>(null);
+    const resolvedRef = (ref || internalRef) as React.MutableRefObject<HTMLElement>;
+    const isControlled = open !== undefined;
 
-  const baseId = useId();
-  const triggerId = `${baseId}-trigger`;
-  const contentId = `${baseId}-content`;
+    useEffect(() => {
+      const element = resolvedRef.current;
+      if (!element) return;
 
-  const toggleOpen = useCallback(() => {
-    if (disabled) return;
-    const nextOpen = !isOpen;
-    if (!isControlled) {
-      setUncontrolledOpen(nextOpen);
-    }
-    onOpenChange?.(nextOpen);
-  }, [disabled, isOpen, isControlled, onOpenChange]);
+      const handleChange = (e: Event) => {
+        const customEvent = e as CustomEvent;
+        const newOpen = customEvent.detail?.open;
+        if (onOpenChange) {
+          onOpenChange(newOpen);
+        }
+        // React 19 handles controlled state strictly. 
+        // If controlled and state should not change, we must revert the DOM state.
+        if (isControlled && open !== newOpen) {
+          if (open) {
+            element.setAttribute('open', '');
+          } else {
+            element.removeAttribute('open');
+          }
+        }
+      };
 
-  return (
-    <CollapsibleContext.Provider
-      value={{
-        open: isOpen,
-        toggleOpen,
-        disabled,
-        triggerId,
-        contentId }}
-    >
-      <div
-        className={`skyra-collapsible ${isOpen ? 'skyra-collapsible--open' : 'skyra-collapsible--closed'} ${disabled ? 'skyra-collapsible--disabled' : ''} ${className}`}
-        data-state={isOpen ? 'open' : 'closed'}
+      element.addEventListener('skyra-collapsible-change', handleChange);
+      return () => {
+        element.removeEventListener('skyra-collapsible-change', handleChange);
+      };
+    }, [onOpenChange, isControlled, open, resolvedRef]);
+
+    return (
+      <skyra-collapsible
+        ref={resolvedRef}
+        open={open !== undefined ? (open ? true : undefined) : (defaultOpen ? true : undefined)}
+        disabled={disabled || undefined}
+        class={className}
+        suppressHydrationWarning
+        {...props}
       >
         {children}
-      </div>
-    </CollapsibleContext.Provider>
-  );
-}
-
-/* ============================================================
-   COLLAPSIBLE TRIGGER
-   ============================================================ */
+      </skyra-collapsible>
+    );
+  }
+);
+Collapsible.displayName = 'Collapsible';
 
 export interface CollapsibleTriggerProps {
   /** Additional CSS class */
@@ -112,46 +74,16 @@ export interface CollapsibleTriggerProps {
   children: ReactNode;
 }
 
-export const CollapsibleTrigger = forwardRef<HTMLButtonElement, CollapsibleTriggerProps>(
-  ({ className = '', children }, ref) => {
-    const { open, toggleOpen, disabled, triggerId, contentId } = useCollapsibleContext();
-
-    const handleClick = () => {
-      if (disabled) return;
-      toggleOpen();
-    };
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-      if (disabled) return;
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleOpen();
-      }
-    };
-
+export const CollapsibleTrigger = forwardRef<HTMLDivElement, CollapsibleTriggerProps>(
+  ({ className = '', children, ...props }, ref) => {
     return (
-      <button
-        ref={ref}
-        type="button"
-        id={triggerId}
-        aria-expanded={open}
-        aria-controls={contentId}
-        aria-disabled={disabled}
-        disabled={disabled}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        className={`skyra-collapsible-trigger ${open ? 'skyra-collapsible-trigger--open' : ''} ${className}`}
-      >
+      <div slot="trigger" ref={ref} className={className} suppressHydrationWarning {...props}>
         {children}
-      </button>
+      </div>
     );
   }
 );
 CollapsibleTrigger.displayName = 'CollapsibleTrigger';
-
-/* ============================================================
-   COLLAPSIBLE CONTENT
-   ============================================================ */
 
 export interface CollapsibleContentProps {
   /** Additional CSS class */
@@ -161,19 +93,10 @@ export interface CollapsibleContentProps {
 }
 
 export const CollapsibleContent = forwardRef<HTMLDivElement, CollapsibleContentProps>(
-  ({ className = '', children }, ref) => {
-    const { open, triggerId, contentId } = useCollapsibleContext();
-
+  ({ className = '', children, ...props }, ref) => {
     return (
-      <div
-        ref={ref}
-        id={contentId}
-        role="region"
-        aria-labelledby={triggerId}
-        hidden={!open}
-        className={`skyra-collapsible-content ${open ? 'skyra-collapsible-content--open' : ''} ${className}`}
-      >
-        <div className="skyra-collapsible-content-inner">{children}</div>
+      <div ref={ref} className={className} suppressHydrationWarning {...props}>
+        {children}
       </div>
     );
   }

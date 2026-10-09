@@ -27,6 +27,7 @@ import dynamicSelectPkg from '../../../packages/dynamic-select/package.json';
 import dateTimePkg from '../../../packages/date-time/package.json';
 import pdfViewerPkg from '../../../packages/pdf-viewer/package.json';
 import accordionPkg from '../../../packages/accordion/package.json';
+import collapsiblePkg from '../../../packages/collapsible/package.json';
 
 // ---------------------------------------------------------------------------
 // Runtime classification — authored once, based on actual package architecture
@@ -56,6 +57,7 @@ const runtimeMap: Record<string, RuntimeCategory> = {
   '@skyra-tech-platform/date-time':    'runtime-neutral',
   '@skyra-tech-platform/pdf-viewer':   'mixed',
   '@skyra-tech-platform/accordion':    'runtime-neutral',
+  '@skyra-tech-platform/collapsible':  'runtime-neutral',
 };
 
 // ---------------------------------------------------------------------------
@@ -194,6 +196,18 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     status: 'stable',
   },
 
+  // @skyra-tech-platform/collapsible
+  {
+    id: 'collapsible/core',
+    packageId: '@skyra-tech-platform/collapsible',
+    name: 'Collapsible',
+    exportPath: '@skyra-tech-platform/collapsible',
+    runtime: 'runtime-neutral',
+    description: 'Framework-agnostic independent single expandable region Web Component primitive.',
+    usageNote: "import '@skyra-tech-platform/collapsible';",
+    status: 'stable',
+  },
+
   // @skyra-tech-platform/loader
   {
     id: 'loader/core',
@@ -272,7 +286,7 @@ export function bootstrapRegistry() {
     dialogsPkg, dynamicFormPkg, qrPkg, utilsPkg, validationPkg,
     notificationPkg, toastPkg, tabsPkg, loaderPkg,
     buttonPkg, checkboxPkg, inputPkg, radioPkg, switchPkg, textareaPkg,
-    dynamicSelectPkg, dateTimePkg, pdfViewerPkg, accordionPkg
+    dynamicSelectPkg, dateTimePkg, pdfViewerPkg, accordionPkg, collapsiblePkg
   ];
 
   packages.forEach((pkg) => {

@@ -20,6 +20,7 @@ const nextConfig: NextConfig = {
     '@skyra-tech-platform/notification',
     '@skyra-tech-platform/loader',
     '@skyra-tech-platform/accordion',
+    '@skyra-tech-platform/collapsible',
   ],
   async redirects() {
     return [
@@ -31,6 +32,11 @@ const nextConfig: NextConfig = {
       {
         source: '/ui-components/accordion',
         destination: '/components/disclosure/accordion',
+        permanent: true,
+      },
+      {
+        source: '/ui-components/collapsible',
+        destination: '/components/disclosure/collapsible',
         permanent: true,
       },
     ];

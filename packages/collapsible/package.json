@@ -1,0 +1,33 @@
+{
+  "name": "@skyra-tech-platform/collapsible",
+  "version": "0.1.0",
+  "description": "Framework-agnostic independent collapsible Web Component",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "clean": "rm -rf dist .turbo"
+  },
+  "peerDependencies": {
+    "@skyra-tech-platform/design-tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "tsup": "^8.5.1",
+    "vitest": "^1.6.1",
+    "jsdom": "^24.1.3",
+    "@types/node": "^20.19.43",
+    "@types/jsdom": "^21.1.7"
+  }
+}

@@ -72,6 +72,7 @@ const COMPONENT_GROUPS = [
     description: 'Expandable panels and progressive disclosure.',
     items: [
       { packageId: '@skyra-tech-platform/accordion', href: '/components/disclosure/accordion', label: 'Accordion', desc: 'Expandable multi-section container with single/multiple expand modes.' },
+      { packageId: '@skyra-tech-platform/collapsible', href: '/components/disclosure/collapsible', label: 'Collapsible', desc: 'Independent single expandable region primitive.' },
     ]
   },
   {

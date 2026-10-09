@@ -61,6 +61,7 @@ declare global {
         'skyra-tab-panel': any;
         'skyra-accordion': any;
         'skyra-accordion-item': any;
+        'skyra-collapsible': any;
       }
     }
   }
@@ -108,6 +109,7 @@ declare global {
       'skyra-tab-panel': any;
       'skyra-accordion': any;
       'skyra-accordion-item': any;
+      'skyra-collapsible': any;
     }
   }
 }

@@ -26,7 +26,7 @@ const SPECIALIZED_PAGES = [
 
   { href: '/components/navigation/tabs', title: 'Tabs', desc: 'WAI-ARIA tabbed interface supporting horizontal/vertical layouts, auto/manual activation, line and pill variants', icon: FolderTree, badge: 'Phase 4B' },
   { href: '/components/disclosure/accordion', title: 'Accordion', desc: 'Expandable multi-section container with single/multiple expand modes, collapsible toggling, and smooth transitions', icon: ListCollapse, badge: 'Phase 4B' },
-  { href: '/ui-components/collapsible', title: 'Collapsible', desc: 'Independent single expandable region primitive for advanced options and developer payload diagnostics', icon: ChevronsUpDown, badge: 'Phase 4B' },
+  { href: '/components/disclosure/collapsible', title: 'Collapsible', desc: 'Independent single expandable region primitive for advanced options and developer payload diagnostics', icon: ChevronsUpDown, badge: 'Phase 4B' },
   { href: '/ui-components/breadcrumb', title: 'Breadcrumbs', desc: 'Semantic hierarchical navigation primitive conforming to WAI-ARIA breadcrumb standards with custom separators', icon: Navigation, badge: 'Phase 4B' },
   { href: '/ui-components/popover', title: 'Popover', desc: 'Anchored rich content overlay with collision detection, boundary protection, focus restoration, and Escape dismissal', icon: Layers, badge: 'Phase 4A' },
   { href: '/ui-components/dropdown-menu', title: 'Dropdown Menu', desc: 'Action menu with keyboard navigation, icons, groups, separators, checkable items, and destructive actions', icon: MoreHorizontal, badge: 'Phase 4A' },

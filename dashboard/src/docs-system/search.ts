@@ -162,6 +162,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'dynamic-select':'/components/selection/dynamic-select',
       'date-time':     '/components/forms/date-time',
       'accordion':     '/components/disclosure/accordion',
+      'collapsible':   '/components/disclosure/collapsible',
     };
 
     documents.push({

@@ -71,6 +71,7 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
     'dynamic-select':'/components/selection/dynamic-select',
     'date-time':     '/components/forms/date-time',
     'accordion':     '/components/disclosure/accordion',
+    'collapsible':   '/components/disclosure/collapsible',
   };
   const docsHref = DOCS_PAGES[slug];
 
