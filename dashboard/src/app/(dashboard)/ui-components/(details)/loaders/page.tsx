@@ -1,8 +1,9 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
-import { Spinner, Progress, CircularProgress, Skeleton, SkeletonText, SkeletonAvatar, SkeletonTable, DataLoader, OverlayLoader } from '@/components/ui';
-import '@skyra-tech-platform/button';;
+import { DataLoader, OverlayLoader } from '@/components/ui';
+import '@skyra-tech-platform/button';
+import '@skyra-tech-platform/loader';
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 
 export default function LoadersShowcasePage() {
@@ -28,12 +29,12 @@ export default function LoadersShowcasePage() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap', padding: '1rem 0' }}>
               {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((sz) => (
                 <div key={sz} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-                  <Spinner size={sz} />
+                  <skyra-spinner size={sz}></skyra-spinner>
                   <span style={{ fontSize: '0.75rem', color: 'var(--skyra-text-muted)' }}>{sz}</span>
                 </div>
               ))}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: 'auto' }}>
-                <Spinner size="sm" label="Synchronizing..." showLabel />
+                <skyra-spinner size="sm" label="Synchronizing..." show-label></skyra-spinner>
               </div>
             </div>
           </DemoBlock>
@@ -41,16 +42,16 @@ export default function LoadersShowcasePage() {
           <DemoBlock title="Circular Progress">
             <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap', padding: '0.5rem 0' }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-                <CircularProgress value={78} size={48} showValue />
+                <skyra-circular-progress value="78" size="48" show-value></skyra-circular-progress>
                 <span style={{ fontSize: '0.75rem', color: 'var(--skyra-text-muted)' }}>78% Complete</span>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
                 {/* indeterminate mode: omit value prop */}
-                <CircularProgress size={48} />
+                <skyra-circular-progress size="48"></skyra-circular-progress>
                 <span style={{ fontSize: '0.75rem', color: 'var(--skyra-text-muted)' }}>Indeterminate</span>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-                <CircularProgress value={progressVal} size={64} showValue />
+                <skyra-circular-progress value={progressVal} size="64" show-value></skyra-circular-progress>
                 <span style={{ fontSize: '0.75rem', color: 'var(--skyra-text-muted)' }}>Active Upload</span>
               </div>
             </div>
@@ -63,8 +64,8 @@ export default function LoadersShowcasePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
           <DemoBlock title="Determinate Linear Progress">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <Progress value={progressVal} label="Processing Data Stream" showLabel />
-              <Progress value={40} size="sm" />
+              <skyra-progress value={progressVal} label="Processing Data Stream" show-label></skyra-progress>
+              <skyra-progress value="40" size="sm"></skyra-progress>
               <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
                 <skyra-tech-button size="sm" variant="outline" onClick={() => setProgressVal((v) => Math.max(0, v - 15))}>-15%</skyra-tech-button>
                 <skyra-tech-button size="sm" variant="outline" onClick={() => setProgressVal((v) => Math.min(100, v + 15))}>+15%</skyra-tech-button>
@@ -75,8 +76,8 @@ export default function LoadersShowcasePage() {
           <DemoBlock title="Indeterminate Continuous Progress">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               {/* indeterminate: omit value prop */}
-              <Progress label="Connecting to WebSocket Cluster..." />
-              <Progress size="sm" />
+              <skyra-progress label="Connecting to WebSocket Cluster..."></skyra-progress>
+              <skyra-progress size="sm"></skyra-progress>
             </div>
           </DemoBlock>
         </div>
@@ -87,17 +88,17 @@ export default function LoadersShowcasePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
           <DemoBlock title="Skeleton Primitives (Text &amp; Avatar)">
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-              <SkeletonAvatar size={48} />
+              <skyra-skeleton-avatar size="48"></skyra-skeleton-avatar>
               <div style={{ flex: 1 }}>
-                <Skeleton width="60%" height="16px" style={{ marginBottom: '6px' }} />
-                <Skeleton width="40%" height="12px" />
+                <skyra-skeleton width="60%" height="16px" style={{ marginBottom: '6px' }}></skyra-skeleton>
+                <skyra-skeleton width="40%" height="12px"></skyra-skeleton>
               </div>
             </div>
-            <SkeletonText lines={3} />
+            <skyra-skeleton-text lines="3"></skyra-skeleton-text>
           </DemoBlock>
 
           <DemoBlock title="Skeleton Table">
-            <SkeletonTable rows={3} columns={3} />
+            <skyra-skeleton-table rows="3" columns="3"></skyra-skeleton-table>
           </DemoBlock>
         </div>
       </DemoSection>

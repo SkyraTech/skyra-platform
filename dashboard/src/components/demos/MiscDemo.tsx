@@ -1,7 +1,8 @@
-﻿'use client';
+'use client';
 import React, { useState } from 'react';
-import { Alert, Spinner, Divider, Card, PhoneInputField, LogoUploader } from '@/components/ui';
-import '@skyra-tech-platform/checkbox';;
+import { Alert, Divider, Card, PhoneInputField, LogoUploader } from '@/components/ui';
+import '@skyra-tech-platform/checkbox';
+import '@skyra-tech-platform/loader';
 import { DemoSection, DemoBlock } from './DemoSection';
 
 export function MiscDemo() {
@@ -59,10 +60,10 @@ export function MiscDemo() {
       <DemoBlock title="Loaders & Dividers">
         <div style={{ width: '100%' }}>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
-            <Spinner size="sm" />
-            <Spinner size="md" />
-            <Spinner size="lg" />
-            <Spinner size="xl" />
+            <skyra-spinner size="sm"></skyra-spinner>
+            <skyra-spinner size="md"></skyra-spinner>
+            <skyra-spinner size="lg"></skyra-spinner>
+            <skyra-spinner size="xl"></skyra-spinner>
           </div>
           <Divider label="OR CONTINUE WITH" />
         </div>

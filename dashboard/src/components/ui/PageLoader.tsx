@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Spinner } from './Spinner';
+import '@skyra-tech-platform/loader';
 
 export interface PageLoaderProps {
   /** Loading message */
@@ -39,7 +39,7 @@ export function PageLoader({
         gap: '1rem',
         fontFamily: 'var(--skyra-font-body)' }}
     >
-      <Spinner size="xl" />
+      <skyra-spinner size="xl"></skyra-spinner>
       <div style={{ textAlign: 'center' }}>
         <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, color: 'var(--skyra-text)', fontFamily: 'var(--skyra-font-display)' }}>
           {message}

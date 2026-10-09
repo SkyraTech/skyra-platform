@@ -22,6 +22,7 @@
     "@skyra-tech-platform/dynamic-form": "workspace:*",
     "@skyra-tech-platform/dynamic-select": "workspace:*",
     "@skyra-tech-platform/input": "workspace:*",
+    "@skyra-tech-platform/loader": "workspace:^",
     "@skyra-tech-platform/notification": "workspace:*",
     "@skyra-tech-platform/pdf-viewer": "workspace:*",
     "@skyra-tech-platform/qr": "workspace:^",

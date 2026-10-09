@@ -49,6 +49,13 @@ declare global {
         'skyra-tech-date-range-field': any;
         'skyra-tech-date-time-field': any;
         'skyra-tech-calendar': any;
+        'skyra-spinner': any;
+        'skyra-progress': any;
+        'skyra-circular-progress': any;
+        'skyra-skeleton': any;
+        'skyra-skeleton-avatar': any;
+        'skyra-skeleton-text': any;
+        'skyra-skeleton-table': any;
       }
     }
   }
@@ -84,6 +91,13 @@ declare global {
       'skyra-tech-date-range-field': any;
       'skyra-tech-date-time-field': any;
       'skyra-tech-calendar': any;
+      'skyra-spinner': any;
+      'skyra-progress': any;
+      'skyra-circular-progress': any;
+      'skyra-skeleton': any;
+      'skyra-skeleton-avatar': any;
+      'skyra-skeleton-text': any;
+      'skyra-skeleton-table': any;
     }
   }
 }

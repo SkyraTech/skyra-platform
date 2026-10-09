@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Spinner } from './Spinner';
+import '@skyra-tech-platform/loader';
 import { AlertCircle, Inbox } from 'lucide-react';
 
 export interface DataLoaderProps<T> {
@@ -58,7 +58,7 @@ export function DataLoader<T>({
           color: 'var(--skyra-text-muted)',
           fontFamily: 'var(--skyra-font-body)' }}
       >
-        <Spinner size="lg" />
+        <skyra-spinner size="lg"></skyra-spinner>
         <span style={{ fontSize: '0.875rem', fontWeight: 500 }}>Loading data...</span>
       </div>
     );

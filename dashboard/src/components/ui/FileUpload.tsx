@@ -22,7 +22,7 @@ import {
   Trash2,
   RotateCcw,
 } from 'lucide-react';
-import { Progress } from './Progress';
+import '@skyra-tech-platform/loader';
 
 /* ─── Pure File Validation Utilities ─── */
 
@@ -507,7 +507,7 @@ export const FileUploadItem = forwardRef<HTMLLIElement, FileUploadItemProps>(
           {/* Progress Bar when uploading */}
           {status === 'uploading' && (
             <div className="skyra-file-item-progress">
-              <Progress value={progress} size="sm" aria-label={`Uploading ${file.name}`} />
+              <skyra-progress value={progress} size="sm" aria-label={`Uploading ${file.name}`}></skyra-progress>
               <span className="skyra-file-item-progress-text">{Math.round(progress)}%</span>
             </div>
           )}

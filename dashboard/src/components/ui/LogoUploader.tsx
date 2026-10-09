@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import { Upload, X } from 'lucide-react';
-import { Spinner } from './Spinner';
+import '@skyra-tech-platform/loader';
 
 export interface LogoUploaderProps {
   /** Current logo URL (controlled) */
@@ -92,7 +92,7 @@ export function LogoUploader({
 
       <div className="skyra-logo-preview">
         {isUploading ? (
-          <Spinner size="md" label="Uploading logo..." />
+          <skyra-spinner size="md" label="Uploading logo..."></skyra-spinner>
         ) : preview ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={preview} alt="Organization logo" />

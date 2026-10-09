@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Spinner } from './Spinner';
+import '@skyra-tech-platform/loader';
 
 export interface OverlayLoaderProps {
   /** Active loading state */
@@ -47,7 +47,7 @@ export function OverlayLoader({
             color: '#ffffff',
             fontFamily: 'var(--skyra-font-body)' }}
         >
-          <Spinner size="lg" color="#ffffff" />
+          <skyra-spinner size="lg" color="#ffffff"></skyra-spinner>
           {message && <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>{message}</span>}
         </div>
       )}

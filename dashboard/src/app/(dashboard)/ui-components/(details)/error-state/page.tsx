@@ -1,8 +1,9 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
-import { ErrorState, ErrorStateIcon, ErrorStateTitle, ErrorStateDescription, ErrorStateActions, ErrorStateDetails, Card, Badge, Spinner } from '@/components/ui';
-import '@skyra-tech-platform/button';;
+import { ErrorState, ErrorStateIcon, ErrorStateTitle, ErrorStateDescription, ErrorStateActions, ErrorStateDetails, Card, Badge } from '@/components/ui';
+import '@skyra-tech-platform/button';
+import '@skyra-tech-platform/loader';
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 
 export default function ErrorStateShowcasePage() {
@@ -59,7 +60,7 @@ export default function ErrorStateShowcasePage() {
                   <skyra-tech-button variant="primary" onClick={handleSimulatedRetry} disabled={isRetrying}>
                     {isRetrying ? (
                       <>
-                        <Spinner size="sm" style={{ marginRight: '6px' }} />
+                        <skyra-spinner size="sm" style={{ marginRight: '6px' }}></skyra-spinner>
                         Connecting...
                       </>
                     ) : (
