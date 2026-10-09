@@ -41,6 +41,9 @@ importers:
 
   dashboard:
     dependencies:
+      '@skyra-tech-platform/accordion':
+        specifier: workspace:*
+        version: link:../packages/accordion
       '@skyra-tech-platform/app-shell':
         specifier: workspace:^
         version: link:../packages/app-shell
@@ -50,6 +53,9 @@ importers:
       '@skyra-tech-platform/checkbox':
         specifier: workspace:*
         version: link:../packages/checkbox
+      '@skyra-tech-platform/collapsible':
+        specifier: workspace:*
+        version: link:../packages/collapsible
       '@skyra-tech-platform/data-export':
         specifier: workspace:*
         version: link:../packages/data-export

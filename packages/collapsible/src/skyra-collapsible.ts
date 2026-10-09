@@ -2,7 +2,9 @@ import { collapsibleStyles } from './skyra-collapsible.css.js';
 
 let collapsibleIdCounter = 0;
 
-export class SkyraCollapsibleElement extends HTMLElement {
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+
+export class SkyraCollapsibleElement extends BaseClass {
   private _boundHandleClick: EventListener;
   private _boundHandleKeyDown: EventListener;
   private _triggerEl: HTMLButtonElement | null = null;
@@ -140,6 +142,6 @@ export class SkyraCollapsibleElement extends HTMLElement {
   }
 }
 
-if (!customElements.get('skyra-collapsible')) {
+if (typeof customElements !== 'undefined' && !customElements.get('skyra-collapsible')) {
   customElements.define('skyra-collapsible', SkyraCollapsibleElement);
 }

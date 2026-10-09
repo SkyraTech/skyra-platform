@@ -57,7 +57,7 @@ const COMPONENT_GROUPS = [
     items: [
       { packageId: '@skyra-tech-platform/notification', href: '/components/feedback/notification', label: 'Notification', desc: 'In-page alert banners and system alerts.' },
       { packageId: '@skyra-tech-platform/toast', href: '/components/feedback/toast', label: 'Toast', desc: 'Ephemeral overlay notifications.' },
-      { packageId: '@skyra-tech-platform/loader', href: '/components/feedback/loaders', label: 'Loader System', desc: 'Spinners, progress bars, and skeletons.' },
+      { packageId: '@skyra-tech-platform/loader', href: '/ui-components/loaders', label: 'Loader System', desc: 'Spinners, progress bars, and skeletons.' },
     ]
   },
   {

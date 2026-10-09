@@ -11,8 +11,10 @@
     "generate:data": "node scripts/generate-examples.mjs && node scripts/generate-releases.mjs"
   },
   "dependencies": {
+    "@skyra-tech-platform/accordion": "workspace:*",
     "@skyra-tech-platform/app-shell": "workspace:^",
     "@skyra-tech-platform/button": "workspace:*",
+    "@skyra-tech-platform/collapsible": "workspace:*",
     "@skyra-tech-platform/checkbox": "workspace:*",
     "@skyra-tech-platform/data-export": "workspace:*",
     "@skyra-tech-platform/data-table": "workspace:*",

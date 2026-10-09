@@ -150,7 +150,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'data-export':   '/docs/data-export',
       'notification':  '/components/feedback/notification',
       'toast':         '/components/feedback/toast',
-      'loader':        '/components/feedback/loaders',
+      'loader':        '/ui-components/loaders',
       'tabs':          '/components/navigation/tabs',
       'data-table':    '/data-table',
       'button':        '/components/basic-controls/button',

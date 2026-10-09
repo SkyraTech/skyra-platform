@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
 
@@ -11,9 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-      </head>
-      <body>
-        <Script id="theme-script" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: `
+        <script dangerouslySetInnerHTML={{ __html: `
           try {
             var stored = localStorage.getItem('skyra_theme');
             if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -21,6 +19,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }
           } catch(e) {}
         `}} />
+      </head>
+      <body>
         {children}
       </body>
     </html>

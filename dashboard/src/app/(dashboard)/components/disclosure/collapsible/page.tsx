@@ -1,17 +1,15 @@
 'use client';
 
 import React from 'react';
-import {
-  DocsLayout,
-  DocsHeader,
-  PackageMeta,
-  ApiTable,
-  ApiTabs,
-  FrameworkSupport,
-  InstallCommand,
-  LiveExample,
-  AccessibilityPanel
-} from '@/docs-system/components';
+import { DocsLayout } from '@/components/docs/DocsLayout';
+import { DocsHeader } from '@/components/docs/DocsHeader';
+import { PackageMeta } from '@/components/docs/PackageMeta';
+import { ApiTable } from '@/components/docs/ApiTable';
+import { ApiTabs } from '@/components/docs/ApiTabs';
+import { FrameworkSupport } from '@/components/docs/FrameworkSupport';
+import { InstallCommand } from '@/components/docs/InstallCommand';
+import { LiveExample } from '@/components/docs/LiveExample';
+import { AccessibilityPanel } from '@/components/docs/AccessibilityPanel';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent, Badge } from '@/components/ui';
 import { ChevronsUpDown } from 'lucide-react';
 import '@skyra-tech-platform/button';
@@ -51,17 +49,28 @@ export default function CollapsibleDocsPage() {
       <DocsHeader
         title="Collapsible"
         description="Independent single expandable region primitive for advanced options and developer payload diagnostics."
-        packageId="@skyra-tech-platform/collapsible"
+        breadcrumbs={[
+          { label: 'Components', href: '/components' },
+          { label: 'Disclosure' },
+          { label: 'Collapsible' }
+        ]}
+        badges={[
+          { label: 'Stable', variant: 'stable' },
+          { label: 'Web Component', variant: 'tech' }
+        ]}
       />
 
       <section id="overview">
-        <PackageMeta packageId="@skyra-tech-platform/collapsible" />
+        <PackageMeta 
+          packageName="@skyra-tech-platform/collapsible" 
+          version="0.1.0"
+          type="TypeScript / Web Component"
+        />
       </section>
 
       <section id="installation" style={{ marginTop: '3rem' }}>
         <h2 className="docs-heading" style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--skyra-text)' }}>Installation</h2>
         <InstallCommand packageName="@skyra-tech-platform/collapsible" />
-        <FrameworkSupport react vue svelte vanilla />
       </section>
 
       <section id="usage" style={{ marginTop: '3rem' }}>
@@ -122,21 +131,26 @@ export default function CollapsibleDocsPage() {
         <ApiTabs
           tabs={[
             {
+              id: 'collapsible',
               label: '<skyra-collapsible>',
               content: (
-                <ApiTable
-                  props={[
-                    { name: 'open', type: 'boolean', default: 'false', description: 'Whether the collapsible region is currently expanded.' },
-                    { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents the user from interacting with the collapsible.' },
-                  ]}
-                  events={[
-                    { name: 'skyra-collapsible-change', detail: '{ open: boolean }', description: 'Fired when the collapsible state changes.' }
-                  ]}
-                  slots={[
-                    { name: 'trigger', description: 'Content rendered inside the native <button>.' },
-                    { name: 'default', description: 'Content rendered in the expanded region.' }
-                  ]}
-                />
+                <>
+                  <ApiTable
+                    title="Properties & Attributes"
+                    headers={['Property', 'Type', 'Description']}
+                    rows={[
+                      { name: 'open', type: 'boolean', description: 'Whether the collapsible region is currently expanded. Default: false' },
+                      { name: 'disabled', type: 'boolean', description: 'Prevents the user from interacting with the collapsible. Default: false' },
+                    ]}
+                  />
+                  <ApiTable
+                    title="Events"
+                    headers={['Event', 'Payload', 'Description']}
+                    rows={[
+                      { name: 'skyra-collapsible-change', type: '{ open: boolean }', description: 'Fired when the collapsible state changes.' }
+                    ]}
+                  />
+                </>
               )
             }
           ]}
@@ -145,8 +159,8 @@ export default function CollapsibleDocsPage() {
 
       <section id="accessibility" style={{ marginTop: '3rem' }}>
         <AccessibilityPanel
-          description="The Collapsible component follows the WAI-ARIA disclosure pattern."
           features={[
+            'The Collapsible component follows the WAI-ARIA disclosure pattern.',
             'Utilizes native `<button>` element for the disclosure trigger.',
             '`aria-expanded` is automatically managed on the trigger.',
             '`aria-controls` links the trigger to its content panel.',

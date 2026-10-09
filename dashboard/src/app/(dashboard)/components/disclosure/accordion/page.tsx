@@ -1,18 +1,16 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  DocsLayout,
-  DocsHeader,
-  PackageMeta,
-  ApiTable,
-  ApiTabs,
-  FrameworkSupport,
-  InstallCommand,
-  LiveExample,
-  AccessibilityPanel,
-  CodeBlock
-} from '@/docs-system/components';
+import { DocsLayout } from '@/components/docs/DocsLayout';
+import { DocsHeader } from '@/components/docs/DocsHeader';
+import { PackageMeta } from '@/components/docs/PackageMeta';
+import { ApiTable } from '@/components/docs/ApiTable';
+import { ApiTabs } from '@/components/docs/ApiTabs';
+import { FrameworkSupport } from '@/components/docs/FrameworkSupport';
+import { InstallCommand } from '@/components/docs/InstallCommand';
+import { LiveExample } from '@/components/docs/LiveExample';
+import { AccessibilityPanel } from '@/components/docs/AccessibilityPanel';
+import { CodeBlock } from '@/components/docs/CodeBlock';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, Badge } from '@/components/ui';
 import { FileText, CreditCard, Lock } from 'lucide-react';
 import '@skyra-tech-platform/button';
@@ -54,17 +52,28 @@ export default function AccordionDocsPage() {
       <DocsHeader
         title="Accordion"
         description="Expandable multi-section container supporting single and multiple open modes, collapsible toggles, and keyboard navigation."
-        packageId="@skyra-tech-platform/accordion"
+        breadcrumbs={[
+          { label: 'Components', href: '/components' },
+          { label: 'Disclosure' },
+          { label: 'Accordion' }
+        ]}
+        badges={[
+          { label: 'Stable', variant: 'stable' },
+          { label: 'Web Component', variant: 'tech' }
+        ]}
       />
 
       <section id="overview">
-        <PackageMeta packageId="@skyra-tech-platform/accordion" />
+        <PackageMeta 
+          packageName="@skyra-tech-platform/accordion"
+          version="0.1.0"
+          type="TypeScript / Web Component"
+        />
       </section>
 
       <section id="installation" style={{ marginTop: '3rem' }}>
         <h2 className="docs-heading" style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--skyra-text)' }}>Installation</h2>
         <InstallCommand packageName="@skyra-tech-platform/accordion" />
-        <FrameworkSupport react vue svelte vanilla />
       </section>
 
       <section id="usage" style={{ marginTop: '3rem' }}>
@@ -133,32 +142,40 @@ export default function AccordionDocsPage() {
         <ApiTabs
           tabs={[
             {
+              id: 'accordion',
               label: '<skyra-accordion>',
               content: (
-                <ApiTable
-                  props={[
-                    { name: 'type', type: '"single" | "multiple"', default: '"single"', description: 'Determines whether one or multiple items can be open at the same time.' },
-                    { name: 'value', type: 'string', description: 'The controlled value of the open item(s). Comma-separated for multiple mode.' },
-                    { name: 'default-value', type: 'string', description: 'The initial uncontrolled value of the open item(s).' },
-                    { name: 'collapsible', type: 'boolean', default: 'false', description: 'Allows a single active item to be closed when clicked again.' },
-                  ]}
-                  events={[
-                    { name: 'skyra-accordion-change', detail: '{ value: string }', description: 'Fired when the expanded state changes. Value is comma-separated for multiple.' }
-                  ]}
-                />
+                <>
+                  <ApiTable
+                    title="Properties & Attributes"
+                    headers={['Property', 'Type', 'Description']}
+                    rows={[
+                      { name: 'type', type: '"single" | "multiple"', description: 'Determines whether one or multiple items can be open at the same time. Default: "single"' },
+                      { name: 'value', type: 'string', description: 'The controlled value of the open item(s). Comma-separated for multiple mode.' },
+                      { name: 'default-value', type: 'string', description: 'The initial uncontrolled value of the open item(s).' },
+                      { name: 'collapsible', type: 'boolean', description: 'Allows a single active item to be closed when clicked again. Default: false' },
+                    ]}
+                  />
+                  <ApiTable
+                    title="Events"
+                    headers={['Event', 'Payload', 'Description']}
+                    rows={[
+                      { name: 'skyra-accordion-change', type: '{ value: string }', description: 'Fired when the expanded state changes. Value is comma-separated for multiple mode.' }
+                    ]}
+                  />
+                </>
               )
             },
             {
+              id: 'accordion-item',
               label: '<skyra-accordion-item>',
               content: (
                 <ApiTable
-                  props={[
+                  title="Properties & Attributes"
+                  headers={['Property', 'Type', 'Description']}
+                  rows={[
                     { name: 'value', type: 'string', description: 'A unique identifier for the item. Required.' },
-                    { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents the user from interacting with the item.' }
-                  ]}
-                  slots={[
-                    { name: 'trigger', description: 'Content rendered inside the disclosure trigger button.' },
-                    { name: 'default', description: 'Content rendered in the expanded region.' }
+                    { name: 'disabled', type: 'boolean', description: 'Prevents the user from interacting with the item. Default: false' }
                   ]}
                 />
               )
@@ -169,7 +186,6 @@ export default function AccordionDocsPage() {
 
       <section id="accessibility" style={{ marginTop: '3rem' }}>
         <AccessibilityPanel
-          description="The Accordion component follows the WAI-ARIA Accordion Pattern."
           features={[
             'Utilizes native `<button>` elements for disclosure triggers.',
             '`aria-expanded` is automatically managed on the triggers.',

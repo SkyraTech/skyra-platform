@@ -70,14 +70,16 @@ Collapsible.displayName = 'Collapsible';
 export interface CollapsibleTriggerProps {
   /** Additional CSS class */
   className?: string;
+  /** Inline styles */
+  style?: React.CSSProperties;
   /** Custom trigger content */
   children: ReactNode;
 }
 
 export const CollapsibleTrigger = forwardRef<HTMLDivElement, CollapsibleTriggerProps>(
-  ({ className = '', children, ...props }, ref) => {
+  ({ className = '', style, children, ...props }, ref) => {
     return (
-      <div slot="trigger" ref={ref} className={className} suppressHydrationWarning {...props}>
+      <div slot="trigger" ref={ref} className={className} style={style} suppressHydrationWarning {...props}>
         {children}
       </div>
     );
@@ -88,14 +90,16 @@ CollapsibleTrigger.displayName = 'CollapsibleTrigger';
 export interface CollapsibleContentProps {
   /** Additional CSS class */
   className?: string;
+  /** Inline styles */
+  style?: React.CSSProperties;
   /** Expandable content */
   children: ReactNode;
 }
 
 export const CollapsibleContent = forwardRef<HTMLDivElement, CollapsibleContentProps>(
-  ({ className = '', children, ...props }, ref) => {
+  ({ className = '', style, children, ...props }, ref) => {
     return (
-      <div ref={ref} className={className} suppressHydrationWarning {...props}>
+      <div ref={ref} className={className} style={style} suppressHydrationWarning {...props}>
         {children}
       </div>
     );
