@@ -242,6 +242,10 @@ export class SkyraTechDynamicSelect extends BaseClass {
       bubbles: true,
       composed: true
     }));
+    this.dispatchEvent(new Event('change', {
+      bubbles: true,
+      composed: true
+    }));
   }
 
   private _handleSelect(opt: any) {

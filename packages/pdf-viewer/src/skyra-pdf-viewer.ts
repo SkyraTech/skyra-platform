@@ -334,6 +334,7 @@ export class SkyraPdfViewerElement extends BaseElement {
   
   private _loadingTask: pdfjsLib.PDFDocumentLoadingTask | null = null;
   private _pageRenderTask: pdfjsLib.RenderTask | null = null;
+  private _renderId: number = 0;
   private _pageProxy: pdfjsLib.PDFPageProxy | null = null;
   private _thumbnailProxies: Map<number, pdfjsLib.PDFPageProxy> = new Map();
   private _thumbnailRenderTasks: Map<number, pdfjsLib.RenderTask> = new Map();
@@ -679,10 +680,20 @@ export class SkyraPdfViewerElement extends BaseElement {
   private async renderPage() {
     if (!this._pdfDocument || !this._canvas || !this._pageContainer) return;
 
+    const currentRenderId = ++this._renderId;
+
     if (this._pageRenderTask) {
       this._pageRenderTask.cancel();
+      try {
+        await this._pageRenderTask.promise;
+      } catch (e) {
+        // Ignore cancellation exception
+      }
       this._pageRenderTask = null;
     }
+    
+    if (this._renderId !== currentRenderId) return;
+
     if (this._pageProxy) {
       this._pageProxy.cleanup();
       this._pageProxy = null;

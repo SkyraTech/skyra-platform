@@ -11,12 +11,15 @@ import {
   QREmailPayload, 
   QRSmsPayload 
 } from '@skyra-tech-platform/qr';
+import { jsPDF } from 'jspdf';
 import '@skyra-tech-platform/qr/web-component';
 import '@skyra-tech-platform/dynamic-select';
 import '@skyra-tech-platform/input';
 import '@skyra-tech-platform/textarea';
 import '@skyra-tech-platform/button';
 import '@skyra-tech-platform/notification';
+import '@skyra-tech-platform/pdf-viewer';
+import '@skyra-tech-platform/dialog';
 
 type QRType = 'url' | 'text' | 'email' | 'phone' | 'sms' | 'wifi' | 'vcard' | 'calendar';
 
@@ -58,8 +61,10 @@ export default function QRStudio() {
   // Analysis
   const [scanStatus, setScanStatus] = useState<any>(null);
   
-  // Notification
+  // Notification and Print
   const [notification, setNotification] = useState<{ message: string, type: 'success' | 'error' | 'info' } | null>(null);
+  const [printPdfUrl, setPrintPdfUrl] = useState<string | null>(null);
+  const [isPrintDialogOpen, setIsPrintDialogOpen] = useState(false);
 
   // Generate payload
   useEffect(() => {
@@ -121,7 +126,11 @@ export default function QRStudio() {
     const svg = qrElement.shadowRoot.querySelector('svg');
     if (!svg) return;
     
-    const svgData = new XMLSerializer().serializeToString(svg);
+    const svgClone = svg.cloneNode(true) as SVGSVGElement;
+    svgClone.setAttribute('width', '1024');
+    svgClone.setAttribute('height', '1024');
+    const svgData = new XMLSerializer().serializeToString(svgClone);
+    
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const img = new Image();
@@ -132,13 +141,13 @@ export default function QRStudio() {
     const image64 = b64Start + svg64;
 
     img.onload = () => {
-      // Use the SVG viewBox size or default
-      canvas.width = img.width || 300;
-      canvas.height = img.height || 300;
+      // High resolution size
+      canvas.width = 1024;
+      canvas.height = 1024;
       if (ctx) {
         ctx.fillStyle = lightColor === 'transparent' ? '#ffffff' : lightColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         const pngUrl = canvas.toDataURL('image/png');
         const a = document.createElement('a');
         a.href = pngUrl;
@@ -152,8 +161,60 @@ export default function QRStudio() {
   };
 
   const handlePrint = () => {
-    window.print();
-    setNotification({ message: 'Print initiated.', type: 'info' });
+    const qrElement = document.querySelector('skyra-tech-qr-code')?.shadowRoot?.querySelector('svg');
+    if (!qrElement) {
+      setNotification({ message: 'QR Code not ready', type: 'error' });
+      return;
+    }
+    const svgClone = qrElement.cloneNode(true) as SVGSVGElement;
+    svgClone.setAttribute('width', '1024');
+    svgClone.setAttribute('height', '1024');
+    const svgData = new XMLSerializer().serializeToString(svgClone);
+    
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    const svg64 = btoa(unescape(encodeURIComponent(svgData)));
+    const image64 = 'data:image/svg+xml;base64,' + svg64;
+
+    img.onload = () => {
+      canvas.width = 1024;
+      canvas.height = 1024;
+      if (ctx) {
+        ctx.fillStyle = lightColor === 'transparent' ? '#ffffff' : lightColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        try {
+          const doc = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4'
+          });
+          const imgData = canvas.toDataURL('image/png');
+          
+          doc.setFontSize(24);
+          doc.setTextColor(30);
+          doc.text('Skyra Platform QR Studio', 105, 50, { align: 'center' });
+          
+          doc.setFontSize(14);
+          doc.setTextColor(100);
+          const activeLabel = tabs.find(t => t.id === activeType)?.label || activeType;
+          doc.text(`Content Type: ${activeLabel}`, 105, 60, { align: 'center' });
+          
+          doc.addImage(imgData, 'PNG', 55, 80, 100, 100);
+          
+          const pdfBlob = doc.output('blob');
+          const url = URL.createObjectURL(pdfBlob);
+          setPrintPdfUrl(url);
+          setIsPrintDialogOpen(true);
+        } catch (e) {
+          console.error(e);
+          setNotification({ message: 'Failed to generate PDF', type: 'error' });
+        }
+      }
+    };
+    img.src = image64;
   };
 
   const tabs = [
@@ -179,7 +240,7 @@ export default function QRStudio() {
             <skyra-tech-dynamic-select
               options={tabs.map(t => ({ value: t.id, label: t.label }))}
               value={tabs.find(t => t.id === activeType) ? { value: activeType, label: tabs.find(t => t.id === activeType)?.label } : null}
-              onChange={(e: any) => e && setActiveType(e.value as QRType)}
+              onChange={(e: any) => e?.target?.value && setActiveType(e.target.value.value as QRType)}
             />
           </div>
 
@@ -214,7 +275,7 @@ export default function QRStudio() {
                   label="Encryption"
                   options={[{ value: 'WPA', label: 'WPA/WPA2' }, { value: 'WEP', label: 'WEP' }, { value: 'nopass', label: 'None' }]}
                   value={{ value: wifi.encryption, label: wifi.encryption === 'WPA' ? 'WPA/WPA2' : wifi.encryption === 'WEP' ? 'WEP' : 'None' }}
-                  onChange={(val: any) => val && setWifi({...wifi, encryption: val.value as any})}
+                  onChange={(e: any) => e?.target?.value && setWifi({...wifi, encryption: e.target.value.value as any})}
                 />
               </div>
             )}
@@ -258,7 +319,7 @@ export default function QRStudio() {
                 { value: 'H', label: 'High (~30%)' }
               ]}
               value={{ value: errorCorrection, label: errorCorrection === 'L' ? 'Low (~7%)' : errorCorrection === 'M' ? 'Medium (~15%)' : errorCorrection === 'Q' ? 'Quartile (~25%)' : 'High (~30%)' }}
-              onChange={(val: any) => val && setErrorCorrection(val.value as any)}
+              onChange={(e: any) => e?.target?.value && setErrorCorrection(e.target.value.value as any)}
             />
             
             <skyra-tech-input 
@@ -293,7 +354,7 @@ export default function QRStudio() {
                 { value: 'dot', label: 'Dot' }
               ]}
               value={{ value: moduleShape, label: moduleShape.charAt(0).toUpperCase() + moduleShape.slice(1) }}
-              onChange={(val: any) => val && setModuleShape(val.value as any)}
+              onChange={(e: any) => e?.target?.value && setModuleShape(e.target.value.value as any)}
             />
 
             <skyra-tech-dynamic-select
@@ -303,7 +364,7 @@ export default function QRStudio() {
                 { value: 'rounded', label: 'Rounded' }
               ]}
               value={{ value: finderShape, label: finderShape.charAt(0).toUpperCase() + finderShape.slice(1) }}
-              onChange={(val: any) => val && setFinderShape(val.value as any)}
+              onChange={(e: any) => e?.target?.value && setFinderShape(e.target.value.value as any)}
             />
 
             <div className="input-group">
@@ -402,6 +463,38 @@ export default function QRStudio() {
             </skyra-notification-bar>
           </div>
         )}
+
+        <skyra-tech-dialog 
+          open={isPrintDialogOpen}
+          size="xl" 
+          // @ts-ignore
+          onSkyra-close={() => setIsPrintDialogOpen(false)}
+          title="Print Preview"
+        >
+          <div style={{ height: '75vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+            {printPdfUrl ? (
+              <skyra-tech-pdf-viewer 
+                src={printPdfUrl} 
+                style={{ flex: 1, width: '100%', height: '100%', border: '1px solid var(--skyra-border)', borderRadius: 'var(--skyra-radius-md)' }}
+              />
+            ) : (
+              <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                Generating Print Preview...
+              </div>
+            )}
+          </div>
+          <div slot="footer" style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', padding: '1rem', borderTop: '1px solid var(--skyra-border)' }}>
+            <skyra-tech-button onClick={() => setIsPrintDialogOpen(false)} variant="ghost">Close</skyra-tech-button>
+            <skyra-tech-button onClick={() => {
+              if (printPdfUrl) {
+                const a = document.createElement('a');
+                a.href = printPdfUrl;
+                a.download = 'skyra-qr.pdf';
+                a.click();
+              }
+            }}>Download PDF</skyra-tech-button>
+          </div>
+        </skyra-tech-dialog>
       </div>
       
       {/* GLOBAL STYLES FOR THE PAGE */}
