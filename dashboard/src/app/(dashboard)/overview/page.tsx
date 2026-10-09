@@ -56,14 +56,6 @@ export default function OverviewPage() {
                 borderRadius: 'var(--skyra-radius-md)',
                 padding: '1.25rem',
                 boxShadow: 'var(--skyra-shadow-sm)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--skyra-primary)';
-                e.currentTarget.style.boxShadow = 'var(--skyra-shadow-md)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'var(--skyra-border)';
-                e.currentTarget.style.boxShadow = 'var(--skyra-shadow-sm)';
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                   <span style={{

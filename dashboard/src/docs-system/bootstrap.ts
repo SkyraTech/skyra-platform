@@ -132,6 +132,19 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     status: 'stable',
   },
 
+  // @skyra-tech-platform/toast
+  {
+    id: 'toast/core',
+    packageId: '@skyra-tech-platform/toast',
+    name: 'Toast',
+    exportPath: '@skyra-tech-platform/toast',
+    runtime: 'runtime-neutral',
+    description: 'Framework-agnostic imperative Toast API powered by native Custom Elements.',
+    usageNote: "import { toast } from '@skyra-tech-platform/toast';\nimport '@skyra-tech-platform/toast';",
+    status: 'stable',
+  },
+
+
   // @skyra-tech-platform/qr
   {
     id: 'qr/core',

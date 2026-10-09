@@ -48,6 +48,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'validation':    '/docs/validation',
       'data-export':   '/docs/data-export',
       'notification':  '/components/feedback/notification',
+      'toast':         '/components/feedback/toast',
     };
     
     documents.push({
@@ -77,6 +78,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'validation':    '/docs/validation',
       'data-export':   '/docs/data-export',
       'notification':  '/components/feedback/notification',
+      'toast':         '/components/feedback/toast',
     };
 
     documents.push({
@@ -108,6 +110,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'validation':    '/docs/validation',
       'data-export':   '/docs/data-export',
       'notification':  '/components/feedback/notification',
+      'toast':         '/components/feedback/toast',
     };
 
     documents.push({
@@ -146,6 +149,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'validation':    '/docs/validation',
       'data-export':   '/docs/data-export',
       'notification':  '/components/feedback/notification',
+      'toast':         '/components/feedback/toast',
     };
 
     documents.push({

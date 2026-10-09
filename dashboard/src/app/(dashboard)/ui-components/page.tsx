@@ -23,7 +23,7 @@ const SPECIALIZED_PAGES = [
   { href: '/ui-components/empty-state', title: 'Empty State', desc: 'Semantic state container for empty datasets, tables, or search misses with clear call-to-actions', icon: Inbox, badge: 'Phase 4D' },
   { href: '/ui-components/error-state', title: 'Error State', desc: 'Content-level failure container with retry recovery callbacks, technical details disclosure, and theme integration', icon: AlertOctagon, badge: 'Phase 4D' },
   { href: '/ui-components/pagination', title: 'Pagination', desc: 'Accessible navigation landmark with pure page calculation engine, controlled state, intelligent ellipsis placement, and table integration', icon: ListOrdered, badge: 'Phase 4C' },
-  { href: '/ui-components/toast', title: 'Toast Manager', desc: 'Lifecycle orchestration layer built on NotificationBar with auto-dismiss timers, hover pause/resume, actions, and stack viewports', icon: BellRing, badge: 'Phase 4C' },
+
   { href: '/ui-components/tabs', title: 'Tabs', desc: 'WAI-ARIA tabbed interface supporting horizontal/vertical layouts, auto/manual activation, line and pill variants', icon: FolderTree, badge: 'Phase 4B' },
   { href: '/ui-components/accordion', title: 'Accordion', desc: 'Expandable multi-section container with single/multiple expand modes, collapsible toggling, and smooth transitions', icon: ListCollapse, badge: 'Phase 4B' },
   { href: '/ui-components/collapsible', title: 'Collapsible', desc: 'Independent single expandable region primitive for advanced options and developer payload diagnostics', icon: ChevronsUpDown, badge: 'Phase 4B' },

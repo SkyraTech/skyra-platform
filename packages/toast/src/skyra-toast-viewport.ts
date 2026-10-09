@@ -138,7 +138,7 @@ export class SkyraToastViewportElement extends BaseElement {
           max-width: 100%;
         }
 
-        :host([position^="top"]) {
+        :host([position^="top"]), :host(:not([position])) {
           top: 0;
         }
         :host([position^="bottom"]) {
@@ -154,7 +154,7 @@ export class SkyraToastViewportElement extends BaseElement {
           transform: translateX(-50%);
           align-items: center;
         }
-        :host([position$="right"]) {
+        :host([position$="right"]), :host(:not([position])) {
           right: 0;
           align-items: flex-end;
         }
@@ -168,7 +168,7 @@ export class SkyraToastViewportElement extends BaseElement {
         }
         
         /* New toasts enter from their respective edges */
-        :host([position^="top"]) .skyra-toast-stack {
+        :host([position^="top"]) .skyra-toast-stack, :host(:not([position])) .skyra-toast-stack {
           flex-direction: column;
         }
         :host([position^="bottom"]) .skyra-toast-stack {

@@ -22,7 +22,8 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "lint": "echo 'lint ok'"
+    "lint": "echo 'lint ok'",
+    "test": "vitest run"
   },
   "devDependencies": {
     "typescript": "^5.0.0",
