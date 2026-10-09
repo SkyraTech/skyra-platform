@@ -1,39 +1,7 @@
 'use client';
 
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useId,
-  useRef,
-  useCallback,
-  ReactNode,
-  forwardRef,
-} from 'react';
-import { ChevronDown } from 'lucide-react';
-
-/* ============================================================
-   ACCORDION CONTEXT
-   ============================================================ */
-
-export type AccordionType = 'single' | 'multiple';
-
-export interface AccordionContextValue {
-  type: AccordionType;
-  isItemExpanded: (itemValue: string) => boolean;
-  toggleItem: (itemValue: string) => void;
-  baseId: string;
-}
-
-const AccordionContext = createContext<AccordionContextValue | null>(null);
-
-function useAccordionContext() {
-  const context = useContext(AccordionContext);
-  if (!context) {
-    throw new Error('Accordion compound components must be used within an Accordion container.');
-  }
-  return context;
-}
+import React, { forwardRef, useEffect, useRef, ReactNode } from 'react';
+import '@skyra-tech-platform/accordion';
 
 /* ============================================================
    ACCORDION ROOT CONTAINER
@@ -61,185 +29,79 @@ export interface AccordionMultipleProps {
 
 export type AccordionProps = AccordionSingleProps | AccordionMultipleProps;
 
-/**
- * @skyra/ui Accordion
- *
- * Coordinated expandable multi-section container supporting single and multiple
- * expand modes, collapsible toggling, full keyboard navigation (Arrows, Home, End),
- * smooth CSS animation, and dark mode.
- */
-export function Accordion(props: AccordionProps) {
-  const { type, className = '', children } = props;
-  const baseId = useId();
+export const Accordion = forwardRef<HTMLElement, AccordionProps>(
+  ({ type, value, defaultValue, onValueChange, collapsible, className, children, ...props }, ref) => {
+    const internalRef = useRef<HTMLElement>(null);
+    const resolvedRef = (ref || internalRef) as React.MutableRefObject<HTMLElement>;
 
-  // Single mode state
-  const isSingleControlled = type === 'single' && props.value !== undefined;
-  const [uncontrolledSingle, setUncontrolledSingle] = useState<string>(
-    type === 'single' ? (props.defaultValue ?? '') : ''
-  );
-  const currentSingle = isSingleControlled ? (props.value ?? '') : uncontrolledSingle;
+    useEffect(() => {
+      const element = resolvedRef.current;
+      if (!element) return;
 
-  // Multiple mode state
-  const isMultipleControlled = type === 'multiple' && props.value !== undefined;
-  const [uncontrolledMultiple, setUncontrolledMultiple] = useState<string[]>(
-    type === 'multiple' ? (props.defaultValue ?? []) : []
-  );
-  const currentMultiple = isMultipleControlled ? (props.value ?? []) : uncontrolledMultiple;
-
-  const isItemExpanded = useCallback(
-    (itemValue: string) => {
-      if (type === 'single') {
-        return currentSingle === itemValue;
-      }
-      return currentMultiple.includes(itemValue);
-    },
-    [type, currentSingle, currentMultiple]
-  );
-
-  const toggleItem = useCallback(
-    (itemValue: string) => {
-      if (type === 'single') {
-        const singleProps = props as AccordionSingleProps;
-        const isCurrent = currentSingle === itemValue;
-        let nextValue = isCurrent ? (singleProps.collapsible ? '' : itemValue) : itemValue;
-
-        if (!isSingleControlled) {
-          setUncontrolledSingle(nextValue);
+      const handleChange = (e: Event) => {
+        const customEvent = e as CustomEvent;
+        const val = customEvent.detail?.value;
+        if (onValueChange) {
+          if (type === 'single') {
+            (onValueChange as (val: string) => void)(val);
+          } else {
+            const arr = val ? val.split(',') : [];
+            (onValueChange as (val: string[]) => void)(arr);
+          }
         }
-        singleProps.onValueChange?.(nextValue);
-      } else {
-        const multipleProps = props as AccordionMultipleProps;
-        const exists = currentMultiple.includes(itemValue);
-        const nextList = exists
-          ? currentMultiple.filter((v) => v !== itemValue)
-          : [...currentMultiple, itemValue];
+      };
 
-        if (!isMultipleControlled) {
-          setUncontrolledMultiple(nextList);
-        }
-        multipleProps.onValueChange?.(nextList);
-      }
-    },
-    [type, props, currentSingle, currentMultiple, isSingleControlled, isMultipleControlled]
-  );
+      element.addEventListener('skyra-accordion-change', handleChange);
+      return () => {
+        element.removeEventListener('skyra-accordion-change', handleChange);
+      };
+    }, [onValueChange, type, resolvedRef]);
 
-  const containerRef = useRef<HTMLDivElement>(null);
+    const serializedValue = Array.isArray(value) ? value.join(',') : value;
+    const serializedDefaultValue = Array.isArray(defaultValue) ? defaultValue.join(',') : defaultValue;
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    const target = e.target as HTMLElement;
-    if (!target || !target.classList.contains('skyra-accordion-trigger-btn')) return;
-
-    const container = containerRef.current;
-    if (!container) return;
-
-    const getTriggers = () =>
-      Array.from(
-        container.querySelectorAll<HTMLButtonElement>(
-          'button.skyra-accordion-trigger-btn:not([disabled]):not([aria-disabled="true"])'
-        )
-      );
-
-    const triggers = getTriggers();
-    if (!triggers.length) return;
-
-    const currentIndex = triggers.indexOf(target as HTMLButtonElement);
-    let nextIndex = -1;
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      nextIndex = currentIndex < triggers.length - 1 ? currentIndex + 1 : 0;
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      nextIndex = currentIndex > 0 ? currentIndex - 1 : triggers.length - 1;
-    } else if (e.key === 'Home') {
-      e.preventDefault();
-      nextIndex = 0;
-    } else if (e.key === 'End') {
-      e.preventDefault();
-      nextIndex = triggers.length - 1;
-    }
-
-    if (nextIndex !== -1) {
-      triggers[nextIndex]?.focus();
-    }
-  };
-
-  return (
-    <AccordionContext.Provider
-      value={{
-        type,
-        isItemExpanded,
-        toggleItem,
-        baseId }}
-    >
-      <div
-        ref={containerRef}
-        className={`skyra-accordion skyra-accordion--${type} ${className}`}
-        onKeyDown={handleKeyDown}
+    return (
+      <skyra-accordion
+        ref={resolvedRef}
+        type={type}
+        value={serializedValue}
+        default-value={serializedDefaultValue}
+        collapsible={collapsible || undefined}
+        class={className}
+        suppressHydrationWarning
+        {...props}
       >
         {children}
-      </div>
-    </AccordionContext.Provider>
-  );
-}
+      </skyra-accordion>
+    );
+  }
+);
+Accordion.displayName = 'Accordion';
 
 /* ============================================================
    ACCORDION ITEM
    ============================================================ */
 
-export interface AccordionItemContextValue {
-  value: string;
-  disabled: boolean;
-  isExpanded: boolean;
-  triggerId: string;
-  contentId: string;
-}
-
-const AccordionItemContext = createContext<AccordionItemContextValue | null>(null);
-
-function useAccordionItemContext() {
-  const context = useContext(AccordionItemContext);
-  if (!context) {
-    throw new Error('AccordionItem subcomponents must be used within an AccordionItem.');
-  }
-  return context;
-}
-
 export interface AccordionItemProps {
-  /** Unique value identifying this item */
   value: string;
-  /** Whether the item is disabled */
   disabled?: boolean;
-  /** Additional CSS class */
   className?: string;
-  /** Header trigger & Content panel */
   children: ReactNode;
 }
 
-export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
-  ({ value: itemValue, disabled = false, className = '', children }, ref) => {
-    const { isItemExpanded, baseId } = useAccordionContext();
-    const isExpanded = isItemExpanded(itemValue);
-    const triggerId = `${baseId}-trigger-${itemValue}`;
-    const contentId = `${baseId}-content-${itemValue}`;
-
+export const AccordionItem = forwardRef<HTMLElement, AccordionItemProps>(
+  ({ value, disabled, className, children, ...props }, ref) => {
     return (
-      <AccordionItemContext.Provider
-        value={{
-          value: itemValue,
-          disabled,
-          isExpanded,
-          triggerId,
-          contentId }}
+      <skyra-accordion-item
+        ref={ref}
+        value={value}
+        disabled={disabled || undefined}
+        class={className}
+        suppressHydrationWarning
+        {...props}
       >
-        <div
-          ref={ref}
-          className={`skyra-accordion-item ${isExpanded ? 'skyra-accordion-item--expanded' : ''} ${disabled ? 'skyra-accordion-item--disabled' : ''} ${className}`}
-          data-state={isExpanded ? 'open' : 'closed'}
-        >
-          {children}
-        </div>
-      </AccordionItemContext.Provider>
+        {children}
+      </skyra-accordion-item>
     );
   }
 );
@@ -250,43 +112,18 @@ AccordionItem.displayName = 'AccordionItem';
    ============================================================ */
 
 export interface AccordionTriggerProps {
-  /** Additional CSS class */
   className?: string;
-  /** Custom trailing icon or indicator */
-  icon?: ReactNode;
-  /** Trigger content */
+  icon?: ReactNode; // Note: Custom icons in slot="trigger" wouldn't easily override the Shadow DOM chevron unless we specifically exposed an "icon" slot. We'll render it next to the text.
   children: ReactNode;
 }
 
-export const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
-  ({ className = '', icon, children }, ref) => {
-    const { toggleItem } = useAccordionContext();
-    const { value: itemValue, disabled, isExpanded, triggerId, contentId } = useAccordionItemContext();
-
-    const handleClick = () => {
-      if (disabled) return;
-      toggleItem(itemValue);
-    };
-
+export const AccordionTrigger = forwardRef<HTMLDivElement, AccordionTriggerProps>(
+  ({ className, icon, children, ...props }, ref) => {
     return (
-      <h3 className="skyra-accordion-header">
-        <button
-          ref={ref}
-          type="button"
-          id={triggerId}
-          aria-expanded={isExpanded}
-          aria-controls={contentId}
-          aria-disabled={disabled}
-          disabled={disabled}
-          onClick={handleClick}
-          className={`skyra-accordion-trigger skyra-accordion-trigger-btn ${isExpanded ? 'skyra-accordion-trigger--expanded' : ''} ${className}`}
-        >
-          <span className="skyra-accordion-trigger-text">{children}</span>
-          <span className={`skyra-accordion-icon ${isExpanded ? 'skyra-accordion-icon--expanded' : ''}`}>
-            {icon || <ChevronDown size={18} strokeWidth={2} />}
-          </span>
-        </button>
-      </h3>
+      <div slot="trigger" ref={ref} className={className} suppressHydrationWarning {...props}>
+        {children}
+        {icon && <span style={{ marginLeft: '8px' }}>{icon}</span>}
+      </div>
     );
   }
 );
@@ -297,26 +134,15 @@ AccordionTrigger.displayName = 'AccordionTrigger';
    ============================================================ */
 
 export interface AccordionContentProps {
-  /** Additional CSS class */
   className?: string;
-  /** Arbitrary ReactNode body */
   children: ReactNode;
 }
 
 export const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
-  ({ className = '', children }, ref) => {
-    const { isExpanded, triggerId, contentId } = useAccordionItemContext();
-
+  ({ className, children, ...props }, ref) => {
     return (
-      <div
-        ref={ref}
-        role="region"
-        id={contentId}
-        aria-labelledby={triggerId}
-        hidden={!isExpanded}
-        className={`skyra-accordion-content ${isExpanded ? 'skyra-accordion-content--expanded' : ''} ${className}`}
-      >
-        <div className="skyra-accordion-content-inner">{children}</div>
+      <div ref={ref} className={className} suppressHydrationWarning {...props}>
+        {children}
       </div>
     );
   }

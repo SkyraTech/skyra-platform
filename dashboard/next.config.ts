@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     '@skyra/ui',
     '@skyra-tech-platform/design-tokens',
     '@skyra/data-table',
-    '@skyra/ui',
     '@skyra-tech-platform/dialog',
     '@skyra-tech-platform/switch',
     '@skyra-tech-platform/input',
@@ -16,7 +15,26 @@ const nextConfig: NextConfig = {
     '@skyra-tech-platform/dynamic-select',
     '@skyra-tech-platform/date-time',
     '@skyra-tech-platform/dynamic-form',
+    '@skyra-tech-platform/tabs',
+    '@skyra-tech-platform/toast',
+    '@skyra-tech-platform/notification',
+    '@skyra-tech-platform/loader',
+    '@skyra-tech-platform/accordion',
   ],
+  async redirects() {
+    return [
+      {
+        source: '/ui-components/tabs',
+        destination: '/components/navigation/tabs',
+        permanent: true,
+      },
+      {
+        source: '/ui-components/accordion',
+        destination: '/components/disclosure/accordion',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

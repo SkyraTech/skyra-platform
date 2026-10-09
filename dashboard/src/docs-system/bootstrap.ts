@@ -14,6 +14,19 @@ import qrPkg from '../../../packages/qr/package.json';
 import utilsPkg from '../../../packages/utils/package.json';
 import validationPkg from '../../../packages/validation/package.json';
 import notificationPkg from '../../../packages/notification/package.json';
+import toastPkg from '../../../packages/toast/package.json';
+import tabsPkg from '../../../packages/tabs/package.json';
+import loaderPkg from '../../../packages/loader/package.json';
+import buttonPkg from '../../../packages/button/package.json';
+import checkboxPkg from '../../../packages/checkbox/package.json';
+import inputPkg from '../../../packages/input/package.json';
+import radioPkg from '../../../packages/radio/package.json';
+import switchPkg from '../../../packages/switch/package.json';
+import textareaPkg from '../../../packages/textarea/package.json';
+import dynamicSelectPkg from '../../../packages/dynamic-select/package.json';
+import dateTimePkg from '../../../packages/date-time/package.json';
+import pdfViewerPkg from '../../../packages/pdf-viewer/package.json';
+import accordionPkg from '../../../packages/accordion/package.json';
 
 // ---------------------------------------------------------------------------
 // Runtime classification — authored once, based on actual package architecture
@@ -30,6 +43,19 @@ const runtimeMap: Record<string, RuntimeCategory> = {
   '@skyra-tech-platform/utils':        'runtime-neutral',
   '@skyra-tech-platform/validation':   'runtime-neutral',
   '@skyra-tech-platform/notification': 'runtime-neutral',
+  '@skyra-tech-platform/toast':        'runtime-neutral',
+  '@skyra-tech-platform/tabs':         'runtime-neutral',
+  '@skyra-tech-platform/loader':       'runtime-neutral',
+  '@skyra-tech-platform/button':       'runtime-neutral',
+  '@skyra-tech-platform/checkbox':     'runtime-neutral',
+  '@skyra-tech-platform/input':        'runtime-neutral',
+  '@skyra-tech-platform/radio':        'runtime-neutral',
+  '@skyra-tech-platform/switch':       'runtime-neutral',
+  '@skyra-tech-platform/textarea':     'runtime-neutral',
+  '@skyra-tech-platform/dynamic-select':'runtime-neutral',
+  '@skyra-tech-platform/date-time':    'runtime-neutral',
+  '@skyra-tech-platform/pdf-viewer':   'mixed',
+  '@skyra-tech-platform/accordion':    'runtime-neutral',
 };
 
 // ---------------------------------------------------------------------------
@@ -144,6 +170,42 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     status: 'stable',
   },
 
+  // @skyra-tech-platform/tabs
+  {
+    id: 'tabs/core',
+    packageId: '@skyra-tech-platform/tabs',
+    name: 'Tabs',
+    exportPath: '@skyra-tech-platform/tabs',
+    runtime: 'runtime-neutral',
+    description: 'Framework-agnostic Web Component for accessible tabbed navigation with line and pill variants.',
+    usageNote: "import '@skyra-tech-platform/tabs';",
+    status: 'stable',
+  },
+
+  // @skyra-tech-platform/accordion
+  {
+    id: 'accordion/core',
+    packageId: '@skyra-tech-platform/accordion',
+    name: 'Accordion',
+    exportPath: '@skyra-tech-platform/accordion',
+    runtime: 'runtime-neutral',
+    description: 'Framework-agnostic Web Component for accessible expandable accordion panels.',
+    usageNote: "import '@skyra-tech-platform/accordion';",
+    status: 'stable',
+  },
+
+  // @skyra-tech-platform/loader
+  {
+    id: 'loader/core',
+    packageId: '@skyra-tech-platform/loader',
+    name: 'Loader System',
+    exportPath: '@skyra-tech-platform/loader',
+    runtime: 'runtime-neutral',
+    description: 'Comprehensive loading indicators including Spinner, Progress, and Skeleton components.',
+    usageNote: "import '@skyra-tech-platform/loader';",
+    status: 'stable',
+  },
+
 
   // @skyra-tech-platform/qr
   {
@@ -208,7 +270,9 @@ export function bootstrapRegistry() {
   const packages = [
     appShellPkg, dataExportPkg, dataTablePkg, designTokensPkg,
     dialogsPkg, dynamicFormPkg, qrPkg, utilsPkg, validationPkg,
-    notificationPkg
+    notificationPkg, toastPkg, tabsPkg, loaderPkg,
+    buttonPkg, checkboxPkg, inputPkg, radioPkg, switchPkg, textareaPkg,
+    dynamicSelectPkg, dateTimePkg, pdfViewerPkg, accordionPkg
   ];
 
   packages.forEach((pkg) => {

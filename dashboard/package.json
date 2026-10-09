@@ -28,6 +28,7 @@
     "@skyra-tech-platform/qr": "workspace:^",
     "@skyra-tech-platform/radio": "workspace:*",
     "@skyra-tech-platform/switch": "workspace:*",
+    "@skyra-tech-platform/tabs": "workspace:^",
     "@skyra-tech-platform/textarea": "workspace:*",
     "@skyra-tech-platform/toast": "workspace:*",
     "@skyra-tech-platform/utils": "workspace:*",

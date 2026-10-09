@@ -56,6 +56,11 @@ declare global {
         'skyra-skeleton-avatar': any;
         'skyra-skeleton-text': any;
         'skyra-skeleton-table': any;
+        'skyra-tabs': any;
+        'skyra-tab': any;
+        'skyra-tab-panel': any;
+        'skyra-accordion': any;
+        'skyra-accordion-item': any;
       }
     }
   }
@@ -98,6 +103,11 @@ declare global {
       'skyra-skeleton-avatar': any;
       'skyra-skeleton-text': any;
       'skyra-skeleton-table': any;
+      'skyra-tabs': any;
+      'skyra-tab': any;
+      'skyra-tab-panel': any;
+      'skyra-accordion': any;
+      'skyra-accordion-item': any;
     }
   }
 }

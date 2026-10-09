@@ -150,6 +150,18 @@ export function buildSearchIndex(): SearchDocument[] {
       'data-export':   '/docs/data-export',
       'notification':  '/components/feedback/notification',
       'toast':         '/components/feedback/toast',
+      'loader':        '/components/feedback/loaders',
+      'tabs':          '/components/navigation/tabs',
+      'data-table':    '/data-table',
+      'button':        '/components/basic-controls/button',
+      'input':         '/components/basic-controls/input',
+      'textarea':      '/components/basic-controls/textarea',
+      'checkbox':      '/components/basic-controls/checkbox',
+      'radio':         '/components/basic-controls/radio',
+      'switch':        '/components/basic-controls/switch',
+      'dynamic-select':'/components/selection/dynamic-select',
+      'date-time':     '/components/forms/date-time',
+      'accordion':     '/components/disclosure/accordion',
     };
 
     documents.push({

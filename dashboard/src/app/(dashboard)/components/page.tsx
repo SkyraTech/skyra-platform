@@ -4,79 +4,108 @@ import { ChevronRight, Layers } from 'lucide-react';
 
 export const metadata = { title: 'Components — Skyra Platform' };
 
+import { docsRegistry } from '@/docs-system/registry';
+import { bootstrapRegistry } from '@/docs-system/bootstrap';
+
+bootstrapRegistry();
+
 const COMPONENT_GROUPS = [
   {
     title: 'Basic Controls',
     description: 'Core interactive primitives — fully framework-independent Web Components.',
     items: [
-      { href: '/components/basic-controls/button', label: 'Button', desc: 'Framework-independent accessible button', status: 'stable', tech: 'Web Component' },
-      { href: '/components/basic-controls/input', label: 'Input', desc: 'Text input, search, password, and number controls.', status: 'stable', tech: 'Web Component' },
-      { href: '/components/basic-controls/textarea', label: 'Textarea', desc: 'Auto-resizing, character count, validation states.', status: 'stable', tech: 'Web Component' },
-      { href: '/components/basic-controls/checkbox', label: 'Checkbox', desc: 'Accessible single and grouped checkboxes.', status: 'stable', tech: 'Web Component' },
-      { href: '/components/basic-controls/radio', label: 'Radio', desc: 'WAI-ARIA roving tabindex single-selection controls.', status: 'stable', tech: 'Web Component' },
-      { href: '/components/basic-controls/switch', label: 'Switch', desc: '5 design variants across 3 sizes.', status: 'stable', tech: 'Web Component' },
+      { packageId: '@skyra-tech-platform/button', href: '/components/basic-controls/button', label: 'Button', desc: 'Framework-independent accessible button' },
+      { packageId: '@skyra-tech-platform/input', href: '/components/basic-controls/input', label: 'Input', desc: 'Text input, search, password, and number controls.' },
+      { packageId: '@skyra-tech-platform/textarea', href: '/components/basic-controls/textarea', label: 'Textarea', desc: 'Auto-resizing, character count, validation states.' },
+      { packageId: '@skyra-tech-platform/checkbox', href: '/components/basic-controls/checkbox', label: 'Checkbox', desc: 'Accessible single and grouped checkboxes.' },
+      { packageId: '@skyra-tech-platform/radio', href: '/components/basic-controls/radio', label: 'Radio', desc: 'WAI-ARIA roving tabindex single-selection controls.' },
+      { packageId: '@skyra-tech-platform/switch', href: '/components/basic-controls/switch', label: 'Switch', desc: '5 design variants across 3 sizes.' },
     ],
   },
   {
     title: 'Selection',
     description: 'Dropdowns, comboboxes, and multi-select elements.',
     items: [
-      { href: '/components/selection/dynamic-select', label: 'Dynamic Select', desc: 'Single/multi select with search, creatable, chip display.', status: 'stable', tech: 'Web Component' },
+      { packageId: '@skyra-tech-platform/dynamic-select', href: '/components/selection/dynamic-select', label: 'Dynamic Select', desc: 'Single/multi select with search, creatable, chip display.' },
+    ]
+  },
+  {
+    title: 'Navigation',
+    description: 'Wayfinding and structural routing controls.',
+    items: [
+      { packageId: '@skyra-tech-platform/tabs', href: '/components/navigation/tabs', label: 'Tabs', desc: 'Accessible tabbed navigation with line and pill variants.' },
     ]
   },
   {
     title: 'Layout',
     description: 'Application scaffolding and structure.',
     items: [
-      { href: '/components/layouts/app-shell', label: 'App Shell', desc: 'Framework-agnostic application layout component.', status: 'stable', tech: 'Web Component' },
+      { packageId: '@skyra-tech-platform/app-shell', href: '/components/layouts/app-shell', label: 'App Shell', desc: 'Framework-agnostic application layout component.' },
     ]
   },
   {
     title: 'Forms',
     description: 'Complex data entry and validation structures.',
     items: [
-      { href: '/components/forms/date-time', label: 'Date & Time', desc: '10-component suite: Calendar, DateField, TimeField, and range inputs.', status: 'stable', tech: 'Web Component' },
-      { href: '/components/forms/dynamic-form', label: 'Dynamic Form', desc: 'JSON-driven form generation.', status: 'stable', tech: 'Web Component' },
+      { packageId: '@skyra-tech-platform/date-time', href: '/components/forms/date-time', label: 'Date & Time', desc: '10-component suite: Calendar, DateField, TimeField, and range inputs.' },
+      { packageId: '@skyra-tech-platform/dynamic-form', href: '/components/forms/dynamic-form', label: 'Dynamic Form', desc: 'JSON-driven form generation.' },
     ]
   },
   {
     title: 'Feedback',
     description: 'User notification and system feedback.',
     items: [
-      { href: '#', label: 'Notification', desc: 'In-page alert banners and system alerts.', status: 'planned', tech: 'Web Component' },
-      { href: '#', label: 'Toast', desc: 'Ephemeral overlay notifications.', status: 'planned', tech: 'Web Component' },
+      { packageId: '@skyra-tech-platform/notification', href: '/components/feedback/notification', label: 'Notification', desc: 'In-page alert banners and system alerts.' },
+      { packageId: '@skyra-tech-platform/toast', href: '/components/feedback/toast', label: 'Toast', desc: 'Ephemeral overlay notifications.' },
+      { packageId: '@skyra-tech-platform/loader', href: '/components/feedback/loaders', label: 'Loader System', desc: 'Spinners, progress bars, and skeletons.' },
     ]
   },
   {
     title: 'Data Display',
     description: 'Complex data visualization and tabular display.',
     items: [
-      { href: '#', label: 'Data Table', desc: 'Virtualised data grid with sorting and filtering.', status: 'planned', tech: 'Web Component' },
+      { packageId: '@skyra-tech-platform/data-table', href: '/data-table', label: 'Data Table', desc: 'Virtualised data grid with sorting and filtering.' },
+    ]
+  },
+  {
+    title: 'Disclosure',
+    description: 'Expandable panels and progressive disclosure.',
+    items: [
+      { packageId: '@skyra-tech-platform/accordion', href: '/components/disclosure/accordion', label: 'Accordion', desc: 'Expandable multi-section container with single/multiple expand modes.' },
     ]
   },
   {
     title: 'Overlays',
     description: 'Modals, popovers, and contextual layers.',
     items: [
-      { href: '/components/overlays/dialog', label: 'Dialog', desc: 'Accessible modal dialog wrapper.', status: 'stable', tech: 'Web Component' },
+      { packageId: '@skyra-tech-platform/dialog', href: '/components/overlays/dialog', label: 'Dialog', desc: 'Accessible modal dialog wrapper.' },
     ]
   },
   {
     title: 'Documents',
     description: 'Document rendering and interaction.',
     items: [
-      { href: '#', label: 'PDF Viewer', desc: 'Client-side PDF rendering component.', status: 'planned', tech: 'React' },
+      { packageId: '@skyra-tech-platform/pdf-viewer', href: '#', label: 'PDF Viewer', desc: 'Client-side PDF rendering component.', manualStatus: 'planned' },
     ]
   },
   {
     title: 'Utilities',
     description: 'Helper components and specialized rendering.',
     items: [
-      { href: '/components/utilities/qr', label: 'QR Code', desc: 'Framework-agnostic QR generation and styled rendering.', status: 'stable', tech: 'Web Component' },
-      { href: '#', label: 'Future components', desc: 'Placeholder for upcoming utilities.', status: 'planned', tech: 'Misc' },
+      { packageId: '@skyra-tech-platform/qr', href: '/components/utilities/qr', label: 'QR Code', desc: 'Framework-agnostic QR generation and styled rendering.' },
+      { packageId: 'future-misc', href: '#', label: 'Future components', desc: 'Placeholder for upcoming utilities.', manualStatus: 'planned' },
     ]
   }
 ];
+
+function resolveItem(item: any) {
+  const pkg = docsRegistry.getPackage(item.packageId);
+  return {
+    ...item,
+    status: item.manualStatus || (pkg ? pkg.status : 'planned'),
+    tech: pkg && pkg.runtime === 'react-browser' ? 'React' : (pkg ? 'Web Component' : 'Misc')
+  };
+}
 
 export default function ComponentsIndexPage() {
   return (
@@ -101,7 +130,7 @@ export default function ComponentsIndexPage() {
           <p style={{ fontSize: '0.875rem', color: 'var(--skyra-text-muted)', marginBottom: '1.5rem' }}>{group.description}</p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem' }}>
-            {group.items.map((item) => {
+            {group.items.map(resolveItem).map((item) => {
               const isPlanned = item.status === 'planned';
               const CardContent = (
                 <div

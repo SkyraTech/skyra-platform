@@ -58,6 +58,19 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
     'qr':            '/components/utilities/qr',
     'app-shell':     '/components/layouts/app-shell',
     'notification':  '/components/feedback/notification',
+    'tabs':          '/components/navigation/tabs',
+    'toast':         '/components/feedback/toast',
+    'loader':        '/components/feedback/loaders',
+    'data-table':    '/data-table',
+    'button':        '/components/basic-controls/button',
+    'input':         '/components/basic-controls/input',
+    'textarea':      '/components/basic-controls/textarea',
+    'checkbox':      '/components/basic-controls/checkbox',
+    'radio':         '/components/basic-controls/radio',
+    'switch':        '/components/basic-controls/switch',
+    'dynamic-select':'/components/selection/dynamic-select',
+    'date-time':     '/components/forms/date-time',
+    'accordion':     '/components/disclosure/accordion',
   };
   const docsHref = DOCS_PAGES[slug];
 
