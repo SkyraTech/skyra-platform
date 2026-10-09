@@ -5,7 +5,7 @@ const testPages = [
   { path: '/packages/ui', name: 'ui-overview' },
   { path: '/packages/data-table', name: 'data-table' },
   { path: '/packages/dynamic-form', name: 'dynamic-form' },
-  { path: '/packages/dialogs', name: 'dialogs' },
+  { path: '/packages/dialog', name: 'dialogs' },
   { path: '/packages/app-shell', name: 'app-shell' },
   { path: '/packages/qr', name: 'qr' },
   { path: '/ui-components/date-fields', name: 'date-fields' },

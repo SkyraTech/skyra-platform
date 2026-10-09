@@ -55,7 +55,9 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
     'data-export':   '/docs/data-export',
     'dialog':        '/components/overlays/dialog',
     'dynamic-form':  '/components/forms/dynamic-form',
-    'qr':            '/components/qr',
+    'qr':            '/components/utilities/qr',
+    'app-shell':     '/components/layouts/app-shell',
+    'notification':  '/components/feedback/notification',
   };
   const docsHref = DOCS_PAGES[slug];
 

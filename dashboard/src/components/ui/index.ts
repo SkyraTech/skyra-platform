@@ -30,7 +30,6 @@ export * from './KeyboardShortcutProvider';
 export * from './LogoUploader';
 export * from './MenuPrimitives';
 export * from './MonthField';
-export * from './NotificationBar';
 export * from './NumberInput';
 export * from './OverlayLoader';
 export * from './PageLoader';

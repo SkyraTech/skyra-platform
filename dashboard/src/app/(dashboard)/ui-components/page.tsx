@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { ButtonDemo } from '@/components/demos/ButtonDemo';
 import { InputDemo } from '@/components/demos/InputDemo';
 import { BadgeDemo } from '@/components/demos/BadgeDemo';
@@ -37,7 +37,6 @@ const SPECIALIZED_PAGES = [
   { href: '/ui-components/loaders', title: 'Loading System', desc: 'Multi-size Spinners, Linear & Circular Progress, Skeletons (Text, Avatar, Card, Table), DataLoader & OverlayLoader', icon: Loader2, badge: 'Phase 3' },
   { href: '/ui-components/tooltip', title: 'Rich Tooltips', desc: 'Viewport collision-aware tooltips supporting plain text, rich React subtrees, status badges, and keyboard focus triggers', icon: MessageSquare, badge: 'Phase 3' },
   { href: '/components/basic-controls/switch', title: 'Switch & Toggles', desc: '5 design variants (default, compact, labeled, icon, outline), 3 sizes (sm/md/lg), loading spinner thumb, error, and disabled states', icon: ToggleLeft, badge: 'Phase 3' },
-  { href: '/ui-components/notifications', title: 'Notification Bar', desc: '5 semantic types, synchronized animated countdown timer, hover-pause/resume, manual close, and error/status codes', icon: Bell, badge: 'Phase 3' },
   { href: '/ui-components/checkbox', title: 'Checkbox & Group', desc: 'Accessible multi-state checkboxes with indeterminate support and 44px touch targets', icon: CheckSquare, badge: 'Phase 2' },
   { href: '/ui-components/radio', title: 'Radio & RadioGroup', desc: 'WAI-ARIA roving tabindex single selection controls in vertical/horizontal layouts', icon: RadioIcon, badge: 'Phase 2' },
   { href: '/pdf-viewer', title: 'PDF & Document Viewer', desc: 'Zoom, fullscreen, print, page navigation, and accessible document viewing chrome', icon: FileText, badge: 'Phase 2' },

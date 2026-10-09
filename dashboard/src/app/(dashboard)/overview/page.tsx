@@ -1,4 +1,3 @@
-import { Card } from '@/components/ui';;
 import Link from 'next/link';
 import { docsRegistry } from '../../../docs-system/registry';
 import { bootstrapRegistry } from '../../../docs-system/bootstrap';
@@ -48,7 +47,24 @@ export default function OverviewPage() {
           
           return (
             <Link key={pkg.id} href={route} style={{ textDecoration: 'none', display: 'block' }}>
-              <Card size="sm" style={{ height: '100%', transition: 'border-color 0.15s', cursor: 'pointer' }}>
+              <div style={{ 
+                height: '100%', 
+                transition: 'border-color 0.15s, box-shadow 0.15s', 
+                cursor: 'pointer',
+                background: 'var(--skyra-surface)',
+                border: '1px solid var(--skyra-border)',
+                borderRadius: 'var(--skyra-radius-md)',
+                padding: '1.25rem',
+                boxShadow: 'var(--skyra-shadow-sm)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--skyra-primary)';
+                e.currentTarget.style.boxShadow = 'var(--skyra-shadow-md)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--skyra-border)';
+                e.currentTarget.style.boxShadow = 'var(--skyra-shadow-sm)';
+              }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                   <span style={{
                     color: layer === 'Layer 1' ? 'var(--skyra-text)' : layer === 'Layer 2' ? 'var(--skyra-text)' : 'var(--skyra-text)',
@@ -71,7 +87,7 @@ export default function OverviewPage() {
                 <div style={{ fontSize: '0.8125rem', color: 'var(--skyra-text-muted)' }}>
                   {pkg.description}
                 </div>
-              </Card>
+              </div>
             </Link>
           );
         })}

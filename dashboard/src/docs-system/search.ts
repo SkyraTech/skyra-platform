@@ -36,13 +36,27 @@ export function buildSearchIndex(): SearchDocument[] {
 
   // Packages
   for (const pkg of registry.getPackages()) {
+    const slug = pkg.id.split('/').pop() || '';
+    
+    const DOCS_PAGES: Record<string, string> = {
+      'dialog':        '/components/overlays/dialog',
+      'dynamic-form':  '/components/forms/dynamic-form',
+      'qr':            '/components/utilities/qr',
+      'app-shell':     '/components/layouts/app-shell',
+      'design-tokens': '/docs/design-tokens',
+      'utils':         '/docs/utils',
+      'validation':    '/docs/validation',
+      'data-export':   '/docs/data-export',
+      'notification':  '/components/feedback/notification',
+    };
+    
     documents.push({
       id: pkg.id,
       type: 'package',
       title: pkg.name,
       description: pkg.description,
       packageId: pkg.id,
-      href: `/packages/${pkg.id.replace('@skyra/', '')}`,
+      href: DOCS_PAGES[slug] || `/packages/${slug}`,
       runtime: pkg.runtime,
       status: pkg.status,
     });
@@ -50,8 +64,21 @@ export function buildSearchIndex(): SearchDocument[] {
 
   // Capabilities
   for (const cap of registry.getCapabilities()) {
-    const pkgSlug = cap.packageId.replace('@skyra/', '');
+    const slug = cap.packageId.split('/').pop() || '';
     const capSlug = cap.id.split('/')[1];
+    
+    const DOCS_PAGES: Record<string, string> = {
+      'dialog':        '/components/overlays/dialog',
+      'dynamic-form':  '/components/forms/dynamic-form',
+      'qr':            '/components/utilities/qr',
+      'app-shell':     '/components/layouts/app-shell',
+      'design-tokens': '/docs/design-tokens',
+      'utils':         '/docs/utils',
+      'validation':    '/docs/validation',
+      'data-export':   '/docs/data-export',
+      'notification':  '/components/feedback/notification',
+    };
+
     documents.push({
       id: cap.id,
       type: 'capability',
@@ -59,7 +86,7 @@ export function buildSearchIndex(): SearchDocument[] {
       description: cap.description,
       packageId: cap.packageId,
       capabilityId: cap.id,
-      href: `/packages/${pkgSlug}/${capSlug}`,
+      href: DOCS_PAGES[slug] ? `${DOCS_PAGES[slug]}#${capSlug}` : `/packages/${slug}/${capSlug}`,
       runtime: cap.runtime,
       status: cap.status,
       keywords: cap.related,
@@ -68,8 +95,21 @@ export function buildSearchIndex(): SearchDocument[] {
 
   // APIs
   for (const api of registry.getApis()) {
-    const pkgSlug = api.packageId.replace('@skyra/', '');
+    const slug = api.packageId.split('/').pop() || '';
     const capSlug = api.capabilityId.split('/')[1];
+    
+    const DOCS_PAGES: Record<string, string> = {
+      'dialog':        '/components/overlays/dialog',
+      'dynamic-form':  '/components/forms/dynamic-form',
+      'qr':            '/components/utilities/qr',
+      'app-shell':     '/components/layouts/app-shell',
+      'design-tokens': '/docs/design-tokens',
+      'utils':         '/docs/utils',
+      'validation':    '/docs/validation',
+      'data-export':   '/docs/data-export',
+      'notification':  '/components/feedback/notification',
+    };
+
     documents.push({
       id: api.id,
       type: 'api',
@@ -78,7 +118,7 @@ export function buildSearchIndex(): SearchDocument[] {
       packageId: api.packageId,
       capabilityId: api.capabilityId,
       apiId: api.id,
-      href: `/packages/${pkgSlug}/${capSlug}/${api.name}`,
+      href: DOCS_PAGES[slug] ? `${DOCS_PAGES[slug]}#api-${api.name.toLowerCase()}` : `/packages/${slug}/${capSlug}/${api.name}`,
       status: api.status,
       keywords: [api.kind, ...(api.related || [])],
       content: api.properties?.map(p => p.name).join(' '),
@@ -93,8 +133,21 @@ export function buildSearchIndex(): SearchDocument[] {
     const api = registry.getApi(ex.apiId);
     if (!api) continue;
     
-    const pkgSlug = api.packageId.replace('@skyra/', '');
+    const slug = api.packageId.split('/').pop() || '';
     const capSlug = api.capabilityId.split('/')[1];
+    
+    const DOCS_PAGES: Record<string, string> = {
+      'dialog':        '/components/overlays/dialog',
+      'dynamic-form':  '/components/forms/dynamic-form',
+      'qr':            '/components/utilities/qr',
+      'app-shell':     '/components/layouts/app-shell',
+      'design-tokens': '/docs/design-tokens',
+      'utils':         '/docs/utils',
+      'validation':    '/docs/validation',
+      'data-export':   '/docs/data-export',
+      'notification':  '/components/feedback/notification',
+    };
+
     documents.push({
       id: `example-${ex.id}`,
       type: 'example',
@@ -103,7 +156,7 @@ export function buildSearchIndex(): SearchDocument[] {
       packageId: api.packageId,
       capabilityId: api.capabilityId,
       apiId: api.id,
-      href: `/packages/${pkgSlug}/${capSlug}/${api.name}`, // Navigates to API page where examples are
+      href: DOCS_PAGES[slug] ? `${DOCS_PAGES[slug]}#example-${ex.id}` : `/packages/${slug}/${capSlug}/${api.name}`,
       content: ex.source,
     });
   }

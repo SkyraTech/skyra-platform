@@ -13,6 +13,7 @@ import dynamicFormPkg from '../../../packages/dynamic-form/package.json';
 import qrPkg from '../../../packages/qr/package.json';
 import utilsPkg from '../../../packages/utils/package.json';
 import validationPkg from '../../../packages/validation/package.json';
+import notificationPkg from '../../../packages/notification/package.json';
 
 // ---------------------------------------------------------------------------
 // Runtime classification — authored once, based on actual package architecture
@@ -28,6 +29,7 @@ const runtimeMap: Record<string, RuntimeCategory> = {
   '@skyra/ui':           'react-browser',
   '@skyra-tech-platform/utils':        'runtime-neutral',
   '@skyra-tech-platform/validation':   'runtime-neutral',
+  '@skyra-tech-platform/notification': 'runtime-neutral',
 };
 
 // ---------------------------------------------------------------------------
@@ -118,6 +120,18 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     status: 'stable',
   },
 
+  // @skyra-tech-platform/notification
+  {
+    id: 'notification/core',
+    packageId: '@skyra-tech-platform/notification',
+    name: 'Notification',
+    exportPath: '@skyra-tech-platform/notification',
+    runtime: 'runtime-neutral',
+    description: 'Framework-agnostic Web Component for semantic notifications and toasts.',
+    usageNote: "import '@skyra-tech-platform/notification';",
+    status: 'stable',
+  },
+
   // @skyra-tech-platform/qr
   {
     id: 'qr/core',
@@ -181,6 +195,7 @@ export function bootstrapRegistry() {
   const packages = [
     appShellPkg, dataExportPkg, dataTablePkg, designTokensPkg,
     dialogsPkg, dynamicFormPkg, qrPkg, utilsPkg, validationPkg,
+    notificationPkg
   ];
 
   packages.forEach((pkg) => {
