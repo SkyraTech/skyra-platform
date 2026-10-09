@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['src/core.ts'],
+  entry: ['src/core.ts', 'src/skyra-tech-qr-code.ts'],
   format: ['cjs', 'esm'],
   dts: true,
   sourcemap: true,

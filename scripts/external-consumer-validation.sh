@@ -23,30 +23,30 @@ npm init -y > /dev/null
 npm install typescript tsx @types/node --save-dev > /dev/null
 
 echo "Installing platform tarballs into Node consumer..."
-npm install ../tarballs/skyra-qr-0.1.0.tgz ../tarballs/skyra-utils-0.1.0.tgz ../tarballs/skyra-data-export-0.1.0.tgz ../tarballs/skyra-validation-0.1.0.tgz > /dev/null
+npm install ../tarballs/skyra-tech-platform-qr-0.1.0.tgz ../tarballs/skyra-utils-0.1.0.tgz ../tarballs/skyra-data-export-0.1.0.tgz ../tarballs/skyra-validation-0.1.0.tgz > /dev/null
 
 cat << 'EOF' > test-esm.mts
 import { simpleId } from "@skyra/utils";
 import { emailSchema } from "@skyra/validation";
 import { exportToCsv } from "@skyra/data-export";
-import { generateQRCode } from "@skyra/qr/core";
+import { generateQRCode } from "@skyra-tech-platform/qr";
 
 console.log("ESM @skyra/utils:", simpleId());
 console.log("ESM @skyra/validation:", emailSchema.safeParse("test@example.com").success);
 console.log("ESM @skyra/data-export:", typeof exportToCsv);
-console.log("ESM @skyra/qr/core:", typeof generateQRCode);
+console.log("ESM @skyra-tech-platform/qr:", typeof generateQRCode);
 EOF
 
 cat << 'EOF' > test-cjs.cts
 const { simpleId } = require("@skyra/utils");
 const { emailSchema } = require("@skyra/validation");
 const dataExport = require("@skyra/data-export");
-const { generateQRCode } = require("@skyra/qr/core");
+const { generateQRCode } = require("@skyra-tech-platform/qr");
 
 console.log("CJS @skyra/utils:", simpleId());
 console.log("CJS @skyra/validation:", emailSchema.safeParse("test@example").success);
 console.log("CJS @skyra/data-export:", typeof dataExport.exportToCsv);
-console.log("CJS @skyra/qr/core:", typeof generateQRCode);
+console.log("CJS @skyra-tech-platform/qr:", typeof generateQRCode);
 EOF
 
 cat << 'EOF' > tsconfig.json
@@ -86,7 +86,7 @@ cd next-consumer
 
 echo "Installing platform tarballs into Next consumer..."
 # Expand the list explicitly to avoid shell globbing issues with npm
-npm install ../tarballs/skyra-qr-0.1.0.tgz ../tarballs/skyra-ui-0.1.0.tgz ../tarballs/skyra-utils-0.1.0.tgz ../tarballs/skyra-data-export-0.1.0.tgz ../tarballs/skyra-design-tokens-0.1.0.tgz ../tarballs/skyra-data-table-0.1.0.tgz ../tarballs/skyra-dialogs-0.1.0.tgz ../tarballs/skyra-dynamic-form-0.1.0.tgz ../tarballs/skyra-validation-0.1.0.tgz > /dev/null
+npm install ../tarballs/skyra-tech-platform-qr-0.1.0.tgz ../tarballs/skyra-ui-0.1.0.tgz ../tarballs/skyra-utils-0.1.0.tgz ../tarballs/skyra-data-export-0.1.0.tgz ../tarballs/skyra-design-tokens-0.1.0.tgz ../tarballs/skyra-data-table-0.1.0.tgz ../tarballs/skyra-dialogs-0.1.0.tgz ../tarballs/skyra-dynamic-form-0.1.0.tgz ../tarballs/skyra-validation-0.1.0.tgz > /dev/null
 npm install lucide-react > /dev/null
 
 cat << 'EOF' > src/app/layout.tsx
@@ -119,14 +119,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 EOF
 
 cat << 'EOF' > src/app/page.tsx
-import { QRCode } from "@skyra/qr/react";
+import "@skyra-tech-platform/qr/web-component";
 import { Button } from "@skyra/ui";
 import "@skyra/ui/styles.css";
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'skyra-tech-qr-code': any;
+    }
+  }
+}
 
 export default function Page() {
   return (
     <div>
-      <QRCode value="https://example.com" />
+      <skyra-tech-qr-code value="https://example.com"></skyra-tech-qr-code>
       <Button>Click me</Button>
     </div>
   );

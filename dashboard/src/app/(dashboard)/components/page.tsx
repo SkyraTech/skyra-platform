@@ -70,8 +70,9 @@ const COMPONENT_GROUPS = [
   },
   {
     title: 'Utilities',
-    description: 'Helper components and future additions.',
+    description: 'Helper components and specialized rendering.',
     items: [
+      { href: '/components/qr', label: 'QR Code', desc: 'Framework-agnostic QR generation and styled rendering.', status: 'stable', tech: 'Web Component' },
       { href: '#', label: 'Future components', desc: 'Placeholder for upcoming utilities.', status: 'planned', tech: 'Misc' },
     ]
   }

@@ -4,10 +4,10 @@ import path from 'path';
 
 const pkgJson = JSON.parse(fs.readFileSync(path.resolve('./package.json'), 'utf-8'));
 const isReactPackage = pkgJson.peerDependencies && pkgJson.peerDependencies['react'];
-const isQR = pkgJson.name === '@skyra/qr';
+const isQR = pkgJson.name === '@skyra-tech-platform/qr';
 
 export default defineConfig({
-  entry: isQR ? ['src/core.ts', 'src/react.ts'] : ['src/index.ts'],
+  entry: isQR ? ['src/core.ts', 'src/skyra-tech-qr-code.ts'] : ['src/index.ts'],
   format: ['cjs', 'esm'],
   dts: true,
   splitting: false,

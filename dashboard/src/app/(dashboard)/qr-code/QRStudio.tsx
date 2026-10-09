@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Badge, Tabs, Card, StatusBadge, Button } from '@/components/ui';
+import { Badge, Tabs, Card, StatusBadge } from '@/components/ui';
 import { 
   analyzeScanability, 
   QRContentBuilder, 
@@ -11,8 +11,16 @@ import {
   QREmailPayload, 
   QRSmsPayload 
 } from '@skyra-tech-platform/qr';
+import '@skyra-tech-platform/qr/web-component';
+import '@skyra-tech-platform/dynamic-select';
+import '@skyra-tech-platform/input';
+import '@skyra-tech-platform/textarea';
+import '@skyra-tech-platform/button';
+import '@skyra-tech-platform/notification';
 
 type QRType = 'url' | 'text' | 'email' | 'phone' | 'sms' | 'wifi' | 'vcard' | 'calendar';
+
+
 
 export default function QRStudio() {
   const [activeType, setActiveType] = useState<QRType>('url');
@@ -41,11 +49,17 @@ export default function QRStudio() {
   const [scale, setScale] = useState(4);
   const [darkColor, setDarkColor] = useState('#0f172a');
   const [lightColor, setLightColor] = useState('#ffffff');
+  const [moduleShape, setModuleShape] = useState<'square'|'rounded'|'dot'>('square');
+  const [finderShape, setFinderShape] = useState<'square'|'rounded'>('square');
+  const [finderColor, setFinderColor] = useState('#0f172a');
   
   const [generatedValue, setGeneratedValue] = useState('');
   
   // Analysis
   const [scanStatus, setScanStatus] = useState<any>(null);
+  
+  // Notification
+  const [notification, setNotification] = useState<{ message: string, type: 'success' | 'error' | 'info' } | null>(null);
 
   // Generate payload
   useEffect(() => {
@@ -84,7 +98,7 @@ export default function QRStudio() {
 
   // Export handlers
   const handleDownloadSVG = () => {
-    const qrElement = document.querySelector('skyra-qr-code');
+    const qrElement = document.querySelector('skyra-tech-qr-code');
     if (!qrElement || !qrElement.shadowRoot) return;
     const svg = qrElement.shadowRoot.querySelector('svg');
     if (!svg) return;
@@ -97,10 +111,12 @@ export default function QRStudio() {
     a.download = 'skyra-qr.svg';
     a.click();
     URL.revokeObjectURL(url);
+    
+    setNotification({ message: 'SVG downloaded successfully.', type: 'success' });
   };
 
   const handleDownloadPNG = () => {
-    const qrElement = document.querySelector('skyra-qr-code');
+    const qrElement = document.querySelector('skyra-tech-qr-code');
     if (!qrElement || !qrElement.shadowRoot) return;
     const svg = qrElement.shadowRoot.querySelector('svg');
     if (!svg) return;
@@ -128,6 +144,8 @@ export default function QRStudio() {
         a.href = pngUrl;
         a.download = 'skyra-qr.png';
         a.click();
+        
+        setNotification({ message: 'PNG downloaded successfully.', type: 'success' });
       }
     };
     img.src = image64;
@@ -135,6 +153,7 @@ export default function QRStudio() {
 
   const handlePrint = () => {
     window.print();
+    setNotification({ message: 'Print initiated.', type: 'info' });
   };
 
   const tabs = [
@@ -156,86 +175,70 @@ export default function QRStudio() {
         {/* Data Type */}
         <section style={{ background: 'var(--skyra-surface)', padding: '1.5rem', borderRadius: 'var(--skyra-radius-lg)', border: '1px solid var(--skyra-border)' }}>
           <h2 style={{ fontSize: '1.1rem', fontWeight: 600, margin: '0 0 1rem 0' }}>Content Type</h2>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem' }}>
-            {tabs.map(tab => (
-              <button 
-                key={tab.id}
-                onClick={() => setActiveType(tab.id as QRType)}
-                style={{ 
-                  padding: '0.5rem 1rem', 
-                  borderRadius: 'var(--skyra-radius-md)', 
-                  border: activeType === tab.id ? '1px solid var(--skyra-primary)' : '1px solid var(--skyra-border)',
-                  background: activeType === tab.id ? 'var(--skyra-primary-alpha-10)' : 'transparent',
-                  color: activeType === tab.id ? 'var(--skyra-primary)' : 'var(--skyra-text)',
-                  cursor: 'pointer',
-                  fontWeight: 500,
-                  fontSize: '0.9rem'
-                }}
-              >
-                {tab.label}
-              </button>
-            ))}
+          <div style={{ marginBottom: '1.5rem' }}>
+            <skyra-tech-dynamic-select
+              options={tabs.map(t => ({ value: t.id, label: t.label }))}
+              value={tabs.find(t => t.id === activeType) ? { value: activeType, label: tabs.find(t => t.id === activeType)?.label } : null}
+              onChange={(e: any) => e && setActiveType(e.value as QRType)}
+            />
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {activeType === 'url' && (
-              <div className="input-group">
-                <label>Website URL</label>
-                <input type="url" value={url} onChange={e => setUrl(e.target.value)} placeholder="https://..." style={inputStyle} />
-              </div>
+              <skyra-tech-input type="url" label="Website URL" value={url} onChange={e => setUrl(e.target.value)} placeholder="https://..." />
             )}
 
             {activeType === 'text' && (
-              <div className="input-group">
-                <label>Text Content</label>
-                <textarea value={text} onChange={e => setText(e.target.value)} rows={4} style={inputStyle} />
-              </div>
+              <skyra-tech-textarea label="Text Content" value={text} onChange={e => setText(e.target.value)} rows={4} />
             )}
 
             {activeType === 'vcard' && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                <div className="input-group"><label>First Name</label><input type="text" value={contact.firstName} onChange={e => setContact({...contact, firstName: e.target.value})} style={inputStyle} /></div>
-                <div className="input-group"><label>Last Name</label><input type="text" value={contact.lastName} onChange={e => setContact({...contact, lastName: e.target.value})} style={inputStyle} /></div>
-                <div className="input-group"><label>Organization</label><input type="text" value={contact.organization} onChange={e => setContact({...contact, organization: e.target.value})} style={inputStyle} /></div>
-                <div className="input-group"><label>Phone</label><input type="tel" value={contact.phone} onChange={e => setContact({...contact, phone: e.target.value})} style={inputStyle} /></div>
-                <div className="input-group" style={{ gridColumn: '1 / -1' }}><label>Email</label><input type="email" value={contact.email} onChange={e => setContact({...contact, email: e.target.value})} style={inputStyle} /></div>
+                <skyra-tech-input label="First Name" type="text" value={contact.firstName} onChange={e => setContact({...contact, firstName: e.target.value})} />
+                <skyra-tech-input label="Last Name" type="text" value={contact.lastName} onChange={e => setContact({...contact, lastName: e.target.value})} />
+                <skyra-tech-input label="Organization" type="text" value={contact.organization} onChange={e => setContact({...contact, organization: e.target.value})} />
+                <skyra-tech-input label="Phone" type="tel" value={contact.phone} onChange={e => setContact({...contact, phone: e.target.value})} />
+                <div style={{ gridColumn: '1 / -1' }}>
+                  <skyra-tech-input label="Email" type="email" value={contact.email} onChange={e => setContact({...contact, email: e.target.value})} />
+                </div>
               </div>
             )}
 
             {activeType === 'wifi' && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                <div className="input-group" style={{ gridColumn: '1 / -1' }}><label>Network Name (SSID)</label><input type="text" value={wifi.ssid} onChange={e => setWifi({...wifi, ssid: e.target.value})} style={inputStyle} /></div>
-                <div className="input-group"><label>Password</label><input type="text" value={wifi.password} onChange={e => setWifi({...wifi, password: e.target.value})} style={inputStyle} /></div>
-                <div className="input-group"><label>Encryption</label>
-                  <select value={wifi.encryption} onChange={e => setWifi({...wifi, encryption: e.target.value as any})} style={inputStyle}>
-                    <option value="WPA">WPA/WPA2</option>
-                    <option value="WEP">WEP</option>
-                    <option value="nopass">None</option>
-                  </select>
+                <div style={{ gridColumn: '1 / -1' }}>
+                  <skyra-tech-input label="Network Name (SSID)" type="text" value={wifi.ssid} onChange={e => setWifi({...wifi, ssid: e.target.value})} />
                 </div>
+                <skyra-tech-input label="Password" type="text" value={wifi.password} onChange={e => setWifi({...wifi, password: e.target.value})} />
+                <skyra-tech-dynamic-select
+                  label="Encryption"
+                  options={[{ value: 'WPA', label: 'WPA/WPA2' }, { value: 'WEP', label: 'WEP' }, { value: 'nopass', label: 'None' }]}
+                  value={{ value: wifi.encryption, label: wifi.encryption === 'WPA' ? 'WPA/WPA2' : wifi.encryption === 'WEP' ? 'WEP' : 'None' }}
+                  onChange={(val: any) => val && setWifi({...wifi, encryption: val.value as any})}
+                />
               </div>
             )}
 
             {activeType === 'email' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div className="input-group"><label>Email Address</label><input type="email" value={email.address} onChange={e => setEmail({...email, address: e.target.value})} style={inputStyle} /></div>
-                <div className="input-group"><label>Subject</label><input type="text" value={email.subject} onChange={e => setEmail({...email, subject: e.target.value})} style={inputStyle} /></div>
-                <div className="input-group"><label>Body</label><textarea value={email.body} onChange={e => setEmail({...email, body: e.target.value})} rows={3} style={inputStyle} /></div>
+                <skyra-tech-input label="Email Address" type="email" value={email.address} onChange={e => setEmail({...email, address: e.target.value})} />
+                <skyra-tech-input label="Subject" type="text" value={email.subject} onChange={e => setEmail({...email, subject: e.target.value})} />
+                <skyra-tech-textarea label="Body" value={email.body} onChange={e => setEmail({...email, body: e.target.value})} rows={3} />
               </div>
             )}
 
             {activeType === 'sms' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div className="input-group"><label>Phone Number</label><input type="tel" value={sms.number} onChange={e => setSms({...sms, number: e.target.value})} style={inputStyle} /></div>
-                <div className="input-group"><label>Message</label><textarea value={sms.message} onChange={e => setSms({...sms, message: e.target.value})} rows={3} style={inputStyle} /></div>
+                <skyra-tech-input label="Phone Number" type="tel" value={sms.number} onChange={e => setSms({...sms, number: e.target.value})} />
+                <skyra-tech-textarea label="Message" value={sms.message} onChange={e => setSms({...sms, message: e.target.value})} rows={3} />
               </div>
             )}
 
             {activeType === 'calendar' && (
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                <div className="input-group" style={{ gridColumn: '1 / -1' }}><label>Event Title</label><input type="text" value={event.title} onChange={e => setEvent({...event, title: e.target.value})} style={inputStyle} /></div>
-                <div className="input-group" style={{ gridColumn: '1 / -1' }}><label>Location</label><input type="text" value={event.location} onChange={e => setEvent({...event, location: e.target.value})} style={inputStyle} /></div>
-                <div className="input-group" style={{ gridColumn: '1 / -1' }}><label>Description</label><textarea value={event.description} onChange={e => setEvent({...event, description: e.target.value})} rows={2} style={inputStyle} /></div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <skyra-tech-input label="Event Title" type="text" value={event.title} onChange={e => setEvent({...event, title: e.target.value})} />
+                <skyra-tech-input label="Location" type="text" value={event.location} onChange={e => setEvent({...event, location: e.target.value})} />
+                <skyra-tech-textarea label="Description" value={event.description} onChange={e => setEvent({...event, description: e.target.value})} rows={2} />
               </div>
             )}
           </div>
@@ -246,34 +249,68 @@ export default function QRStudio() {
           <h2 style={{ fontSize: '1.1rem', fontWeight: 600, margin: '0 0 1rem 0' }}>Design & Validation</h2>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             
-            <div className="input-group">
-              <label>Error Correction</label>
-              <select value={errorCorrection} onChange={e => setErrorCorrection(e.target.value as any)} style={inputStyle}>
-                <option value="L">Low (~7%)</option>
-                <option value="M">Medium (~15%)</option>
-                <option value="Q">Quartile (~25%)</option>
-                <option value="H">High (~30%)</option>
-              </select>
-            </div>
+            <skyra-tech-dynamic-select
+              label="Error Correction"
+              options={[
+                { value: 'L', label: 'Low (~7%)' },
+                { value: 'M', label: 'Medium (~15%)' },
+                { value: 'Q', label: 'Quartile (~25%)' },
+                { value: 'H', label: 'High (~30%)' }
+              ]}
+              value={{ value: errorCorrection, label: errorCorrection === 'L' ? 'Low (~7%)' : errorCorrection === 'M' ? 'Medium (~15%)' : errorCorrection === 'Q' ? 'Quartile (~25%)' : 'High (~30%)' }}
+              onChange={(val: any) => val && setErrorCorrection(val.value as any)}
+            />
             
-            <div className="input-group">
-              <label>Quiet Zone (Margin)</label>
-              <input type="number" min="0" max="10" value={margin} onChange={e => setMargin(parseInt(e.target.value, 10)||0)} style={inputStyle} />
-            </div>
+            <skyra-tech-input 
+              label="Quiet Zone (Margin)" 
+              type="number" 
+              min="0" max="10" 
+              value={String(margin)} 
+              onChange={e => setMargin(parseInt(e.target.value, 10)||0)} 
+            />
 
             <div className="input-group">
               <label>Foreground Color</label>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <input type="color" value={darkColor} onChange={e => setDarkColor(e.target.value)} style={{ width: '40px', height: '40px', padding: '0', border: 'none' }} />
-                <input type="text" value={darkColor} onChange={e => setDarkColor(e.target.value)} style={{ ...inputStyle, flex: 1 }} />
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                <input type="color" value={darkColor} onChange={e => setDarkColor(e.target.value)} style={{ width: '40px', height: '40px', padding: '0', border: 'none', borderRadius: '4px', cursor: 'pointer' }} />
+                <skyra-tech-input type="text" value={darkColor} onChange={e => setDarkColor(e.target.value)} style={{ flex: 1 }} />
               </div>
             </div>
 
             <div className="input-group">
               <label>Background Color</label>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <input type="color" value={lightColor} onChange={e => setLightColor(e.target.value)} style={{ width: '40px', height: '40px', padding: '0', border: 'none' }} />
-                <input type="text" value={lightColor} onChange={e => setLightColor(e.target.value)} style={{ ...inputStyle, flex: 1 }} />
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                <input type="color" value={lightColor} onChange={e => setLightColor(e.target.value)} style={{ width: '40px', height: '40px', padding: '0', border: 'none', borderRadius: '4px', cursor: 'pointer' }} />
+                <skyra-tech-input type="text" value={lightColor} onChange={e => setLightColor(e.target.value)} style={{ flex: 1 }} />
+              </div>
+            </div>
+
+            <skyra-tech-dynamic-select
+              label="Module Shape"
+              options={[
+                { value: 'square', label: 'Square' },
+                { value: 'rounded', label: 'Rounded' },
+                { value: 'dot', label: 'Dot' }
+              ]}
+              value={{ value: moduleShape, label: moduleShape.charAt(0).toUpperCase() + moduleShape.slice(1) }}
+              onChange={(val: any) => val && setModuleShape(val.value as any)}
+            />
+
+            <skyra-tech-dynamic-select
+              label="Finder Shape"
+              options={[
+                { value: 'square', label: 'Square' },
+                { value: 'rounded', label: 'Rounded' }
+              ]}
+              value={{ value: finderShape, label: finderShape.charAt(0).toUpperCase() + finderShape.slice(1) }}
+              onChange={(val: any) => val && setFinderShape(val.value as any)}
+            />
+
+            <div className="input-group">
+              <label>Finder Color</label>
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                <input type="color" value={finderColor} onChange={e => setFinderColor(e.target.value)} style={{ width: '40px', height: '40px', padding: '0', border: 'none', borderRadius: '4px', cursor: 'pointer' }} />
+                <skyra-tech-input type="text" value={finderColor} onChange={e => setFinderColor(e.target.value)} style={{ flex: 1 }} />
               </div>
             </div>
             
@@ -298,13 +335,17 @@ export default function QRStudio() {
           }}
         >
           {generatedValue ? (
-            <skyra-qr-code
+            // @ts-ignore - Web component
+            <skyra-tech-qr-code
               value={generatedValue}
               error-correction-level={errorCorrection}
               margin={margin}
               scale={scale}
               color-dark={darkColor}
               color-light={lightColor}
+              module-shape={moduleShape}
+              finder-shape={finderShape}
+              finder-color={finderColor}
             />
           ) : (
             <div style={{ color: 'var(--skyra-text-muted)', textAlign: 'center' }}>
@@ -343,10 +384,24 @@ export default function QRStudio() {
 
         {/* Export Actions */}
         <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-          <button onClick={handleDownloadSVG} style={btnStyle}>Download SVG</button>
-          <button onClick={handleDownloadPNG} style={btnStyle}>Download PNG</button>
-          <button onClick={handlePrint} style={btnStyle}>Print</button>
+          <skyra-tech-button onClick={handleDownloadSVG} variant="outline" style={{ flex: 1 }}>Download SVG</skyra-tech-button>
+          <skyra-tech-button onClick={handleDownloadPNG} variant="outline" style={{ flex: 1 }}>Download PNG</skyra-tech-button>
+          <skyra-tech-button onClick={handlePrint} variant="outline" style={{ flex: 1 }}>Print</skyra-tech-button>
         </div>
+        
+        {notification && (
+          <div style={{ marginTop: '0.5rem' }}>
+            <skyra-notification-bar 
+              type={notification.type} 
+              duration="3000" 
+              // @ts-ignore
+              onSkyra-close={() => setNotification(null)}
+            >
+              <span slot="title">{notification.type === 'success' ? 'Success' : 'Info'}</span>
+              {notification.message}
+            </skyra-notification-bar>
+          </div>
+        )}
       </div>
       
       {/* GLOBAL STYLES FOR THE PAGE */}

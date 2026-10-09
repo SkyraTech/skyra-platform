@@ -122,25 +122,12 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
   {
     id: 'qr/core',
     packageId: '@skyra-tech-platform/qr',
-    name: 'QR Core',
+    name: 'QR Generation & Web Component',
     exportPath: '@skyra-tech-platform/qr',
     runtime: 'runtime-neutral',
-    description: 'Runtime-neutral QR matrix generation and SVG rendering engine. Safe for Node.js, backend services, and non-React environments. Does not require React or react-dom.',
-    usageNote: "import { generateQRCode, renderToSVGString } from '@skyra-tech-platform/qr';",
-    limitations: ['No UI component provided — use @skyra/ui for React rendering.'],
+    description: 'Runtime-neutral QR matrix generation, SVG rendering engine, and `<skyra-tech-qr-code>` Web Component wrapper. Framework-agnostic and fully encapsulated.',
+    usageNote: "import { generateQRCode, renderToSVGString } from '@skyra-tech-platform/qr';\nimport '@skyra-tech-platform/qr/web-component';",
     status: 'stable',
-    related: ['qr/react'],
-  },
-  {
-    id: 'qr/react',
-    packageId: '@skyra/ui',
-    name: 'QR React',
-    exportPath: '@skyra/ui',
-    runtime: 'react-browser',
-    description: 'React component adapter for QR code rendering. Wraps the runtime-neutral core and exposes an accessible, responsive SVG QR Code component.',
-    usageNote: "import '@skyra-tech-platform/qr';;",
-    status: 'stable',
-    related: ['qr/core'],
   },
 
   // @skyra/ui

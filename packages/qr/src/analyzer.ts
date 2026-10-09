@@ -1,10 +1,19 @@
 import { QRCodeMatrix } from './types';
 
 // Helper to convert hex to rgb
-function hexToRgb(hex: string) {
+function hexToRgb(hexInput: string) {
+  let hex = hexInput.trim();
+  // Strip alpha if present (e.g., #rrggbbaa -> #rrggbb, #rgba -> #rgb)
+  if (/^#[a-f\d]{8}$/i.test(hex)) {
+    hex = hex.substring(0, 7);
+  } else if (/^#[a-f\d]{4}$/i.test(hex)) {
+    hex = '#' + hex.substring(1, 4);
+  }
+  
   // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
   const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
   hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+  
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? {
     r: parseInt(result[1] as string, 16),

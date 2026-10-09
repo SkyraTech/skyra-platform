@@ -1,9 +1,12 @@
-import { generateQRCode, buildSVGPath } from './core';
+import { generateQRCode, renderToSVGString } from './core';
 
 const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
-export class SkyraQRCodeElement extends BaseClass {
+export class SkyraTechQRCodeElement extends BaseClass {
   static get observedAttributes() {
-    return ['value', 'error-correction-level', 'version', 'margin', 'mask-pattern', 'scale', 'color-light', 'color-dark'];
+    return [
+      'value', 'error-correction-level', 'version', 'margin', 'mask-pattern', 
+      'scale', 'color-light', 'color-dark', 'module-shape', 'finder-shape', 'finder-color'
+    ];
   }
 
   constructor() {
@@ -45,11 +48,20 @@ export class SkyraQRCodeElement extends BaseClass {
   get colorDark() { return this.getAttribute('color-dark') || '#000000'; }
   set colorDark(val: string) { this.setAttribute('color-dark', val); }
 
+  get moduleShape() { return (this.getAttribute('module-shape') as any) || 'square'; }
+  set moduleShape(val: 'square' | 'rounded' | 'dot') { this.setAttribute('module-shape', val); }
+
+  get finderShape() { return (this.getAttribute('finder-shape') as any) || 'square'; }
+  set finderShape(val: 'square' | 'rounded') { this.setAttribute('finder-shape', val); }
+
+  get finderColor() { return this.getAttribute('finder-color') || this.colorDark; }
+  set finderColor(val: string) { this.setAttribute('finder-color', val); }
+
   render() {
     if (!this.shadowRoot) return;
     const value = this.value;
     if (!value) {
-      this.shadowRoot.innerHTML = '';
+      this.shadowRoot.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:var(--skyra-text-muted);font-family:inherit;text-align:center;">Enter content to generate a QR code.</div>';
       return;
     }
 
@@ -68,11 +80,27 @@ export class SkyraQRCodeElement extends BaseClass {
       const width = this.getAttribute('width');
       const responsiveWidth = width ?? (totalSize * scale).toString();
 
-      const pathData = buildSVGPath(matrix, margin);
-      const lightColor = this.colorLight;
-      const darkColor = this.colorDark;
-
       const ariaLabel = this.getAttribute('aria-label') || 'QR Code';
+
+      const svgString = renderToSVGString(matrix, {
+        margin,
+        scale,
+        color: {
+          light: this.colorLight,
+          dark: this.colorDark
+        },
+        style: {
+          moduleShape: this.moduleShape,
+          finderShape: this.finderShape,
+          finderColor: this.finderColor
+        },
+        responsive: true
+      });
+
+      // Inject the aria-label and role into the generated SVG
+      const accessibleSvg = svgString
+        .replace('<svg ', `<svg role="img" aria-label="${ariaLabel}" `)
+        .replace('</svg>', `<title>${ariaLabel}</title></svg>`);
 
       this.shadowRoot.innerHTML = `
         <style>
@@ -87,26 +115,16 @@ export class SkyraQRCodeElement extends BaseClass {
           }
         </style>
         <div style="width: ${responsiveWidth}px; max-width: 100%;">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 ${totalSize} ${totalSize}"
-            shape-rendering="crispEdges"
-            role="img"
-            aria-label="${ariaLabel}"
-          >
-            <title>${ariaLabel}</title>
-            ${lightColor.toLowerCase() !== 'transparent' ? `<rect width="100%" height="100%" fill="${lightColor}" />` : ''}
-            <path d="${pathData}" fill="${darkColor}" />
-          </svg>
+          ${accessibleSvg}
         </div>
       `;
     } catch (e) {
       console.error('[@skyra-tech-platform/qr] Failed to generate QR code in web component:', e);
-      this.shadowRoot.innerHTML = '';
+      this.shadowRoot.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:var(--skyra-error);font-family:inherit;text-align:center;border:1px solid var(--skyra-error-alpha-20);border-radius:4px;padding:1rem;">QR generation failed</div>';
     }
   }
 }
 
-if (typeof customElements !== 'undefined' && !customElements.get('skyra-qr-code')) {
-  customElements.define('skyra-qr-code', SkyraQRCodeElement);
+if (typeof customElements !== 'undefined' && !customElements.get('skyra-tech-qr-code')) {
+  customElements.define('skyra-tech-qr-code', SkyraTechQRCodeElement);
 }

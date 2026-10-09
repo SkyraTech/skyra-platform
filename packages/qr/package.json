@@ -7,6 +7,11 @@
       "require": "./dist/core.cjs",
       "types": "./dist/core.d.ts",
       "import": "./dist/core.js"
+    },
+    "./web-component": {
+      "require": "./dist/skyra-tech-qr-code.cjs",
+      "types": "./dist/skyra-tech-qr-code.d.ts",
+      "import": "./dist/skyra-tech-qr-code.js"
     }
   },
   "main": "./dist/core.cjs",

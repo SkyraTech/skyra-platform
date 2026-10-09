@@ -55,6 +55,7 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
     'data-export':   '/docs/data-export',
     'dialog':        '/components/overlays/dialog',
     'dynamic-form':  '/components/forms/dynamic-form',
+    'qr':            '/components/qr',
   };
   const docsHref = DOCS_PAGES[slug];
 
@@ -104,7 +105,7 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
         </div>
       )}
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
         
         <section id="installation">
           <HeadingAnchor id="installation" level={2}>Installation</HeadingAnchor>
@@ -119,7 +120,7 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
         <section id="capabilities">
           <HeadingAnchor id="capabilities" level={2}>Capabilities</HeadingAnchor>
             {capabilities.length > 0 ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1rem' }}>
                 {capabilities.map((cap) => (
                   <Card key={cap.id} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     <div>
@@ -179,21 +180,41 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
         <section id="exports">
           <HeadingAnchor id="exports" level={2}>Public Exports</HeadingAnchor>
           {pkg.exports.length > 0 ? (
-            <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {pkg.exports.map(exp => (
-                <li key={exp} style={{ fontSize: '0.875rem', color: 'var(--skyra-text-muted)', fontFamily: 'var(--skyra-font-mono, monospace)', background: 'var(--skyra-bg-muted)', padding: '0.75rem', borderRadius: 'var(--skyra-radius-md)', border: '1px solid var(--skyra-border)' }}>
-                  {exp}
-                </li>
-              ))}
+            <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1rem' }}>
+              {pkg.exports.map(exp => {
+                let description = '';
+                if (exp === '.') {
+                  description = 'Main entry point. Contains core runtime APIs and utilities.';
+                } else if (exp.includes('web-component')) {
+                  description = 'Web Component definition. Import this to register the custom element.';
+                } else if (exp.includes('.css')) {
+                  description = 'CSS stylesheet containing design tokens or base styles.';
+                } else if (exp.includes('types')) {
+                  description = 'TypeScript definitions and interfaces.';
+                }
+
+                return (
+                  <li key={exp} style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem', background: 'var(--skyra-bg-muted)', padding: '1.25rem', borderRadius: 'var(--skyra-radius-md)', border: '1px solid var(--skyra-border)' }}>
+                    <div style={{ fontSize: '0.875rem', color: 'var(--skyra-text)', fontFamily: 'var(--skyra-font-mono, monospace)', fontWeight: 500 }}>
+                      {`import ... from '${pkg.name}${exp === '.' ? '' : '/' + exp.replace(/^\.\//, '')}'`}
+                    </div>
+                    {description && (
+                      <div style={{ fontSize: '0.875rem', color: 'var(--skyra-text-muted)', marginTop: '0.25rem' }}>
+                        {description}
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           ) : (
-            <div style={{ fontSize: '0.875rem', color: 'var(--skyra-text-subtle)' }}>No public exports defined.</div>
+            <div style={{ fontSize: '0.875rem', color: 'var(--skyra-text-subtle)', marginTop: '1rem' }}>No public exports defined.</div>
           )}
         </section>
 
         <section id="dependencies">
           <HeadingAnchor id="dependencies" level={2}>Dependencies & Peers</HeadingAnchor>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginTop: '1rem' }}>
             <Card style={{ padding: '1.5rem' }}>
               <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--skyra-text)', margin: '0 0 1rem 0' }}>
                 Runtime Dependencies
@@ -241,7 +262,7 @@ export default async function PackageDetailPage({ params }: { params: Promise<{ 
         {releases.length > 0 && (
           <section id="recent-changes">
             <HeadingAnchor id="recent-changes" level={2}>Recent Changes</HeadingAnchor>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {releases.slice(0, 3).map((release) => {
                   const pkgChanges = release.packages.find(p => p.packageId === id)?.changes || [];

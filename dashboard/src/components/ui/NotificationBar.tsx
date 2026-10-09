@@ -14,17 +14,6 @@ export interface NotificationBarProps extends Omit<React.HTMLAttributes<HTMLElem
   icon?: React.ReactNode;
 }
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'skyra-notification-bar': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
-        type?: string;
-        code?: string;
-        duration?: number;
-      };
-    }
-  }
-}
 
 export const NotificationBar = React.forwardRef<HTMLElement, NotificationBarProps>((props, ref) => {
   const {

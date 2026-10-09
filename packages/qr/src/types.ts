@@ -74,6 +74,12 @@ export interface QRCodeRenderOptions {
    * @default 4
    */
   margin?: number;
+  
+  style?: {
+    moduleShape?: 'square' | 'rounded' | 'dot';
+    finderShape?: 'square' | 'rounded';
+    finderColor?: string;
+  };
 }
 
 export interface QRCodeSVGOptions extends QRCodeRenderOptions {

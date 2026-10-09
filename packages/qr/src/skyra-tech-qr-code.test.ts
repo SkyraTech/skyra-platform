@@ -1,20 +1,20 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { axe, toHaveNoViolations } from 'jest-axe';
 expect.extend(toHaveNoViolations);
-import { SkyraQRCodeElement } from './skyra-qr-code';
+import { SkyraTechQRCodeElement } from './skyra-tech-qr-code';
 
 if (typeof customElements !== 'undefined') {
-  if (!customElements.get('skyra-qr-code')) customElements.define('skyra-qr-code', SkyraQRCodeElement);
+  if (!customElements.get('skyra-tech-qr-code')) customElements.define('skyra-tech-qr-code', SkyraTechQRCodeElement);
 }
 
-describe('SkyraQRCodeElement', () => {
+describe('SkyraTechQRCodeElement', () => {
   afterEach(() => {
     document.body.innerHTML = '';
   });
 
 
   it('should have no axe violations', async () => {
-    const el = document.createElement('skyra-qr-code') as SkyraQRCodeElement;
+    const el = document.createElement('skyra-tech-qr-code') as SkyraTechQRCodeElement;
     el.value = 'Axe test value';
     document.body.appendChild(el);
     const results = await axe(el);
@@ -22,11 +22,11 @@ describe('SkyraQRCodeElement', () => {
   });
 
   it('registers custom element', () => {
-    expect(customElements.get('skyra-qr-code')).toBeDefined();
+    expect(customElements.get('skyra-tech-qr-code')).toBeDefined();
   });
 
   it('renders initial properties', () => {
-    const el = document.createElement('skyra-qr-code') as SkyraQRCodeElement;
+    const el = document.createElement('skyra-tech-qr-code') as SkyraTechQRCodeElement;
     el.value = 'https://skyra.tech';
     el.errorCorrectionLevel = 'H';
     el.margin = 2;
@@ -44,7 +44,7 @@ describe('SkyraQRCodeElement', () => {
   });
 
   it('generates a valid QR Code SVG structure', () => {
-    const el = document.createElement('skyra-qr-code') as SkyraQRCodeElement;
+    const el = document.createElement('skyra-tech-qr-code') as SkyraTechQRCodeElement;
     el.value = 'Valid data';
     document.body.appendChild(el);
 
@@ -62,7 +62,7 @@ describe('SkyraQRCodeElement', () => {
   });
 
   it('regenerates when value is updated', () => {
-    const el = document.createElement('skyra-qr-code') as SkyraQRCodeElement;
+    const el = document.createElement('skyra-tech-qr-code') as SkyraTechQRCodeElement;
     el.value = 'Data1';
     document.body.appendChild(el);
     const svg1 = el.shadowRoot!.querySelector('svg');
@@ -76,14 +76,14 @@ describe('SkyraQRCodeElement', () => {
   });
 
   it('renders empty when value is empty', () => {
-    const el = document.createElement('skyra-qr-code') as SkyraQRCodeElement;
+    const el = document.createElement('skyra-tech-qr-code') as SkyraTechQRCodeElement;
     el.value = '';
     document.body.appendChild(el);
-    expect(el.shadowRoot!.innerHTML).toBe('');
+    expect(el.shadowRoot!.innerHTML).toContain('Enter content to generate a QR code.');
   });
 
   it('supports options/configurations correctly', () => {
-    const el = document.createElement('skyra-qr-code') as SkyraQRCodeElement;
+    const el = document.createElement('skyra-tech-qr-code') as SkyraTechQRCodeElement;
     el.value = 'Test options';
     el.colorDark = '#FF0000';
     el.colorLight = '#00FF00';
@@ -101,13 +101,13 @@ describe('SkyraQRCodeElement', () => {
   });
 
   it('clears rendering gracefully on generation failure', () => {
-    const el = document.createElement('skyra-qr-code') as SkyraQRCodeElement;
+    const el = document.createElement('skyra-tech-qr-code') as SkyraTechQRCodeElement;
     // An extremely huge payload for a low version might fail, 
     // or passing invalid parameters could trigger a catch block. 
     // Just testing basic error protection.
     document.body.appendChild(el);
     el.version = -1; // invalid version
     el.value = 'fail data';
-    expect(el.shadowRoot!.innerHTML).toBe('');
+    expect(el.shadowRoot!.innerHTML).toContain('QR generation failed');
   });
 });

@@ -376,7 +376,7 @@ A capability belongs in Skyra Platform when it is genuinely reusable across mult
 
 ### Package Layers
 
-The current platform architecture includes reusable foundations, UI systems, application-shell infrastructure, and justified reusable capabilities such as `@skyra/qr`. The exact package inventory is governed by the repository rather than this document alone; this specification defines dependency direction and ownership.
+The current platform architecture includes reusable foundations, UI systems, application-shell infrastructure, and justified reusable capabilities such as `@skyra-tech-platform/qr`. The exact package inventory is governed by the repository rather than this document alone; this specification defines dependency direction and ownership.
 
 ```text
 Layer 0 — Repository / Governance

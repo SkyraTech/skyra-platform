@@ -1,4 +1,4 @@
-﻿import { docsRegistry } from './registry';
+import { docsRegistry } from './registry';
 
 
 export interface SearchDocument {
@@ -240,6 +240,15 @@ export function buildSearchIndex(): SearchDocument[] {
     description: 'Complete ISO-compliant date & time suite with calendar popovers.',
     href: '/components/forms/date-time',
     keywords: ['date', 'time', 'calendar', 'date-range', 'skyra-tech-date-field', '@skyra-tech-platform/date-time', 'Forms', 'web component'],
+  });
+
+  documents.push({
+    id: 'component-qr',
+    type: 'foundation',
+    title: 'QR Code',
+    description: 'Framework-independent QR generation and styled rendering Web Component.',
+    href: '/components/qr',
+    keywords: ['qr', 'qrcode', 'qr-code', 'skyra-tech-qr-code', '@skyra-tech-platform/qr', 'web component', 'svg'],
   });
 
   // Releases

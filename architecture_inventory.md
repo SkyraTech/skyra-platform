@@ -36,5 +36,5 @@
 |---|---|---|---|
 | `packages/notification` | `@skyra-tech-platform/notification` | Depends on React | Core -> Category B (`@skyra-tech-platform/notification`), Adapter -> Category C (`@skyra/ui`) |
 | `packages/pdf-viewer` | `@skyra-tech-platform/pdf-viewer` | Depends on React | Core -> Category B/A (`@skyra-tech-platform/pdf-viewer`), Adapter -> Category C (`@skyra/ui`) |
-| `packages/qr` | `@skyra/qr` | Bundles React inside a single package | Core -> Category A (`@skyra-tech-platform/qr`), Adapter -> Category C (`@skyra/ui`) |
+| `packages/qr` | `@skyra-tech-platform/qr` | Bundles React inside a single package | Core -> Category A (`@skyra-tech-platform/qr`) |
 | `packages/toast` | `@skyra-tech-platform/toast` | Depends on React | Core -> Category B (`@skyra-tech-platform/toast`), Adapter -> Category C (`@skyra/ui`) |
