@@ -83,6 +83,7 @@ const COMPONENT_GROUPS = [
       { packageId: '@skyra-tech-platform/popover', href: '/components/overlays/popover', label: 'Popover', desc: 'Framework-independent anchored rich content overlay with collision detection.' },
       { packageId: '@skyra-tech-platform/dropdown-menu', href: '/components/overlays/dropdown-menu', label: 'Dropdown Menu', desc: 'Framework-independent action menu with roving keyboard navigation and checkable items.' },
       { packageId: '@skyra-tech-platform/context-menu', href: '/components/overlays/context-menu', label: 'Context Menu', desc: 'Framework-independent pointer and keyboard context action menu with virtual collision positioning.' },
+      { packageId: '@skyra-tech-platform/command-palette', href: '/components/overlays/command-palette', label: 'Command Palette', desc: 'Framework-independent command palette overlay with multi-term search, roving focus, and keyboard shortcuts.' },
     ]
   },
   {

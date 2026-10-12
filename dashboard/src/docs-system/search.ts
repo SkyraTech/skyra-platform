@@ -52,6 +52,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'popover':       '/components/overlays/popover',
       'dropdown-menu': '/components/overlays/dropdown-menu',
       'context-menu':  '/components/overlays/context-menu',
+      'command-palette': '/components/overlays/command-palette',
     };
     
     documents.push({
@@ -85,6 +86,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'popover':       '/components/overlays/popover',
       'dropdown-menu': '/components/overlays/dropdown-menu',
       'context-menu':  '/components/overlays/context-menu',
+      'command-palette': '/components/overlays/command-palette',
     };
 
     documents.push({
@@ -120,6 +122,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'popover':       '/components/overlays/popover',
       'dropdown-menu': '/components/overlays/dropdown-menu',
       'context-menu':  '/components/overlays/context-menu',
+      'command-palette': '/components/overlays/command-palette',
     };
 
     documents.push({
@@ -175,6 +178,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'popover':       '/components/overlays/popover',
       'dropdown-menu': '/components/overlays/dropdown-menu',
       'context-menu':  '/components/overlays/context-menu',
+      'command-palette': '/components/overlays/command-palette',
     };
 
     documents.push({
@@ -358,6 +362,15 @@ export function buildSearchIndex(): SearchDocument[] {
     description: 'Framework-independent pointer and keyboard context action menu Web Component with virtual anchor positioning, roving focus, and accessible shortcuts.',
     href: '/components/overlays/context-menu',
     keywords: ['context-menu', 'context', 'menu', 'right-click', 'skyra-context-menu', 'skyra-tech-context-menu', '@skyra-tech-platform/context-menu', 'Overlays', 'actions', 'menuitem', 'web component'],
+  });
+
+  documents.push({
+    id: 'component-command-palette',
+    type: 'foundation',
+    title: 'Command Palette',
+    description: 'Framework-independent enterprise command palette overlay Web Component with multi-term scoring search, roving focus, category groups, and shortcuts.',
+    href: '/components/overlays/command-palette',
+    keywords: ['command-palette', 'command', 'palette', 'cmd-k', 'ctrl-k', 'skyra-command-palette', 'skyra-tech-command-palette', '@skyra-tech-platform/command-palette', 'Overlays', 'combobox', 'search', 'web component'],
   });
 
   // Releases

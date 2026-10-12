@@ -80,6 +80,8 @@ declare global {
         'skyra-tech-context-menu-separator': any;
         'skyra-context-menu-group': any;
         'skyra-tech-context-menu-group': any;
+        'skyra-command-palette': any;
+        'skyra-tech-command-palette': any;
       }
     }
   }
@@ -146,6 +148,8 @@ declare global {
       'skyra-tech-context-menu-separator': any;
       'skyra-context-menu-group': any;
       'skyra-tech-context-menu-group': any;
+      'skyra-command-palette': any;
+      'skyra-tech-command-palette': any;
     }
   }
 }

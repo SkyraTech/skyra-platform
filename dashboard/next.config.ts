@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
     '@skyra-tech-platform/popover',
     '@skyra-tech-platform/dropdown-menu',
     '@skyra-tech-platform/context-menu',
+    '@skyra-tech-platform/command-palette',
   ],
   async redirects() {
     return [
@@ -55,6 +56,11 @@ const nextConfig: NextConfig = {
       {
         source: '/ui-components/context-menu',
         destination: '/components/overlays/context-menu',
+        permanent: true,
+      },
+      {
+        source: '/ui-components/command-palette',
+        destination: '/components/overlays/command-palette',
         permanent: true,
       },
     ];

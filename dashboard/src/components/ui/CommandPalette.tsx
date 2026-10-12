@@ -1,49 +1,20 @@
 'use client';
 
 import React, {
-  createContext,
-  useContext,
-  useState,
   useRef,
   useEffect,
-  useCallback,
-  useId,
   forwardRef,
   ReactNode,
   HTMLAttributes,
   InputHTMLAttributes,
 } from 'react';
-import { createPortal } from 'react-dom';
+import '@skyra-tech-platform/command-palette';
+import type { SkyraCommandPaletteElement, CommandItem } from '@skyra-tech-platform/command-palette';
 import { Search, X, Command as CommandIcon } from 'lucide-react';
-import { filterCommands } from '@skyra-tech-platform/utils';
 import { Command, useCommandRegistry } from './CommandProvider';
 import { Kbd } from './Kbd';
 
-/* ─── Context ─── */
-
-interface CommandPaletteContextValue {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  query: string;
-  setQuery: (query: string) => void;
-  activeIndex: number;
-  setActiveIndex: (index: number) => void;
-  filteredCommands: Command[];
-  onSelectCommand: (command: Command) => void;
-  inputRef: React.RefObject<HTMLInputElement | null>;
-  listId: string;
-  inputId: string;
-}
-
-const CommandPaletteContext = createContext<CommandPaletteContextValue | null>(null);
-
-function useCommandPalette() {
-  const ctx = useContext(CommandPaletteContext);
-  if (!ctx) {
-    throw new Error('CommandPalette compound components must be used within a CommandPalette');
-  }
-  return ctx;
-}
+export type { CommandItem };
 
 /* ─── CommandPalette Root ─── */
 
@@ -62,35 +33,42 @@ export interface CommandPaletteProps {
   emptyText?: string;
   /** Shortcut key to toggle palette (e.g. 'mod+k') */
   shortcut?: string;
-  /** Custom compound children (if omitted, renders standard full UI) */
+  /** Whether selecting a command closes the palette (default: true) */
+  closeOnSelect?: boolean;
+  /** Whether Escape closes the palette (default: true) */
+  closeOnEscape?: boolean;
+  /** Whether backdrop click closes the palette (default: true) */
+  closeOnBackdrop?: boolean;
+  /** Optional callback fired when a command is selected */
+  onSelect?: (command: CommandItem) => void;
+  /** Custom compound children (if omitted, renders canonical Web Component dialog) */
   children?: ReactNode;
   className?: string;
 }
 
+/**
+ * Canonical @skyra-tech-platform/command-palette React Adapter
+ *
+ * Thin framework adapter delegating directly to the canonical
+ * `@skyra-tech-platform/command-palette` (`<skyra-command-palette>`) Custom Element.
+ */
 export function CommandPalette({
-  open: controlledOpen,
+  open,
   defaultOpen = false,
   onOpenChange,
   commands: explicitCommands,
   placeholder = 'Type a command or search...',
   emptyText = 'No matching commands found.',
-  children,
+  shortcut = 'mod+k',
+  closeOnSelect = true,
+  closeOnEscape = true,
+  closeOnBackdrop = true,
+  onSelect,
   className = '',
 }: CommandPaletteProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const isControlled = controlledOpen !== undefined;
-  const isOpen = isControlled ? controlledOpen : uncontrolledOpen;
+  const paletteRef = useRef<SkyraCommandPaletteElement>(null);
 
-  const [query, setQuery] = useState('');
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const inputRef = useRef<HTMLInputElement>(null);
-  const previousActiveElementRef = useRef<HTMLElement | null>(null);
-
-  const listId = useId();
-  const inputId = useId();
-
-  // Command source
+  // Command source from registry if not provided explicitly
   let registryCommands: Command[] = [];
   try {
     const registry = useCommandRegistry();
@@ -100,143 +78,87 @@ export function CommandPalette({
   }
 
   const rawCommands = explicitCommands ?? registryCommands;
-  const filteredCommands = filterCommands(rawCommands, query);
-  const enabledCommands = filteredCommands.filter((c: Command) => !c.disabled);
 
-  const setOpen = useCallback(
-    (nextOpen: boolean) => {
-      if (!isControlled) {
-        setUncontrolledOpen(nextOpen);
-      }
-      onOpenChange?.(nextOpen);
-      if (!nextOpen) {
-        setQuery('');
-        setActiveIndex(0);
-      }
-    },
-    [isControlled, onOpenChange]
-  );
+  // Convert Commands to CommandItems format compatible with Custom Element
+  const items: CommandItem[] = (rawCommands || []).map((cmd) => ({
+    id: cmd.id,
+    label: cmd.label,
+    description: cmd.description,
+    keywords: cmd.keywords,
+    group: cmd.group,
+    shortcut: cmd.shortcut,
+    disabled: cmd.disabled,
+    hidden: cmd.hidden,
+    closeOnExecute: cmd.closeOnExecute,
+    onExecute: cmd.onExecute,
+    payload: cmd,
+  }));
 
-  // Focus management
+  // Synchronize properties to Custom Element
   useEffect(() => {
-    if (isOpen) {
-      previousActiveElementRef.current = document.activeElement as HTMLElement | null;
-      // Focus search input on open
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 10);
-    } else {
-      if (
-        previousActiveElementRef.current &&
-        typeof previousActiveElementRef.current.focus === 'function'
-      ) {
-        previousActiveElementRef.current.focus();
-      }
+    const el = paletteRef.current;
+    if (!el) return;
+
+    el.commands = items;
+    el.shortcut = shortcut;
+    el.placeholder = placeholder;
+    el.emptyText = emptyText;
+    el.closeOnSelect = closeOnSelect;
+    el.closeOnEscape = closeOnEscape;
+    el.closeOnBackdrop = closeOnBackdrop;
+  }, [items, shortcut, placeholder, emptyText, closeOnSelect, closeOnEscape, closeOnBackdrop]);
+
+  // Synchronize controlled open state
+  useEffect(() => {
+    const el = paletteRef.current;
+    if (!el || open === undefined) return;
+    el.open = open;
+  }, [open]);
+
+  // Set initial uncontrolled state once on mount
+  useEffect(() => {
+    const el = paletteRef.current;
+    if (el && open === undefined && defaultOpen) {
+      el.open = true;
     }
-  }, [isOpen]);
+  }, [defaultOpen, open]);
 
-  // Keep active index within bounds
+  // Event handlers
   useEffect(() => {
-    if (activeIndex >= enabledCommands.length) {
-      setActiveIndex(Math.max(0, enabledCommands.length - 1));
-    }
-  }, [enabledCommands.length, activeIndex]);
+    const el = paletteRef.current;
+    if (!el) return;
 
-  const onSelectCommand = useCallback(
-    (cmd: Command) => {
-      if (cmd.disabled) return;
-      if (cmd.closeOnExecute !== false) {
-        setOpen(false);
-      }
-      cmd.onExecute();
-    },
-    [setOpen]
-  );
-
-  // Global escape and backdrop scroll lock
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        setOpen(false);
-      }
+    const handleChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ open: boolean }>;
+      onOpenChange?.(customEvent.detail.open);
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
+    const handleSelect = (e: Event) => {
+      const customEvent = e as CustomEvent<{ command: CommandItem }>;
+      onSelect?.(customEvent.detail.command);
+    };
+
+    el.addEventListener('skyra-command-palette-change', handleChange);
+    el.addEventListener('skyra-command-select', handleSelect);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      el.removeEventListener('skyra-command-palette-change', handleChange);
+      el.removeEventListener('skyra-command-select', handleSelect);
     };
-  }, [isOpen, setOpen]);
+  }, [onOpenChange, onSelect]);
 
-  if (!isOpen) return null;
-
-  // Group commands
-  const grouped = new Map<string, Command[]>();
-  for (const cmd of filteredCommands) {
-    const groupName = cmd.group || 'General';
-    const list = grouped.get(groupName) ?? [];
-    list.push(cmd);
-    grouped.set(groupName, list);
-  }
-
-  const contextValue: CommandPaletteContextValue = {
-    open: isOpen,
-    setOpen,
-    query,
-    setQuery,
-    activeIndex,
-    setActiveIndex,
-    filteredCommands,
-    onSelectCommand,
-    inputRef,
-    listId,
-    inputId,
-  };
-
-  const content = (
-    <CommandPaletteContext.Provider value={contextValue}>
-      <div
-        className="skyra-command-palette-backdrop"
-        onClick={() => setOpen(false)}
-        aria-hidden="true"
-      />
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-label="Command Palette"
-        className={['skyra-command-palette-modal', className].filter(Boolean).join(' ')}
-      >
-        {children ? (
-          children
-        ) : (
-          <>
-            <CommandPaletteInput placeholder={placeholder} />
-            <CommandPaletteList>
-              {filteredCommands.length === 0 ? (
-                <CommandPaletteEmpty message={emptyText} />
-              ) : (
-                Array.from(grouped.entries()).map(([groupName, items]) => (
-                  <CommandPaletteGroup key={groupName} heading={groupName}>
-                    {items.map((cmd) => (
-                      <CommandPaletteItem key={cmd.id} command={cmd} />
-                    ))}
-                  </CommandPaletteGroup>
-                ))
-              )}
-            </CommandPaletteList>
-            <CommandPaletteFooter />
-          </>
-        )}
-      </div>
-    </CommandPaletteContext.Provider>
+  return (
+    <skyra-command-palette
+      ref={paletteRef}
+      shortcut={shortcut}
+      placeholder={placeholder}
+      empty-text={emptyText}
+      close-on-select={closeOnSelect ? undefined : 'false'}
+      close-on-escape={closeOnEscape ? undefined : 'false'}
+      close-on-backdrop={closeOnBackdrop ? undefined : 'false'}
+      class={className || undefined}
+    />
   );
-
-  return typeof document !== 'undefined' ? createPortal(content, document.body) : null;
 }
 
 /* ─── CommandPaletteTrigger ─── */
@@ -268,68 +190,24 @@ export const CommandPaletteTrigger = forwardRef<HTMLButtonElement, CommandPalett
 );
 CommandPaletteTrigger.displayName = 'CommandPaletteTrigger';
 
-/* ─── CommandPaletteInput ─── */
+/* ─── Static Compound UI Primitives for Custom Layouts ─── */
 
 export interface CommandPaletteInputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
+  onClear?: () => void;
 }
 
 export const CommandPaletteInput = forwardRef<HTMLInputElement, CommandPaletteInputProps>(
-  ({ placeholder = 'Type a command or search...', className = '', ...rest }, ref) => {
-    const { query, setQuery, activeIndex, setActiveIndex, filteredCommands, onSelectCommand, setOpen, inputRef, listId, inputId } =
-      useCommandPalette();
-
-    const enabledCommands = filteredCommands.filter((c) => !c.disabled);
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        setActiveIndex(activeIndex + 1 >= enabledCommands.length ? 0 : activeIndex + 1);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        setActiveIndex(activeIndex - 1 < 0 ? Math.max(0, enabledCommands.length - 1) : activeIndex - 1);
-      } else if (e.key === 'Home') {
-        e.preventDefault();
-        setActiveIndex(0);
-      } else if (e.key === 'End') {
-        e.preventDefault();
-        setActiveIndex(Math.max(0, enabledCommands.length - 1));
-      } else if (e.key === 'Enter') {
-        e.preventDefault();
-        const activeCmd = enabledCommands[activeIndex];
-        if (activeCmd) {
-          onSelectCommand(activeCmd);
-        }
-      } else if (e.key === 'Escape') {
-        e.preventDefault();
-        setOpen(false);
-      }
-    };
-
+  ({ placeholder = 'Type a command or search...', className = '', value, onClear, ...rest }, ref) => {
     return (
       <div className="skyra-command-palette-input-wrap">
         <Search size={16} aria-hidden="true" className="skyra-command-palette-search-icon" />
         <input
-          ref={(node) => {
-            (inputRef as React.MutableRefObject<HTMLInputElement | null>).current = node;
-            if (typeof ref === 'function') ref(node);
-            else if (ref) (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
-          }}
-          id={inputId}
+          ref={ref}
           type="text"
           role="combobox"
           aria-autocomplete="list"
-          aria-expanded="true"
-          aria-controls={listId}
-          aria-activedescendant={
-            enabledCommands[activeIndex] ? `cmd-item-${enabledCommands[activeIndex].id}` : undefined
-          }
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setActiveIndex(0);
-          }}
-          onKeyDown={handleKeyDown}
+          value={value}
           placeholder={placeholder}
           className={['skyra-command-palette-input', className].filter(Boolean).join(' ')}
           autoComplete="off"
@@ -337,14 +215,10 @@ export const CommandPaletteInput = forwardRef<HTMLInputElement, CommandPaletteIn
           spellCheck="false"
           {...rest}
         />
-        {query && (
+        {value && onClear && (
           <button
             type="button"
-            onClick={() => {
-              setQuery('');
-              setActiveIndex(0);
-              inputRef.current?.focus();
-            }}
+            onClick={onClear}
             aria-label="Clear search"
             className="skyra-command-palette-clear-btn"
           >
@@ -357,19 +231,15 @@ export const CommandPaletteInput = forwardRef<HTMLInputElement, CommandPaletteIn
 );
 CommandPaletteInput.displayName = 'CommandPaletteInput';
 
-/* ─── CommandPaletteList ─── */
-
 export interface CommandPaletteListProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
 }
 
 export const CommandPaletteList = forwardRef<HTMLDivElement, CommandPaletteListProps>(
   ({ children, className = '', ...rest }, ref) => {
-    const { listId } = useCommandPalette();
     return (
       <div
         ref={ref}
-        id={listId}
         role="listbox"
         aria-label="Commands"
         className={['skyra-command-palette-list', className].filter(Boolean).join(' ')}
@@ -382,8 +252,6 @@ export const CommandPaletteList = forwardRef<HTMLDivElement, CommandPaletteListP
 );
 CommandPaletteList.displayName = 'CommandPaletteList';
 
-/* ─── CommandPaletteGroup ─── */
-
 export interface CommandPaletteGroupProps extends HTMLAttributes<HTMLDivElement> {
   heading: string;
   children?: ReactNode;
@@ -391,18 +259,14 @@ export interface CommandPaletteGroupProps extends HTMLAttributes<HTMLDivElement>
 
 export const CommandPaletteGroup = forwardRef<HTMLDivElement, CommandPaletteGroupProps>(
   ({ heading, children, className = '', ...rest }, ref) => {
-    const headingId = useId();
     return (
       <div
         ref={ref}
         role="group"
-        aria-labelledby={headingId}
         className={['skyra-command-palette-group', className].filter(Boolean).join(' ')}
         {...rest}
       >
-        <div id={headingId} className="skyra-command-palette-group-heading">
-          {heading}
-        </div>
+        <div className="skyra-command-palette-group-heading">{heading}</div>
         {children}
       </div>
     );
@@ -410,45 +274,23 @@ export const CommandPaletteGroup = forwardRef<HTMLDivElement, CommandPaletteGrou
 );
 CommandPaletteGroup.displayName = 'CommandPaletteGroup';
 
-/* ─── CommandPaletteItem ─── */
-
 export interface CommandPaletteItemProps extends HTMLAttributes<HTMLDivElement> {
   command: Command;
   children?: ReactNode;
+  selected?: boolean;
 }
 
 export const CommandPaletteItem = forwardRef<HTMLDivElement, CommandPaletteItemProps>(
-  ({ command, children, className = '', ...rest }, ref) => {
-    const { activeIndex, setActiveIndex, onSelectCommand, filteredCommands } = useCommandPalette();
-
-    const enabledCommands = filteredCommands.filter((c) => !c.disabled);
-    const enabledIndex = enabledCommands.findIndex((c) => c.id === command.id);
-    const isSelected = enabledIndex === activeIndex;
-
-    const handleClick = () => {
-      if (!command.disabled) {
-        onSelectCommand(command);
-      }
-    };
-
-    const handleMouseEnter = () => {
-      if (!command.disabled && enabledIndex >= 0) {
-        setActiveIndex(enabledIndex);
-      }
-    };
-
+  ({ command, children, selected = false, className = '', ...rest }, ref) => {
     return (
       <div
         ref={ref}
-        id={`cmd-item-${command.id}`}
         role="option"
-        aria-selected={isSelected}
+        aria-selected={selected}
         aria-disabled={command.disabled ? 'true' : undefined}
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
         className={[
           'skyra-command-palette-item',
-          isSelected ? 'skyra-command-palette-item--selected' : '',
+          selected ? 'skyra-command-palette-item--selected' : '',
           command.disabled ? 'skyra-command-palette-item--disabled' : '',
           className,
         ]
@@ -484,8 +326,6 @@ export const CommandPaletteItem = forwardRef<HTMLDivElement, CommandPaletteItemP
 );
 CommandPaletteItem.displayName = 'CommandPaletteItem';
 
-/* ─── CommandPaletteEmpty ─── */
-
 export interface CommandPaletteEmptyProps extends HTMLAttributes<HTMLDivElement> {
   message?: string;
 }
@@ -508,13 +348,9 @@ export function CommandPaletteEmpty({
   );
 }
 
-/* ─── CommandPaletteSeparator ─── */
-
 export function CommandPaletteSeparator({ className = '' }: { className?: string }) {
   return <hr className={['skyra-command-palette-separator', className].filter(Boolean).join(' ')} />;
 }
-
-/* ─── CommandPaletteFooter ─── */
 
 export function CommandPaletteFooter({ className = '' }: { className?: string }) {
   return (

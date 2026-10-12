@@ -31,6 +31,7 @@ import collapsiblePkg from '../../../packages/collapsible/package.json';
 import popoverPkg from '../../../packages/popover/package.json';
 import dropdownMenuPkg from '../../../packages/dropdown-menu/package.json';
 import contextMenuPkg from '../../../packages/context-menu/package.json';
+import commandPalettePkg from '../../../packages/command-palette/package.json';
 
 // ---------------------------------------------------------------------------
 // Runtime classification — authored once, based on actual package architecture
@@ -64,6 +65,7 @@ const runtimeMap: Record<string, RuntimeCategory> = {
   '@skyra-tech-platform/popover':      'runtime-neutral',
   '@skyra-tech-platform/dropdown-menu': 'runtime-neutral',
   '@skyra-tech-platform/context-menu': 'runtime-neutral',
+  '@skyra-tech-platform/command-palette': 'runtime-neutral',
 };
 
 // ---------------------------------------------------------------------------
@@ -310,6 +312,18 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     usageNote: "import '@skyra-tech-platform/context-menu';",
     status: 'stable',
   },
+
+  // @skyra-tech-platform/command-palette
+  {
+    id: 'command-palette/palette',
+    packageId: '@skyra-tech-platform/command-palette',
+    name: 'Command Palette',
+    exportPath: '@skyra-tech-platform/command-palette',
+    runtime: 'runtime-neutral',
+    description: 'Framework-agnostic enterprise command palette overlay Web Component with interactive search filtering, group headings, keyboard navigation, accessible listbox semantics, and backdrop dismissal.',
+    usageNote: "import '@skyra-tech-platform/command-palette';",
+    status: 'stable',
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -329,7 +343,7 @@ export function bootstrapRegistry() {
     notificationPkg, toastPkg, tabsPkg, loaderPkg,
     buttonPkg, checkboxPkg, inputPkg, radioPkg, switchPkg, textareaPkg,
     dynamicSelectPkg, dateTimePkg, pdfViewerPkg, accordionPkg, collapsiblePkg,
-    popoverPkg, dropdownMenuPkg, contextMenuPkg
+    popoverPkg, dropdownMenuPkg, contextMenuPkg, commandPalettePkg
   ];
 
   packages.forEach((pkg) => {
