@@ -21,6 +21,8 @@ const nextConfig: NextConfig = {
     '@skyra-tech-platform/loader',
     '@skyra-tech-platform/accordion',
     '@skyra-tech-platform/collapsible',
+    '@skyra-tech-platform/popover',
+    '@skyra-tech-platform/dropdown-menu',
   ],
   async redirects() {
     return [
@@ -37,6 +39,16 @@ const nextConfig: NextConfig = {
       {
         source: '/ui-components/collapsible',
         destination: '/components/disclosure/collapsible',
+        permanent: true,
+      },
+      {
+        source: '/ui-components/popover',
+        destination: '/components/overlays/popover',
+        permanent: true,
+      },
+      {
+        source: '/ui-components/dropdown-menu',
+        destination: '/components/overlays/dropdown-menu',
         permanent: true,
       },
     ];

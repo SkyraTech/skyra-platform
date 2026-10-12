@@ -1,17 +1,20 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useId, useCallback, ReactNode } from 'react';
-import { createPortal } from 'react-dom';
-import { useFloatingPosition, FloatingPlacement, FloatingAlign } from './useFloatingPosition';
+import React, { useRef, useEffect, ReactNode } from 'react';
+import '@skyra-tech-platform/dropdown-menu';
+import type { SkyraDropdownMenuElement } from '@skyra-tech-platform/dropdown-menu';
+import type { PopoverPlacement, PopoverAlign } from '@skyra-tech-platform/popover';
 import {
   MenuContext,
-  MenuContent,
   MenuItem,
   MenuGroup,
   MenuSeparator,
   CheckboxMenuItem,
   RadioMenuItem,
 } from './MenuPrimitives';
+
+type FloatingPlacement = PopoverPlacement;
+type FloatingAlign = PopoverAlign;
 
 export interface DropdownMenuItemConfig {
   id?: string;
@@ -74,8 +77,8 @@ export interface DropdownMenuProps {
 /**
  * @skyra/ui DropdownMenu
  *
- * Action menu triggered by a button with full keyboard navigation (ArrowUp/Down, Home/End, Enter, Escape),
- * viewport collision flipping, focus restoration, groups, icons, destructive states, and checkable items.
+ * Thin framework adapter delegating directly to the canonical
+ * `@skyra-tech-platform/dropdown-menu` (`<skyra-dropdown-menu>`) Custom Element.
  */
 export function DropdownMenu({
   trigger,
@@ -99,140 +102,80 @@ export function DropdownMenu({
   contentClassName = '',
   ariaLabel = 'Actions menu',
 }: DropdownMenuProps) {
+  const menuRef = useRef<SkyraDropdownMenuElement>(null);
   const isControlled = controlledOpen !== undefined;
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const isOpen = isControlled ? Boolean(controlledOpen) : uncontrolledOpen;
 
-  const triggerRef = useRef<HTMLDivElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const menuId = useId();
+  // Initialize uncontrolled defaultOpen
+  useEffect(() => {
+    const el = menuRef.current;
+    if (el && !isControlled && defaultOpen) {
+      el.open = true;
+    }
+  }, [defaultOpen, isControlled]);
 
-  const handleOpenChange = useCallback(
-    (nextOpen: boolean) => {
-      if (disabled) return;
-      if (!isControlled) {
-        setUncontrolledOpen(nextOpen);
-      }
-      onOpenChange?.(nextOpen);
-    },
-    [disabled, isControlled, onOpenChange]
-  );
+  // Synchronize controlled open state
+  useEffect(() => {
+    const el = menuRef.current;
+    if (el && isControlled) {
+      el.open = Boolean(controlledOpen);
+    }
+  }, [controlledOpen, isControlled]);
 
-  const toggleOpen = () => {
-    if (disabled) return;
-    handleOpenChange(!isOpen);
-  };
-
-  const closeMenu = useCallback(() => {
-    handleOpenChange(false);
-  }, [handleOpenChange]);
-
-  const { top, left, actualPlacement } = useFloatingPosition({
-    anchor: triggerRef,
-    floating: menuRef,
-    open: isOpen,
+  // Synchronize dynamic properties directly to custom element
+  useEffect(() => {
+    const el = menuRef.current;
+    if (!el) return;
+    el.placement = placement;
+    el.align = align;
+    el.offset = offset;
+    el.viewportPadding = viewportPadding;
+    el.closeOnSelect = closeOnSelect;
+    el.closeOnOutsideClick = closeOnOutsideClick;
+    el.closeOnEscape = closeOnEscape;
+    el.disabled = disabled;
+    if (width !== undefined) el.menuWidth = width;
+    if (maxWidth !== undefined) el.menuMaxWidth = maxWidth;
+    if (minWidth !== undefined) el.menuMinWidth = minWidth;
+    if (ariaLabel) el.ariaLabel = ariaLabel;
+  }, [
     placement,
     align,
     offset,
     viewportPadding,
-  });
+    closeOnSelect,
+    closeOnOutsideClick,
+    closeOnEscape,
+    disabled,
+    width,
+    maxWidth,
+    minWidth,
+    ariaLabel,
+  ]);
 
-  // Handle outside click
+  // Subscribe to canonical custom element events
   useEffect(() => {
-    if (!isOpen || !closeOnOutsideClick) return;
+    const el = menuRef.current;
+    if (!el) return;
 
-    const handlePointerDown = (e: MouseEvent | TouchEvent) => {
-      const target = e.target as Node;
-      if (
-        triggerRef.current?.contains(target) ||
-        menuRef.current?.contains(target)
-      ) {
-        return;
-      }
-      closeMenu();
+    const handleChange = (e: Event) => {
+      const customEvt = e as CustomEvent<{ open: boolean }>;
+      onOpenChange?.(customEvt.detail.open);
     };
 
-    document.addEventListener('mousedown', handlePointerDown);
-    document.addEventListener('touchstart', handlePointerDown);
-
+    el.addEventListener('skyra-dropdown-change', handleChange);
+    el.addEventListener('skyra-dropdown-menu-change', handleChange);
     return () => {
-      document.removeEventListener('mousedown', handlePointerDown);
-      document.removeEventListener('touchstart', handlePointerDown);
+      el.removeEventListener('skyra-dropdown-change', handleChange);
+      el.removeEventListener('skyra-dropdown-menu-change', handleChange);
     };
-  }, [isOpen, closeOnOutsideClick, closeMenu]);
+  }, [onOpenChange]);
 
-  // Focus first item upon opening
-  useEffect(() => {
-    if (isOpen && menuRef.current) {
-      const firstEnabledItem = menuRef.current.querySelector<HTMLButtonElement>(
-        'button[role^="menuitem"]:not([disabled]):not([aria-disabled="true"])'
-      );
-      firstEnabledItem?.focus();
-    }
-  }, [isOpen]);
-
-  // Keyboard navigation inside menu
-  const handleMenuKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (!isOpen) return;
-
-    if (e.key === 'Escape' && closeOnEscape) {
-      e.preventDefault();
-      closeMenu();
-      const triggerButton = triggerRef.current?.querySelector<HTMLElement>('button, [tabindex="0"], a') || triggerRef.current;
-      triggerButton?.focus();
-      return;
-    }
-
-    const getEnabledItems = () => {
-      if (!menuRef.current) return [];
-      return Array.from(
-        menuRef.current.querySelectorAll<HTMLButtonElement>(
-          'button[role^="menuitem"]:not([disabled]):not([aria-disabled="true"])'
-        )
-      );
-    };
-
-    const itemsList = getEnabledItems();
-    if (!itemsList.length) return;
-
-    const activeEl = document.activeElement as HTMLButtonElement;
-    const currentIndex = itemsList.indexOf(activeEl);
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      const nextIndex = currentIndex < itemsList.length - 1 ? currentIndex + 1 : 0;
-      itemsList[nextIndex]?.focus();
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      const prevIndex = currentIndex > 0 ? currentIndex - 1 : itemsList.length - 1;
-      itemsList[prevIndex]?.focus();
-    } else if (e.key === 'Home') {
-      e.preventDefault();
-      itemsList[0]?.focus();
-    } else if (e.key === 'End') {
-      e.preventDefault();
-      itemsList[itemsList.length - 1]?.focus();
-    } else if (e.key === 'Tab') {
-      // Close on tab out
-      closeMenu();
+  const closeMenu = () => {
+    if (menuRef.current) {
+      menuRef.current.hide('select');
     }
   };
 
-  const handleTriggerKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (disabled) return;
-
-    if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-      if (!isOpen) {
-        e.preventDefault();
-        handleOpenChange(true);
-      }
-    } else if (e.key === 'Escape' && isOpen) {
-      e.preventDefault();
-      closeMenu();
-    }
-  };
-
-  // Helper to render declarative items if passed
   const renderDeclarativeItems = (itemsToRender: DropdownMenuItemConfig[]) => {
     return itemsToRender.map((item, idx) => {
       if (item.type === 'separator') {
@@ -240,7 +183,10 @@ export function DropdownMenu({
       }
       if (item.type === 'group' && item.items) {
         return (
-          <MenuGroup key={item.id ?? `group-${idx}`} label={typeof item.label === 'string' ? item.label : undefined}>
+          <MenuGroup
+            key={item.id ?? `group-${idx}`}
+            label={typeof item.label === 'string' ? item.label : undefined}
+          >
             {renderDeclarativeItems(item.items)}
           </MenuGroup>
         );
@@ -289,40 +235,27 @@ export function DropdownMenu({
 
   return (
     <MenuContext.Provider value={{ onItemSelect: closeMenu, closeOnSelect }}>
-      <div
-        ref={triggerRef}
-        className={`skyra-dropdown-trigger-wrapper ${className}`}
-        onClick={toggleOpen}
-        onKeyDown={handleTriggerKeyDown}
-        aria-expanded={isOpen}
-        aria-haspopup="menu"
-        aria-controls={isOpen ? menuId : undefined}
-        style={{ display: 'inline-block' }}
+      <skyra-dropdown-menu
+        ref={menuRef}
+        placement={placement}
+        align={align}
+        offset={offset}
+        viewport-padding={viewportPadding}
+        close-on-select={closeOnSelect ? undefined : 'false'}
+        close-on-outside-click={closeOnOutsideClick ? undefined : 'false'}
+        close-on-escape={closeOnEscape ? undefined : 'false'}
+        disabled={disabled || undefined}
+        menu-width={width}
+        menu-min-width={minWidth}
+        menu-max-width={maxWidth}
+        aria-label={ariaLabel}
+        class={`skyra-dropdown-menu-host ${className}`}
       >
-        {trigger}
-      </div>
-
-      {isOpen && typeof document !== 'undefined' && createPortal(
-        <div
-          ref={menuRef}
-          id={menuId}
-          className={`skyra-dropdown-menu-wrapper skyra-dropdown-menu--${actualPlacement} ${contentClassName}`}
-          onKeyDown={handleMenuKeyDown}
-          style={{
-            position: 'fixed',
-            top: `${top}px`,
-            left: `${left}px`,
-            zIndex: 'var(--skyra-z-dropdown, 1000)',
-            width: width ? (typeof width === 'number' ? `${width}px` : width) : undefined,
-            minWidth: typeof minWidth === 'number' ? `${minWidth}px` : minWidth,
-            maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth }}
-        >
-          <MenuContent ariaLabel={ariaLabel}>
-            {items ? renderDeclarativeItems(items) : children}
-          </MenuContent>
-        </div>,
-        document.body
-      )}
+        <div slot="trigger" className="skyra-dropdown-trigger-wrapper" style={{ display: 'inline-block' }}>
+          {trigger}
+        </div>
+        {items ? renderDeclarativeItems(items) : children}
+      </skyra-dropdown-menu>
     </MenuContext.Provider>
   );
 }

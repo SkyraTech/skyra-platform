@@ -80,6 +80,8 @@ const COMPONENT_GROUPS = [
     description: 'Modals, popovers, and contextual layers.',
     items: [
       { packageId: '@skyra-tech-platform/dialog', href: '/components/overlays/dialog', label: 'Dialog', desc: 'Accessible modal dialog wrapper.' },
+      { packageId: '@skyra-tech-platform/popover', href: '/components/overlays/popover', label: 'Popover', desc: 'Framework-independent anchored rich content overlay with collision detection.' },
+      { packageId: '@skyra-tech-platform/dropdown-menu', href: '/components/overlays/dropdown-menu', label: 'Dropdown Menu', desc: 'Framework-independent action menu with roving keyboard navigation and checkable items.' },
     ]
   },
   {

@@ -49,6 +49,8 @@ export function buildSearchIndex(): SearchDocument[] {
       'data-export':   '/docs/data-export',
       'notification':  '/components/feedback/notification',
       'toast':         '/components/feedback/toast',
+      'popover':       '/components/overlays/popover',
+      'dropdown-menu': '/components/overlays/dropdown-menu',
     };
     
     documents.push({
@@ -79,6 +81,8 @@ export function buildSearchIndex(): SearchDocument[] {
       'data-export':   '/docs/data-export',
       'notification':  '/components/feedback/notification',
       'toast':         '/components/feedback/toast',
+      'popover':       '/components/overlays/popover',
+      'dropdown-menu': '/components/overlays/dropdown-menu',
     };
 
     documents.push({
@@ -111,6 +115,8 @@ export function buildSearchIndex(): SearchDocument[] {
       'data-export':   '/docs/data-export',
       'notification':  '/components/feedback/notification',
       'toast':         '/components/feedback/toast',
+      'popover':       '/components/overlays/popover',
+      'dropdown-menu': '/components/overlays/dropdown-menu',
     };
 
     documents.push({
@@ -163,6 +169,8 @@ export function buildSearchIndex(): SearchDocument[] {
       'date-time':     '/components/forms/date-time',
       'accordion':     '/components/disclosure/accordion',
       'collapsible':   '/components/disclosure/collapsible',
+      'popover':       '/components/overlays/popover',
+      'dropdown-menu': '/components/overlays/dropdown-menu',
     };
 
     documents.push({
@@ -319,6 +327,24 @@ export function buildSearchIndex(): SearchDocument[] {
     description: 'Framework-independent QR generation and styled rendering Web Component.',
     href: '/components/qr',
     keywords: ['qr', 'qrcode', 'qr-code', 'skyra-tech-qr-code', '@skyra-tech-platform/qr', 'web component', 'svg'],
+  });
+
+  documents.push({
+    id: 'component-popover',
+    type: 'foundation',
+    title: 'Popover',
+    description: 'Framework-independent anchored rich content overlay Web Component with collision detection and focus management.',
+    href: '/components/overlays/popover',
+    keywords: ['popover', 'skyra-popover', 'skyra-tech-popover', '@skyra-tech-platform/popover', 'Overlays', 'floating', 'anchor', 'overlay', 'web component'],
+  });
+
+  documents.push({
+    id: 'component-dropdown-menu',
+    type: 'foundation',
+    title: 'Dropdown Menu',
+    description: 'Framework-independent action menu overlay Web Component with roving keyboard navigation, collision detection, and checkable items.',
+    href: '/components/overlays/dropdown-menu',
+    keywords: ['dropdown-menu', 'dropdown', 'menu', 'skyra-dropdown-menu', 'skyra-tech-dropdown-menu', '@skyra-tech-platform/dropdown-menu', 'Overlays', 'actions', 'menuitem', 'web component'],
   });
 
   // Releases

@@ -28,6 +28,8 @@ import dateTimePkg from '../../../packages/date-time/package.json';
 import pdfViewerPkg from '../../../packages/pdf-viewer/package.json';
 import accordionPkg from '../../../packages/accordion/package.json';
 import collapsiblePkg from '../../../packages/collapsible/package.json';
+import popoverPkg from '../../../packages/popover/package.json';
+import dropdownMenuPkg from '../../../packages/dropdown-menu/package.json';
 
 // ---------------------------------------------------------------------------
 // Runtime classification — authored once, based on actual package architecture
@@ -58,6 +60,8 @@ const runtimeMap: Record<string, RuntimeCategory> = {
   '@skyra-tech-platform/pdf-viewer':   'mixed',
   '@skyra-tech-platform/accordion':    'runtime-neutral',
   '@skyra-tech-platform/collapsible':  'runtime-neutral',
+  '@skyra-tech-platform/popover':      'runtime-neutral',
+  '@skyra-tech-platform/dropdown-menu': 'runtime-neutral',
 };
 
 // ---------------------------------------------------------------------------
@@ -268,6 +272,30 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     usageNote: "import { emailSchema, orgSchema } from '@skyra-tech-platform/validation';",
     status: 'stable',
   },
+
+  // @skyra-tech-platform/popover
+  {
+    id: 'popover/overlay',
+    packageId: '@skyra-tech-platform/popover',
+    name: 'Anchored Popover Overlay',
+    exportPath: '@skyra-tech-platform/popover',
+    runtime: 'runtime-neutral',
+    description: 'Framework-agnostic anchored rich content overlay Web Component with collision detection, boundary protection, focus restoration, and keyboard dismissal.',
+    usageNote: "import '@skyra-tech-platform/popover';",
+    status: 'stable',
+  },
+
+  // @skyra-tech-platform/dropdown-menu
+  {
+    id: 'dropdown-menu/menu',
+    packageId: '@skyra-tech-platform/dropdown-menu',
+    name: 'Dropdown Menu',
+    exportPath: '@skyra-tech-platform/dropdown-menu',
+    runtime: 'runtime-neutral',
+    description: 'Framework-agnostic action menu overlay Web Component with roving keyboard navigation, collision detection, focus restoration, groups, icons, destructive states, and checkable items.',
+    usageNote: "import '@skyra-tech-platform/dropdown-menu';",
+    status: 'stable',
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -286,7 +314,8 @@ export function bootstrapRegistry() {
     dialogsPkg, dynamicFormPkg, qrPkg, utilsPkg, validationPkg,
     notificationPkg, toastPkg, tabsPkg, loaderPkg,
     buttonPkg, checkboxPkg, inputPkg, radioPkg, switchPkg, textareaPkg,
-    dynamicSelectPkg, dateTimePkg, pdfViewerPkg, accordionPkg, collapsiblePkg
+    dynamicSelectPkg, dateTimePkg, pdfViewerPkg, accordionPkg, collapsiblePkg,
+    popoverPkg, dropdownMenuPkg
   ];
 
   packages.forEach((pkg) => {

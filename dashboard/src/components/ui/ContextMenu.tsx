@@ -122,8 +122,8 @@ export function ContextMenu({
   // Focus first menu item on open
   useEffect(() => {
     if (isOpen && menuRef.current) {
-      const firstEnabledItem = menuRef.current.querySelector<HTMLButtonElement>(
-        'button[role^="menuitem"]:not([disabled]):not([aria-disabled="true"])'
+      const firstEnabledItem = menuRef.current.querySelector<HTMLElement>(
+        'skyra-dropdown-item:not([disabled]), button[role^="menuitem"]:not([disabled]):not([aria-disabled="true"])'
       );
       firstEnabledItem?.focus();
     }
@@ -143,8 +143,8 @@ export function ContextMenu({
     const getEnabledItems = () => {
       if (!menuRef.current) return [];
       return Array.from(
-        menuRef.current.querySelectorAll<HTMLButtonElement>(
-          'button[role^="menuitem"]:not([disabled]):not([aria-disabled="true"])'
+        menuRef.current.querySelectorAll<HTMLElement>(
+          'skyra-dropdown-item:not([disabled]), button[role^="menuitem"]:not([disabled]):not([aria-disabled="true"])'
         )
       );
     };
@@ -152,7 +152,7 @@ export function ContextMenu({
     const itemsList = getEnabledItems();
     if (!itemsList.length) return;
 
-    const activeEl = document.activeElement as HTMLButtonElement;
+    const activeEl = document.activeElement as HTMLElement;
     const currentIndex = itemsList.indexOf(activeEl);
 
     if (e.key === 'ArrowDown') {

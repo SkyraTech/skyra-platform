@@ -1,7 +1,11 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useId, useCallback } from 'react';
-import { useFloatingPosition, FloatingPlacement, FloatingAlign } from './useFloatingPosition';
+import React, { useRef, useEffect } from 'react';
+import '@skyra-tech-platform/popover';
+import type { PopoverPlacement, PopoverAlign, SkyraPopoverElement } from '@skyra-tech-platform/popover';
+
+export type FloatingPlacement = PopoverPlacement;
+export type FloatingAlign = PopoverAlign;
 
 export interface PopoverProps {
   /** Trigger element that toggles the popover */
@@ -15,9 +19,9 @@ export interface PopoverProps {
   /** Callback fired when open state changes */
   onOpenChange?: (open: boolean) => void;
   /** Preferred placement relative to trigger */
-  placement?: FloatingPlacement;
+  placement?: PopoverPlacement;
   /** Cross-axis alignment */
-  align?: FloatingAlign;
+  align?: PopoverAlign;
   /** Distance from trigger in pixels */
   offset?: number;
   /** Minimum distance from viewport edge in pixels */
@@ -45,11 +49,10 @@ export interface PopoverProps {
 }
 
 /**
- * @skyra/ui Popover
+ * Popover React Adapter
  *
- * Reusable anchored rich content overlay with collision detection,
- * viewport boundary protection, focus restoration, keyboard dismissal,
- * and dark mode support.
+ * Thin framework adapter delegating directly to the canonical
+ * `@skyra-tech-platform/popover` (`<skyra-popover>`) Custom Element.
  */
 export function Popover({
   trigger,
@@ -72,118 +75,92 @@ export function Popover({
   restoreFocus = true,
   ariaLabel,
 }: PopoverProps) {
+  const popoverRef = useRef<SkyraPopoverElement>(null);
   const isControlled = controlledOpen !== undefined;
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const isOpen = isControlled ? Boolean(controlledOpen) : uncontrolledOpen;
 
-  const triggerRef = useRef<HTMLDivElement>(null);
-  const floatingRef = useRef<HTMLDivElement>(null);
-  const popoverId = useId();
+  // Initialize uncontrolled defaultOpen
+  useEffect(() => {
+    const el = popoverRef.current;
+    if (el && !isControlled && defaultOpen) {
+      el.open = true;
+    }
+  }, [defaultOpen, isControlled]);
 
-  const handleOpenChange = useCallback(
-    (nextOpen: boolean) => {
-      if (disabled) return;
-      if (!isControlled) {
-        setUncontrolledOpen(nextOpen);
-      }
-      onOpenChange?.(nextOpen);
-    },
-    [disabled, isControlled, onOpenChange]
-  );
+  // Synchronize controlled open state
+  useEffect(() => {
+    const el = popoverRef.current;
+    if (el && isControlled) {
+      el.open = Boolean(controlledOpen);
+    }
+  }, [controlledOpen, isControlled]);
 
-  const toggleOpen = () => {
-    if (disabled) return;
-    handleOpenChange(!isOpen);
-  };
-
-  const { top, left, actualPlacement } = useFloatingPosition({
-    anchor: triggerRef,
-    floating: floatingRef,
-    open: isOpen,
+  // Synchronize dynamic properties directly to element
+  useEffect(() => {
+    const el = popoverRef.current;
+    if (!el) return;
+    el.placement = placement;
+    el.align = align;
+    el.offset = offset;
+    el.viewportPadding = viewportPadding;
+    el.closeOnOutsideClick = closeOnOutsideClick;
+    el.closeOnEscape = closeOnEscape;
+    el.disabled = disabled;
+    el.restoreFocus = restoreFocus;
+    if (width !== undefined) el.panelWidth = width;
+    if (maxWidth !== undefined) el.panelMaxWidth = maxWidth;
+    if (minWidth !== undefined) el.panelMinWidth = minWidth;
+    if (ariaLabel) el.ariaLabel = ariaLabel;
+  }, [
     placement,
     align,
     offset,
     viewportPadding,
-  });
+    closeOnOutsideClick,
+    closeOnEscape,
+    disabled,
+    restoreFocus,
+    width,
+    maxWidth,
+    minWidth,
+    ariaLabel,
+  ]);
 
-  // Handle outside click
+  // Subscribe to canonical custom element events
   useEffect(() => {
-    if (!isOpen || !closeOnOutsideClick) return;
+    const el = popoverRef.current;
+    if (!el) return;
 
-    const handlePointerDown = (e: MouseEvent | TouchEvent) => {
-      const target = e.target as Node;
-      if (
-        triggerRef.current?.contains(target) ||
-        floatingRef.current?.contains(target)
-      ) {
-        return;
-      }
-      handleOpenChange(false);
+    const handleChange = (e: Event) => {
+      const customEvt = e as CustomEvent<{ open: boolean }>;
+      onOpenChange?.(customEvt.detail.open);
     };
 
-    document.addEventListener('mousedown', handlePointerDown);
-    document.addEventListener('touchstart', handlePointerDown);
-
+    el.addEventListener('skyra-popover-change', handleChange);
     return () => {
-      document.removeEventListener('mousedown', handlePointerDown);
-      document.removeEventListener('touchstart', handlePointerDown);
+      el.removeEventListener('skyra-popover-change', handleChange);
     };
-  }, [isOpen, closeOnOutsideClick, handleOpenChange]);
-
-  // Handle Escape key
-  useEffect(() => {
-    if (!isOpen || !closeOnEscape) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        handleOpenChange(false);
-        if (restoreFocus) {
-          const triggerEl = triggerRef.current?.querySelector<HTMLElement>('button, [tabindex="0"], input, a') || triggerRef.current;
-          triggerEl?.focus();
-        }
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, closeOnEscape, handleOpenChange, restoreFocus]);
+  }, [onOpenChange]);
 
   return (
-    <>
-      <div
-        ref={triggerRef}
-        className={`skyra-popover-trigger-wrapper ${className}`}
-        onClick={toggleOpen}
-        aria-expanded={isOpen}
-        aria-haspopup="dialog"
-        aria-controls={isOpen ? popoverId : undefined}
-        style={{ display: 'inline-block' }}
-      >
+    <skyra-popover
+      ref={popoverRef}
+      placement={placement}
+      align={align}
+      offset={offset}
+      viewport-padding={viewportPadding}
+      close-on-outside-click={closeOnOutsideClick ? undefined : 'false'}
+      close-on-escape={closeOnEscape ? undefined : 'false'}
+      disabled={disabled || undefined}
+      restore-focus={restoreFocus ? undefined : 'false'}
+      panel-width={width}
+      panel-max-width={maxWidth}
+      panel-min-width={minWidth}
+      aria-label={ariaLabel}
+    >
+      <div slot="trigger" className={`skyra-popover-trigger-wrapper ${className}`}>
         {trigger}
       </div>
-
-      {isOpen && (
-        <div
-          ref={floatingRef}
-          id={popoverId}
-          role="dialog"
-          aria-label={ariaLabel}
-          aria-modal={false}
-          className={`skyra-popover-content skyra-popover--${actualPlacement} ${contentClassName}`}
-          style={{
-            position: 'fixed',
-            top: `${top}px`,
-            left: `${left}px`,
-            zIndex: 'var(--skyra-z-popover, 1000)',
-            width: width ? (typeof width === 'number' ? `${width}px` : width) : undefined,
-            maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
-            minWidth: typeof minWidth === 'number' ? `${minWidth}px` : minWidth }}
-          tabIndex={-1}
-        >
-          {content}
-        </div>
-      )}
-    </>
+      <div className={`skyra-popover-content ${contentClassName}`}>{content}</div>
+    </skyra-popover>
   );
 }

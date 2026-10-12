@@ -62,6 +62,16 @@ declare global {
         'skyra-accordion': any;
         'skyra-accordion-item': any;
         'skyra-collapsible': any;
+        'skyra-popover': any;
+        'skyra-tech-popover': any;
+        'skyra-dropdown-menu': any;
+        'skyra-tech-dropdown-menu': any;
+        'skyra-dropdown-item': any;
+        'skyra-tech-dropdown-item': any;
+        'skyra-dropdown-separator': any;
+        'skyra-tech-dropdown-separator': any;
+        'skyra-dropdown-group': any;
+        'skyra-tech-dropdown-group': any;
       }
     }
   }
@@ -110,6 +120,16 @@ declare global {
       'skyra-accordion': any;
       'skyra-accordion-item': any;
       'skyra-collapsible': any;
+      'skyra-popover': any;
+      'skyra-tech-popover': any;
+      'skyra-dropdown-menu': any;
+      'skyra-tech-dropdown-menu': any;
+      'skyra-dropdown-item': any;
+      'skyra-tech-dropdown-item': any;
+      'skyra-dropdown-separator': any;
+      'skyra-tech-dropdown-separator': any;
+      'skyra-dropdown-group': any;
+      'skyra-tech-dropdown-group': any;
     }
   }
 }

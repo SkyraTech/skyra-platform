@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, ReactNode, forwardRef } from 'react';
-import { Check, Dot } from 'lucide-react';
+import '@skyra-tech-platform/dropdown-menu';
 
 export interface MenuContextValue {
   onItemSelect?: () => void;
@@ -50,12 +50,12 @@ export interface MenuItemProps {
   shortcut?: string;
   disabled?: boolean;
   destructive?: boolean;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e?: React.MouseEvent<HTMLElement>) => void;
   className?: string;
   title?: string;
 }
 
-export const MenuItem = forwardRef<HTMLButtonElement, MenuItemProps>(
+export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
   (
     {
       children,
@@ -72,7 +72,7 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemProps>(
   ) => {
     const { onItemSelect, closeOnSelect = true } = useContext(MenuContext);
 
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (e: React.MouseEvent<HTMLElement>) => {
       if (disabled) {
         e.preventDefault();
         return;
@@ -84,21 +84,20 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemProps>(
     };
 
     return (
-      <button
+      <skyra-dropdown-item
         ref={ref}
-        type="button"
-        role="menuitem"
-        aria-disabled={disabled}
-        disabled={disabled}
+        type="item"
+        disabled={disabled || undefined}
+        destructive={destructive || undefined}
+        shortcut={shortcut}
         title={title}
+        class={className}
         onClick={handleClick}
-        className={`skyra-menu-item ${destructive ? 'skyra-menu-item--destructive' : ''} ${className}`}
       >
-        {icon && <span className="skyra-menu-item-icon">{icon}</span>}
-        <span className="skyra-menu-item-label">{children}</span>
-        {shortcut && <span className="skyra-menu-item-shortcut">{shortcut}</span>}
-        {trailing && <span className="skyra-menu-item-trailing">{trailing}</span>}
-      </button>
+        {icon && <span slot="icon">{icon}</span>}
+        {children}
+        {trailing && <span slot="trailing">{trailing}</span>}
+      </skyra-dropdown-item>
     );
   }
 );
@@ -116,10 +115,9 @@ export interface MenuGroupProps {
 
 export function MenuGroup({ children, label, className = '' }: MenuGroupProps) {
   return (
-    <div role="group" aria-label={label} className={`skyra-menu-group ${className}`}>
-      {label && <div className="skyra-menu-group-label">{label}</div>}
+    <skyra-dropdown-group label={label} class={className}>
       {children}
-    </div>
+    </skyra-dropdown-group>
   );
 }
 
@@ -132,7 +130,7 @@ export interface MenuSeparatorProps {
 }
 
 export function MenuSeparator({ className = '' }: MenuSeparatorProps) {
-  return <div role="separator" aria-orientation="horizontal" className={`skyra-menu-separator ${className}`} />;
+  return <skyra-dropdown-separator class={className} />;
 }
 
 /* ============================================================
@@ -148,7 +146,7 @@ export interface CheckboxMenuItemProps {
   className?: string;
 }
 
-export const CheckboxMenuItem = forwardRef<HTMLButtonElement, CheckboxMenuItemProps>(
+export const CheckboxMenuItem = forwardRef<HTMLElement, CheckboxMenuItemProps>(
   (
     {
       children,
@@ -162,7 +160,7 @@ export const CheckboxMenuItem = forwardRef<HTMLButtonElement, CheckboxMenuItemPr
   ) => {
     const { onItemSelect } = useContext(MenuContext);
 
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (e: React.MouseEvent<HTMLElement>) => {
       if (disabled) return;
       e.preventDefault();
       onCheckedChange(!checked);
@@ -170,22 +168,17 @@ export const CheckboxMenuItem = forwardRef<HTMLButtonElement, CheckboxMenuItemPr
     };
 
     return (
-      <button
+      <skyra-dropdown-item
         ref={ref}
-        type="button"
-        role="menuitemcheckbox"
-        aria-checked={checked}
-        aria-disabled={disabled}
-        disabled={disabled}
+        type="checkbox"
+        checked={checked || undefined}
+        disabled={disabled || undefined}
+        shortcut={shortcut}
+        class={className}
         onClick={handleClick}
-        className={`skyra-menu-item skyra-menu-item--checkbox ${className}`}
       >
-        <span className="skyra-menu-item-check-indicator">
-          {checked && <Check size={14} strokeWidth={2.5} />}
-        </span>
-        <span className="skyra-menu-item-label">{children}</span>
-        {shortcut && <span className="skyra-menu-item-shortcut">{shortcut}</span>}
-      </button>
+        {children}
+      </skyra-dropdown-item>
     );
   }
 );
@@ -204,7 +197,7 @@ export interface RadioMenuItemProps {
   className?: string;
 }
 
-export const RadioMenuItem = forwardRef<HTMLButtonElement, RadioMenuItemProps>(
+export const RadioMenuItem = forwardRef<HTMLElement, RadioMenuItemProps>(
   (
     {
       children,
@@ -218,7 +211,7 @@ export const RadioMenuItem = forwardRef<HTMLButtonElement, RadioMenuItemProps>(
   ) => {
     const { onItemSelect } = useContext(MenuContext);
 
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (e: React.MouseEvent<HTMLElement>) => {
       if (disabled) return;
       e.preventDefault();
       onSelect();
@@ -226,22 +219,17 @@ export const RadioMenuItem = forwardRef<HTMLButtonElement, RadioMenuItemProps>(
     };
 
     return (
-      <button
+      <skyra-dropdown-item
         ref={ref}
-        type="button"
-        role="menuitemradio"
-        aria-checked={checked}
-        aria-disabled={disabled}
-        disabled={disabled}
+        type="radio"
+        checked={checked || undefined}
+        disabled={disabled || undefined}
+        shortcut={shortcut}
+        class={className}
         onClick={handleClick}
-        className={`skyra-menu-item skyra-menu-item--radio ${className}`}
       >
-        <span className="skyra-menu-item-radio-indicator">
-          {checked && <Dot size={20} strokeWidth={3} />}
-        </span>
-        <span className="skyra-menu-item-label">{children}</span>
-        {shortcut && <span className="skyra-menu-item-shortcut">{shortcut}</span>}
-      </button>
+        {children}
+      </skyra-dropdown-item>
     );
   }
 );
