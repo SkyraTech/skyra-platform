@@ -1,17 +1,19 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useId, useCallback, ReactNode } from 'react';
-import { useFloatingPosition, VirtualAnchor } from './useFloatingPosition';
+import React, { useRef, useEffect, ReactNode } from 'react';
+import '@skyra-tech-platform/context-menu';
+import type { SkyraContextMenuElement } from '@skyra-tech-platform/context-menu';
+import type { DropdownMenuItemConfig } from './DropdownMenu';
 import {
   MenuContext,
-  MenuContent,
   MenuItem,
   MenuGroup,
   MenuSeparator,
   CheckboxMenuItem,
   RadioMenuItem,
 } from './MenuPrimitives';
-import { DropdownMenuItemConfig } from './DropdownMenu';
+
+export type { DropdownMenuItemConfig };
 
 export interface ContextMenuProps {
   /** Target element wrapped by the context menu */
@@ -43,10 +45,10 @@ export interface ContextMenuProps {
 }
 
 /**
- * @skyra/ui ContextMenu
+ * Canonical @skyra-tech-platform/context-menu React Adapter
  *
- * Right-click contextual action menu anchored to pointer click coordinates with
- * viewport edge collision protection, keyboard navigation, and dark mode support.
+ * Thin framework adapter delegating directly to the canonical
+ * `@skyra-tech-platform/context-menu` (`<skyra-context-menu>`) Custom Element.
  */
 export function ContextMenu({
   children,
@@ -63,118 +65,37 @@ export function ContextMenu({
   contentClassName = '',
   ariaLabel = 'Context actions menu',
 }: ContextMenuProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [virtualAnchor, setVirtualAnchor] = useState<VirtualAnchor | null>(null);
+  const menuRef = useRef<SkyraContextMenuElement>(null);
 
-  const targetRef = useRef<HTMLDivElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const menuId = useId();
-
-  const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (disabled) return;
-    e.preventDefault();
-    e.stopPropagation();
-
-    setVirtualAnchor({ x: e.clientX, y: e.clientY });
-    setIsOpen(true);
-  };
-
-  const closeMenu = useCallback(() => {
-    setIsOpen(false);
-  }, []);
-
-  const { top, left, actualPlacement } = useFloatingPosition({
-    anchor: virtualAnchor,
-    floating: menuRef,
-    open: isOpen,
-    placement: 'bottom',
-    align: 'start',
-    offset: 2,
-    viewportPadding: 8,
-  });
-
-  // Handle outside click & window scroll to dismiss
+  // Synchronize dynamic properties directly to custom element
   useEffect(() => {
-    if (!isOpen) return;
+    const el = menuRef.current;
+    if (!el) return;
+    el.disabled = disabled;
+    el.closeOnOutsideClick = closeOnOutsideClick;
+    el.closeOnEscape = closeOnEscape;
+    el.closeOnSelect = closeOnSelect;
+    if (width !== undefined) el.menuWidth = width;
+    if (maxWidth !== undefined) el.menuMaxWidth = maxWidth;
+    if (minWidth !== undefined) el.menuMinWidth = minWidth;
+    if (ariaLabel) el.ariaLabel = ariaLabel;
+  }, [
+    disabled,
+    closeOnOutsideClick,
+    closeOnEscape,
+    closeOnSelect,
+    width,
+    maxWidth,
+    minWidth,
+    ariaLabel,
+  ]);
 
-    const handlePointerDown = (e: MouseEvent | TouchEvent) => {
-      const target = e.target as Node;
-      if (menuRef.current && !menuRef.current.contains(target)) {
-        closeMenu();
-      }
-    };
-
-    const handleScroll = () => {
-      closeMenu();
-    };
-
-    document.addEventListener('mousedown', handlePointerDown);
-    document.addEventListener('touchstart', handlePointerDown);
-    window.addEventListener('scroll', handleScroll, { capture: true, passive: true });
-
-    return () => {
-      document.removeEventListener('mousedown', handlePointerDown);
-      document.removeEventListener('touchstart', handlePointerDown);
-      window.removeEventListener('scroll', handleScroll, { capture: true });
-    };
-  }, [isOpen, closeMenu]);
-
-  // Focus first menu item on open
-  useEffect(() => {
-    if (isOpen && menuRef.current) {
-      const firstEnabledItem = menuRef.current.querySelector<HTMLElement>(
-        'skyra-dropdown-item:not([disabled]), button[role^="menuitem"]:not([disabled]):not([aria-disabled="true"])'
-      );
-      firstEnabledItem?.focus();
-    }
-  }, [isOpen]);
-
-  // Keyboard navigation
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (!isOpen) return;
-
-    if (e.key === 'Escape' && closeOnEscape) {
-      e.preventDefault();
-      closeMenu();
-      targetRef.current?.focus();
-      return;
-    }
-
-    const getEnabledItems = () => {
-      if (!menuRef.current) return [];
-      return Array.from(
-        menuRef.current.querySelectorAll<HTMLElement>(
-          'skyra-dropdown-item:not([disabled]), button[role^="menuitem"]:not([disabled]):not([aria-disabled="true"])'
-        )
-      );
-    };
-
-    const itemsList = getEnabledItems();
-    if (!itemsList.length) return;
-
-    const activeEl = document.activeElement as HTMLElement;
-    const currentIndex = itemsList.indexOf(activeEl);
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      const nextIndex = currentIndex < itemsList.length - 1 ? currentIndex + 1 : 0;
-      itemsList[nextIndex]?.focus();
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      const prevIndex = currentIndex > 0 ? currentIndex - 1 : itemsList.length - 1;
-      itemsList[prevIndex]?.focus();
-    } else if (e.key === 'Home') {
-      e.preventDefault();
-      itemsList[0]?.focus();
-    } else if (e.key === 'End') {
-      e.preventDefault();
-      itemsList[itemsList.length - 1]?.focus();
-    } else if (e.key === 'Tab') {
-      closeMenu();
+  const closeMenu = () => {
+    if (menuRef.current) {
+      menuRef.current.hide('select');
     }
   };
 
-  // Helper to render declarative items if passed
   const renderDeclarativeItems = (itemsToRender: DropdownMenuItemConfig[]) => {
     return itemsToRender.map((item, idx) => {
       if (item.type === 'separator') {
@@ -182,7 +103,10 @@ export function ContextMenu({
       }
       if (item.type === 'group' && item.items) {
         return (
-          <MenuGroup key={item.id ?? `group-${idx}`} label={typeof item.label === 'string' ? item.label : undefined}>
+          <MenuGroup
+            key={item.id ?? `group-${idx}`}
+            label={typeof item.label === 'string' ? item.label : undefined}
+          >
             {renderDeclarativeItems(item.items)}
           </MenuGroup>
         );
@@ -231,35 +155,25 @@ export function ContextMenu({
 
   return (
     <MenuContext.Provider value={{ onItemSelect: closeMenu, closeOnSelect }}>
-      <div
-        ref={targetRef}
-        className={`skyra-context-menu-target ${className}`}
-        onContextMenu={handleContextMenu}
-        tabIndex={0}
+      <skyra-context-menu
+        ref={menuRef}
+        disabled={disabled || undefined}
+        close-on-select={closeOnSelect ? undefined : 'false'}
+        close-on-outside-click={closeOnOutsideClick ? undefined : 'false'}
+        close-on-escape={closeOnEscape ? undefined : 'false'}
+        menu-width={width}
+        menu-min-width={minWidth}
+        menu-max-width={maxWidth}
+        aria-label={ariaLabel}
+        class={`skyra-context-menu-host ${className}`}
       >
-        {children}
-      </div>
-
-      {isOpen && (
-        <div
-          ref={menuRef}
-          id={menuId}
-          className={`skyra-context-menu-wrapper skyra-context-menu--${actualPlacement} ${contentClassName}`}
-          onKeyDown={handleKeyDown}
-          style={{
-            position: 'fixed',
-            top: `${top}px`,
-            left: `${left}px`,
-            zIndex: 'var(--skyra-z-dropdown, 1000)',
-            width: width ? (typeof width === 'number' ? `${width}px` : width) : undefined,
-            minWidth: typeof minWidth === 'number' ? `${minWidth}px` : minWidth,
-            maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth }}
-        >
-          <MenuContent ariaLabel={ariaLabel}>
-            {items ? renderDeclarativeItems(items) : content}
-          </MenuContent>
+        <div slot="target" className="skyra-context-menu-target-wrapper">
+          {children}
         </div>
-      )}
+        <div slot="menu" className={`skyra-context-menu-content ${contentClassName}`}>
+          {items ? renderDeclarativeItems(items) : content}
+        </div>
+      </skyra-context-menu>
     </MenuContext.Provider>
   );
 }

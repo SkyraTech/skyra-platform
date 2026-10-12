@@ -30,6 +30,7 @@ import accordionPkg from '../../../packages/accordion/package.json';
 import collapsiblePkg from '../../../packages/collapsible/package.json';
 import popoverPkg from '../../../packages/popover/package.json';
 import dropdownMenuPkg from '../../../packages/dropdown-menu/package.json';
+import contextMenuPkg from '../../../packages/context-menu/package.json';
 
 // ---------------------------------------------------------------------------
 // Runtime classification — authored once, based on actual package architecture
@@ -62,6 +63,7 @@ const runtimeMap: Record<string, RuntimeCategory> = {
   '@skyra-tech-platform/collapsible':  'runtime-neutral',
   '@skyra-tech-platform/popover':      'runtime-neutral',
   '@skyra-tech-platform/dropdown-menu': 'runtime-neutral',
+  '@skyra-tech-platform/context-menu': 'runtime-neutral',
 };
 
 // ---------------------------------------------------------------------------
@@ -296,6 +298,18 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     usageNote: "import '@skyra-tech-platform/dropdown-menu';",
     status: 'stable',
   },
+
+  // @skyra-tech-platform/context-menu
+  {
+    id: 'context-menu/menu',
+    packageId: '@skyra-tech-platform/context-menu',
+    name: 'Context Menu',
+    exportPath: '@skyra-tech-platform/context-menu',
+    runtime: 'runtime-neutral',
+    description: 'Framework-agnostic contextual action menu Web Component anchored to pointer coordinates or keyboard invocation with viewport collision detection, roving keyboard navigation, and focus restoration.',
+    usageNote: "import '@skyra-tech-platform/context-menu';",
+    status: 'stable',
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -315,7 +329,7 @@ export function bootstrapRegistry() {
     notificationPkg, toastPkg, tabsPkg, loaderPkg,
     buttonPkg, checkboxPkg, inputPkg, radioPkg, switchPkg, textareaPkg,
     dynamicSelectPkg, dateTimePkg, pdfViewerPkg, accordionPkg, collapsiblePkg,
-    popoverPkg, dropdownMenuPkg
+    popoverPkg, dropdownMenuPkg, contextMenuPkg
   ];
 
   packages.forEach((pkg) => {

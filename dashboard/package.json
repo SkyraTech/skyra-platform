@@ -16,6 +16,7 @@
     "@skyra-tech-platform/button": "workspace:*",
     "@skyra-tech-platform/collapsible": "workspace:*",
     "@skyra-tech-platform/checkbox": "workspace:*",
+    "@skyra-tech-platform/context-menu": "workspace:*",
     "@skyra-tech-platform/data-export": "workspace:*",
     "@skyra-tech-platform/data-table": "workspace:*",
     "@skyra-tech-platform/date-time": "workspace:*",

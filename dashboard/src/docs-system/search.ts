@@ -51,6 +51,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'toast':         '/components/feedback/toast',
       'popover':       '/components/overlays/popover',
       'dropdown-menu': '/components/overlays/dropdown-menu',
+      'context-menu':  '/components/overlays/context-menu',
     };
     
     documents.push({
@@ -83,6 +84,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'toast':         '/components/feedback/toast',
       'popover':       '/components/overlays/popover',
       'dropdown-menu': '/components/overlays/dropdown-menu',
+      'context-menu':  '/components/overlays/context-menu',
     };
 
     documents.push({
@@ -117,6 +119,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'toast':         '/components/feedback/toast',
       'popover':       '/components/overlays/popover',
       'dropdown-menu': '/components/overlays/dropdown-menu',
+      'context-menu':  '/components/overlays/context-menu',
     };
 
     documents.push({
@@ -171,6 +174,7 @@ export function buildSearchIndex(): SearchDocument[] {
       'collapsible':   '/components/disclosure/collapsible',
       'popover':       '/components/overlays/popover',
       'dropdown-menu': '/components/overlays/dropdown-menu',
+      'context-menu':  '/components/overlays/context-menu',
     };
 
     documents.push({
@@ -345,6 +349,15 @@ export function buildSearchIndex(): SearchDocument[] {
     description: 'Framework-independent action menu overlay Web Component with roving keyboard navigation, collision detection, and checkable items.',
     href: '/components/overlays/dropdown-menu',
     keywords: ['dropdown-menu', 'dropdown', 'menu', 'skyra-dropdown-menu', 'skyra-tech-dropdown-menu', '@skyra-tech-platform/dropdown-menu', 'Overlays', 'actions', 'menuitem', 'web component'],
+  });
+
+  documents.push({
+    id: 'component-context-menu',
+    type: 'foundation',
+    title: 'Context Menu',
+    description: 'Framework-independent pointer and keyboard context action menu Web Component with virtual anchor positioning, roving focus, and accessible shortcuts.',
+    href: '/components/overlays/context-menu',
+    keywords: ['context-menu', 'context', 'menu', 'right-click', 'skyra-context-menu', 'skyra-tech-context-menu', '@skyra-tech-platform/context-menu', 'Overlays', 'actions', 'menuitem', 'web component'],
   });
 
   // Releases

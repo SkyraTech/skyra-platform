@@ -72,6 +72,14 @@ declare global {
         'skyra-tech-dropdown-separator': any;
         'skyra-dropdown-group': any;
         'skyra-tech-dropdown-group': any;
+        'skyra-context-menu': any;
+        'skyra-tech-context-menu': any;
+        'skyra-context-menu-item': any;
+        'skyra-tech-context-menu-item': any;
+        'skyra-context-menu-separator': any;
+        'skyra-tech-context-menu-separator': any;
+        'skyra-context-menu-group': any;
+        'skyra-tech-context-menu-group': any;
       }
     }
   }
@@ -130,6 +138,14 @@ declare global {
       'skyra-tech-dropdown-separator': any;
       'skyra-dropdown-group': any;
       'skyra-tech-dropdown-group': any;
+      'skyra-context-menu': any;
+      'skyra-tech-context-menu': any;
+      'skyra-context-menu-item': any;
+      'skyra-tech-context-menu-item': any;
+      'skyra-context-menu-separator': any;
+      'skyra-tech-context-menu-separator': any;
+      'skyra-context-menu-group': any;
+      'skyra-tech-context-menu-group': any;
     }
   }
 }

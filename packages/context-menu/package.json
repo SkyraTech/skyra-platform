@@ -1,0 +1,42 @@
+{
+  "name": "@skyra-tech-platform/context-menu",
+  "version": "0.1.0",
+  "description": "Framework-agnostic contextual action menu Web Component anchored to pointer coordinates or keyboard invocation with viewport collision detection",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "@skyra-tech-platform/popover": "workspace:*"
+  },
+  "peerDependencies": {
+    "@skyra-tech-platform/design-tokens": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@skyra-tech-platform/design-tokens": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "tsup": "^8.5.1",
+    "vitest": "^2.1.8",
+    "jsdom": "^24.1.3",
+    "@types/node": "^20.19.43",
+    "@types/jsdom": "^21.1.7"
+  }
+}
