@@ -9,6 +9,10 @@
       "headers": {
         "type": "boolean | undefined",
         "required": false
+      },
+      "dateFormat": {
+        "type": "string | undefined",
+        "required": false
       }
     },
     "deprecated": false
@@ -309,6 +313,22 @@
       },
       "options": {
         "type": "TsvExportOptions<T> | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "formatDate": {
+    "kind": "function",
+    "signature": "declare function formatDate(value: any, dateFormat?: string): any;",
+    "returnType": "any",
+    "properties": {
+      "value": {
+        "type": "any",
+        "required": true
+      },
+      "dateFormat": {
+        "type": "string | undefined",
         "required": false
       }
     },

@@ -1,20 +1,137 @@
-import { Project, VariableDeclaration, InterfaceDeclaration, TypeAliasDeclaration, FunctionDeclaration, SyntaxKind, JSDoc } from 'ts-morph';
+import { Project, VariableDeclaration, InterfaceDeclaration, TypeAliasDeclaration, FunctionDeclaration, ClassDeclaration, JSDoc } from 'ts-morph';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const TARGETS = [
-  { packageId: '@skyra-tech-platform/app-shell', dir: 'packages/app-shell', entry: 'packages/app-shell/dist/index.d.ts' },
-  { packageId: '@skyra-tech-platform/data-export', dir: 'packages/data-export', entry: 'packages/data-export/dist/index.d.ts' },
-  { packageId: '@skyra/data-table', dir: 'packages/data-table', entry: 'packages/data-table/dist/index.d.ts' },
-  { packageId: '@skyra/dialogs', dir: 'packages/dialogs', entry: 'packages/dialogs/dist/index.d.ts' },
-  { packageId: '@skyra/dynamic-form', dir: 'packages/dynamic-form', entry: 'packages/dynamic-form/dist/index.d.ts' },
-  { packageId: '@skyra-tech-platform/qr', dir: 'packages/qr', entry: 'packages/qr/dist/core.d.ts' },
-  { packageId: '@skyra/ui', dir: 'packages/ui', entry: 'packages/ui/dist/index.d.ts' },
-  { packageId: '@skyra-tech-platform/utils', dir: 'packages/utils', entry: 'packages/utils/dist/index.d.ts' },
-  { packageId: '@skyra-tech-platform/validation', dir: 'packages/validation', entry: 'packages/validation/dist/index.d.ts' },
+export interface TargetPackage {
+  packageId: string;
+  dir: string;
+  entry: string;
+  baselineFile?: string;
+}
+
+export interface ApiProperty {
+  type: string;
+  required: boolean;
+}
+
+export interface ApiEntry {
+  kind: string;
+  signature?: string;
+  returnType?: string;
+  properties: Record<string, ApiProperty>;
+  deprecated: boolean;
+}
+
+export interface PackageJsonManifest {
+  name: string;
+  version: string;
+  [key: string]: unknown;
+}
+
+/**
+ * Canonical package targets under API governance.
+ * Updated to reflect the canonical `@skyra-tech-platform/*` namespace and current package locations:
+ * - `@skyra/data-table` -> `@skyra-tech-platform/data-table` in `packages/data-table`
+ * - `@skyra/dynamic-form` -> `@skyra-tech-platform/dynamic-form` in `packages/dynamic-form`
+ * - Former `@skyra/dialogs` -> `@skyra-tech-platform/dialog` in `packages/dialog`
+ * - Former `@skyra/ui` -> Eliminated in commit 34e2c73 (decomposed into atomic framework-agnostic packages)
+ * - `@skyra-tech-platform/qr` -> Core library entry at `packages/qr/dist/core.d.ts` with `qr-core-api-baseline.json`
+ */
+export const TARGETS: TargetPackage[] = [
+  {
+    packageId: '@skyra-tech-platform/app-shell',
+    dir: 'packages/app-shell',
+    entry: 'packages/app-shell/dist/index.d.ts',
+    baselineFile: 'app-shell-api-baseline.json',
+  },
+  {
+    packageId: '@skyra-tech-platform/data-export',
+    dir: 'packages/data-export',
+    entry: 'packages/data-export/dist/index.d.ts',
+    baselineFile: 'data-export-api-baseline.json',
+  },
+  {
+    packageId: '@skyra-tech-platform/data-table',
+    dir: 'packages/data-table',
+    entry: 'packages/data-table/dist/index.d.ts',
+    baselineFile: 'data-table-api-baseline.json',
+  },
+  {
+    packageId: '@skyra-tech-platform/dialog',
+    dir: 'packages/dialog',
+    entry: 'packages/dialog/dist/index.d.ts',
+    baselineFile: 'dialog-api-baseline.json',
+  },
+  {
+    packageId: '@skyra-tech-platform/dynamic-form',
+    dir: 'packages/dynamic-form',
+    entry: 'packages/dynamic-form/dist/index.d.ts',
+    baselineFile: 'dynamic-form-api-baseline.json',
+  },
+  {
+    packageId: '@skyra-tech-platform/qr',
+    dir: 'packages/qr',
+    entry: 'packages/qr/dist/core.d.ts',
+    baselineFile: 'qr-core-api-baseline.json',
+  },
+  {
+    packageId: '@skyra-tech-platform/utils',
+    dir: 'packages/utils',
+    entry: 'packages/utils/dist/index.d.ts',
+    baselineFile: 'utils-api-baseline.json',
+  },
+  {
+    packageId: '@skyra-tech-platform/validation',
+    dir: 'packages/validation',
+    entry: 'packages/validation/dist/index.d.ts',
+    baselineFile: 'validation-api-baseline.json',
+  },
 ];
 
-function getJSDocInfo(node: any) {
+/**
+ * Validates target packages and ensures directories, manifests, and declaration files exist.
+ */
+export function validateTargets(rootDir: string, targets: TargetPackage[] = TARGETS): TargetPackage[] {
+  for (const target of targets) {
+    const pkgDirPath = path.resolve(rootDir, target.dir);
+    if (!fs.existsSync(pkgDirPath)) {
+      throw new Error(`Package directory not found: ${target.dir} (for ${target.packageId})`);
+    }
+
+    const pkgJsonPath = path.join(pkgDirPath, 'package.json');
+    if (!fs.existsSync(pkgJsonPath)) {
+      throw new Error(`package.json not found in ${target.dir}`);
+    }
+
+    let pkgJson: PackageJsonManifest;
+    try {
+      pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
+    } catch (err) {
+      throw new Error(`Malformed package.json in ${target.dir}: ${(err as Error).message}`);
+    }
+
+    if (pkgJson.name !== target.packageId) {
+      throw new Error(`Package name mismatch in ${target.dir}: manifest has "${pkgJson.name}", target expects "${target.packageId}"`);
+    }
+
+    const entryPath = path.resolve(rootDir, target.entry);
+    if (!fs.existsSync(entryPath)) {
+      throw new Error(`Entry declaration file not found for ${target.packageId}: ${target.entry}. Run 'pnpm build' first.`);
+    }
+  }
+
+  return targets;
+}
+
+export function getBaselinePath(rootDir: string, target: TargetPackage): string {
+  if (target.baselineFile) {
+    return path.resolve(rootDir, target.dir, target.baselineFile);
+  }
+  const folderName = path.basename(target.dir);
+  return path.resolve(rootDir, target.dir, `${folderName}-api-baseline.json`);
+}
+
+function getJSDocInfo(node: { getJsDocs?: () => JSDoc[] }) {
   const jsdocs = node.getJsDocs ? node.getJsDocs() : [];
   if (!jsdocs || jsdocs.length === 0) return { description: '', deprecation: undefined };
   
@@ -30,14 +147,15 @@ function getJSDocInfo(node: any) {
   return { description, deprecation };
 }
 
-function extractAPI(project: Project, target: typeof TARGETS[0]) {
-  const sourceFile = project.getSourceFile(path.resolve(__dirname, '../', target.entry));
+export function extractAPI(project: Project, target: TargetPackage, rootDir: string = path.resolve(__dirname, '..')): Record<string, ApiEntry> {
+  const fullEntryPath = path.resolve(rootDir, target.entry);
+  const sourceFile = project.getSourceFile(fullEntryPath);
   if (!sourceFile) {
-    throw new Error(`Entry file not found: ${target.entry}`);
+    throw new Error(`Entry file not loaded in project: ${target.entry}`);
   }
   
   const exported = sourceFile.getExportedDeclarations();
-  const apis: Record<string, any> = {};
+  const apis: Record<string, ApiEntry> = {};
 
   for (const [name, decls] of exported) {
     const decl = decls[0];
@@ -45,9 +163,9 @@ function extractAPI(project: Project, target: typeof TARGETS[0]) {
     let apiKind = 'type';
     let signature = undefined;
     let returnType = undefined;
-    const properties: Record<string, any> = {};
+    const properties: Record<string, ApiProperty> = {};
 
-    const { description, deprecation } = getJSDocInfo(decl);
+    const { deprecation } = getJSDocInfo(decl);
     
     if (kindName === 'VariableDeclaration') {
       const varDecl = decl as VariableDeclaration;
@@ -92,8 +210,23 @@ function extractAPI(project: Project, target: typeof TARGETS[0]) {
       signature = taDecl.getTypeNode()?.getText() || taDecl.getText();
     } else if (kindName === 'EnumDeclaration') {
       apiKind = 'enum';
-      // simplified enum extraction
       signature = decl.getText();
+    } else if (kindName === 'ClassDeclaration') {
+      const clsDecl = decl as ClassDeclaration;
+      apiKind = 'class';
+      signature = clsDecl.getText().split('{')[0].trim();
+      clsDecl.getProperties().forEach(p => {
+        properties[p.getName()] = {
+          type: p.getType().getText(decl),
+          required: true,
+        };
+      });
+      clsDecl.getMethods().forEach(m => {
+        properties[m.getName()] = {
+          type: m.getReturnType().getText(decl),
+          required: true,
+        };
+      });
     }
     
     apis[name] = {
@@ -101,7 +234,7 @@ function extractAPI(project: Project, target: typeof TARGETS[0]) {
       signature,
       returnType,
       properties,
-      deprecated: !!deprecation
+      deprecated: !!deprecation,
     };
   }
   
@@ -116,7 +249,7 @@ function extractAPI(project: Project, target: typeof TARGETS[0]) {
   }
 
   // Sort keys deterministically
-  const sortedApis: Record<string, any> = {};
+  const sortedApis: Record<string, ApiEntry> = {};
   Object.keys(apis).sort().forEach(k => {
     sortedApis[k] = apis[k];
   });
@@ -124,46 +257,42 @@ function extractAPI(project: Project, target: typeof TARGETS[0]) {
   return sortedApis;
 }
 
-const command = process.argv[2];
-
-if (command === 'update') {
+export function updateBaselines(rootDir: string, targets: TargetPackage[] = TARGETS): void {
+  const validated = validateTargets(rootDir, targets);
   const project = new Project();
-  TARGETS.forEach(t => {
-    project.addSourceFileAtPath(path.resolve(__dirname, '../', t.entry));
+  validated.forEach(t => {
+    project.addSourceFileAtPath(path.resolve(rootDir, t.entry));
   });
 
-  TARGETS.forEach(target => {
-    const api = extractAPI(project, target);
-    // Determine baseline file name based on packageId for qr
-    const safeName = target.packageId.replace('@skyra/', '').replace('/', '-');
-    const outPath = path.resolve(__dirname, '../', target.dir, `${safeName}-api-baseline.json`);
+  validated.forEach(target => {
+    const api = extractAPI(project, target, rootDir);
+    const outPath = getBaselinePath(rootDir, target);
     fs.writeFileSync(outPath, JSON.stringify(api, null, 2) + '\n');
-    console.log(`Updated baseline for ${target.packageId}`);
+    console.log(`Updated baseline for ${target.packageId} -> ${path.basename(outPath)}`);
   });
   console.log('✅ API baselines updated successfully.');
-  process.exit(0);
 }
 
-if (command === 'check') {
+export function checkGovernance(rootDir: string, targets: TargetPackage[] = TARGETS): boolean {
+  const validated = validateTargets(rootDir, targets);
   const project = new Project();
-  TARGETS.forEach(t => {
-    project.addSourceFileAtPath(path.resolve(__dirname, '../', t.entry));
+  validated.forEach(t => {
+    project.addSourceFileAtPath(path.resolve(rootDir, t.entry));
   });
 
   let hasErrors = false;
 
-  TARGETS.forEach(target => {
-    const safeName = target.packageId.replace('@skyra/', '').replace('/', '-');
-    const baselinePath = path.resolve(__dirname, '../', target.dir, `${safeName}-api-baseline.json`);
+  validated.forEach(target => {
+    const baselinePath = getBaselinePath(rootDir, target);
     
     if (!fs.existsSync(baselinePath)) {
-      console.error(`❌ Baseline not found for ${target.packageId}. Run 'pnpm api:update' to generate it.`);
+      console.error(`❌ Baseline not found for ${target.packageId} (${path.basename(baselinePath)}). Run 'pnpm api:update' to generate it.`);
       hasErrors = true;
       return;
     }
 
-    const baseline = JSON.parse(fs.readFileSync(baselinePath, 'utf8'));
-    const current = extractAPI(project, target);
+    const baseline: Record<string, ApiEntry> = JSON.parse(fs.readFileSync(baselinePath, 'utf8'));
+    const current = extractAPI(project, target, rootDir);
     
     const diffs: string[] = [];
     let isBreaking = false;
@@ -185,8 +314,8 @@ if (command === 'check') {
       }
 
       // Check properties changes
-      for (const [propName, prop] of Object.entries(currentApi.properties as Record<string, any>)) {
-        const baseProp = baselineApi.properties[propName];
+      for (const [propName, prop] of Object.entries(currentApi.properties)) {
+        const baseProp = baselineApi.properties ? baselineApi.properties[propName] : undefined;
         if (!baseProp) {
           diffs.push(`+ Added property: ${apiName}.${propName}`);
           if (prop.required) {
@@ -200,22 +329,23 @@ if (command === 'check') {
           }
           if (prop.type !== baseProp.type) {
             diffs.push(`  ⚠️ Changed type of ${apiName}.${propName}: ${baseProp.type} -> ${prop.type}`);
-            // Could be breaking, we mark as breaking to be safe for now
             isBreaking = true;
           }
         }
       }
 
-      for (const [propName, baseProp] of Object.entries(baselineApi.properties as Record<string, any>)) {
-        if (!currentApi.properties[propName]) {
-           diffs.push(`- Removed property: ${apiName}.${propName}`);
-           isBreaking = true;
+      if (baselineApi.properties) {
+        for (const propName of Object.keys(baselineApi.properties)) {
+          if (!currentApi.properties || !currentApi.properties[propName]) {
+             diffs.push(`- Removed property: ${apiName}.${propName}`);
+             isBreaking = true;
+          }
         }
       }
       
       if (baselineApi.signature !== currentApi.signature) {
          diffs.push(`  ⚠️ Changed signature of ${apiName}`);
-         isBreaking = true; // Conservative
+         isBreaking = true;
       }
     }
 
@@ -225,8 +355,8 @@ if (command === 'check') {
       console.log(`==================================================`);
       diffs.forEach(d => console.log(d));
       
-      const pkgJsonPath = path.resolve(__dirname, '../', target.dir, 'package.json');
-      const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
+      const pkgJsonPath = path.resolve(rootDir, target.dir, 'package.json');
+      const pkgJson: PackageJsonManifest = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
       const version = pkgJson.version;
       const isPre1 = version.startsWith('0.');
       
@@ -237,13 +367,12 @@ if (command === 'check') {
       console.log(`Expected bump: ${requiredBump}`);
 
       // Check changesets
-      const changesetsDir = path.resolve(__dirname, '../.changeset');
+      const changesetsDir = path.resolve(rootDir, '.changeset');
       let foundMatchingChangeset = false;
       if (fs.existsSync(changesetsDir)) {
          const files = fs.readdirSync(changesetsDir).filter(f => f.endsWith('.md') && f !== 'README.md');
          for (const file of files) {
            const content = fs.readFileSync(path.join(changesetsDir, file), 'utf8');
-           // Very simple frontmatter parsing
            const match = content.match(/---\n([\s\S]*?)\n---/);
            if (match) {
              const fm = match[1];
@@ -251,9 +380,8 @@ if (command === 'check') {
                foundMatchingChangeset = true;
                break;
              }
-             // For post-1.0 if breaking, major is required. 
              if (requiredBump === 'minor' && (fm.includes(`'${pkgJson.name}': major`) || fm.includes(`"${pkgJson.name}": major`))) {
-               foundMatchingChangeset = true; // a higher bump is also acceptable
+               foundMatchingChangeset = true;
                break;
              }
            }
@@ -277,13 +405,31 @@ if (command === 'check') {
     }
   });
 
-  if (hasErrors) {
-    process.exit(1);
-  } else {
-    console.log('✅ All API governance checks passed.');
-    process.exit(0);
-  }
+  return !hasErrors;
 }
 
-console.log('Usage: npx tsx scripts/api-governance.ts <update|check>');
-process.exit(1);
+const isMain = process.argv[1] && (
+  process.argv[1].endsWith('api-governance.ts') ||
+  process.argv[1].endsWith('api-governance.js')
+);
+
+if (isMain) {
+  const rootDir = path.resolve(__dirname, '..');
+  const command = process.argv[2];
+
+  if (command === 'update') {
+    updateBaselines(rootDir, TARGETS);
+    process.exit(0);
+  } else if (command === 'check') {
+    const success = checkGovernance(rootDir, TARGETS);
+    if (!success) {
+      process.exit(1);
+    } else {
+      console.log('✅ All API governance checks passed.');
+      process.exit(0);
+    }
+  } else {
+    console.log('Usage: npx tsx scripts/api-governance.ts <update|check>');
+    process.exit(1);
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "SkyraTechDialog": {
+    "kind": "class",
+    "signature": "declare class SkyraTechDialog extends BaseElement",
+    "properties": {
+      "formAssociated": {
+        "type": "boolean",
+        "required": true
+      },
+      "_internals": {
+        "type": "any",
+        "required": true
+      },
+      "_dialogEl": {
+        "type": "any",
+        "required": true
+      },
+      "_closeBtn": {
+        "type": "any",
+        "required": true
+      },
+      "_triggerElement": {
+        "type": "any",
+        "required": true
+      },
+      "_updateHeaderVisibility": {
+        "type": "any",
+        "required": true
+      },
+      "_applyDynamicStyles": {
+        "type": "any",
+        "required": true
+      },
+      "_handleNativeClose": {
+        "type": "any",
+        "required": true
+      },
+      "_handleCloseClick": {
+        "type": "any",
+        "required": true
+      },
+      "_handleBackdropClick": {
+        "type": "any",
+        "required": true
+      },
+      "_handleKeyDown": {
+        "type": "any",
+        "required": true
+      },
+      "_lockScroll": {
+        "type": "any",
+        "required": true
+      },
+      "_unlockScroll": {
+        "type": "any",
+        "required": true
+      },
+      "connectedCallback": {
+        "type": "void",
+        "required": true
+      },
+      "disconnectedCallback": {
+        "type": "void",
+        "required": true
+      },
+      "attributeChangedCallback": {
+        "type": "void",
+        "required": true
+      }
+    },
+    "deprecated": false
+  }
+}

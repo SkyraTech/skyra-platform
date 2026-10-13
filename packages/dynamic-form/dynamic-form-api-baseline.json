@@ -33,126 +33,6 @@
     "properties": {},
     "deprecated": false
   },
-  "DynamicForm": {
-    "kind": "component",
-    "signature": "declare function DynamicForm<TValues extends FormValues = FormValues>(props: DynamicFormProps<TValues>): React.JSX.Element;",
-    "returnType": "React.JSX.Element",
-    "properties": {
-      "fields": {
-        "type": "FieldDef<TValues>[] | undefined",
-        "required": false
-      },
-      "fieldsets": {
-        "type": "FieldsetDef<TValues>[] | undefined",
-        "required": false
-      },
-      "initialValues": {
-        "type": "Partial<TValues> | undefined",
-        "required": false
-      },
-      "values": {
-        "type": "TValues | undefined",
-        "required": false
-      },
-      "onValuesChange": {
-        "type": "((values: TValues) => void) | undefined",
-        "required": false
-      },
-      "onChange": {
-        "type": "((key: string, value: unknown) => void) | undefined",
-        "required": false
-      },
-      "onSubmit": {
-        "type": "(values: TValues) => void | Promise<void>",
-        "required": true
-      },
-      "onCancel": {
-        "type": "(() => void) | undefined",
-        "required": false
-      },
-      "isLoading": {
-        "type": "boolean | undefined",
-        "required": false
-      },
-      "isSubmitting": {
-        "type": "boolean | undefined",
-        "required": false
-      },
-      "submitLabel": {
-        "type": "string | undefined",
-        "required": false
-      },
-      "cancelLabel": {
-        "type": "string | undefined",
-        "required": false
-      },
-      "validationMode": {
-        "type": "ValidationMode | undefined",
-        "required": false
-      },
-      "validate": {
-        "type": "((values: TValues) => FormErrors | Promise<FormErrors>) | undefined",
-        "required": false
-      },
-      "errors": {
-        "type": "FormErrors | undefined",
-        "required": false
-      },
-      "onErrorsChange": {
-        "type": "((errors: FormErrors) => void) | undefined",
-        "required": false
-      },
-      "serverErrors": {
-        "type": "FormErrors | undefined",
-        "required": false
-      },
-      "serverError": {
-        "type": "string | undefined",
-        "required": false
-      },
-      "features": {
-        "type": "DynamicFormFeatures | undefined",
-        "required": false
-      },
-      "onDirtyChange": {
-        "type": "((isDirty: boolean) => void) | undefined",
-        "required": false
-      },
-      "formRef": {
-        "type": "React.Ref<DynamicFormHandle<TValues>> | undefined",
-        "required": false
-      },
-      "showDangerZone": {
-        "type": "boolean | undefined",
-        "required": false
-      },
-      "dangerZoneTitle": {
-        "type": "string | undefined",
-        "required": false
-      },
-      "dangerZoneLabel": {
-        "type": "string | undefined",
-        "required": false
-      },
-      "dangerZoneDesc": {
-        "type": "string | undefined",
-        "required": false
-      },
-      "onDangerAction": {
-        "type": "(() => void) | undefined",
-        "required": false
-      },
-      "className": {
-        "type": "string | undefined",
-        "required": false
-      },
-      "id": {
-        "type": "string | undefined",
-        "required": false
-      }
-    },
-    "deprecated": false
-  },
   "DynamicFormFeatures": {
     "kind": "interface",
     "properties": {
@@ -353,7 +233,7 @@
         "required": false
       },
       "formRef": {
-        "type": "React.Ref<DynamicFormHandle<TValues>> | undefined",
+        "type": "HTMLElement | null | undefined",
         "required": false
       },
       "showDangerZone": {
@@ -613,7 +493,7 @@
         "required": false
       },
       "render": {
-        "type": "((props: FieldRenderProps<TValues>) => React.ReactNode) | undefined",
+        "type": "((props: FieldRenderProps<TValues>) => unknown) | undefined",
         "required": false
       },
       "className": {
@@ -632,6 +512,10 @@
       },
       "value": {
         "type": "unknown",
+        "required": false
+      },
+      "clearOnParentChange": {
+        "type": "boolean | undefined",
         "required": false
       },
       "onChange": {
@@ -751,18 +635,6 @@
     "properties": {},
     "deprecated": false
   },
-  "FormField": {
-    "kind": "component",
-    "signature": "declare function FormField<TValues extends Record<string, unknown>>(",
-    "returnType": "React.JSX.Element",
-    "properties": {
-      "{ field, value, error, disabled: formDisabled, onChange, onBlur, allValues, }": {
-        "type": "FormFieldProps<TValues>",
-        "required": true
-      }
-    },
-    "deprecated": false
-  },
   "FormTouched": {
     "kind": "type",
     "signature": "Record<string, boolean>",
@@ -793,18 +665,6 @@
       "disabled": {
         "type": "boolean | undefined",
         "required": false
-      }
-    },
-    "deprecated": false
-  },
-  "RepeatableGroup": {
-    "kind": "component",
-    "signature": "declare function RepeatableGroup<TValues extends Record<string, unknown>>(",
-    "returnType": "React.JSX.Element",
-    "properties": {
-      "{ groupName, label, config, items, errors, disabled, onItemChange, onItemBlur, onAddItem, onRemoveItem, allValues, }": {
-        "type": "RepeatableGroupProps<TValues>",
-        "required": true
       }
     },
     "deprecated": false
@@ -865,22 +725,225 @@
     },
     "deprecated": false
   },
+  "SkyraTechDynamicForm": {
+    "kind": "class",
+    "signature": "declare class SkyraTechDynamicForm extends BaseElement",
+    "properties": {
+      "formAssociated": {
+        "type": "boolean",
+        "required": true
+      },
+      "_fields": {
+        "type": "any",
+        "required": true
+      },
+      "_fieldsets": {
+        "type": "any",
+        "required": true
+      },
+      "_initialValues": {
+        "type": "any",
+        "required": true
+      },
+      "_features": {
+        "type": "any",
+        "required": true
+      },
+      "_validationMode": {
+        "type": "any",
+        "required": true
+      },
+      "_serverErrors": {
+        "type": "any",
+        "required": true
+      },
+      "_submitLabel": {
+        "type": "any",
+        "required": true
+      },
+      "_values": {
+        "type": "any",
+        "required": true
+      },
+      "_baselineValues": {
+        "type": "any",
+        "required": true
+      },
+      "_initialized": {
+        "type": "any",
+        "required": true
+      },
+      "_dataInitialized": {
+        "type": "any",
+        "required": true
+      },
+      "_errors": {
+        "type": "any",
+        "required": true
+      },
+      "_touched": {
+        "type": "any",
+        "required": true
+      },
+      "_clearedServerErrors": {
+        "type": "any",
+        "required": true
+      },
+      "_isSubmitting": {
+        "type": "any",
+        "required": true
+      },
+      "_isSubmitted": {
+        "type": "any",
+        "required": true
+      },
+      "_submitError": {
+        "type": "any",
+        "required": true
+      },
+      "customValidator": {
+        "type": "((values: FormValues) => FormErrors | Promise<FormErrors>) | undefined",
+        "required": true
+      },
+      "onSubmitCallback": {
+        "type": "((values: FormValues) => void | Promise<void>) | undefined",
+        "required": true
+      },
+      "_internals": {
+        "type": "any",
+        "required": true
+      },
+      "_formEl": {
+        "type": "any",
+        "required": true
+      },
+      "_summaryEl": {
+        "type": "any",
+        "required": true
+      },
+      "_formErrorEl": {
+        "type": "any",
+        "required": true
+      },
+      "_fieldsetsContainer": {
+        "type": "any",
+        "required": true
+      },
+      "_actionsContainer": {
+        "type": "any",
+        "required": true
+      },
+      "_fieldWrappers": {
+        "type": "any",
+        "required": true
+      },
+      "_fieldInputs": {
+        "type": "any",
+        "required": true
+      },
+      "_repeatableContainers": {
+        "type": "any",
+        "required": true
+      },
+      "_computeDefaultValues": {
+        "type": "any",
+        "required": true
+      },
+      "_buildDom": {
+        "type": "any",
+        "required": true
+      },
+      "_buildFieldDom": {
+        "type": "any",
+        "required": true
+      },
+      "_buildRepeatableDom": {
+        "type": "any",
+        "required": true
+      },
+      "_renderRepeatableList": {
+        "type": "any",
+        "required": true
+      },
+      "_handleFieldValueChange": {
+        "type": "any",
+        "required": true
+      },
+      "_handleFieldBlur": {
+        "type": "any",
+        "required": true
+      },
+      "_syncValuesToDom": {
+        "type": "any",
+        "required": true
+      },
+      "_isFieldVisible": {
+        "type": "any",
+        "required": true
+      },
+      "_updateVisibility": {
+        "type": "any",
+        "required": true
+      },
+      "_findFieldDef": {
+        "type": "any",
+        "required": true
+      },
+      "_runValidation": {
+        "type": "any",
+        "required": true
+      },
+      "_updateErrorsDisplay": {
+        "type": "any",
+        "required": true
+      },
+      "_handleSubmit": {
+        "type": "any",
+        "required": true
+      },
+      "_dispatchEvent": {
+        "type": "any",
+        "required": true
+      },
+      "connectedCallback": {
+        "type": "void",
+        "required": true
+      },
+      "getValue": {
+        "type": "unknown",
+        "required": true
+      },
+      "getValues": {
+        "type": "FormValues",
+        "required": true
+      },
+      "setValue": {
+        "type": "void",
+        "required": true
+      },
+      "setValues": {
+        "type": "void",
+        "required": true
+      },
+      "reset": {
+        "type": "void",
+        "required": true
+      },
+      "validate": {
+        "type": "Promise<boolean>",
+        "required": true
+      },
+      "submit": {
+        "type": "void",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
   "ValidationMode": {
     "kind": "type",
     "signature": "'onChange' | 'onBlur' | 'onSubmit'",
     "properties": {},
-    "deprecated": false
-  },
-  "ValidationSummary": {
-    "kind": "component",
-    "signature": "declare function ValidationSummary(",
-    "returnType": "React.JSX.Element | null",
-    "properties": {
-      "{ errors, labels, title, onFocusField, className, }": {
-        "type": "ValidationSummaryProps",
-        "required": true
-      }
-    },
     "deprecated": false
   },
   "cloneDeep": {
@@ -978,18 +1041,6 @@
       },
       "value": {
         "type": "unknown",
-        "required": true
-      }
-    },
-    "deprecated": false
-  },
-  "useDynamicFormState": {
-    "kind": "function",
-    "signature": "declare function useDynamicFormState<TValues extends FormValues = FormValues>(options: UseDynamicFormStateOptions<TValues>):",
-    "returnType": "{ values: TValues; errors: { [x: string]: string; }; touched: FormTouched; isDirty: boolean; dirtyFields: Record<string, boolean>; isSubmitting: boolean; submitSuccess: boolean; submitError: string | undefined; mergedFeatures: { validation: boolean; conditionalFields: boolean; dependencies: boolean; repeatableGroups: boolean; nestedFields: boolean; dirtyTracking: boolean; draftState: boolean; submissionState: boolean; validationSummary: boolean; serverErrors: boolean; unsavedChanges: boolean; }; setFieldValue: (name: string, value: unknown) => void; handleFieldBlur: (name: string) => void; addRepeatableItem: (groupName: string) => void; removeRepeatableItem: (groupName: string, index: number) => void; reset: (newValues?: Partial<TValues>) => void; submit: () => Promise<void>; handle: DynamicFormHandle<TValues>; }",
-    "properties": {
-      "options": {
-        "type": "UseDynamicFormStateOptions<TValues>",
         "required": true
       }
     },

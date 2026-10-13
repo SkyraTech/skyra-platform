@@ -63,6 +63,10 @@
       "margin": {
         "type": "number | undefined",
         "required": false
+      },
+      "style": {
+        "type": "{ moduleShape?: \"square\" | \"rounded\" | \"dot\"; finderShape?: \"square\" | \"rounded\"; finderColor?: string; } | undefined",
+        "required": false
       }
     },
     "deprecated": false
@@ -78,8 +82,191 @@
     "deprecated": false
   },
   "QRCodeValidationError": {
-    "kind": "type",
+    "kind": "class",
+    "signature": "declare class QRCodeValidationError extends Error",
     "properties": {},
+    "deprecated": false
+  },
+  "QRContactPayload": {
+    "kind": "interface",
+    "properties": {
+      "firstName": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "lastName": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "organization": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "phone": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "email": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "website": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "address": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "QRContentBuilder": {
+    "kind": "constant",
+    "signature": "{ text: (value: string) => string; url: (url: string) => string; phone: (number: string) => string; sms: (payload: QRSmsPayload) => string; email: (payload: QREmailPayload) => string; geo: (payload: QRGeoPayload) => string; wifi: (payload: QRWifiPayload) => string; vcard: (payload: QRContactPayload) => string; calendar: (payload: QREventPayload) => string; }",
+    "properties": {},
+    "deprecated": false
+  },
+  "QREmailPayload": {
+    "kind": "interface",
+    "properties": {
+      "address": {
+        "type": "string",
+        "required": true
+      },
+      "subject": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "body": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "QREventPayload": {
+    "kind": "interface",
+    "properties": {
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "start": {
+        "type": "string | Date",
+        "required": true
+      },
+      "end": {
+        "type": "string | Date",
+        "required": true
+      },
+      "location": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "description": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "allDay": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "QRGeoPayload": {
+    "kind": "interface",
+    "properties": {
+      "latitude": {
+        "type": "number",
+        "required": true
+      },
+      "longitude": {
+        "type": "number",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "QRSmsPayload": {
+    "kind": "interface",
+    "properties": {
+      "number": {
+        "type": "string",
+        "required": true
+      },
+      "message": {
+        "type": "string | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "QRWifiPayload": {
+    "kind": "interface",
+    "properties": {
+      "ssid": {
+        "type": "string",
+        "required": true
+      },
+      "password": {
+        "type": "string | undefined",
+        "required": false
+      },
+      "encryption": {
+        "type": "\"WEP\" | \"WPA\" | \"nopass\" | undefined",
+        "required": false
+      },
+      "hidden": {
+        "type": "boolean | undefined",
+        "required": false
+      }
+    },
+    "deprecated": false
+  },
+  "analyzeQRContrast": {
+    "kind": "function",
+    "signature": "declare function analyzeQRContrast(darkColor: string, lightColor: string):",
+    "returnType": "{ contrast: number; status: \"FAIL\" | \"PASS\" | \"WARNING\"; message: string; }",
+    "properties": {
+      "darkColor": {
+        "type": "string",
+        "required": true
+      },
+      "lightColor": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "deprecated": false
+  },
+  "analyzeScanability": {
+    "kind": "function",
+    "signature": "declare function analyzeScanability(matrix: QRCodeMatrix | null, margin: number, errorCorrectionLevel: 'L' | 'M' | 'Q' | 'H', darkColor: string, lightColor: string):",
+    "returnType": "{ overallStatus: \"FAIL\" | \"PASS\" | \"WARNING\"; issues: string[]; contrast: number; }",
+    "properties": {
+      "matrix": {
+        "type": "QRCodeMatrix | null",
+        "required": true
+      },
+      "margin": {
+        "type": "number",
+        "required": true
+      },
+      "errorCorrectionLevel": {
+        "type": "\"L\" | \"M\" | \"Q\" | \"H\"",
+        "required": true
+      },
+      "darkColor": {
+        "type": "string",
+        "required": true
+      },
+      "lightColor": {
+        "type": "string",
+        "required": true
+      }
+    },
     "deprecated": false
   },
   "buildSVGPath": {
