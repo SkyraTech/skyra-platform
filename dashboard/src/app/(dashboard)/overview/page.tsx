@@ -10,7 +10,7 @@ export default function OverviewPage() {
 
   const getLayer = (id: string) => {
     if (['@skyra-tech-platform/design-tokens', '@skyra-tech-platform/utils', '@skyra-tech-platform/validation'].includes(id)) return 'Layer 1';
-    if (['@skyra/ui', '@skyra-tech-platform/app-shell', '@skyra/dialogs', '@skyra/data-table', '@skyra-tech-platform/dynamic-form'].includes(id)) return 'Layer 2';
+    if (['@skyra-tech-platform/app-shell', '@skyra-tech-platform/dialog', '@skyra-tech-platform/data-table', '@skyra-tech-platform/dynamic-form'].includes(id)) return 'Layer 2';
     if (['@skyra-tech-platform/data-export', '@skyra-tech-platform/qr'].includes(id)) return 'Layer 3';
     return 'Layer 3';
   };
@@ -18,7 +18,7 @@ export default function OverviewPage() {
   const layerOrder: Record<string, number> = { 'Layer 1': 1, 'Layer 2': 2, 'Layer 3': 3, 'Other': 4 };
 
   const sortedPackages = packages
-    .filter(pkg => pkg.id !== '@skyra/invoice')
+    .filter(pkg => pkg.id !== '@skyra/invoice' && pkg.id !== '@skyra/ui')
     .sort((a, b) => {
       const layerA = getLayer(a.id);
       const layerB = getLayer(b.id);

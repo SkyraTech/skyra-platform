@@ -333,7 +333,7 @@ export function buildSearchIndex(): SearchDocument[] {
     type: 'foundation',
     title: 'QR Code',
     description: 'Framework-independent QR generation and styled rendering Web Component.',
-    href: '/components/qr',
+    href: '/components/utilities/qr',
     keywords: ['qr', 'qrcode', 'qr-code', 'skyra-tech-qr-code', '@skyra-tech-platform/qr', 'web component', 'svg'],
   });
 

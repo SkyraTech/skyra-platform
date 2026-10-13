@@ -60,6 +60,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/components/qr',
+        destination: '/components/utilities/qr',
+        permanent: true,
+      },
+      {
         source: '/ui-components/command-palette',
         destination: '/components/overlays/command-palette',
         permanent: true,

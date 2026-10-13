@@ -117,7 +117,7 @@ export default function TooltipShowcasePage() {
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', fontSize: '0.85rem' }}>
           <div><strong>1. Name:</strong> Tooltip</div>
-          <div><strong>2. Package:</strong> <code>@skyra/ui</code></div>
+          <div><strong>2. Package:</strong> <code>@skyra-tech-platform/popover</code></div>
           <div><strong>3. Classification:</strong> [C] Platform UI Primitive</div>
           <div><strong>4. Description:</strong> Viewport-aware accessible popover tooltip supporting text and React nodes</div>
           <div><strong>5. Rationale:</strong> Contextual hints without cluttering primary page real estate</div>

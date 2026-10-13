@@ -76,7 +76,7 @@ export default function ExportShowcasePage() {
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', fontSize: '0.85rem' }}>
           <div><strong>1. Name:</strong> ExportButton, ExportMenu, @skyra-tech-platform/data-export</div>
-          <div><strong>2. Package:</strong> <code>@skyra/ui</code> &amp; <code>@skyra-tech-platform/data-export</code></div>
+          <div><strong>2. Package:</strong> <code>@skyra-tech-platform/data-export</code></div>
           <div><strong>3. Classification:</strong> [C] Platform Data Export Engine</div>
           <div><strong>4. Description:</strong> RFC-4180 CSV &amp; Excel XML generator with UI triggers</div>
           <div><strong>5. Rationale:</strong> Pure engine separation prevents UI bloat &amp; allows testability</div>

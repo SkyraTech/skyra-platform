@@ -42,7 +42,7 @@ export default function PdfViewerShowcasePage() {
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', fontSize: '0.85rem' }}>
           <div><strong>1. Name:</strong> PdfViewer</div>
-          <div><strong>2. Package:</strong> <code>@skyra/ui</code></div>
+          <div><strong>2. Package:</strong> <code>@skyra-tech-platform/pdf-viewer</code></div>
           <div><strong>3. Classification:</strong> [C] Platform UI Primitive</div>
           <div><strong>4. Description:</strong> Enterprise PDF and document viewer with dark toolbar chrome</div>
           <div><strong>5. Rationale:</strong> Decouple document viewing UI from business PDF generation</div>

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import '@skyra-tech-platform/textarea';;
@@ -252,7 +252,7 @@ export default function TextareaDocsPage() {
           { 
             name: 'React / Next.js', 
             support: 'e2e', 
-            integration: <p>Full support via the thin wrapper in <code style={{fontFamily: 'var(--skyra-font-mono)'}}>@skyra/ui</code>. Strongly typed with React event delegation.</p> 
+            integration: <p>Full support via the React adapter in <code style={{fontFamily: 'var(--skyra-font-mono)'}}>@skyra-tech-platform/textarea</code>. Strongly typed with React event delegation.</p> 
           },
           { 
             name: 'Angular', 

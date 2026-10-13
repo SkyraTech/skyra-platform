@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import '@skyra-tech-platform/button';
@@ -88,7 +88,7 @@ export default function PrintShowcasePage() {
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', fontSize: '0.85rem' }}>
           <div><strong>1. Name:</strong> PrintButton &amp; DownloadButton</div>
-          <div><strong>2. Package:</strong> <code>@skyra/ui</code></div>
+          <div><strong>2. Package:</strong> <code>@skyra-tech-platform/button</code></div>
           <div><strong>3. Classification:</strong> [C] Platform Action Primitive</div>
           <div><strong>4. Description:</strong> Target-based printable trigger and generic file downloader</div>
           <div><strong>5. Rationale:</strong> Encapsulate print stylesheets and download blob creation</div>

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { SearchInput, NumberInput, PasswordInput } from '@/components/ui';
@@ -163,7 +163,7 @@ export default function InputsShowcasePage() {
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', fontSize: '0.85rem' }}>
           <div><strong>1. Name:</strong> Input, SearchInput, NumberInput, PasswordInput, Textarea</div>
-          <div><strong>2. Package:</strong> <code>@skyra/ui</code></div>
+          <div><strong>2. Package:</strong> <code>@skyra-tech-platform/input</code> &amp; <code>@skyra-tech-platform/textarea</code></div>
           <div><strong>3. Classification:</strong> [C] Platform UI Primitive</div>
           <div><strong>4. Description:</strong> Suite of accessible, adorned single &amp; multi-line text and numeric controls</div>
           <div><strong>5. Rationale:</strong> Standardized typography, border radius, and ERP focus rings</div>

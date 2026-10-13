@@ -74,25 +74,16 @@ interface NavItem {
   icon: React.ComponentType<{ size?: number; className?: string; 'aria-hidden'?: boolean | 'true' | 'false' }>;
 }
 
-interface NavSubgroup {
-  id: string;
-  label: string;
-  icon: React.ComponentType<{ size?: number; className?: string; 'aria-hidden'?: boolean | 'true' | 'false' }>;
-  items: NavItem[];
-}
-
 interface NavSection {
   id: string;
   title: string;
-  collapsible?: boolean;
-  items: (NavItem | NavSubgroup)[];
+  items: NavItem[];
 }
 
 const NAV_SECTIONS: NavSection[] = [
   {
     id: 'platform',
     title: 'Platform',
-    collapsible: false,
     items: [
       { href: '/overview',      label: 'Overview',             icon: LayoutDashboard },
       { href: '/packages',      label: 'Packages',             icon: Package },
@@ -101,41 +92,31 @@ const NAV_SECTIONS: NavSection[] = [
   },
   {
     id: 'documentation',
-    title: 'Documentation',
-    collapsible: false,
+    title: 'Developer Documentation',
     items: [
-      { href: '/components',         label: 'Components',    icon: Layers },
-      { href: '/design-system',      label: 'Design System', icon: Palette },
-      {
-        id: 'foundation-utils',
-        label: 'Foundation & Utilities',
-        icon: BookOpen,
-        items: [
-          { href: '/docs/design-tokens', label: 'Design Tokens', icon: FileCode2 },
-          { href: '/docs/utils',         label: 'Utilities',     icon: WrapText },
-          { href: '/docs/validation',    label: 'Validation',    icon: FileText },
-          { href: '/docs/data-export',   label: 'Data Export',   icon: Download },
-        ]
-      }
+      { href: '/components',         label: 'Components',             icon: Layers },
+      { href: '/design-system',      label: 'Design System',          icon: Palette },
+      { href: '/docs/design-tokens', label: 'Design Tokens',          icon: FileCode2 },
+      { href: '/docs/utils',         label: 'Utilities',              icon: WrapText },
+      { href: '/docs/validation',    label: 'Validation',             icon: FileText },
+      { href: '/docs/data-export',   label: 'Data Export Docs',       icon: Download },
     ]
   },
   {
-    id: 'tools-playgrounds',
-    title: 'Tools & Playgrounds',
-    collapsible: true,
+    id: 'playgrounds-workbenches',
+    title: 'Playground & Workbenches',
     items: [
       { href: '/ui-components', label: 'UI Playground',         icon: Component },
       { href: '/data-table',    label: 'Data Table',            icon: Table2 },
-      { href: '/pdf-viewer',    label: 'PDF & Documents',       icon: FileText },
+      { href: '/pdf-viewer',    label: 'PDF Viewer',            icon: FileText },
       { href: '/print',         label: 'Print Studio',          icon: Printer },
-      { href: '/qr-code',       label: 'QR Code',               icon: QrCode },
+      { href: '/qr-code',       label: 'QR Studio',             icon: QrCode },
       { href: '/export',        label: 'Data Export Workbench', icon: Download },
     ]
   },
   {
-    id: 'quality-accessibility',
-    title: 'Quality & Accessibility',
-    collapsible: true,
+    id: 'quality-tools',
+    title: 'Quality Tools',
     items: [
       { href: '/accessibility', label: 'Accessibility Studio', icon: Eye },
       { href: '/responsive',    label: 'Viewport Studio',      icon: Monitor },
@@ -148,50 +129,44 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const pathname = usePathname();
   const shellRef = useRef<HTMLElement>(null);
 
-  // Track expanded state of collapsible sections and subgroups
+  // Default all sections open for immediate scanability, with user collapse toggle
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
-    'tools-playgrounds': false,
-    'quality-accessibility': false,
+    'platform': true,
+    'documentation': true,
+    'playgrounds-workbenches': true,
+    'quality-tools': true,
   });
 
-  const [openSubgroups, setOpenSubgroups] = useState<Record<string, boolean>>({
-    'foundation-utils': false,
-  });
+  const isItemActive = (href: string): boolean => {
+    if (href === '/overview') {
+      return pathname === '/overview';
+    }
+    if (href === '/components') {
+      return pathname === '/components' || pathname.startsWith('/components/');
+    }
+    if (href === '/packages') {
+      return pathname === '/packages' || pathname.startsWith('/packages/');
+    }
+    if (href === '/ui-components') {
+      return pathname === '/ui-components' || pathname.startsWith('/ui-components/');
+    }
+    if (href === '/releases') {
+      return pathname === '/releases' || pathname.startsWith('/releases/');
+    }
+    if (href === '/design-system') {
+      return pathname === '/design-system' || pathname.startsWith('/design-system/');
+    }
+    return pathname === href || pathname.startsWith(href + '/');
+  };
 
-  // Auto-expand any section or subgroup when visiting one of its child routes
+  // Auto-expand any collapsed section if a child route within it becomes active
   useEffect(() => {
-    // Check foundation-utils
-    const isFoundationActive = [
-      '/docs/design-tokens',
-      '/docs/utils',
-      '/docs/validation',
-      '/docs/data-export',
-    ].some(h => pathname === h || pathname.startsWith(h + '/'));
-    if (isFoundationActive) {
-      setOpenSubgroups(prev => ({ ...prev, 'foundation-utils': true }));
-    }
-
-    // Check tools-playgrounds
-    const isToolsActive = [
-      '/ui-components',
-      '/data-table',
-      '/pdf-viewer',
-      '/print',
-      '/qr-code',
-      '/export',
-    ].some(h => pathname === h || pathname.startsWith(h + '/'));
-    if (isToolsActive) {
-      setOpenSections(prev => ({ ...prev, 'tools-playgrounds': true }));
-    }
-
-    // Check quality-accessibility
-    const isQualityActive = [
-      '/accessibility',
-      '/responsive',
-    ].some(h => pathname === h || pathname.startsWith(h + '/'));
-    if (isQualityActive) {
-      setOpenSections(prev => ({ ...prev, 'quality-accessibility': true }));
-    }
+    NAV_SECTIONS.forEach((section) => {
+      const hasActiveChild = section.items.some(item => isItemActive(item.href));
+      if (hasActiveChild) {
+        setOpenSections(prev => (prev[section.id] ? prev : { ...prev, [section.id]: true }));
+      }
+    });
   }, [pathname]);
 
   useEffect(() => {
@@ -225,10 +200,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     setOpenSections(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const toggleSubgroup = (id: string) => {
-    setOpenSubgroups(prev => ({ ...prev, [id]: !prev[id] }));
-  };
-
   return (
     <skyra-tech-app-shell ref={shellRef}>
       
@@ -237,133 +208,50 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <DashboardSidebarHeader />
 
         <div className="skyra-sidebar-navigation" style={{ flex: 1, minHeight: 0, overflowY: 'auto' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', padding: '0.5rem 0' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '0.5rem 0' }}>
             {NAV_SECTIONS.map((section) => {
-              const isCollapsible = !!section.collapsible;
-              const isSectionOpen = isCollapsible ? !!openSections[section.id] : true;
+              const isSectionOpen = openSections[section.id] !== false;
+              const hasActiveChild = section.items.some(item => isItemActive(item.href));
 
               return (
                 <div key={section.id} className="skyra-sidebar-section">
-                  {isCollapsible ? (
-                    <button
-                      type="button"
-                      onClick={() => toggleSection(section.id)}
-                      aria-expanded={isSectionOpen}
-                      aria-controls={`section-content-${section.id}`}
-                      className="skyra-sidebar-section-header"
-                    >
-                      <span className="skyra-sidebar-section-title nav-group-title" style={{ padding: 0 }}>
-                        {section.title}
-                      </span>
-                      <ChevronDown
-                        size={14}
-                        className="nav-group-chevron"
-                        style={{
-                          transform: isSectionOpen ? 'rotate(0deg)' : 'rotate(-90deg)',
-                          transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                          opacity: 0.6,
-                        }}
-                        aria-hidden="true"
-                      />
-                    </button>
-                  ) : (
-                    <div className="skyra-sidebar-section-title nav-group-title">
+                  <button
+                    type="button"
+                    onClick={() => toggleSection(section.id)}
+                    aria-expanded={isSectionOpen}
+                    aria-controls={`section-content-${section.id}`}
+                    className="skyra-sidebar-section-header"
+                    data-has-active-child={hasActiveChild ? 'true' : 'false'}
+                  >
+                    <span className="skyra-sidebar-section-title nav-group-title" style={{ padding: 0 }}>
                       {section.title}
-                    </div>
-                  )}
+                    </span>
+                    <ChevronDown
+                      size={14}
+                      className="nav-group-chevron"
+                      style={{
+                        transform: isSectionOpen ? 'rotate(0deg)' : 'rotate(-90deg)',
+                        transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                        opacity: 0.6,
+                      }}
+                      aria-hidden="true"
+                    />
+                  </button>
 
                   <div
                     id={`section-content-${section.id}`}
-                    role={isCollapsible ? 'region' : undefined}
-                    aria-label={isCollapsible ? section.title : undefined}
-                    className={`skyra-sidebar-section-content ${isCollapsible ? 'skyra-sidebar-collapsible-content' : ''}`}
+                    role="region"
+                    aria-label={section.title}
+                    className="skyra-sidebar-section-content"
                     style={{
                       display: isSectionOpen ? 'flex' : 'none',
                       flexDirection: 'column',
                       gap: '0.125rem',
+                      marginTop: '0.125rem',
                     }}
                   >
-                    {section.items.map((entry) => {
-                      // Check if entry is a subgroup
-                      if ('items' in entry) {
-                        const subgroup = entry as NavSubgroup;
-                        const isSubgroupOpen = !!openSubgroups[subgroup.id];
-                        const isChildActive = subgroup.items.some(
-                          child => pathname === child.href || pathname.startsWith(child.href + '/')
-                        );
-
-                        return (
-                          <div key={subgroup.id} className="skyra-sidebar-subgroup-container" style={{ display: 'flex', flexDirection: 'column' }}>
-                            <button
-                              type="button"
-                              onClick={() => toggleSubgroup(subgroup.id)}
-                              aria-expanded={isSubgroupOpen}
-                              aria-controls={`subgroup-content-${subgroup.id}`}
-                              className="skyra-sidebar-subgroup-trigger"
-                              data-active-child={isChildActive ? 'true' : 'false'}
-                              title={subgroup.label}
-                            >
-                              <span className="skyra-sidebar-item-icon" aria-hidden="true">
-                                <subgroup.icon size={17} />
-                              </span>
-                              <span className="skyra-sidebar-item-label" style={{ flex: 1 }}>
-                                {subgroup.label}
-                              </span>
-                              <ChevronDown
-                                size={14}
-                                className="nav-group-chevron"
-                                style={{
-                                  transform: isSubgroupOpen ? 'rotate(0deg)' : 'rotate(-90deg)',
-                                  transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                                  opacity: 0.6,
-                                }}
-                                aria-hidden="true"
-                              />
-                            </button>
-
-                            <div
-                              id={`subgroup-content-${subgroup.id}`}
-                              role="region"
-                              aria-label={subgroup.label}
-                              className="skyra-sidebar-subgroup-content"
-                              style={{
-                                display: isSubgroupOpen ? 'flex' : 'none',
-                                flexDirection: 'column',
-                                gap: '0.125rem',
-                                marginLeft: '1.25rem',
-                                paddingLeft: '0.75rem',
-                                borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
-                                marginTop: '0.125rem',
-                                marginBottom: '0.25rem',
-                              }}
-                            >
-                              {subgroup.items.map((child) => {
-                                const active = pathname === child.href || pathname.startsWith(child.href + '/');
-                                return (
-                                  <Link
-                                    key={child.href}
-                                    href={child.href}
-                                    prefetch={true}
-                                    title={child.label}
-                                    className="skyra-sidebar-item skyra-sidebar-subitem"
-                                    data-active={active}
-                                    onClick={closeMobile}
-                                  >
-                                    <span className="skyra-sidebar-item-icon" aria-hidden="true">
-                                      <child.icon size={15} />
-                                    </span>
-                                    <span className="skyra-sidebar-item-label">{child.label}</span>
-                                  </Link>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        );
-                      }
-
-                      // Regular NavItem
-                      const item = entry as NavItem;
-                      const active = pathname === item.href || pathname.startsWith(item.href + '/');
+                    {section.items.map((item) => {
+                      const active = isItemActive(item.href);
                       const Icon = item.icon;
 
                       return (
@@ -373,7 +261,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           prefetch={true}
                           title={item.label}
                           className="skyra-sidebar-item"
-                          data-active={active}
+                          data-active={active ? 'true' : 'false'}
                           onClick={closeMobile}
                         >
                           <span className="skyra-sidebar-item-icon" aria-hidden="true">
@@ -399,68 +287,73 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               border: none;
               padding: 0.5rem 0.875rem;
               cursor: pointer;
-              color: rgba(255, 255, 255, 0.45);
+              color: rgba(255, 255, 255, 0.5);
               font-family: inherit;
               text-align: left;
               border-radius: var(--skyra-radius-sm, 4px);
               transition: color 0.15s ease, background 0.15s ease;
             }
             .skyra-sidebar-section-header:hover {
-              color: rgba(255, 255, 255, 0.85);
-              background: rgba(255, 255, 255, 0.04);
+              color: rgba(255, 255, 255, 0.9);
+              background: rgba(255, 255, 255, 0.05);
             }
             .skyra-sidebar-section-header:focus-visible {
               outline: 2px solid var(--skyra-focus, #3b82f6);
               outline-offset: -2px;
             }
-            .skyra-sidebar-subgroup-trigger {
-              width: 100%;
-              background: transparent;
-              border: none;
-              border-left: 3px solid transparent;
+            .skyra-sidebar-section-header[data-has-active-child="true"] {
+              color: rgba(255, 255, 255, 0.75);
+            }
+            .skyra-sidebar-item {
               display: flex;
               align-items: center;
               gap: 0.75rem;
               padding: 0.6rem 0.875rem;
               border-radius: var(--skyra-radius-md, 6px);
-              color: rgba(255, 255, 255, 0.7);
-              font-family: inherit;
+              text-decoration: none;
               font-size: 0.875rem;
-              font-weight: 500;
+              font-weight: 400;
+              color: rgba(255, 255, 255, 0.7);
+              background: transparent;
+              border-left: 3px solid transparent;
+              transition: background 0.15s, color 0.15s;
+              min-height: 44px;
               cursor: pointer;
-              text-align: left;
-              min-height: 42px;
-              transition: background 0.15s ease, color 0.15s ease;
             }
-            .skyra-sidebar-subgroup-trigger:hover {
-              background: rgba(255, 255, 255, 0.05);
-              color: rgba(255, 255, 255, 0.95);
+            .skyra-sidebar-item:hover {
+              background: rgba(255, 255, 255, 0.06);
+              color: #ffffff;
             }
-            .skyra-sidebar-subgroup-trigger:focus-visible {
+            .skyra-sidebar-item:focus-visible {
               outline: 2px solid var(--skyra-focus, #3b82f6);
               outline-offset: -2px;
             }
-            .skyra-sidebar-subgroup-trigger[data-active-child="true"] {
-              color: #ffffff;
+            .skyra-sidebar-item[data-active="true"] {
               font-weight: 600;
+              color: #ffffff;
+              background: rgba(255, 255, 255, 0.12);
+              border-left-color: var(--skyra-primary, #0A58CA);
             }
-            .skyra-sidebar-subitem {
-              font-size: 0.8125rem !important;
-              min-height: 38px !important;
-              padding: 0.45rem 0.75rem !important;
+            .skyra-sidebar-item-icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 20px;
+              height: 20px;
+              flex-shrink: 0;
+            }
+            .skyra-sidebar-item-label {
+              flex: 1;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
             skyra-tech-app-shell[collapsed] .nav-group-title { display: none !important; }
             skyra-tech-app-shell[collapsed] .nav-group-chevron { display: none !important; }
             skyra-tech-app-shell[collapsed] .skyra-sidebar-section-header { display: none !important; }
-            skyra-tech-app-shell[collapsed] .skyra-sidebar-collapsible-content { display: flex !important; }
-            skyra-tech-app-shell[collapsed] .skyra-sidebar-subgroup-trigger .skyra-sidebar-item-label { display: none !important; }
-            skyra-tech-app-shell[collapsed] .skyra-sidebar-subgroup-trigger { justify-content: center !important; padding: 0.6rem 0 !important; }
-            skyra-tech-app-shell[collapsed] .skyra-sidebar-subgroup-content { 
-              display: flex !important;
-              margin-left: 0 !important; 
-              padding-left: 0 !important; 
-              border-left: none !important; 
-            }
+            skyra-tech-app-shell[collapsed] .skyra-sidebar-section-content { display: flex !important; }
+            skyra-tech-app-shell[collapsed] .skyra-sidebar-item { justify-content: center !important; padding: 0.6rem 0 !important; }
+            skyra-tech-app-shell[collapsed] .skyra-sidebar-item-label { display: none !important; }
             @media (prefers-reduced-motion: reduce) {
               .nav-group-chevron { transition: none !important; }
             }

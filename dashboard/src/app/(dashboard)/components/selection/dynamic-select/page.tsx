@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import '@skyra-tech-platform/dynamic-select';;
@@ -423,7 +423,7 @@ export default function DynamicSelectDocsPage() {
           {
             name: 'React / Next.js',
             support: 'e2e',
-            integration: <p>Supported via <code style={{ fontFamily: 'var(--skyra-font-mono)' }}>@skyra/ui</code> thin adapter <code style={{ fontFamily: 'var(--skyra-font-mono)' }}>DynamicSelect</code>. All complex props are bridged via DOM property assignment.</p>,
+            integration: <p>Supported via <code style={{ fontFamily: 'var(--skyra-font-mono)' }}>@skyra-tech-platform/dynamic-select</code> adapter <code style={{ fontFamily: 'var(--skyra-font-mono)' }}>DynamicSelect</code>. All complex props are bridged via DOM property assignment.</p>,
           },
           { name: 'Angular', support: 'architecture', integration: <p>Use native custom element. Bind <code style={{ fontFamily: 'var(--skyra-font-mono)' }}>[options]</code> and listen with <code style={{ fontFamily: 'var(--skyra-font-mono)' }}>(skyra-change)</code>.</p> },
           { name: 'Vue 3', support: 'architecture', integration: <p>Bind via <code style={{ fontFamily: 'var(--skyra-font-mono)' }}>:options</code> (DOM property) and <code style={{ fontFamily: 'var(--skyra-font-mono)' }}>@skyra-change</code>.</p> },

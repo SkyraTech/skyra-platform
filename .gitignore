@@ -36,3 +36,13 @@ playwright-report/
 blob-report/
 playwright/.cache/
 *-snapshots/
+
+# Temporary directories and scratch
+.tmp/
+.tmp-consumer/
+scratch/
+
+# Test output & accessibility violation dumps
+a11y-output.txt
+axe-violations.json
+

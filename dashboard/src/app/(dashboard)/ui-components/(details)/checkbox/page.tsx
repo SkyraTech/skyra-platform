@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { CheckboxGroup } from '@/components/ui';
@@ -128,7 +128,7 @@ export default function CheckboxShowcasePage() {
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', fontSize: '0.85rem' }}>
           <div><strong>1. Name:</strong> Checkbox &amp; CheckboxGroup</div>
-          <div><strong>2. Package:</strong> <code>@skyra/ui</code></div>
+          <div><strong>2. Package:</strong> <code>@skyra-tech-platform/checkbox</code></div>
           <div><strong>3. Classification:</strong> [B] Extraction + [C] Enhancement</div>
           <div><strong>4. Description:</strong> Multi-state accessible boolean &amp; list selection controls</div>
           <div><strong>5. Rationale:</strong> Standardized form controls with 44px touch targets</div>

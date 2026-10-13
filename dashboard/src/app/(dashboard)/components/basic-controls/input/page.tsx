@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import '@skyra-tech-platform/input';;
@@ -264,7 +264,7 @@ export default function InputDocsPage() {
           { 
             name: 'React / Next.js', 
             support: 'e2e', 
-            integration: <p>Supported via <code style={{fontFamily: 'var(--skyra-font-mono)'}}>@skyra/ui</code> thin adapter <code style={{fontFamily: 'var(--skyra-font-mono)'}}>Input</code>.</p> 
+            integration: <p>Supported via <code style={{fontFamily: 'var(--skyra-font-mono)'}}>@skyra-tech-platform/input</code> adapter <code style={{fontFamily: 'var(--skyra-font-mono)'}}>Input</code>.</p> 
           },
           { name: 'Angular', support: 'architecture', integration: <p>Native attributes via standard bindings.</p> },
           { name: 'Vue 3', support: 'architecture', integration: <p>Native attributes via standard bindings.</p> },
