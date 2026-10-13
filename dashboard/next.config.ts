@@ -2,9 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   transpilePackages: [
-    '@skyra/ui',
     '@skyra-tech-platform/design-tokens',
-    '@skyra/data-table',
     '@skyra-tech-platform/dialog',
     '@skyra-tech-platform/switch',
     '@skyra-tech-platform/input',
@@ -26,6 +24,9 @@ const nextConfig: NextConfig = {
     '@skyra-tech-platform/context-menu',
     '@skyra-tech-platform/command-palette',
   ],
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
+  },
   async redirects() {
     return [
       {

@@ -343,6 +343,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                   <Link
                                     key={child.href}
                                     href={child.href}
+                                    prefetch={true}
                                     title={child.label}
                                     className="skyra-sidebar-item skyra-sidebar-subitem"
                                     data-active={active}
@@ -369,6 +370,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         <Link 
                           key={item.href}
                           href={item.href}
+                          prefetch={true}
                           title={item.label}
                           className="skyra-sidebar-item"
                           data-active={active}
