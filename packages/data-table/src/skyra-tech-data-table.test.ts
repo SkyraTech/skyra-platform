@@ -1,4 +1,4 @@
-// @ts-nocheck\nimport { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import './skyra-tech-data-table';
 import { SkyraTechDataTable } from './skyra-tech-data-table';
 
@@ -32,13 +32,13 @@ describe('SkyraTechDataTable', () => {
     const shadow = element.shadowRoot!;
     const headers = shadow.querySelectorAll('th');
     expect(headers.length).toBe(2);
-    expect(headers[0].textContent).toContain('ID');
-    expect(headers[1].textContent).toContain('Name');
+    expect(headers[0]?.textContent).toContain('ID');
+    expect(headers[1]?.textContent).toContain('Name');
 
     const rows = shadow.querySelectorAll('tbody tr');
     expect(rows.length).toBe(2);
-    expect(rows[0].querySelectorAll("td")[0].textContent).toBe('1');
-    expect(rows[0].querySelectorAll("td")[1].textContent).toBe('Alice');
+    expect(rows[0]?.querySelectorAll('td')[0]?.textContent).toBe('1');
+    expect(rows[0]?.querySelectorAll('td')[1]?.textContent).toBe('Alice');
   });
 
   it('renders loading state', () => {
@@ -48,7 +48,7 @@ describe('SkyraTechDataTable', () => {
     const shadow = element.shadowRoot!;
     const rows = shadow.querySelectorAll('tbody tr');
     expect(rows.length).toBeGreaterThan(0);
-    expect(rows[0].querySelector(".skyra-skeleton-bar")).not.toBeNull();
+    expect(rows[0]?.querySelector('.skyra-skeleton-bar')).not.toBeNull();
   });
 
   it('renders empty state', () => {
@@ -77,12 +77,12 @@ describe('SkyraTechDataTable', () => {
     header.click();
     expect(element.sorting).toEqual([{ id: 'value', desc: false }]);
     let cells = shadow.querySelectorAll('tbody td');
-    expect(cells[0].textContent).toBe('1');
+    expect(cells[0]?.textContent).toBe('1');
     
     header.click();
     expect(element.sorting).toEqual([{ id: 'value', desc: true }]);
     cells = shadow.querySelectorAll('tbody td');
-    expect(cells[0].textContent).toBe('3');
+    expect(cells[0]?.textContent).toBe('3');
   });
 
   it('emits selection events', () => {
@@ -100,8 +100,10 @@ describe('SkyraTechDataTable', () => {
     
     expect(rowCheckboxes.length).toBe(2);
     
-    rowCheckboxes[0].checked = true;
-    rowCheckboxes[0].dispatchEvent(new Event('change'));
+    const firstCheckbox = rowCheckboxes[0];
+    expect(firstCheckbox).toBeDefined();
+    firstCheckbox!.checked = true;
+    firstCheckbox!.dispatchEvent(new Event('change'));
 
     expect(selected).toEqual({ row1: true });
   });
@@ -115,12 +117,12 @@ describe('SkyraTechDataTable', () => {
     const shadow = element.shadowRoot!;
     let rows = shadow.querySelectorAll('tbody tr');
     expect(rows.length).toBe(10);
-    expect(rows[0].querySelector("td").textContent).toBe('0');
+    expect(rows[0]?.querySelector('td')?.textContent).toBe('0');
 
     element.pagination = { pageIndex: 1, pageSize: 10 };
     rows = shadow.querySelectorAll('tbody tr');
     expect(rows.length).toBe(10);
-    expect(rows[0].querySelector("td").textContent).toBe('10');
+    expect(rows[0]?.querySelector('td')?.textContent).toBe('10');
   });
 
   it('handles filtering correctly', () => {
@@ -139,7 +141,7 @@ describe('SkyraTechDataTable', () => {
     const shadow = element.shadowRoot!;
     const rows = shadow.querySelectorAll('tbody tr');
     expect(rows.length).toBe(1);
-    expect(rows[0].querySelector("td").textContent).toBe('Alice');
+    expect(rows[0]?.querySelector('td')?.textContent).toBe('Alice');
   });
 
   it('handles global filtering', () => {
@@ -158,7 +160,7 @@ describe('SkyraTechDataTable', () => {
     const shadow = element.shadowRoot!;
     const rows = shadow.querySelectorAll('tbody tr');
     expect(rows.length).toBe(1);
-    expect(rows[0].querySelector("td").textContent).toBe('Bob');
+    expect(rows[0]?.querySelector('td')?.textContent).toBe('Bob');
   });
 
   it('renders cell slots correctly', () => {
@@ -172,7 +174,7 @@ describe('SkyraTechDataTable', () => {
     const shadow = element.shadowRoot!;
     const slot = shadow.querySelector('tbody td slot');
     expect(slot).not.toBeNull();
-    expect(slot.getAttribute('name')).toBe('slot-name-1');
+    expect(slot?.getAttribute('name')).toBe('slot-name-1');
   });
 
   it('handles error state', () => {
@@ -182,6 +184,6 @@ describe('SkyraTechDataTable', () => {
     const shadow = element.shadowRoot!;
     const errorState = shadow.querySelector('.empty-state');
     expect(errorState).not.toBeNull();
-    expect(errorState.textContent).toContain('No results found');
+    expect(errorState?.textContent).toContain('No results found');
   });
 });
