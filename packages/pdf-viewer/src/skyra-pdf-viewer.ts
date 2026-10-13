@@ -372,15 +372,24 @@ export class SkyraPdfViewerElement extends BaseElement {
   set docTitle(val: string) {
     this._title = val;
     this.setAttribute('title', val);
-    this.render();
+    const titleEl = this._shadowRoot?.querySelector('.toolbar-title');
+    if (titleEl) {
+      titleEl.textContent = val;
+    } else {
+      this.render();
+    }
   }
 
   get currentPage() { return this._currentPage; }
   set currentPage(val: number) {
     if (val !== this._currentPage && val >= 1 && val <= this._totalPages) {
       this._currentPage = val;
-      this.renderPage();
-      this.render();
+      if (this._canvas && this._pdfDocument) {
+        this.updatePageInfo();
+        this.renderPage();
+      } else {
+        this.render();
+      }
       this.dispatchEvent(new CustomEvent('skyra-page-change', { detail: val }));
     }
   }
@@ -391,7 +400,12 @@ export class SkyraPdfViewerElement extends BaseElement {
     if (newZoom !== this._zoom) {
       this._zoom = newZoom;
       this.updatePageTransform();
-      this.render();
+      const zoomResetBtn = this._shadowRoot?.getElementById('btn-zoom-reset');
+      if (zoomResetBtn) {
+        zoomResetBtn.textContent = `${this._zoom}%`;
+      } else {
+        this.render();
+      }
       this.dispatchEvent(new CustomEvent('skyra-zoom-change', { detail: newZoom }));
     }
   }
@@ -401,18 +415,33 @@ export class SkyraPdfViewerElement extends BaseElement {
     const newRotation = val % 360;
     if (newRotation !== this._rotation) {
       this._rotation = newRotation;
-      this.renderPage();
-      this.render();
+      if (this._canvas && this._pdfDocument) {
+        this.renderPage();
+      } else {
+        this.render();
+      }
     }
   }
 
   // Lifecycle
   connectedCallback() {
-    if (!this.hasAttribute('tabindex')) {
-      this.setAttribute('tabindex', '0');
+    const setA11y = () => {
+      if (!this.hasAttribute('tabindex')) {
+        this.setAttribute('tabindex', '0');
+      }
+      if (!this.hasAttribute('role')) {
+        this.setAttribute('role', 'region');
+      }
+      if (!this.hasAttribute('aria-label')) {
+        this.setAttribute('aria-label', `PDF Viewer: ${this._title}`);
+      }
+    };
+
+    if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+      window.requestAnimationFrame(setA11y);
+    } else {
+      setA11y();
     }
-    this.setAttribute('role', 'region');
-    this.setAttribute('aria-label', `PDF Viewer: ${this._title}`);
 
     // Set worker
     if (typeof window !== 'undefined' && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
@@ -434,7 +463,7 @@ export class SkyraPdfViewerElement extends BaseElement {
     document.addEventListener('fullscreenchange', this.handleFsChange);
     window.addEventListener('resize', this.handleResize);
 
-    this.handleResize();
+    this._sidebarOpen = typeof window !== 'undefined' && window.innerWidth >= 1024;
     this.render();
     if (this._src) this.loadPdf();
   }
@@ -453,11 +482,18 @@ export class SkyraPdfViewerElement extends BaseElement {
       case 'title':
         this._title = newValue || 'Document Preview';
         this.setAttribute('aria-label', `PDF Viewer: ${this._title}`);
-        this.render();
+        const titleEl = this._shadowRoot?.querySelector('.toolbar-title');
+        if (titleEl) {
+          titleEl.textContent = this._title;
+        } else {
+          this.render();
+        }
         break;
       case 'src':
-        this._src = newValue;
-        this.loadPdf();
+        if (this._src !== newValue) {
+          this._src = newValue;
+          this.loadPdf();
+        }
         break;
       case 'initial-page':
         if (!this._pdfDocument) {
@@ -478,21 +514,17 @@ export class SkyraPdfViewerElement extends BaseElement {
   }
 
   private handleResize() {
-    if (window.innerWidth >= 1024) {
-      if (!this._sidebarOpen) {
-        this._sidebarOpen = true;
-        this.render();
-      }
-    } else {
-      if (this._sidebarOpen) {
-        this._sidebarOpen = false;
-        this.render();
+    const shouldOpen = typeof window !== 'undefined' && window.innerWidth >= 1024;
+    if (this._sidebarOpen !== shouldOpen) {
+      this._sidebarOpen = shouldOpen;
+      if (this._sidebarContainer) {
+        this._sidebarContainer.style.display = (this._sidebarOpen && !!this._pdfDocument) ? 'flex' : 'none';
       }
     }
   }
 
   private handleFsChange() {
-    const isFs = !!document.fullscreenElement;
+    const isFs = typeof document !== 'undefined' && !!document.fullscreenElement;
     if (this._isFullscreen !== isFs) {
       this._isFullscreen = isFs;
       if (isFs) {
@@ -500,7 +532,12 @@ export class SkyraPdfViewerElement extends BaseElement {
       } else {
         this.removeAttribute('fullscreen');
       }
-      this.render();
+      const fsBtn = this._shadowRoot?.getElementById('btn-fullscreen');
+      if (fsBtn) {
+        fsBtn.innerHTML = this._isFullscreen ? ICONS.minimize2 : ICONS.maximize2;
+      } else {
+        this.render();
+      }
     }
   }
 
@@ -603,23 +640,32 @@ export class SkyraPdfViewerElement extends BaseElement {
   }
 
   private cleanupPdf() {
+    this._renderId++;
     if (this._loadingTask) {
       this._loadingTask.destroy().catch(() => {});
       this._loadingTask = null;
     }
     if (this._pageRenderTask) {
-      this._pageRenderTask.cancel();
+      try {
+        this._pageRenderTask.cancel();
+      } catch (e) {}
       this._pageRenderTask = null;
     }
     if (this._pageProxy) {
-      this._pageProxy.cleanup();
+      try {
+        this._pageProxy.cleanup();
+      } catch (e) {}
       this._pageProxy = null;
     }
     
     // Cleanup thumbnails
-    this._thumbnailRenderTasks.forEach(task => task.cancel());
+    this._thumbnailRenderTasks.forEach(task => {
+      try { task.cancel(); } catch (e) {}
+    });
     this._thumbnailRenderTasks.clear();
-    this._thumbnailProxies.forEach(proxy => proxy.cleanup());
+    this._thumbnailProxies.forEach(proxy => {
+      try { proxy.cleanup(); } catch (e) {}
+    });
     this._thumbnailProxies.clear();
     this._thumbnailObservers.forEach(obs => obs.disconnect());
     this._thumbnailObservers.clear();
@@ -646,7 +692,7 @@ export class SkyraPdfViewerElement extends BaseElement {
     this.render();
 
     try {
-      let source;
+      let source: any = null;
       if (typeof this._src === 'string') {
         source = { url: this._src };
       } else if (this._src instanceof ArrayBuffer) {
@@ -664,12 +710,12 @@ export class SkyraPdfViewerElement extends BaseElement {
         this._loading = false;
         this.dispatchEvent(new CustomEvent('skyra-document-loaded', { detail: { totalPages: this._totalPages } }));
         this.render();
-        this.renderPage();
-        this.renderSidebarThumbnails();
       }
-    } catch (err) {
-      if (err instanceof Error && err.name !== 'RenderingCancelledException') {
-        this._error = err.message || 'Failed to load document';
+    } catch (err: any) {
+      const isCancelled = err?.name === 'RenderingCancelledException' || 
+                          err?.message?.includes?.('cancelled');
+      if (!isCancelled) {
+        this._error = err?.message || 'Failed to load document';
         this._loading = false;
         this.dispatchEvent(new CustomEvent('skyra-error', { detail: this._error }));
         this.render();
@@ -683,8 +729,8 @@ export class SkyraPdfViewerElement extends BaseElement {
     const currentRenderId = ++this._renderId;
 
     if (this._pageRenderTask) {
-      this._pageRenderTask.cancel();
       try {
+        this._pageRenderTask.cancel();
         await this._pageRenderTask.promise;
       } catch (e) {
         // Ignore cancellation exception
@@ -695,27 +741,47 @@ export class SkyraPdfViewerElement extends BaseElement {
     if (this._renderId !== currentRenderId) return;
 
     if (this._pageProxy) {
-      this._pageProxy.cleanup();
+      try {
+        this._pageProxy.cleanup();
+      } catch (e) {}
       this._pageProxy = null;
     }
 
     try {
-      this._pageProxy = await this._pdfDocument.getPage(this._currentPage);
+      const pageProxy = await this._pdfDocument.getPage(this._currentPage);
       
-      const viewport = this._pageProxy.getViewport({ scale: 1, rotation: this._rotation });
-      const context = this._canvas.getContext('2d');
-      if (!context) return;
+      if (this._renderId !== currentRenderId) {
+        try { pageProxy.cleanup(); } catch (e) {}
+        return;
+      }
+
+      this._pageProxy = pageProxy;
+
+      const viewport = pageProxy.getViewport({ scale: 1, rotation: this._rotation });
+      const canvas = this._canvas;
+      if (!canvas) {
+        try { pageProxy.cleanup(); } catch (e) {}
+        return;
+      }
+
+      const context = canvas.getContext('2d');
+      if (!context) {
+        try { pageProxy.cleanup(); } catch (e) {}
+        return;
+      }
 
       const outputScale = window.devicePixelRatio || 1;
-      this._canvas.width = Math.floor(viewport.width * outputScale);
-      this._canvas.height = Math.floor(viewport.height * outputScale);
-      this._canvas.style.width = `${viewport.width}px`;
-      this._canvas.style.height = `${viewport.height}px`;
+      canvas.width = Math.floor(viewport.width * outputScale);
+      canvas.height = Math.floor(viewport.height * outputScale);
+      canvas.style.width = `${viewport.width}px`;
+      canvas.style.height = `${viewport.height}px`;
 
       // Set container base dimensions
-      this._pageContainer.style.width = `${viewport.width}px`;
-      this._pageContainer.style.height = `${viewport.height}px`;
-      this.updatePageTransform();
+      if (this._pageContainer) {
+        this._pageContainer.style.width = `${viewport.width}px`;
+        this._pageContainer.style.height = `${viewport.height}px`;
+        this.updatePageTransform();
+      }
 
       const transform = outputScale !== 1
         ? [outputScale, 0, 0, outputScale, 0, 0]
@@ -727,11 +793,30 @@ export class SkyraPdfViewerElement extends BaseElement {
         viewport,
       };
 
-      this._pageRenderTask = this._pageProxy.render(renderContext);
-      await this._pageRenderTask.promise;
-      this.dispatchEvent(new CustomEvent('skyra-render-complete', { detail: { page: this._currentPage } }));
-    } catch (err) {
-      if (err instanceof Error && err.name !== 'RenderingCancelledException') {
+      if (this._renderId !== currentRenderId) {
+        try { pageProxy.cleanup(); } catch (e) {}
+        return;
+      }
+
+      const renderTask = pageProxy.render(renderContext);
+      this._pageRenderTask = renderTask;
+
+      try {
+        await renderTask.promise;
+      } finally {
+        if (this._pageRenderTask === renderTask) {
+          this._pageRenderTask = null;
+        }
+      }
+
+      if (this._renderId === currentRenderId) {
+        this.dispatchEvent(new CustomEvent('skyra-render-complete', { detail: { page: this._currentPage } }));
+      }
+    } catch (err: any) {
+      const isCancelled = err?.name === 'RenderingCancelledException' || 
+                          err?.message?.includes?.('Rendering cancelled') ||
+                          err?.message?.includes?.('cancelled');
+      if (!isCancelled) {
         console.error('Error rendering page:', err);
       }
     }
@@ -746,6 +831,19 @@ export class SkyraPdfViewerElement extends BaseElement {
     if (skeleton) {
       skeleton.style.transform = `scale(${this._zoom / 100}) rotate(${this._rotation}deg)`;
     }
+  }
+
+  private updatePageInfo() {
+    const currentEl = this._shadowRoot.querySelector('.page-info-current');
+    if (currentEl) currentEl.textContent = this._currentPage.toString();
+
+    const prevBtn = this._shadowRoot.getElementById('btn-prev') as HTMLButtonElement | null;
+    if (prevBtn) prevBtn.disabled = this._currentPage <= 1 || this._loading;
+
+    const nextBtn = this._shadowRoot.getElementById('btn-next') as HTMLButtonElement | null;
+    if (nextBtn) nextBtn.disabled = this._currentPage >= this._totalPages || this._loading;
+
+    this.updateSidebarActiveState();
   }
 
   private renderSidebarThumbnails() {
@@ -765,7 +863,9 @@ export class SkyraPdfViewerElement extends BaseElement {
         this.currentPage = i;
         if (window.innerWidth < 768) {
           this._sidebarOpen = false;
-          this.render();
+          if (this._sidebarContainer) {
+            this._sidebarContainer.style.display = 'none';
+          }
         }
       });
       thumb.addEventListener('keydown', (e) => {
@@ -841,18 +941,30 @@ export class SkyraPdfViewerElement extends BaseElement {
 
       const renderTask = pageProxy.render({ canvasContext: context, transform, viewport });
       this._thumbnailRenderTasks.set(pageNumber, renderTask);
-      await renderTask.promise;
+      try {
+        await renderTask.promise;
+      } finally {
+        this._thumbnailRenderTasks.delete(pageNumber);
+      }
       
       container.innerHTML = '';
       container.appendChild(canvas);
-    } catch (err) {
-      if (err instanceof Error && err.name !== 'RenderingCancelledException') {
+    } catch (err: any) {
+      const isCancelled = err?.name === 'RenderingCancelledException' || 
+                          err?.message?.includes?.('cancelled');
+      if (!isCancelled) {
         container.innerHTML = '<div style="color: var(--skyra-text-muted); font-size: 0.75rem;">Failed</div>';
       }
     }
   }
 
   private render() {
+    this._renderId++;
+    if (this._pageRenderTask) {
+      try { this._pageRenderTask.cancel(); } catch (e) {}
+      this._pageRenderTask = null;
+    }
+
     const hasPdf = !!this._pdfDocument;
     
     let html = `<style>${styleContent}</style>`;
@@ -987,7 +1099,11 @@ export class SkyraPdfViewerElement extends BaseElement {
     // Attach events
     this._shadowRoot.getElementById('btn-sidebar')?.addEventListener('click', () => {
       this._sidebarOpen = !this._sidebarOpen;
-      this.render();
+      if (this._sidebarContainer) {
+        this._sidebarContainer.style.display = (this._sidebarOpen && !!this._pdfDocument) ? 'flex' : 'none';
+      } else {
+        this.render();
+      }
     });
     this._shadowRoot.getElementById('btn-zoom-out')?.addEventListener('click', () => this.zoomOut());
     this._shadowRoot.getElementById('btn-zoom-in')?.addEventListener('click', () => this.zoomIn());

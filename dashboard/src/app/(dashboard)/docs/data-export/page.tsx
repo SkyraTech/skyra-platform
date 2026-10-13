@@ -92,6 +92,13 @@ export default function DataExportDocsPage() {
         version="0.1.0"
       />
 
+      <Callout type="info" title="Interactive Export Workbench">
+        Looking for an interactive playground to configure, preview, and test live CSV and Excel exports? Visit the{' '}
+        <Link href="/export" style={{ color: 'var(--skyra-primary)', fontWeight: 600, textDecoration: 'underline' }}>
+          Data Export Workbench
+        </Link>.
+      </Callout>
+
       {/* Overview */}
       <section id="overview" style={{ marginBottom: '3rem' }}>
         <HeadingAnchor id="overview" level={2}>Overview</HeadingAnchor>

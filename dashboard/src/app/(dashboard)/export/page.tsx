@@ -1,6 +1,7 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { ExportButton, ExportMenu } from '@/components/ui';;
 import { exportToCsv, exportToExcel } from '@skyra-tech-platform/data-export';
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
@@ -30,7 +31,10 @@ export default function ExportShowcasePage() {
           Data Export Suite (@skyra-tech-platform/data-export)
         </h1>
         <p style={{ color: 'var(--skyra-text-muted)', fontSize: '0.95rem', marginTop: '0.5rem' }}>
-          Pure TypeScript data export engine separating file formatting engines (CSV with RFC-4180 escaping, Excel XML Spreadsheet 2003) from reusable UI action controls.
+          Pure TypeScript data export engine separating file formatting engines (CSV with RFC-4180 escaping, Excel XML Spreadsheet 2003) from reusable UI action controls.{' '}
+          <Link href="/docs/data-export" style={{ color: 'var(--skyra-primary)', fontWeight: 600, textDecoration: 'underline' }}>
+            View API Documentation &rarr;
+          </Link>
         </p>
       </div>
 

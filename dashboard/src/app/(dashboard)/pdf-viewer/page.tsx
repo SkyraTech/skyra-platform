@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import '@skyra-tech-platform/pdf-viewer';;
@@ -26,6 +26,7 @@ export default function PdfViewerShowcasePage() {
                 totalPages={8}
                 initialPage={1}
                 initialZoom={100}
+                suppressHydrationWarning
                 onPrint={() => alert('Print triggered from PdfViewer')}
                 onDownload={() => alert('Download triggered from PdfViewer')}
               />
