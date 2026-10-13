@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationFirst, PaginationLast, PaginationEllipsis, Card, Badge } from '@/components/ui';
@@ -43,7 +43,7 @@ export default function PaginationShowcasePage() {
       </div>
 
       {/* 1. Basic & Managed Pagination */}
-      <DemoSection title="1. Managed Controlled Pagination" desc="All-in-one pagination component with boundary counts, sibling counts, and intelligent ellipsis placement." erpSource="Platform Foundation">
+      <DemoSection title="1. Managed Controlled Pagination" desc="All-in-one pagination component with boundary counts, sibling counts, and intelligent ellipsis placement.">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
           <DemoBlock title="Standard Pagination (5 Pages)">
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', padding: '1rem 0' }}>
@@ -75,7 +75,7 @@ export default function PaginationShowcasePage() {
       </DemoSection>
 
       {/* 2. Visual Variants & Sizes */}
-      <DemoSection title="2. Sizes &amp; Variants" desc="Support for sm, md, lg sizes and outline and compact variants for space-constrained viewports." erpSource="Platform Foundation">
+      <DemoSection title="2. Sizes &amp; Variants" desc="Support for sm, md, lg sizes and outline and compact variants for space-constrained viewports.">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
           <DemoBlock title="Outline Variant (Size: SM)">
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', padding: '1rem 0' }}>
@@ -142,7 +142,7 @@ export default function PaginationShowcasePage() {
       </DemoSection>
 
       {/* 3. Realistic DataTable Integration */}
-      <DemoSection title="3. Table Dataset &amp; Page Size Integration" desc="Demonstrating realistic dataset pagination slicing with dynamic page size selection and record counters." erpSource="skyra-erp/src/components/ui/table">
+      <DemoSection title="3. Table Dataset &amp; Page Size Integration" desc="Demonstrating realistic dataset pagination slicing with dynamic page size selection and record counters.">
         <Card style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {/* Header & Page Size Selector */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>

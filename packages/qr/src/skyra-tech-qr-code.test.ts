@@ -102,12 +102,27 @@ describe('SkyraTechQRCodeElement', () => {
 
   it('clears rendering gracefully on generation failure', () => {
     const el = document.createElement('skyra-tech-qr-code') as SkyraTechQRCodeElement;
-    // An extremely huge payload for a low version might fail, 
-    // or passing invalid parameters could trigger a catch block. 
-    // Just testing basic error protection.
     document.body.appendChild(el);
     el.version = -1; // invalid version
     el.value = 'fail data';
     expect(el.shadowRoot!.innerHTML).toContain('QR generation failed');
   });
+
+  it('supports explicit width attribute and getSVG method', () => {
+    const el = document.createElement('skyra-tech-qr-code') as SkyraTechQRCodeElement;
+    el.value = 'https://skyra.tech/docs';
+    el.width = '280';
+    document.body.appendChild(el);
+
+    expect(el.width).toBe('280');
+    expect(el.getAttribute('width')).toBe('280');
+    const containerDiv = el.shadowRoot!.querySelector('div');
+    expect(containerDiv?.style.width).toBe('280px');
+
+    const svgString = el.getSVG();
+    expect(svgString).toContain('<svg');
+    expect(svgString).toContain('role="img"');
+    expect(svgString).toContain('</svg>');
+  });
 });
+

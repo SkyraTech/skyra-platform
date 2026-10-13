@@ -58,13 +58,25 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
       setActiveIndex(0);
       const timer = setTimeout(() => inputRef.current?.focus(), 50);
       document.body.style.overflow = 'hidden';
-      return () => clearTimeout(timer);
+
+      const handleWindowKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          onClose();
+        }
+      };
+      window.addEventListener('keydown', handleWindowKeyDown);
+
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('keydown', handleWindowKeyDown);
+      };
     } else {
       setIsAnimating(false);
       setQuery('');
       document.body.style.overflow = '';
     }
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   useEffect(() => {
     if (listRef.current && isOpen) {

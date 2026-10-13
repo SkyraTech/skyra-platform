@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { Tooltip, StatusBadge } from '@/components/ui';
@@ -37,7 +37,7 @@ export default function TooltipShowcasePage() {
           Rich Tooltip System
         </h1>
         <p style={{ color: 'var(--skyra-text-muted)', fontSize: '0.95rem', marginTop: '0.5rem' }}>
-          Accessible, viewport-collision aware tooltips supporting plain strings, rich ReactNode structures, status indicators, and keyboard focus triggers.
+          Accessible, viewport-collision aware tooltips supporting plain strings, rich formatted content, status indicators, and keyboard focus triggers.
         </p>
       </div>
 
@@ -65,7 +65,7 @@ export default function TooltipShowcasePage() {
       </DemoSection>
 
       {/* 2. Rich Content Tooltips */}
-      <DemoSection title="2. Rich ReactNode &amp; Component Content" desc="Tooltips rendering interactive React subtrees, status indicators, and tables safely." erpSource="Platform Foundation">
+      <DemoSection title="2. Structured Formatted Content" desc="Tooltips rendering formatted structured content, status indicators, and tables safely.">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
           <DemoBlock title="Cluster Health Telemetry Popover">
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 0' }}>

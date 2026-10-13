@@ -102,3 +102,20 @@ export function renderToSVGString(matrix: QRCodeMatrix, options: QRCodeSVGOption
   return svg;
 }
 
+/**
+ * Builds a concatenated SVG path data string for all dark modules in the QR matrix.
+ * Retained for API baseline compatibility.
+ */
+export function buildSVGPath(matrix: QRCodeMatrix, margin: number = 4): string {
+  const { size, modules } = matrix;
+  const pathParts: string[] = [];
+  for (let row = 0; row < size; row++) {
+    for (let col = 0; col < size; col++) {
+      if (modules[row]?.[col]) {
+        pathParts.push(`M${col + margin},${row + margin}h1v1h-1z `);
+      }
+    }
+  }
+  return pathParts.join('');
+}
+

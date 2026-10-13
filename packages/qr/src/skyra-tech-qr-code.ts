@@ -5,7 +5,7 @@ export class SkyraTechQRCodeElement extends BaseClass {
   static get observedAttributes() {
     return [
       'value', 'error-correction-level', 'version', 'margin', 'mask-pattern', 
-      'scale', 'color-light', 'color-dark', 'module-shape', 'finder-shape', 'finder-color'
+      'scale', 'color-light', 'color-dark', 'module-shape', 'finder-shape', 'finder-color', 'width'
     ];
   }
 
@@ -42,6 +42,9 @@ export class SkyraTechQRCodeElement extends BaseClass {
   get scale() { return this.hasAttribute('scale') ? parseInt(this.getAttribute('scale')!, 10) : 4; }
   set scale(val: number) { this.setAttribute('scale', val.toString()); }
 
+  get width() { return this.getAttribute('width') || ''; }
+  set width(val: string) { if (val) this.setAttribute('width', val); else this.removeAttribute('width'); }
+
   get colorLight() { return this.getAttribute('color-light') || '#ffffff'; }
   set colorLight(val: string) { this.setAttribute('color-light', val); }
 
@@ -56,6 +59,14 @@ export class SkyraTechQRCodeElement extends BaseClass {
 
   get finderColor() { return this.getAttribute('finder-color') || this.colorDark; }
   set finderColor(val: string) { this.setAttribute('finder-color', val); }
+
+  /**
+   * Returns the inner rendered SVG markup or an empty string if not rendered.
+   */
+  getSVG(): string {
+    const svg = this.shadowRoot?.querySelector('svg');
+    return svg ? new XMLSerializer().serializeToString(svg) : '';
+  }
 
   render() {
     if (!this.shadowRoot) return;

@@ -37,6 +37,7 @@ declare global {
           'error-correction-level'?: string;
           margin?: number;
           scale?: number;
+          width?: string | number;
           'color-dark'?: string;
           'color-light'?: string;
           'module-shape'?: string;
@@ -105,6 +106,7 @@ declare global {
         'error-correction-level'?: string;
         margin?: number;
         scale?: number;
+        width?: string | number;
         'color-dark'?: string;
         'color-light'?: string;
         'module-shape'?: string;

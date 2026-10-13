@@ -15,7 +15,7 @@
 }
 
 /* Screen reader only */
-.sr-only {
+.sr-only, .skyra-sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -26,3 +26,265 @@
   white-space: nowrap;
   border-width: 0;
 }
+
+/* ─── SKYRA PAGINATION STYLES ─── */
+.skyra-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.skyra-pagination-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.skyra-pagination-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.skyra-pagination-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--skyra-radius-md, 6px);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0.5rem;
+  color: var(--skyra-text, #0f172a);
+  background: var(--skyra-surface, #ffffff);
+  border: 1px solid var(--skyra-border, #e2e8f0);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  user-select: none;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.skyra-pagination-link:hover:not(:disabled) {
+  background: var(--skyra-surface-hover, #f8fafc);
+  border-color: var(--skyra-primary, #0A58CA);
+  color: var(--skyra-primary, #0A58CA);
+}
+
+.skyra-pagination-link:focus-visible {
+  outline: 2px solid var(--skyra-primary, #0A58CA);
+  outline-offset: 2px;
+}
+
+.skyra-pagination-link:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.skyra-pagination-link:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.skyra-pagination-link--active {
+  background: var(--skyra-primary, #0A58CA) !important;
+  color: #ffffff !important;
+  border-color: var(--skyra-primary, #0A58CA) !important;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(10, 88, 202, 0.25);
+}
+
+.skyra-pagination-prev,
+.skyra-pagination-next,
+.skyra-pagination-first,
+.skyra-pagination-last {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0 0.75rem;
+}
+
+.skyra-pagination-prev-label,
+.skyra-pagination-next-label,
+.skyra-pagination-first-label,
+.skyra-pagination-last-label {
+  font-size: 0.825rem;
+}
+
+.skyra-pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  color: var(--skyra-text-muted, #64748b);
+  user-select: none;
+}
+
+/* Pagination Sizes */
+.skyra-pagination--sm .skyra-pagination-link,
+.skyra-pagination-link--sm {
+  min-width: 1.75rem;
+  height: 1.75rem;
+  font-size: 0.775rem;
+  padding: 0 0.35rem;
+}
+
+.skyra-pagination--sm .skyra-pagination-ellipsis,
+.skyra-pagination-ellipsis--sm {
+  min-width: 1.75rem;
+  height: 1.75rem;
+}
+
+.skyra-pagination--lg .skyra-pagination-link,
+.skyra-pagination-link--lg {
+  min-width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1rem;
+  padding: 0 0.75rem;
+}
+
+.skyra-pagination--lg .skyra-pagination-ellipsis,
+.skyra-pagination-ellipsis--lg {
+  min-width: 2.75rem;
+  height: 2.75rem;
+}
+
+/* Pagination Variants */
+.skyra-pagination--outline .skyra-pagination-link {
+  background: transparent;
+  border: 1px solid var(--skyra-border, #cbd5e1);
+}
+
+.skyra-pagination--compact .skyra-pagination-content {
+  gap: 0;
+}
+
+.skyra-pagination--compact .skyra-pagination-item:not(:first-child):not(:last-child) .skyra-pagination-link {
+  border-radius: 0;
+  margin-left: -1px;
+}
+
+.skyra-pagination--compact .skyra-pagination-item:first-child .skyra-pagination-link {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.skyra-pagination--compact .skyra-pagination-item:last-child .skyra-pagination-link {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: -1px;
+}
+
+/* Pagination Dark Mode Overrides */
+.dark .skyra-pagination-link {
+  background: var(--skyra-surface, #1e293b);
+  border-color: var(--skyra-border, #334155);
+  color: var(--skyra-text, #f8fafc);
+}
+
+.dark .skyra-pagination-link:hover:not(:disabled) {
+  background: var(--skyra-surface-hover, rgba(255, 255, 255, 0.08));
+  border-color: var(--skyra-primary, #3b82f6);
+  color: #93c5fd;
+}
+
+.dark .skyra-pagination-link--active {
+  background: var(--skyra-primary, #0A58CA) !important;
+  color: #ffffff !important;
+  border-color: var(--skyra-primary, #0A58CA) !important;
+}
+
+.dark .skyra-pagination-ellipsis {
+  color: #94a3b8;
+}
+
+/* ─── SKYRA BREADCRUMB STYLES ─── */
+.skyra-breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  width: 100%;
+}
+
+.skyra-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.skyra-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.skyra-breadcrumb-link {
+  color: var(--skyra-text-muted, #475569);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  border-radius: var(--skyra-radius-sm, 4px);
+  padding: 0.15rem 0.35rem;
+}
+
+.skyra-breadcrumb-link:hover {
+  color: var(--skyra-primary, #0A58CA);
+  background: var(--skyra-surface-hover, rgba(0, 0, 0, 0.04));
+}
+
+.skyra-breadcrumb-link:focus-visible {
+  outline: 2px solid var(--skyra-primary, #0A58CA);
+  outline-offset: 2px;
+}
+
+.skyra-breadcrumb-page {
+  color: var(--skyra-text, #0f172a);
+  font-weight: 600;
+  padding: 0.15rem 0.35rem;
+}
+
+.skyra-breadcrumb-separator {
+  color: var(--skyra-text-muted, #94a3b8);
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.skyra-breadcrumb-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  color: var(--skyra-text-muted, #64748b);
+  padding: 0.15rem 0.25rem;
+}
+
+.dark .skyra-breadcrumb-link {
+  color: #94a3b8;
+}
+
+.dark .skyra-breadcrumb-link:hover {
+  color: #93c5fd;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dark .skyra-breadcrumb-page {
+  color: #f8fafc;
+}
+
+.dark .skyra-breadcrumb-separator {
+  color: #64748b;
+}
+

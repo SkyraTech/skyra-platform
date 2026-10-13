@@ -17,8 +17,8 @@ export interface QRContactPayload {
 
 export interface QREventPayload {
   title: string;
-  start: Date;
-  end: Date;
+  start: Date | string;
+  end: Date | string;
   location?: string;
   description?: string;
   allDay?: boolean;
@@ -75,38 +75,39 @@ export const QRContentBuilder = {
     return `WIFI:T:${enc};S:${payload.ssid};${pwd}H:${hidden};;`;
   },
   vcard: (payload: QRContactPayload) => {
-    let vcard = 'BEGIN:VCARD\\nVERSION:3.0\\n';
+    let vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
     const name = [payload.lastName || '', payload.firstName || ''].join(';').replace(/^;/, '').replace(/;$/, '');
     const fn = [payload.firstName, payload.lastName].filter(Boolean).join(' ');
     
-    if (name) vcard += `N:${name}\\n`;
-    if (fn) vcard += `FN:${fn}\\n`;
-    if (payload.organization) vcard += `ORG:${payload.organization}\\n`;
-    if (payload.phone) vcard += `TEL:${payload.phone}\\n`;
-    if (payload.email) vcard += `EMAIL:${payload.email}\\n`;
-    if (payload.website) vcard += `URL:${payload.website}\\n`;
-    if (payload.address) vcard += `ADR:;;${payload.address};;;;\\n`;
+    if (name) vcard += `N:${name}\n`;
+    if (fn) vcard += `FN:${fn}\n`;
+    if (payload.organization) vcard += `ORG:${payload.organization}\n`;
+    if (payload.phone) vcard += `TEL:${payload.phone}\n`;
+    if (payload.email) vcard += `EMAIL:${payload.email}\n`;
+    if (payload.website) vcard += `URL:${payload.website}\n`;
+    if (payload.address) vcard += `ADR:;;${payload.address};;;;\n`;
     
     vcard += 'END:VCARD';
     return vcard;
   },
   calendar: (payload: QREventPayload) => {
-    const format = (d: Date) => d.toISOString().replace(/[-:]/g, '').split('.')[0]! + 'Z';
-    const formatAllDay = (d: Date) => d.toISOString().split('T')[0]!.replace(/-/g, '');
+    const ensureDate = (d: Date | string) => (d instanceof Date ? d : new Date(d));
+    const format = (d: Date | string) => ensureDate(d).toISOString().replace(/[-:]/g, '').split('.')[0]! + 'Z';
+    const formatAllDay = (d: Date | string) => ensureDate(d).toISOString().split('T')[0]!.replace(/-/g, '');
     
-    let result = 'BEGIN:VEVENT\\n';
-    result += `SUMMARY:${payload.title}\\n`;
+    let result = 'BEGIN:VEVENT\n';
+    result += `SUMMARY:${payload.title}\n`;
     
     if (payload.allDay) {
-      result += `DTSTART;VALUE=DATE:${formatAllDay(payload.start)}\\n`;
-      result += `DTEND;VALUE=DATE:${formatAllDay(payload.end)}\\n`;
+      result += `DTSTART;VALUE=DATE:${formatAllDay(payload.start)}\n`;
+      result += `DTEND;VALUE=DATE:${formatAllDay(payload.end)}\n`;
     } else {
-      result += `DTSTART:${format(payload.start)}\\n`;
-      result += `DTEND:${format(payload.end)}\\n`;
+      result += `DTSTART:${format(payload.start)}\n`;
+      result += `DTEND:${format(payload.end)}\n`;
     }
 
-    if (payload.location) result += `LOCATION:${payload.location}\\n`;
-    if (payload.description) result += `DESCRIPTION:${payload.description}\\n`;
+    if (payload.location) result += `LOCATION:${payload.location}\n`;
+    if (payload.description) result += `DESCRIPTION:${payload.description}\n`;
     result += 'END:VEVENT';
     return result;
   }

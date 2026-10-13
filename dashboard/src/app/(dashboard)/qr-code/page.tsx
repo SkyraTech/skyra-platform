@@ -1,26 +1,70 @@
 'use client';
 
 import React from 'react';
-import { Badge } from '@/components/ui';
 import QRStudio from './QRStudio';
 
-export default function QRCodeShowcase() {
+export default function QRCodeStudioPage() {
   return (
-    <div className="dash-page" style={{ padding: '2rem 1.5rem', maxWidth: '1400px', margin: '0 auto', paddingBottom: '3rem' }}>
-      <header style={{ marginBottom: '2.5rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <h1 style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 800, fontSize: '1.85rem', color: 'var(--skyra-text)', margin: 0 }}>
-            Skyra QR Studio
-          </h1>
-          <Badge variant="primary" style={{ fontFamily: 'monospace' }}>@skyra-tech-platform/qr</Badge>
-        </div>
-        <p style={{ color: 'var(--skyra-text-muted)', maxWidth: '800px', fontSize: '0.95rem', margin: 0, lineHeight: 1.5 }}>
-          Create beautiful, customizable, production-ready QR codes using the framework-agnostic Skyra Platform QR capability.
-          Supports multiple data formats, real-time scanability analysis, and SVG/PNG generation.
+    <main className="dash-page qr-page-wrapper" id="main-content">
+      <div className="qr-page-header">
+        <h1 className="qr-page-title">
+          QR Code Studio
+        </h1>
+        <p className="qr-page-desc">
+          Create, customize, and export production-ready vector QR codes with real-time scanability validation, customizable styles, and multi-format payloads.
         </p>
-      </header>
+      </div>
 
       <QRStudio />
-    </div>
+
+      <style>{`
+        .qr-page-wrapper {
+          max-width: 1440px;
+          margin: 0 auto;
+          width: 100%;
+          box-sizing: border-box;
+          padding-bottom: 3rem;
+        }
+        .qr-page-header {
+          margin-bottom: 2rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+        .qr-page-title {
+          font-family: var(--skyra-font-display, inherit);
+          font-weight: 800;
+          font-size: 2rem;
+          color: var(--skyra-text, #0f172a);
+          margin: 0;
+          letter-spacing: -0.02em;
+        }
+        .qr-page-desc {
+          color: #334155;
+          max-width: 800px;
+          font-size: 0.95rem;
+          margin: 0;
+          line-height: 1.5;
+        }
+        :global(.dark) .qr-page-desc {
+          color: #cbd5e1;
+        }
+        @media (max-width: 640px) {
+          .qr-page-wrapper {
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+          }
+          .qr-page-title {
+            font-size: 1.5rem;
+          }
+        }
+        @media (max-width: 380px) {
+          .qr-page-wrapper {
+            padding-left: 0.35rem !important;
+            padding-right: 0.35rem !important;
+          }
+        }
+      `}</style>
+    </main>
   );
 }
