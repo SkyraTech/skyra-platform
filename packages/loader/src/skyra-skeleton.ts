@@ -294,3 +294,22 @@ if (typeof customElements !== 'undefined') {
   if (!customElements.get('skyra-skeleton-card')) customElements.define('skyra-skeleton-card', SkyraSkeletonCardElement);
   if (!customElements.get('skyra-skeleton-table')) customElements.define('skyra-skeleton-table', SkyraSkeletonTableElement);
 }
+
+// Canonical aliases use distinct constructors, as required by Custom Elements.
+if (typeof customElements !== 'undefined') {
+  if (!customElements.get('skyra-tech-skeleton')) {
+    customElements.define('skyra-tech-skeleton', class extends SkyraSkeletonElement {});
+  }
+  if (!customElements.get('skyra-tech-skeleton-text')) {
+    customElements.define('skyra-tech-skeleton-text', class extends SkyraSkeletonTextElement {});
+  }
+  if (!customElements.get('skyra-tech-skeleton-avatar')) {
+    customElements.define('skyra-tech-skeleton-avatar', class extends SkyraSkeletonAvatarElement {});
+  }
+  if (!customElements.get('skyra-tech-skeleton-card')) {
+    customElements.define('skyra-tech-skeleton-card', class extends SkyraSkeletonCardElement {});
+  }
+  if (!customElements.get('skyra-tech-skeleton-table')) {
+    customElements.define('skyra-tech-skeleton-table', class extends SkyraSkeletonTableElement {});
+  }
+}

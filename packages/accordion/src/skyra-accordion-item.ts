@@ -126,3 +126,10 @@ export class SkyraAccordionItemElement extends BaseClass {
 if (typeof customElements !== 'undefined' && !customElements.get('skyra-accordion-item')) {
   customElements.define('skyra-accordion-item', SkyraAccordionItemElement);
 }
+
+// Canonical aliases use distinct constructors, as required by Custom Elements.
+if (typeof customElements !== 'undefined') {
+  if (!customElements.get('skyra-tech-accordion-item')) {
+    customElements.define('skyra-tech-accordion-item', class extends SkyraAccordionItemElement {});
+  }
+}

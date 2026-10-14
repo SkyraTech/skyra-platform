@@ -298,7 +298,7 @@ function getGlobalViewport(): SkyraToastViewportElement {
   if (globalViewport && document.body.contains(globalViewport)) {
     return globalViewport;
   }
-  const existing = document.querySelector('skyra-toast-viewport') as SkyraToastViewportElement;
+  const existing = document.querySelector('skyra-toast-viewport, skyra-tech-toast-viewport') as SkyraToastViewportElement;
   if (existing) {
     globalViewport = existing;
     return existing;
@@ -328,3 +328,10 @@ toast.update = (id: string, options: Partial<ToastOptions>) => {
   if (typeof window === 'undefined') return;
   getGlobalViewport().updateToast(id, options);
 };
+
+// Canonical aliases use distinct constructors, as required by Custom Elements.
+if (typeof customElements !== 'undefined') {
+  if (!customElements.get('skyra-tech-toast-viewport')) {
+    customElements.define('skyra-tech-toast-viewport', class extends SkyraToastViewportElement {});
+  }
+}

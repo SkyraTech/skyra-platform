@@ -169,3 +169,10 @@ export class SkyraCircularProgressElement extends BaseClass {
 if (typeof customElements !== 'undefined' && !customElements.get('skyra-circular-progress')) {
   customElements.define('skyra-circular-progress', SkyraCircularProgressElement);
 }
+
+// Canonical aliases use distinct constructors, as required by Custom Elements.
+if (typeof customElements !== 'undefined') {
+  if (!customElements.get('skyra-tech-circular-progress')) {
+    customElements.define('skyra-tech-circular-progress', class extends SkyraCircularProgressElement {});
+  }
+}

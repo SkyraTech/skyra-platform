@@ -309,3 +309,10 @@ export class SkyraNotificationBarElement extends BaseElement {
 if (typeof customElements !== 'undefined' && !customElements.get('skyra-notification-bar')) {
   customElements.define('skyra-notification-bar', SkyraNotificationBarElement);
 }
+
+// Canonical aliases use distinct constructors, as required by Custom Elements.
+if (typeof customElements !== 'undefined') {
+  if (!customElements.get('skyra-tech-notification-bar')) {
+    customElements.define('skyra-tech-notification-bar', class extends SkyraNotificationBarElement {});
+  }
+}

@@ -101,11 +101,11 @@ export class SkyraTabsElement extends BaseClass {
   }
 
   private _getTabs(): HTMLElement[] {
-    return Array.from(this.querySelectorAll('skyra-tab'));
+    return Array.from(this.querySelectorAll('skyra-tab, skyra-tech-tab'));
   }
 
   private _getPanels(): HTMLElement[] {
-    return Array.from(this.querySelectorAll('skyra-tab-panel'));
+    return Array.from(this.querySelectorAll('skyra-tab-panel, skyra-tech-tab-panel'));
   }
 
   private _initializeTabs() {
@@ -198,7 +198,7 @@ export class SkyraTabsElement extends BaseClass {
     if (tabs.length === 0) return;
 
     const currentTab = e.target as HTMLElement;
-    if (currentTab.tagName.toLowerCase() !== 'skyra-tab') return;
+    if (!currentTab.matches('skyra-tab, skyra-tech-tab')) return;
 
     const currentIndex = tabs.indexOf(currentTab);
     if (currentIndex === -1) return;
@@ -250,4 +250,11 @@ export class SkyraTabsElement extends BaseClass {
 
 if (typeof customElements !== 'undefined' && !customElements.get('skyra-tabs')) {
   customElements.define('skyra-tabs', SkyraTabsElement);
+}
+
+// Canonical aliases use distinct constructors, as required by Custom Elements.
+if (typeof customElements !== 'undefined') {
+  if (!customElements.get('skyra-tech-tabs')) {
+    customElements.define('skyra-tech-tabs', class extends SkyraTabsElement {});
+  }
 }

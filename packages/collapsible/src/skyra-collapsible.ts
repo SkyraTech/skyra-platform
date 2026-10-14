@@ -145,3 +145,10 @@ export class SkyraCollapsibleElement extends BaseClass {
 if (typeof customElements !== 'undefined' && !customElements.get('skyra-collapsible')) {
   customElements.define('skyra-collapsible', SkyraCollapsibleElement);
 }
+
+// Canonical aliases use distinct constructors, as required by Custom Elements.
+if (typeof customElements !== 'undefined') {
+  if (!customElements.get('skyra-tech-collapsible')) {
+    customElements.define('skyra-tech-collapsible', class extends SkyraCollapsibleElement {});
+  }
+}

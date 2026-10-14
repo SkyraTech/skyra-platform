@@ -38,3 +38,10 @@ export class SkyraTabPanelElement extends BaseClass {
 if (typeof customElements !== 'undefined' && !customElements.get('skyra-tab-panel')) {
   customElements.define('skyra-tab-panel', SkyraTabPanelElement);
 }
+
+// Canonical aliases use distinct constructors, as required by Custom Elements.
+if (typeof customElements !== 'undefined') {
+  if (!customElements.get('skyra-tech-tab-panel')) {
+    customElements.define('skyra-tech-tab-panel', class extends SkyraTabPanelElement {});
+  }
+}

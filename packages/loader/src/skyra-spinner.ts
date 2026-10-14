@@ -153,3 +153,10 @@ export class SkyraSpinnerElement extends BaseClass {
 if (typeof customElements !== 'undefined' && !customElements.get('skyra-spinner')) {
   customElements.define('skyra-spinner', SkyraSpinnerElement);
 }
+
+// Canonical aliases use distinct constructors, as required by Custom Elements.
+if (typeof customElements !== 'undefined') {
+  if (!customElements.get('skyra-tech-spinner')) {
+    customElements.define('skyra-tech-spinner', class extends SkyraSpinnerElement {});
+  }
+}

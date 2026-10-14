@@ -85,7 +85,7 @@ export class SkyraAccordionElement extends BaseClass {
   }
 
   private _getItems(): SkyraAccordionItemElement[] {
-    return Array.from(this.querySelectorAll('skyra-accordion-item')) as SkyraAccordionItemElement[];
+    return Array.from(this.querySelectorAll('skyra-accordion-item, skyra-tech-accordion-item')) as SkyraAccordionItemElement[];
   }
 
   private _parseValue(val: string | null): string[] {
@@ -210,4 +210,11 @@ export class SkyraAccordionElement extends BaseClass {
 
 if (typeof customElements !== 'undefined' && !customElements.get('skyra-accordion')) {
   customElements.define('skyra-accordion', SkyraAccordionElement);
+}
+
+// Canonical aliases use distinct constructors, as required by Custom Elements.
+if (typeof customElements !== 'undefined') {
+  if (!customElements.get('skyra-tech-accordion')) {
+    customElements.define('skyra-tech-accordion', class extends SkyraAccordionElement {});
+  }
 }

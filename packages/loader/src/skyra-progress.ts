@@ -193,3 +193,10 @@ export class SkyraProgressElement extends BaseClass {
 if (typeof customElements !== 'undefined' && !customElements.get('skyra-progress')) {
   customElements.define('skyra-progress', SkyraProgressElement);
 }
+
+// Canonical aliases use distinct constructors, as required by Custom Elements.
+if (typeof customElements !== 'undefined') {
+  if (!customElements.get('skyra-tech-progress')) {
+    customElements.define('skyra-tech-progress', class extends SkyraProgressElement {});
+  }
+}
