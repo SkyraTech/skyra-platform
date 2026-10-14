@@ -8,6 +8,10 @@ dist/
 out/
 *.tsbuildinfo
 
+# Locally packed packages; retain the tracked consumer-test Button fixture
+/packages/*/*.tgz
+!/packages/button/skyra-tech-platform-button-0.1.0.tgz
+
 # Test / coverage
 coverage/
 .nyc_output/

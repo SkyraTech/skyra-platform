@@ -2,6 +2,7 @@
   "name": "@skyra-tech-platform/date-time",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,7 +15,8 @@
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "test": "vitest run"
   },
   "dependencies": {
     "@skyra-tech-platform/design-tokens": "workspace:*"

@@ -1,12 +1,31 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 import QRStudio from './QRStudio';
 
 export default function QRCodeStudioPage() {
   return (
     <main className="dash-page qr-page-wrapper" id="main-content">
       <div className="qr-page-header">
+        <div style={{ marginBottom: '0.75rem' }}>
+          <Link
+            href="/ui-components"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              color: 'var(--skyra-primary)',
+              fontSize: '0.875rem',
+              textDecoration: 'none',
+              fontWeight: 500,
+            }}
+          >
+            <ArrowLeft size={14} aria-hidden="true" />
+            <span>Back to UI Playground</span>
+          </Link>
+        </div>
         <h1 className="qr-page-title">
           QR Code Studio
         </h1>

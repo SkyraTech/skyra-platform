@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { processTableData } from '@skyra-tech-platform/data-table';
 import { StatusBadge, StatusConfig } from '@/components/ui';
 import { BaseColumnDef } from '@skyra-tech-platform/data-table';
@@ -9,7 +10,7 @@ import '@skyra-tech-platform/data-table';
 import '@skyra-tech-platform/button';;
 import { downloadCsv } from '@skyra-tech-platform/data-export';
 import { MOCK_TRANSACTIONS, MockTransaction } from '@/components/demos/MockData';
-import { Eye, Edit, Trash2, Download, RefreshCw, AlertCircle } from 'lucide-react';
+import { Eye, Edit, Trash2, Download, RefreshCw, AlertCircle, ArrowLeft } from 'lucide-react';
 
 const STATUS_MAP: Record<string, StatusConfig> = {
   PAID: { label: 'Paid', bg: 'var(--skyra-success-light)', color: 'var(--skyra-success)' },
@@ -19,27 +20,27 @@ const STATUS_MAP: Record<string, StatusConfig> = {
 };
 
 const columns: BaseColumnDef<MockTransaction>[] = [
-  { 
-    id: 'reference', 
-    header: 'Reference', 
-    accessor: 'reference', 
-    sortable: true, 
-    resizable: true, 
+  {
+    id: 'reference',
+    header: 'Reference',
+    accessor: 'reference',
+    sortable: true,
+    resizable: true,
     minWidth: 120,
     filterConfig: { type: 'text' }
   },
-  { 
-    id: 'client', 
-    header: 'Client Name', 
-    accessor: 'client', 
-    sortable: true, 
-    resizable: true, 
+  {
+    id: 'client',
+    header: 'Client Name',
+    accessor: 'client',
+    sortable: true,
+    resizable: true,
     minWidth: 160,
     filterConfig: { type: 'text' }
   },
-  { 
-    id: 'amount', 
-    header: 'Amount', 
+  {
+    id: 'amount',
+    header: 'Amount',
     accessor: 'amount',
     cellSlot: (row) => `amount-${row.reference}`,
     sortable: true,
@@ -48,32 +49,32 @@ const columns: BaseColumnDef<MockTransaction>[] = [
     filterConfig: { type: 'number' },
     visual: { variant: 'accent', tone: 'primary' }
   },
-  { 
-    id: 'date', 
-    header: 'Date', 
-    accessor: 'date', 
-    sortable: true, 
-    resizable: true, 
+  {
+    id: 'date',
+    header: 'Date',
+    accessor: 'date',
+    sortable: true,
+    resizable: true,
     minWidth: 110,
     filterConfig: { type: 'date' }
   },
-  { 
-    id: 'status', 
-    header: 'Status', 
+  {
+    id: 'status',
+    header: 'Status',
     accessor: 'status',
     cellSlot: (row) => `status-${row.reference}`,
     sortable: true,
     hideable: true,
     resizable: true,
     minWidth: 110,
-    filterConfig: { 
-      type: 'select', 
+    filterConfig: {
+      type: 'select',
       options: [
         { value: 'PAID', label: 'Paid' },
         { value: 'PENDING', label: 'Pending' },
         { value: 'OVERDUE', label: 'Overdue' },
         { value: 'DRAFT', label: 'Draft' }
-      ] 
+      ]
     }
   }
 ];
@@ -99,8 +100,8 @@ export default function DataTablePage() {
     initialPagination: { pageIndex: 0, pageSize: 10 }
   });
 
-  const activeData = showError 
-    ? MOCK_TRANSACTIONS 
+  const activeData = showError
+    ? MOCK_TRANSACTIONS
     : (showEmpty ? [] : MOCK_TRANSACTIONS);
 
   const errorObj = showError ? new Error('Database query timed out while loading transactions.') : null;
@@ -148,6 +149,23 @@ export default function DataTablePage() {
   return (
     <div className="dash-page" style={{ maxWidth: '1100px', margin: '0 auto', paddingBottom: '3rem' }}>
       <header style={{ marginBottom: '2rem' }}>
+        <div style={{ marginBottom: '1rem' }}>
+          <Link
+            href="/ui-components"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              color: 'var(--skyra-primary)',
+              fontSize: '0.875rem',
+              textDecoration: 'none',
+              fontWeight: 500,
+            }}
+          >
+            <ArrowLeft size={14} aria-hidden="true" />
+            <span>Back to UI Playground</span>
+          </Link>
+        </div>
         <h1 style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 800, fontSize: '1.85rem', color: 'var(--skyra-text)', marginBottom: '0.4rem' }}>
           Enterprise Data Table Showcase
         </h1>
@@ -157,13 +175,13 @@ export default function DataTablePage() {
       </header>
 
       {/* ── Feature Configuration Controls ── */}
-      <section 
+      <section
         aria-label="Table Configuration Panel"
-        style={{ 
-          background: 'var(--skyra-surface)', 
-          border: '1px solid var(--skyra-border)', 
-          borderRadius: 'var(--skyra-radius-lg)', 
-          padding: '1.25rem', 
+        style={{
+          background: 'var(--skyra-surface)',
+          border: '1px solid var(--skyra-border)',
+          borderRadius: 'var(--skyra-radius-lg)',
+          padding: '1.25rem',
           marginBottom: '1.5rem',
           display: 'flex',
           flexDirection: 'column',
@@ -175,7 +193,7 @@ export default function DataTablePage() {
             Interactive Feature Flags & Modularity
           </h2>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <button 
+            <button
               type="button"
               onClick={() => {
                 setLoading(true);
@@ -198,7 +216,7 @@ export default function DataTablePage() {
               <RefreshCw size={13} />
               {loading ? 'Simulating...' : 'Simulate Loading'}
             </button>
-            <button 
+            <button
               type="button"
               onClick={() => {
                 setShowEmpty((prev) => !prev);
@@ -217,7 +235,7 @@ export default function DataTablePage() {
             >
               {showEmpty ? 'Show Data' : 'Toggle Empty State'}
             </button>
-            <button 
+            <button
               type="button"
               onClick={() => {
                 setShowError((prev) => !prev);
@@ -240,7 +258,7 @@ export default function DataTablePage() {
               <AlertCircle size={13} />
               {showError ? 'Clear Error' : 'Simulate Error'}
             </button>
-            <button 
+            <button
               type="button"
               onClick={handleExportProcessed}
               style={{
@@ -268,13 +286,13 @@ export default function DataTablePage() {
           {(Object.keys(featureConfig) as (keyof typeof featureConfig)[]).map((key) => {
             const isEnabled = featureConfig[key];
             return (
-              <label 
+              <label
                 key={key}
-                style={{ 
-                  display: 'inline-flex', 
-                  alignItems: 'center', 
-                  gap: '0.35rem', 
-                  padding: '0.35rem 0.6rem', 
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  padding: '0.35rem 0.6rem',
                   borderRadius: 'var(--skyra-radius-sm)',
                   background: isEnabled ? 'var(--skyra-primary-light, rgba(59, 130, 246, 0.08))' : 'var(--skyra-bg)',
                   border: `1px solid ${isEnabled ? 'var(--skyra-primary)' : 'var(--skyra-border)'}`,
@@ -284,10 +302,10 @@ export default function DataTablePage() {
                   fontWeight: isEnabled ? 600 : 400,
                 }}
               >
-                <input 
-                  type="checkbox" 
-                  checked={isEnabled} 
-                  onChange={() => toggleFeature(key)} 
+                <input
+                  type="checkbox"
+                  checked={isEnabled}
+                  onChange={() => toggleFeature(key)}
                   style={{ display: 'none' }}
                 />
                 {key}
@@ -322,66 +340,66 @@ export default function DataTablePage() {
         columnSizing={tableState.columnSizing}
         onColumnSizingChange={tableState.onColumnSizingChange}
         pageSizeOptions={[5, 10, 20]}
-        onAdd={() => alert('Add Record clicked!')}
-      >
-        {activeData.map((item) => (
-          <React.Fragment key={item.reference}>
-            <span slot={`amount-${item.reference}`} style={{ fontWeight: 600 }}>${Number(item.amount).toLocaleString()}</span>
-            <div slot={`status-${item.reference}`}>
-              <StatusBadge statusMap={STATUS_MAP} status={String(item.status)} size="sm" />
-            </div>
-            {featureConfig.rowActions && (
-              <div slot={`row-actions-${item.reference}`} style={{ display: 'flex', gap: '0.4rem', justifyContent: 'flex-end' }}>
-                <button 
-                  type="button"
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--skyra-text-muted)', padding: '4px' }} 
-                  onClick={() => alert(`View Reference: ${item.reference}`)}
-                  aria-label={`View ${item.reference}`}
-                >
-                  <Eye size={15} />
-                </button>
-                <button 
-                  type="button"
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--skyra-text-muted)', padding: '4px' }} 
-                  onClick={() => alert(`Edit Reference: ${item.reference}`)}
-                  aria-label={`Edit ${item.reference}`}
-                >
-                  <Edit size={15} />
-                </button>
-                <button 
-                  type="button"
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--skyra-danger)', padding: '4px' }} 
-                  onClick={() => alert(`Delete Reference: ${item.reference}`)}
-                  aria-label={`Delete ${item.reference}`}
-                >
-                  <Trash2 size={15} />
-                </button>
-              </div>
-            )}
-          </React.Fragment>
-        ))}
-        {featureConfig.bulkActions && (
-          <div slot="bulk-actions" style={{ display: 'flex', gap: '0.5rem' }}>
-            <skyra-tech-button 
-              variant="outline" 
-              size="sm" 
-              onClick={() => {
-                const selected = activeData.filter(r => tableState.selection[r.reference] || tableState.selection[r.id]);
-                handleExportSelected(selected);
-              }}
-            >
-              <Download size={13} style={{ marginRight: '4px' }} />
-              Export Selected
-            </skyra-tech-button>
-            <skyra-tech-button 
-              variant="danger" 
-              size="sm" 
-              onClick={() => alert(`Simulating deletion of selected records.`)}
-            >
-              Delete Selected
-            </skyra-tech-button>
-          </div>
-        )}
+        onAdd={() => alert('Add Record clicked!')}
+      >
+        {activeData.map((item) => (
+          <React.Fragment key={item.reference}>
+            <span slot={`amount-${item.reference}`} style={{ fontWeight: 600 }}>${Number(item.amount).toLocaleString()}</span>
+            <div slot={`status-${item.reference}`}>
+              <StatusBadge statusMap={STATUS_MAP} status={String(item.status)} size="sm" />
+            </div>
+            {featureConfig.rowActions && (
+              <div slot={`row-actions-${item.reference}`} style={{ display: 'flex', gap: '0.4rem', justifyContent: 'flex-end' }}>
+                <button
+                  type="button"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--skyra-text-muted)', padding: '4px' }}
+                  onClick={() => alert(`View Reference: ${item.reference}`)}
+                  aria-label={`View ${item.reference}`}
+                >
+                  <Eye size={15} />
+                </button>
+                <button
+                  type="button"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--skyra-text-muted)', padding: '4px' }}
+                  onClick={() => alert(`Edit Reference: ${item.reference}`)}
+                  aria-label={`Edit ${item.reference}`}
+                >
+                  <Edit size={15} />
+                </button>
+                <button
+                  type="button"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--skyra-danger)', padding: '4px' }}
+                  onClick={() => alert(`Delete Reference: ${item.reference}`)}
+                  aria-label={`Delete ${item.reference}`}
+                >
+                  <Trash2 size={15} />
+                </button>
+              </div>
+            )}
+          </React.Fragment>
+        ))}
+        {featureConfig.bulkActions && (
+          <div slot="bulk-actions" style={{ display: 'flex', gap: '0.5rem' }}>
+            <skyra-tech-button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                const selected = activeData.filter(r => tableState.selection[r.reference] || tableState.selection[r.id]);
+                handleExportSelected(selected);
+              }}
+            >
+              <Download size={13} style={{ marginRight: '4px' }} />
+              Export Selected
+            </skyra-tech-button>
+            <skyra-tech-button
+              variant="danger"
+              size="sm"
+              onClick={() => alert(`Simulating deletion of selected records.`)}
+            >
+              Delete Selected
+            </skyra-tech-button>
+          </div>
+        )}
       </skyra-tech-data-table>
     </div>
   );

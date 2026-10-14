@@ -4,9 +4,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  LayoutDashboard, Palette, Component, Table2, WrapText,
+  LayoutDashboard, Palette, Component, WrapText,
   PanelTop, Eye, Monitor, BookOpen, Moon, Sun, ChevronRight, ChevronDown,
-  FileText, Printer, Download, QrCode, Package, History, Layers,
+  FileText, Download, Package, History, Layers,
   FileCode2
 } from 'lucide-react';
 import { registerAppShell } from '@skyra-tech-platform/app-shell';
@@ -107,11 +107,6 @@ const NAV_SECTIONS: NavSection[] = [
     title: 'Playground & Workbenches',
     items: [
       { href: '/ui-components', label: 'UI Playground',         icon: Component },
-      { href: '/data-table',    label: 'Data Table',            icon: Table2 },
-      { href: '/pdf-viewer',    label: 'PDF Viewer',            icon: FileText },
-      { href: '/print',         label: 'Print Studio',          icon: Printer },
-      { href: '/qr-code',       label: 'QR Studio',             icon: QrCode },
-      { href: '/export',        label: 'Data Export Workbench', icon: Download },
     ]
   },
   {
@@ -148,7 +143,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       return pathname === '/packages' || pathname.startsWith('/packages/');
     }
     if (href === '/ui-components') {
-      return pathname === '/ui-components' || pathname.startsWith('/ui-components/');
+      return (
+        pathname === '/ui-components' ||
+        pathname.startsWith('/ui-components/') ||
+        pathname === '/data-table' ||
+        pathname === '/pdf-viewer' ||
+        pathname === '/print' ||
+        pathname === '/qr-code' ||
+        pathname === '/export'
+      );
     }
     if (href === '/releases') {
       return pathname === '/releases' || pathname.startsWith('/releases/');

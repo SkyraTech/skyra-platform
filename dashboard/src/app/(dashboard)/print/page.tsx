@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 import '@skyra-tech-platform/button';
 const PrintButton = (props: any) => <skyra-tech-button {...props}>Print</skyra-tech-button>;
 const DownloadButton = (props: any) => <skyra-tech-button {...props}>Download</skyra-tech-button>;;
@@ -10,6 +12,23 @@ export default function PrintShowcasePage() {
   return (
     <div className="dash-page" style={{ padding: '2rem 1rem', maxWidth: '1200px', margin: '0 auto' }}>
       <div style={{ marginBottom: '2.5rem' }}>
+        <div style={{ marginBottom: '1rem' }}>
+          <Link
+            href="/ui-components"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              color: 'var(--skyra-primary)',
+              fontSize: '0.875rem',
+              textDecoration: 'none',
+              fontWeight: 500,
+            }}
+          >
+            <ArrowLeft size={14} aria-hidden="true" />
+            <span>Back to UI Playground</span>
+          </Link>
+        </div>
         <h1 style={{ fontFamily: 'var(--skyra-font-display)', fontWeight: 800, fontSize: '1.75rem', color: 'var(--skyra-text)', margin: 0 }}>
           Print & Download Capabilities
         </h1>

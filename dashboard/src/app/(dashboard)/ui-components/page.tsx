@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import {
   ListFilter, CheckSquare, Radio as RadioIcon, ToggleLeft,
@@ -29,9 +29,8 @@ export interface ShowcaseItem {
   packageId: string;
   type: ShowcaseType;
   typeLabel: string;
-  targetHref: string;
   docsHref?: string;
-  actionLabel: string;
+  showcaseHref?: string;
 }
 
 const CATALOGUE_ITEMS: ShowcaseItem[] = [
@@ -44,9 +43,8 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/dynamic-select',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/select',
     docsHref: '/components/selection/dynamic-select',
-    actionLabel: 'Open Showcase'
+    showcaseHref: '/ui-components/select',
   },
   {
     id: 'inputs',
@@ -56,9 +54,8 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/input',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/inputs',
     docsHref: '/components/basic-controls/input',
-    actionLabel: 'Open Showcase'
+    showcaseHref: '/ui-components/inputs',
   },
   {
     id: 'checkbox',
@@ -68,9 +65,8 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/checkbox',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/checkbox',
     docsHref: '/components/basic-controls/checkbox',
-    actionLabel: 'Open Showcase'
+    showcaseHref: '/ui-components/checkbox',
   },
   {
     id: 'radio',
@@ -80,9 +76,8 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/radio',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/radio',
     docsHref: '/components/basic-controls/radio',
-    actionLabel: 'Open Showcase'
+    showcaseHref: '/ui-components/radio',
   },
   {
     id: 'loaders',
@@ -92,8 +87,8 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/loader',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/loaders',
-    actionLabel: 'Open Showcase'
+    docsHref: '/packages/loader',
+    showcaseHref: '/ui-components/loaders',
   },
   {
     id: 'pagination',
@@ -103,8 +98,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: 'dashboard/components/ui',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/pagination',
-    actionLabel: 'Open Showcase'
+    showcaseHref: '/ui-components/pagination',
   },
   {
     id: 'breadcrumb',
@@ -114,8 +108,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: 'dashboard/components/ui',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/breadcrumb',
-    actionLabel: 'Open Showcase'
+    showcaseHref: '/ui-components/breadcrumb',
   },
   {
     id: 'tooltip',
@@ -125,8 +118,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: 'dashboard/components/ui',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/tooltip',
-    actionLabel: 'Open Showcase'
+    showcaseHref: '/ui-components/tooltip',
   },
   {
     id: 'file-upload',
@@ -136,8 +128,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: 'dashboard/components/ui',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/file-upload',
-    actionLabel: 'Open Showcase'
+    showcaseHref: '/ui-components/file-upload',
   },
   {
     id: 'dropzone',
@@ -147,8 +138,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: 'dashboard/components/ui',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/dropzone',
-    actionLabel: 'Open Showcase'
+    showcaseHref: '/ui-components/dropzone',
   },
   {
     id: 'empty-state',
@@ -158,8 +148,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: 'dashboard/components/ui',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/empty-state',
-    actionLabel: 'Open Showcase'
+    showcaseHref: '/ui-components/empty-state',
   },
   {
     id: 'error-state',
@@ -169,8 +158,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: 'dashboard/components/ui',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/error-state',
-    actionLabel: 'Open Showcase'
+    showcaseHref: '/ui-components/error-state',
   },
   {
     id: 'keyboard-shortcuts',
@@ -180,8 +168,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: 'dashboard/components/ui',
     type: 'interactive',
     typeLabel: 'Interactive Showcase',
-    targetHref: '/ui-components/keyboard-shortcuts',
-    actionLabel: 'Open Showcase'
+    showcaseHref: '/ui-components/keyboard-shortcuts',
   },
 
   // ─── 2. DEDICATED WORKBENCHES ───
@@ -193,9 +180,8 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/qr',
     type: 'workbench',
     typeLabel: 'Dedicated Workbench',
-    targetHref: '/qr-code',
     docsHref: '/components/utilities/qr',
-    actionLabel: 'Open Workbench'
+    showcaseHref: '/qr-code',
   },
   {
     id: 'data-table',
@@ -205,9 +191,8 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/data-table',
     type: 'workbench',
     typeLabel: 'Dedicated Workbench',
-    targetHref: '/data-table',
     docsHref: '/packages/data-table',
-    actionLabel: 'Open Workbench'
+    showcaseHref: '/data-table',
   },
   {
     id: 'pdf-viewer',
@@ -217,8 +202,8 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/pdf-viewer',
     type: 'workbench',
     typeLabel: 'Dedicated Workbench',
-    targetHref: '/pdf-viewer',
-    actionLabel: 'Open Workbench'
+    docsHref: '/packages/pdf-viewer',
+    showcaseHref: '/pdf-viewer',
   },
   {
     id: 'print-studio',
@@ -228,8 +213,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: 'dashboard/workbench',
     type: 'workbench',
     typeLabel: 'Dedicated Workbench',
-    targetHref: '/print',
-    actionLabel: 'Open Workbench'
+    showcaseHref: '/print',
   },
   {
     id: 'data-export',
@@ -239,9 +223,8 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/data-export',
     type: 'workbench',
     typeLabel: 'Dedicated Workbench',
-    targetHref: '/export',
     docsHref: '/docs/data-export',
-    actionLabel: 'Open Workbench'
+    showcaseHref: '/export',
   },
 
   // ─── 3. CANONICAL DOCUMENTATION REFERENCES ───
@@ -251,10 +234,10 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     desc: 'WAI-ARIA tabbed navigation supporting horizontal/vertical layouts, auto/manual activation, and line/pill variants.',
     icon: FolderTree,
     packageId: '@skyra-tech-platform/tabs',
-    type: 'documentation',
-    typeLabel: 'Documentation Reference',
-    targetHref: '/components/navigation/tabs',
-    actionLabel: 'View Documentation'
+    type: 'interactive',
+    typeLabel: 'Interactive Showcase',
+    docsHref: '/components/navigation/tabs',
+    showcaseHref: '/ui-components/tabs',
   },
   {
     id: 'accordion',
@@ -262,10 +245,10 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     desc: 'Expandable multi-section container with single/multiple expand modes, collapsible toggling, and smooth transitions.',
     icon: ListCollapse,
     packageId: '@skyra-tech-platform/accordion',
-    type: 'documentation',
-    typeLabel: 'Documentation Reference',
-    targetHref: '/components/disclosure/accordion',
-    actionLabel: 'View Documentation'
+    type: 'interactive',
+    typeLabel: 'Interactive Showcase',
+    docsHref: '/components/disclosure/accordion',
+    showcaseHref: '/ui-components/accordion',
   },
   {
     id: 'collapsible',
@@ -275,8 +258,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/collapsible',
     type: 'documentation',
     typeLabel: 'Documentation Reference',
-    targetHref: '/components/disclosure/collapsible',
-    actionLabel: 'View Documentation'
+    docsHref: '/components/disclosure/collapsible',
   },
   {
     id: 'switch',
@@ -284,10 +266,10 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     desc: '5 design variants (default, compact, labeled, icon, outline) across 3 sizes with spinner thumb and error states.',
     icon: ToggleLeft,
     packageId: '@skyra-tech-platform/switch',
-    type: 'documentation',
-    typeLabel: 'Documentation Reference',
-    targetHref: '/components/basic-controls/switch',
-    actionLabel: 'View Documentation'
+    type: 'interactive',
+    typeLabel: 'Interactive Showcase',
+    docsHref: '/components/basic-controls/switch',
+    showcaseHref: '/ui-components/switch',
   },
   {
     id: 'popover',
@@ -297,8 +279,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/popover',
     type: 'documentation',
     typeLabel: 'Documentation Reference',
-    targetHref: '/components/overlays/popover',
-    actionLabel: 'View Documentation'
+    docsHref: '/components/overlays/popover',
   },
   {
     id: 'dropdown-menu',
@@ -308,8 +289,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/dropdown-menu',
     type: 'documentation',
     typeLabel: 'Documentation Reference',
-    targetHref: '/components/overlays/dropdown-menu',
-    actionLabel: 'View Documentation'
+    docsHref: '/components/overlays/dropdown-menu',
   },
   {
     id: 'context-menu',
@@ -319,8 +299,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/context-menu',
     type: 'documentation',
     typeLabel: 'Documentation Reference',
-    targetHref: '/components/overlays/context-menu',
-    actionLabel: 'View Documentation'
+    docsHref: '/components/overlays/context-menu',
   },
   {
     id: 'command-palette',
@@ -330,8 +309,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/command-palette',
     type: 'documentation',
     typeLabel: 'Documentation Reference',
-    targetHref: '/components/overlays/command-palette',
-    actionLabel: 'View Documentation'
+    docsHref: '/components/overlays/command-palette',
   },
   {
     id: 'date-time',
@@ -341,12 +319,12 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/date-time',
     type: 'documentation',
     typeLabel: 'Documentation Reference',
-    targetHref: '/components/forms/date-time',
-    actionLabel: 'View Documentation'
+    docsHref: '/components/forms/date-time',
   }
 ];
 
 export default function UIComponentsPlaygroundPage() {
+  const [mounted, setMounted] = useState(false);
   const [filterType, setFilterType] = useState<'all' | ShowcaseType>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -356,6 +334,10 @@ export default function UIComponentsPlaygroundPage() {
   const [switchChecked, setSwitchChecked] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
   const [accordionMode, setAccordionMode] = useState<'single' | 'multiple'>('single');
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const filteredItems = useMemo(() => {
     return CATALOGUE_ITEMS.filter((item) => {
@@ -388,7 +370,7 @@ export default function UIComponentsPlaygroundPage() {
       </header>
 
       {/* ─── 2. LIVE INTERACTIVE TESTING ARENA ───────────────────────────── */}
-      <section className="arena-card" aria-label="Interactive Component Testing Arena">
+      <section id="live-arena" className="arena-card" aria-label="Interactive Component Testing Arena">
         <div className="arena-header">
           <div className="arena-title-group">
             <SlidersHorizontal size={18} className="arena-title-icon" />
@@ -412,172 +394,183 @@ export default function UIComponentsPlaygroundPage() {
         </div>
 
         <div className="arena-body">
-          {/* TABS LIVE DEMO */}
-          {activeArenaTab === 'tabs' && (
-            <div className="arena-stage">
-              <div className="arena-controls">
-                <span className="control-label">Variant:</span>
-                <button
-                  type="button"
-                  className={`arena-control-pill ${tabsVariant === 'line' ? 'active' : ''}`}
-                  onClick={() => setTabsVariant('line')}
-                >
-                  Line Variant
-                </button>
-                <button
-                  type="button"
-                  className={`arena-control-pill ${tabsVariant === 'pill' ? 'active' : ''}`}
-                  onClick={() => setTabsVariant('pill')}
-                >
-                  Pill Variant
-                </button>
-                <Link href="/components/navigation/tabs" className="arena-docs-link">
-                  View Full Docs <ExternalLink size={12} />
-                </Link>
-              </div>
-
-              <div className="arena-render-box">
-                <skyra-tabs variant={tabsVariant} default-value="overview">
-                  <skyra-tab slot="tab" value="overview">Overview</skyra-tab>
-                  <skyra-tab slot="tab" value="analytics">Analytics</skyra-tab>
-                  <skyra-tab slot="tab" value="reports">Audit Reports</skyra-tab>
-
-                  <skyra-tab-panel slot="panel" value="overview">
-                    <div className="arena-panel-content">
-                      <strong>Overview Tab Active:</strong> System status is operational across all 14 node clusters.
-                    </div>
-                  </skyra-tab-panel>
-                  <skyra-tab-panel slot="panel" value="analytics">
-                    <div className="arena-panel-content">
-                      <strong>Analytics Tab Active:</strong> Throughput peaked at 24,500 operations/sec at 16:00 UTC.
-                    </div>
-                  </skyra-tab-panel>
-                  <skyra-tab-panel slot="panel" value="reports">
-                    <div className="arena-panel-content">
-                      <strong>Audit Reports Active:</strong> SOC-2 Type II audit report generated successfully.
-                    </div>
-                  </skyra-tab-panel>
-                </skyra-tabs>
-              </div>
+          {!mounted ? (
+            <div className="arena-stage" style={{ minHeight: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ color: 'var(--text-muted, #94a3b8)', fontSize: '0.875rem' }}>Loading live interactive preview...</span>
             </div>
-          )}
+          ) : (
+            <>
+              {/* TABS LIVE DEMO */}
+              {activeArenaTab === 'tabs' && (
+                <div className="arena-stage">
+                  <div className="arena-controls">
+                    <span className="control-label">Variant:</span>
+                    <button
+                      type="button"
+                      className={`arena-control-pill ${tabsVariant === 'line' ? 'active' : ''}`}
+                      onClick={() => setTabsVariant('line')}
+                    >
+                      Line Variant
+                    </button>
+                    <button
+                      type="button"
+                      className={`arena-control-pill ${tabsVariant === 'pill' ? 'active' : ''}`}
+                      onClick={() => setTabsVariant('pill')}
+                    >
+                      Pill Variant
+                    </button>
+                    <Link href="/components/navigation/tabs" className="arena-docs-link">
+                      View Full Docs <ExternalLink size={12} />
+                    </Link>
+                  </div>
 
-          {/* ACCORDION LIVE DEMO */}
-          {activeArenaTab === 'accordion' && (
-            <div className="arena-stage">
-              <div className="arena-controls">
-                <span className="control-label">Mode:</span>
-                <button
-                  type="button"
-                  className={`arena-control-pill ${accordionMode === 'single' ? 'active' : ''}`}
-                  onClick={() => setAccordionMode('single')}
-                >
-                  Single Expand
-                </button>
-                <button
-                  type="button"
-                  className={`arena-control-pill ${accordionMode === 'multiple' ? 'active' : ''}`}
-                  onClick={() => setAccordionMode('multiple')}
-                >
-                  Multiple Expand
-                </button>
-                <Link href="/components/disclosure/accordion" className="arena-docs-link">
-                  View Full Docs <ExternalLink size={12} />
-                </Link>
-              </div>
+                  <div className="arena-render-box">
+                    <skyra-tabs variant={tabsVariant} default-value="overview" suppressHydrationWarning>
+                      <skyra-tab slot="tab" value="overview" suppressHydrationWarning>Overview</skyra-tab>
+                      <skyra-tab slot="tab" value="analytics" suppressHydrationWarning>Analytics</skyra-tab>
+                      <skyra-tab slot="tab" value="reports" suppressHydrationWarning>Audit Reports</skyra-tab>
 
-              <div className="arena-render-box">
-                <skyra-accordion mode={accordionMode}>
-                  <skyra-accordion-item value="sec-1" open>
-                    <span slot="trigger">Security & Compliance Policies</span>
-                    <div slot="content" className="arena-panel-content">
-                      End-to-end TLS 1.3 encryption, automatic key rotation every 90 days, and zero unauthenticated endpoints.
-                    </div>
-                  </skyra-accordion-item>
-                  <skyra-accordion-item value="sec-2">
-                    <span slot="trigger">Database Replicas & Failover</span>
-                    <div slot="content" className="arena-panel-content">
-                      Cross-region active-passive replication with sub-5-second automated failover orchestrators.
-                    </div>
-                  </skyra-accordion-item>
-                </skyra-accordion>
-              </div>
-            </div>
-          )}
-
-          {/* SWITCH LIVE DEMO */}
-          {activeArenaTab === 'switch' && (
-            <div className="arena-stage">
-              <div className="arena-controls">
-                <span className="control-label">State:</span>
-                <span className="status-indicator">
-                  Checked: <strong>{switchChecked ? 'TRUE' : 'FALSE'}</strong>
-                </span>
-                <button
-                  type="button"
-                  className="arena-control-pill"
-                  onClick={() => setSwitchChecked(!switchChecked)}
-                >
-                  Toggle Switch
-                </button>
-                <Link href="/components/basic-controls/switch" className="arena-docs-link">
-                  View Full Docs <ExternalLink size={12} />
-                </Link>
-              </div>
-
-              <div className="arena-render-box">
-                <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
-                  <skyra-tech-switch
-                    label="Two-Factor Authentication"
-                    checked={switchChecked}
-                    onChange={(e: any) => setSwitchChecked(e.target.checked)}
-                  />
-                  <skyra-tech-switch
-                    label="Compact Size"
-                    size="sm"
-                    checked={switchChecked}
-                  />
-                  <skyra-tech-switch
-                    label="Disabled Switch"
-                    disabled
-                    checked
-                  />
+                      <skyra-tab-panel slot="panel" value="overview" suppressHydrationWarning>
+                        <div className="arena-panel-content">
+                          <strong>Overview Tab Active:</strong> System status is operational across all 14 node clusters.
+                        </div>
+                      </skyra-tab-panel>
+                      <skyra-tab-panel slot="panel" value="analytics" suppressHydrationWarning>
+                        <div className="arena-panel-content">
+                          <strong>Analytics Tab Active:</strong> Throughput peaked at 24,500 operations/sec at 16:00 UTC.
+                        </div>
+                      </skyra-tab-panel>
+                      <skyra-tab-panel slot="panel" value="reports" suppressHydrationWarning>
+                        <div className="arena-panel-content">
+                          <strong>Audit Reports Active:</strong> SOC-2 Type II audit report generated successfully.
+                        </div>
+                      </skyra-tab-panel>
+                    </skyra-tabs>
+                  </div>
                 </div>
-              </div>
-            </div>
-          )}
+              )}
 
-          {/* BUTTON LIVE DEMO */}
-          {activeArenaTab === 'button' && (
-            <div className="arena-stage">
-              <div className="arena-controls">
-                <span className="control-label">Interactive Actions:</span>
-                <button
-                  type="button"
-                  className="arena-control-pill"
-                  onClick={() => {
-                    setBtnLoading(true);
-                    setTimeout(() => setBtnLoading(false), 1500);
-                  }}
-                >
-                  Simulate Async Click
-                </button>
-                <Link href="/components/basic-controls/button" className="arena-docs-link">
-                  View Full Docs <ExternalLink size={12} />
-                </Link>
-              </div>
+              {/* ACCORDION LIVE DEMO */}
+              {activeArenaTab === 'accordion' && (
+                <div className="arena-stage">
+                  <div className="arena-controls">
+                    <span className="control-label">Mode:</span>
+                    <button
+                      type="button"
+                      className={`arena-control-pill ${accordionMode === 'single' ? 'active' : ''}`}
+                      onClick={() => setAccordionMode('single')}
+                    >
+                      Single Expand
+                    </button>
+                    <button
+                      type="button"
+                      className={`arena-control-pill ${accordionMode === 'multiple' ? 'active' : ''}`}
+                      onClick={() => setAccordionMode('multiple')}
+                    >
+                      Multiple Expand
+                    </button>
+                    <Link href="/components/disclosure/accordion" className="arena-docs-link">
+                      View Full Docs <ExternalLink size={12} />
+                    </Link>
+                  </div>
 
-              <div className="arena-render-box">
-                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
-                  <skyra-tech-button variant="primary" loading={btnLoading}>Primary Action</skyra-tech-button>
-                  <skyra-tech-button variant="orange">Orange Brand</skyra-tech-button>
-                  <skyra-tech-button variant="outline">Outline Action</skyra-tech-button>
-                  <skyra-tech-button variant="ghost">Ghost Button</skyra-tech-button>
-                  <skyra-tech-button variant="danger">Danger Variant</skyra-tech-button>
-                  <skyra-tech-button disabled>Disabled</skyra-tech-button>
+                  <div className="arena-render-box">
+                    <skyra-accordion mode={accordionMode} suppressHydrationWarning>
+                      <skyra-accordion-item value="sec-1" open suppressHydrationWarning>
+                        <span slot="trigger">Security & Compliance Policies</span>
+                        <div slot="content" className="arena-panel-content">
+                          End-to-end TLS 1.3 encryption, automatic key rotation every 90 days, and zero unauthenticated endpoints.
+                        </div>
+                      </skyra-accordion-item>
+                      <skyra-accordion-item value="sec-2" suppressHydrationWarning>
+                        <span slot="trigger">Database Replicas & Failover</span>
+                        <div slot="content" className="arena-panel-content">
+                          Cross-region active-passive replication with sub-5-second automated failover orchestrators.
+                        </div>
+                      </skyra-accordion-item>
+                    </skyra-accordion>
+                  </div>
                 </div>
-              </div>
-            </div>
+              )}
+
+              {/* SWITCH LIVE DEMO */}
+              {activeArenaTab === 'switch' && (
+                <div className="arena-stage">
+                  <div className="arena-controls">
+                    <span className="control-label">State:</span>
+                    <span className="status-indicator">
+                      Checked: <strong>{switchChecked ? 'TRUE' : 'FALSE'}</strong>
+                    </span>
+                    <button
+                      type="button"
+                      className="arena-control-pill"
+                      onClick={() => setSwitchChecked(!switchChecked)}
+                    >
+                      Toggle Switch
+                    </button>
+                    <Link href="/components/basic-controls/switch" className="arena-docs-link">
+                      View Full Docs <ExternalLink size={12} />
+                    </Link>
+                  </div>
+
+                  <div className="arena-render-box">
+                    <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                      <skyra-tech-switch
+                        label="Two-Factor Authentication"
+                        checked={switchChecked}
+                        onChange={(e: any) => setSwitchChecked(e.target.checked)}
+                        suppressHydrationWarning
+                      />
+                      <skyra-tech-switch
+                        label="Compact Size"
+                        size="sm"
+                        checked={switchChecked}
+                        suppressHydrationWarning
+                      />
+                      <skyra-tech-switch
+                        label="Disabled Switch"
+                        disabled
+                        checked
+                        suppressHydrationWarning
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* BUTTON LIVE DEMO */}
+              {activeArenaTab === 'button' && (
+                <div className="arena-stage">
+                  <div className="arena-controls">
+                    <span className="control-label">Interactive Actions:</span>
+                    <button
+                      type="button"
+                      className="arena-control-pill"
+                      onClick={() => {
+                        setBtnLoading(true);
+                        setTimeout(() => setBtnLoading(false), 1500);
+                      }}
+                    >
+                      Simulate Async Click
+                    </button>
+                    <Link href="/components/basic-controls/button" className="arena-docs-link">
+                      View Full Docs <ExternalLink size={12} />
+                    </Link>
+                  </div>
+
+                  <div className="arena-render-box">
+                    <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                      <skyra-tech-button variant="primary" loading={btnLoading} suppressHydrationWarning>Primary Action</skyra-tech-button>
+                      <skyra-tech-button variant="orange" suppressHydrationWarning>Orange Brand</skyra-tech-button>
+                      <skyra-tech-button variant="outline" suppressHydrationWarning>Outline Action</skyra-tech-button>
+                      <skyra-tech-button variant="ghost" suppressHydrationWarning>Ghost Button</skyra-tech-button>
+                      <skyra-tech-button variant="danger" suppressHydrationWarning>Danger Variant</skyra-tech-button>
+                      <skyra-tech-button disabled suppressHydrationWarning>Disabled</skyra-tech-button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
@@ -673,17 +666,44 @@ export default function UIComponentsPlaygroundPage() {
                   {/* Description */}
                   <p className="card-desc">{item.desc}</p>
 
-                  {/* Actions Bar */}
+                  {/* Actions Bar: Standardized Two-Action Footer */}
                   <div className="card-actions-bar">
-                    <Link href={item.targetHref} className={`card-action-btn action-${item.type}`}>
-                      <span>{item.actionLabel}</span>
-                      <ChevronRight size={14} />
-                    </Link>
-
-                    {item.docsHref && (
-                      <Link href={item.docsHref} className="card-docs-secondary" title="View canonical documentation">
-                        Docs <ExternalLink size={12} />
+                    {item.docsHref ? (
+                      <Link
+                        href={item.docsHref}
+                        className="card-action-btn card-docs-btn"
+                        title={`View canonical documentation for ${item.title}`}
+                      >
+                        <span>Docs</span>
                       </Link>
+                    ) : (
+                      <span
+                        className="card-action-btn card-docs-btn card-action-disabled"
+                        aria-disabled="true"
+                        title="Canonical documentation currently in development"
+                      >
+                        <span>Docs</span>
+                      </span>
+                    )}
+
+                    {item.showcaseHref ? (
+                      <Link
+                        href={item.showcaseHref}
+                        className={`card-action-btn card-showcase-btn action-${item.type}`}
+                        title={`Open interactive demonstration for ${item.title}`}
+                      >
+                        <span>Showcase</span>
+                        <ChevronRight size={14} aria-hidden="true" />
+                      </Link>
+                    ) : (
+                      <span
+                        className="card-action-btn card-showcase-btn card-action-disabled"
+                        aria-disabled="true"
+                        title="Interactive showcase currently in development"
+                      >
+                        <span>Showcase</span>
+                        <ChevronRight size={14} aria-hidden="true" />
+                      </span>
                     )}
                   </div>
                 </article>
@@ -1112,13 +1132,15 @@ export default function UIComponentsPlaygroundPage() {
           flex: 1;
         }
 
+        /* ── STANDARDIZED CARD ACTIONS BAR ── */
         .card-actions-bar {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding-top: 0.75rem;
+          padding-top: 0.85rem;
           border-top: 1px solid var(--skyra-border, #f1f5f9);
           margin-top: auto;
+          gap: 0.5rem;
         }
 
         .card-action-btn {
@@ -1128,34 +1150,72 @@ export default function UIComponentsPlaygroundPage() {
           font-size: 0.825rem;
           font-weight: 600;
           text-decoration: none;
-          color: var(--skyra-primary, #0A58CA);
-          transition: gap 0.15s ease;
+          padding: 0.35rem 0.65rem;
+          border-radius: var(--skyra-radius-md, 6px);
+          transition: all 0.15s ease;
+          white-space: nowrap;
+          min-height: 32px;
+          box-sizing: border-box;
         }
 
-        .card-action-btn:hover {
+        /* Docs (Left) */
+        .card-docs-btn {
+          color: var(--skyra-text-muted, #475569);
+          background: transparent;
+          border: 1px solid transparent;
+        }
+
+        .card-docs-btn:not(.card-action-disabled):hover {
+          color: var(--skyra-primary, #0A58CA);
+          background: var(--skyra-bg-muted, rgba(10, 88, 202, 0.08));
+          border-color: var(--skyra-primary-light, rgba(10, 88, 202, 0.2));
+        }
+
+        /* Showcase (Right) */
+        .card-showcase-btn {
+          color: var(--skyra-primary, #0A58CA);
+          background: var(--skyra-bg-muted, rgba(10, 88, 202, 0.06));
+          border: 1px solid rgba(10, 88, 202, 0.2);
+        }
+
+        .card-showcase-btn:not(.card-action-disabled):hover {
+          background: var(--skyra-primary, #0A58CA);
+          color: #ffffff;
+          border-color: var(--skyra-primary, #0A58CA);
           gap: 0.55rem;
         }
 
         .action-workbench {
           color: #0284c7;
+          background: rgba(2, 132, 199, 0.06);
+          border-color: rgba(2, 132, 199, 0.2);
+        }
+
+        .action-workbench:not(.card-action-disabled):hover {
+          background: #0284c7;
+          color: #ffffff;
+          border-color: #0284c7;
         }
 
         .action-documentation {
           color: #475569;
+          background: rgba(71, 85, 105, 0.06);
+          border-color: rgba(71, 85, 105, 0.2);
         }
 
-        .card-docs-secondary {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.25rem;
-          font-size: 0.75rem;
-          font-weight: 600;
-          color: var(--skyra-text-muted, #64748b);
-          text-decoration: none;
+        .action-documentation:not(.card-action-disabled):hover {
+          background: #475569;
+          color: #ffffff;
+          border-color: #475569;
         }
 
-        .card-docs-secondary:hover {
-          color: var(--skyra-primary, #0A58CA);
+        /* Disabled Action State */
+        .card-action-disabled {
+          opacity: 0.45;
+          cursor: not-allowed;
+          color: var(--skyra-text-subtle, #94a3b8) !important;
+          background: transparent !important;
+          border-color: transparent !important;
         }
 
         /* ── NO RESULTS STATE ── */
@@ -1241,16 +1301,58 @@ export default function UIComponentsPlaygroundPage() {
           color: #cbd5e1;
         }
 
-        .dark .action-documentation {
+        .dark .card-actions-bar {
+          border-top-color: var(--skyra-border, #334155);
+        }
+
+        .dark .card-docs-btn {
           color: #94a3b8;
+        }
+
+        .dark .card-docs-btn:not(.card-action-disabled):hover {
+          color: #60a5fa;
+          background: rgba(96, 165, 250, 0.12);
+          border-color: rgba(96, 165, 250, 0.3);
+        }
+
+        .dark .card-showcase-btn {
+          color: #60a5fa;
+          background: rgba(96, 165, 250, 0.1);
+          border-color: rgba(96, 165, 250, 0.25);
+        }
+
+        .dark .card-showcase-btn:not(.card-action-disabled):hover {
+          background: #2563eb;
+          color: #ffffff;
+          border-color: #2563eb;
         }
 
         .dark .action-workbench {
           color: #38bdf8;
+          background: rgba(56, 189, 248, 0.1);
+          border-color: rgba(56, 189, 248, 0.25);
         }
 
-        .dark .card-action-btn {
-          color: #60a5fa;
+        .dark .action-workbench:not(.card-action-disabled):hover {
+          background: #0284c7;
+          color: #ffffff;
+          border-color: #0284c7;
+        }
+
+        .dark .action-documentation {
+          color: #cbd5e1;
+          background: rgba(203, 213, 225, 0.08);
+          border-color: rgba(203, 213, 225, 0.2);
+        }
+
+        .dark .action-documentation:not(.card-action-disabled):hover {
+          background: #64748b;
+          color: #ffffff;
+          border-color: #64748b;
+        }
+
+        .dark .card-action-disabled {
+          color: #64748b !important;
         }
 
         .dark .arena-tab-bar {

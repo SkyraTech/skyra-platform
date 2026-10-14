@@ -30,16 +30,6 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/ui-components/tabs',
-        destination: '/components/navigation/tabs',
-        permanent: true,
-      },
-      {
-        source: '/ui-components/accordion',
-        destination: '/components/disclosure/accordion',
-        permanent: true,
-      },
-      {
         source: '/ui-components/collapsible',
         destination: '/components/disclosure/collapsible',
         permanent: true,

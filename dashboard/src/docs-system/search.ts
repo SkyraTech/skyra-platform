@@ -34,26 +34,37 @@ export function buildSearchIndex(): SearchDocument[] {
   const documents: SearchDocument[] = [];
   const registry = docsRegistry;
 
+  const CANONICAL_DOCS_PAGES: Record<string, string> = {
+    'dialog':          '/components/overlays/dialog',
+    'dynamic-form':    '/components/forms/dynamic-form',
+    'qr':              '/components/utilities/qr',
+    'app-shell':       '/components/layouts/app-shell',
+    'design-tokens':   '/docs/design-tokens',
+    'utils':           '/docs/utils',
+    'validation':      '/docs/validation',
+    'data-export':     '/docs/data-export',
+    'notification':    '/components/feedback/notification',
+    'toast':           '/components/feedback/toast',
+    'popover':         '/components/overlays/popover',
+    'dropdown-menu':   '/components/overlays/dropdown-menu',
+    'context-menu':    '/components/overlays/context-menu',
+    'command-palette': '/components/overlays/command-palette',
+    'tabs':            '/components/navigation/tabs',
+    'accordion':       '/components/disclosure/accordion',
+    'collapsible':     '/components/disclosure/collapsible',
+    'switch':          '/components/basic-controls/switch',
+    'button':          '/components/basic-controls/button',
+    'input':           '/components/basic-controls/input',
+    'textarea':        '/components/basic-controls/textarea',
+    'checkbox':        '/components/basic-controls/checkbox',
+    'radio':           '/components/basic-controls/radio',
+    'dynamic-select':  '/components/selection/dynamic-select',
+    'date-time':       '/components/forms/date-time',
+  };
+
   // Packages
   for (const pkg of registry.getPackages()) {
     const slug = pkg.id.split('/').pop() || '';
-    
-    const DOCS_PAGES: Record<string, string> = {
-      'dialog':        '/components/overlays/dialog',
-      'dynamic-form':  '/components/forms/dynamic-form',
-      'qr':            '/components/utilities/qr',
-      'app-shell':     '/components/layouts/app-shell',
-      'design-tokens': '/docs/design-tokens',
-      'utils':         '/docs/utils',
-      'validation':    '/docs/validation',
-      'data-export':   '/docs/data-export',
-      'notification':  '/components/feedback/notification',
-      'toast':         '/components/feedback/toast',
-      'popover':       '/components/overlays/popover',
-      'dropdown-menu': '/components/overlays/dropdown-menu',
-      'context-menu':  '/components/overlays/context-menu',
-      'command-palette': '/components/overlays/command-palette',
-    };
     
     documents.push({
       id: pkg.id,
@@ -61,7 +72,7 @@ export function buildSearchIndex(): SearchDocument[] {
       title: pkg.name,
       description: pkg.description,
       packageId: pkg.id,
-      href: DOCS_PAGES[slug] || `/packages/${slug}`,
+      href: CANONICAL_DOCS_PAGES[slug] || `/packages/${slug}`,
       runtime: pkg.runtime,
       status: pkg.status,
     });
@@ -71,23 +82,6 @@ export function buildSearchIndex(): SearchDocument[] {
   for (const cap of registry.getCapabilities()) {
     const slug = cap.packageId.split('/').pop() || '';
     const capSlug = cap.id.split('/')[1];
-    
-    const DOCS_PAGES: Record<string, string> = {
-      'dialog':        '/components/overlays/dialog',
-      'dynamic-form':  '/components/forms/dynamic-form',
-      'qr':            '/components/utilities/qr',
-      'app-shell':     '/components/layouts/app-shell',
-      'design-tokens': '/docs/design-tokens',
-      'utils':         '/docs/utils',
-      'validation':    '/docs/validation',
-      'data-export':   '/docs/data-export',
-      'notification':  '/components/feedback/notification',
-      'toast':         '/components/feedback/toast',
-      'popover':       '/components/overlays/popover',
-      'dropdown-menu': '/components/overlays/dropdown-menu',
-      'context-menu':  '/components/overlays/context-menu',
-      'command-palette': '/components/overlays/command-palette',
-    };
 
     documents.push({
       id: cap.id,
@@ -96,7 +90,7 @@ export function buildSearchIndex(): SearchDocument[] {
       description: cap.description,
       packageId: cap.packageId,
       capabilityId: cap.id,
-      href: DOCS_PAGES[slug] ? `${DOCS_PAGES[slug]}#${capSlug}` : `/packages/${slug}/${capSlug}`,
+      href: CANONICAL_DOCS_PAGES[slug] ? `${CANONICAL_DOCS_PAGES[slug]}#${capSlug}` : `/packages/${slug}/${capSlug}`,
       runtime: cap.runtime,
       status: cap.status,
       keywords: cap.related,
