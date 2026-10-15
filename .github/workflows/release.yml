@@ -31,7 +31,7 @@ jobs:
       - name: Setup Azure Artifacts Auth
         run: |
           echo "//pkgs.dev.azure.com/<AZURE_ORG>/<AZURE_PROJECT>/_packaging/<AZURE_FEED>/npm/registry/:_authToken=\${NPM_TOKEN}" >> .npmrc
-          echo "@skyra:registry=https://pkgs.dev.azure.com/<AZURE_ORG>/<AZURE_PROJECT>/_packaging/<AZURE_FEED>/npm/registry/" >> .npmrc
+          echo "@skyra-tech-platform:registry=https://pkgs.dev.azure.com/<AZURE_ORG>/<AZURE_PROJECT>/_packaging/<AZURE_FEED>/npm/registry/" >> .npmrc
           echo "always-auth=true" >> .npmrc
 
       - name: Install Dependencies

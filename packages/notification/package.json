@@ -1,6 +1,7 @@
 {
   "name": "@skyra-tech-platform/notification",
   "version": "0.1.0",
+  "sideEffects": true,
   "description": "Skyra Platform Notification component",
   "type": "module",
   "main": "./dist/index.cjs",

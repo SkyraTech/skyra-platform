@@ -4,7 +4,9 @@
  * In-memory foundation registry for the Documentation System.
  * In later phases, this may be hydrated via static build-time output.
  */
-class Registry {
+export class Registry {
+  private historicalApis: Record<string, ApiMetadata> = {};
+  private historicalExamples: Record<string, ExampleMetadata> = {};
   private store: DocumentationRegistry = {
     packages: {},
     capabilities: {},
@@ -39,6 +41,14 @@ class Registry {
   /**
    * Register an executable example definition.
    */
+  public registerHistoricalApi(api: ApiMetadata) {
+    this.historicalApis[api.id] = api;
+  }
+
+  public registerHistoricalExample(example: ExampleMetadata) {
+    this.historicalExamples[example.id] = example;
+  }
+
   public registerExample(example: ExampleMetadata) {
     this.store.examples[example.id] = example;
   }
@@ -103,28 +113,44 @@ class Registry {
    * Retrieve all APIs for a given package.
    */
   public getApisForPackage(packageId: string): ApiMetadata[] {
-    return Object.values(this.store.apis).filter(a => a.packageId === packageId);
+    return this.getCurrentApis().filter(a => a.packageId === packageId);
   }
 
   /**
    * Retrieve all APIs.
    */
   public getApis(): ApiMetadata[] {
-    return Object.values(this.store.apis);
+    return [...this.getCurrentApis(), ...this.getHistoricalApis().filter(api => !this.store.apis[api.id])];
   }
 
   /**
    * Retrieve a specific API.
    */
+  public getCurrentApis(): ApiMetadata[] { return Object.values(this.store.apis); }
+  public getHistoricalApis(): ApiMetadata[] { return Object.values(this.historicalApis); }
+  public getHistoricalApi(id: string): ApiMetadata | undefined { return this.historicalApis[id]; }
+
   public getApi(id: string): ApiMetadata | undefined {
-    return this.store.apis[id];
+    return this.store.apis[id] ?? this.historicalApis[id];
+  }
+
+  public findApiForRoute(slug: string, capability: string, name: string): ApiMetadata | undefined {
+    const records = this.getApis();
+    return records.find(api => api.name === name && api.packageId.split('/').pop() === slug && api.capabilityId.split('/')[1] === capability)
+      ?? records.find(api => api.name === name && api.capabilityId === slug + '/' + capability);
   }
 
   /**
    * Retrieve all examples for a given API.
    */
   public getExamplesForApi(apiId: string): ExampleMetadata[] {
-    return Object.values(this.store.examples).filter(e => e.apiId === apiId);
+    return this.store.apis[apiId]
+      ? Object.values(this.store.examples).filter(e => e.apiId === apiId)
+      : this.getHistoricalExamplesForApi(apiId);
+  }
+
+  public getHistoricalExamplesForApi(apiId: string): ExampleMetadata[] {
+    return Object.values(this.historicalExamples).filter(e => e.apiId === apiId);
   }
 
   /**

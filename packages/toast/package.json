@@ -1,6 +1,7 @@
 {
   "name": "@skyra-tech-platform/toast",
   "version": "0.1.0",
+  "sideEffects": true,
   "description": "Skyra Platform Toast component",
   "type": "module",
   "main": "./dist/index.cjs",

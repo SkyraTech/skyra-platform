@@ -1,6 +1,7 @@
 {
   "name": "@skyra-tech-platform/pdf-viewer",
   "version": "0.1.0",
+  "sideEffects": true,
   "description": "Skyra Platform Framework-Independent PDF Viewer",
   "type": "module",
   "main": "./dist/index.cjs",

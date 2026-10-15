@@ -16,9 +16,11 @@ pnpm add @skyra-tech-platform/data-export
 
 ## Basic Usage
 ```ts
-import { generateCsv } from '@skyra-tech-platform/data-export';
+import { exportToCsv } from '@skyra-tech-platform/data-export';
 
-const csvData = generateCsv(data, columns);
+const csvData = exportToCsv([{ name: 'Skyra' }], {
+  columns: [{ key: 'name', header: 'Name' }],
+});
 ```
 
 ## Dependencies / Peer Dependencies

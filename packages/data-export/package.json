@@ -1,6 +1,7 @@
 {
   "name": "@skyra-tech-platform/data-export",
   "version": "0.1.0",
+  "sideEffects": false,
   "description": "Pure CSV and Excel export engine for Skyra Platform",
   "type": "module",
   "exports": {

@@ -1,6 +1,7 @@
 {
   "name": "@skyra-tech-platform/loader",
   "version": "0.1.0",
+  "sideEffects": true,
   "description": "Skyra Platform Loading System Components",
   "type": "module",
   "main": "./dist/index.cjs",

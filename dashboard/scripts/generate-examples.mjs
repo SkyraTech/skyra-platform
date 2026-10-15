@@ -17,7 +17,7 @@ async function getFiles(dir) {
     const res = path.resolve(dir, dirent.name);
     return dirent.isDirectory() ? getFiles(res) : res;
   }));
-  return Array.prototype.concat(...files);
+  return Array.prototype.concat(...files).sort();
 }
 
 async function run() {
@@ -37,12 +37,13 @@ async function run() {
     try {
       apis = JSON.parse(await fs.readFile(APIS_JSON, 'utf-8'));
     } catch (e) {
-      console.warn('apis.json not found, skipping api existence validation.');
+      throw new Error('Current API catalog is required before generating examples', { cause: e });
     }
     
-    const validApiIds = new Set(apis.map(a => a.id));
-    const validPackageIds = new Set(apis.map(a => a.packageId));
-    const validCapabilityIds = new Set(apis.map(a => a.capabilityId).filter(Boolean));
+    const currentApis = apis.filter(a => a.catalogState === 'current');
+    const validApiIds = new Set(currentApis.map(a => a.id));
+    const validPackageIds = new Set(currentApis.map(a => a.packageId));
+    const validCapabilityIds = new Set(currentApis.map(a => a.capabilityId).filter(Boolean));
 
     const examplesMetadata = [];
     let mappingCode = `// GENERATED FILE - DO NOT EDIT MANUALLY\n`;
@@ -78,6 +79,11 @@ async function run() {
       const packageId = packageIdMatch ? packageIdMatch[1].trim() : undefined;
       const capabilityId = capIdMatch ? capIdMatch[1].trim() : undefined;
       
+      const api = currentApis.find(api => api.id === apiId);
+      if (!api || packageId !== api.packageId || (capabilityId && capabilityId !== api.capabilityId)) {
+        throw new Error('Invalid current example join: ' + id);
+      }
+
       // VALIDATION
       if (seenIds.has(id)) throw new Error(`Duplicate example ID found: ${id}`);
       seenIds.add(id);
@@ -99,10 +105,11 @@ async function run() {
         id,
         title,
         source: content,
+        catalogState: 'current',
         language: isReactComponent ? 'tsx' : 'typescript',
         apiId,
         packageId,
-        capabilityId
+        capabilityId: api.capabilityId
       });
       
       if (isReactComponent) {

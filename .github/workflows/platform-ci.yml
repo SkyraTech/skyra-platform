@@ -38,6 +38,14 @@ jobs:
       - name: Regression Tests
         run: pnpm test
 
+      - name: Build API Catalog Declarations
+        run: pnpm --filter './packages/**' -r build
+
+      - name: API Catalog Integrity Check
+        run: |
+          mkdir -p .tmp/f16
+          pnpm --filter dashboard catalog:check
+
       - name: Build Packages
         run: pnpm build
 

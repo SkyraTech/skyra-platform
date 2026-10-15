@@ -1,8 +1,9 @@
 /**
  * @id dialogs-confirm-basic
  * @title Confirm Dialog
- * @apiId @skyra/dialogs::ConfirmDialog
- * @packageId @skyra/dialogs
+ * @apiId @skyra-tech-platform/dialog::SkyraTechDialog
+ * @packageId @skyra-tech-platform/dialog
+ * @capabilityId dialogs/core
  */
 import React, { useState, useRef, useEffect } from 'react';
 import '@skyra-tech-platform/button';;

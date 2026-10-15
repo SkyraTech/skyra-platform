@@ -130,7 +130,7 @@ export default function ReleasesPage() {
                   </div>
                   
                   <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
-                    <Link href={`/packages/${pkg.packageName.replace('@skyra/', '')}`} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.875rem', color: 'var(--skyra-primary)', textDecoration: 'none', fontWeight: 500 }}>
+                    <Link href={`/packages/${pkg.packageName.split('/').pop()}`} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.875rem', color: 'var(--skyra-primary)', textDecoration: 'none', fontWeight: 500 }}>
                       View Package Documentation <ArrowRight size={14} />
                     </Link>
                   </div>

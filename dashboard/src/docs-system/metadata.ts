@@ -19,7 +19,7 @@ export interface PackageMetadata {
   exports: string[];
 }
 
-export type ApiKind = 'component' | 'function' | 'interface' | 'type' | 'constant' | 'enum';
+export type ApiKind = 'component' | 'function' | 'interface' | 'type' | 'constant' | 'enum' | 'class';
 
 export interface ApiPropertyMetadata {
   name: string;
@@ -31,6 +31,9 @@ export interface ApiPropertyMetadata {
 }
 
 export interface ApiMetadata {
+  catalogState?: 'current' | 'historical';
+  historyReason?: 'superseded' | 'retired-package' | 'unresolved-symbol';
+  declarationPath?: string;
   id: string;
   name: string;
   packageId: string;
@@ -100,6 +103,8 @@ export interface ComponentDesignMetadata {
 }
 
 export interface ExampleMetadata {
+  catalogState?: 'current' | 'historical';
+  historyReason?: string;
   id: string;
   title: string;
   source: string;
@@ -111,6 +116,7 @@ export interface ExampleMetadata {
 }
 
 export interface CapabilityMetadata {
+  catalogState?: 'current' | 'historical';
   id: string;
   name: string;
   packageId: string;

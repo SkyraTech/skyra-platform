@@ -1,6 +1,7 @@
 {
   "name": "@skyra-tech-platform/dynamic-form",
   "version": "0.1.0",
+  "sideEffects": true,
   "description": "Skyra Platform schema-driven DynamicForm — mobile-first 2-col/1-col layout",
   "type": "module",
   "exports": {

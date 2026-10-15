@@ -23,29 +23,29 @@ npm init -y > /dev/null
 npm install typescript tsx @types/node --save-dev > /dev/null
 
 echo "Installing platform tarballs into Node consumer..."
-npm install ../tarballs/skyra-tech-platform-qr-0.1.0.tgz ../tarballs/skyra-utils-0.1.0.tgz ../tarballs/skyra-data-export-0.1.0.tgz ../tarballs/skyra-validation-0.1.0.tgz > /dev/null
+npm install ../tarballs/skyra-tech-platform-qr-0.1.0.tgz ../tarballs/skyra-tech-platform-utils-0.1.0.tgz ../tarballs/skyra-tech-platform-data-export-0.1.0.tgz ../tarballs/skyra-tech-platform-validation-0.1.0.tgz > /dev/null
 
 cat << 'EOF' > test-esm.mts
-import { simpleId } from "@skyra/utils";
-import { emailSchema } from "@skyra/validation";
-import { exportToCsv } from "@skyra/data-export";
+import { simpleId } from "@skyra-tech-platform/utils";
+import { emailSchema } from "@skyra-tech-platform/validation";
+import { exportToCsv } from "@skyra-tech-platform/data-export";
 import { generateQRCode } from "@skyra-tech-platform/qr";
 
-console.log("ESM @skyra/utils:", simpleId());
-console.log("ESM @skyra/validation:", emailSchema.safeParse("test@example.com").success);
-console.log("ESM @skyra/data-export:", typeof exportToCsv);
+console.log("ESM @skyra-tech-platform/utils:", simpleId());
+console.log("ESM @skyra-tech-platform/validation:", emailSchema.safeParse("test@example.com").success);
+console.log("ESM @skyra-tech-platform/data-export:", typeof exportToCsv);
 console.log("ESM @skyra-tech-platform/qr:", typeof generateQRCode);
 EOF
 
 cat << 'EOF' > test-cjs.cts
-const { simpleId } = require("@skyra/utils");
-const { emailSchema } = require("@skyra/validation");
-const dataExport = require("@skyra/data-export");
+const { simpleId } = require("@skyra-tech-platform/utils");
+const { emailSchema } = require("@skyra-tech-platform/validation");
+const dataExport = require("@skyra-tech-platform/data-export");
 const { generateQRCode } = require("@skyra-tech-platform/qr");
 
-console.log("CJS @skyra/utils:", simpleId());
-console.log("CJS @skyra/validation:", emailSchema.safeParse("test@example").success);
-console.log("CJS @skyra/data-export:", typeof dataExport.exportToCsv);
+console.log("CJS @skyra-tech-platform/utils:", simpleId());
+console.log("CJS @skyra-tech-platform/validation:", emailSchema.safeParse("test@example").success);
+console.log("CJS @skyra-tech-platform/data-export:", typeof dataExport.exportToCsv);
 console.log("CJS @skyra-tech-platform/qr:", typeof generateQRCode);
 EOF
 
@@ -85,8 +85,8 @@ npx create-next-app@latest next-consumer --typescript --eslint --tailwind --app 
 cd next-consumer
 
 echo "Installing platform tarballs into Next consumer..."
-# Expand the list explicitly to avoid shell globbing issues with npm
-npm install ../tarballs/skyra-tech-platform-qr-0.1.0.tgz ../tarballs/skyra-ui-0.1.0.tgz ../tarballs/skyra-utils-0.1.0.tgz ../tarballs/skyra-data-export-0.1.0.tgz ../tarballs/skyra-design-tokens-0.1.0.tgz ../tarballs/skyra-data-table-0.1.0.tgz ../tarballs/skyra-dialogs-0.1.0.tgz ../tarballs/skyra-dynamic-form-0.1.0.tgz ../tarballs/skyra-validation-0.1.0.tgz > /dev/null
+# Install the complete canonical archive set, including workspace dependencies.
+npm install ../tarballs/skyra-tech-platform-*.tgz > /dev/null
 npm install lucide-react > /dev/null
 
 cat << 'EOF' > src/app/layout.tsx
@@ -119,14 +119,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 EOF
 
 cat << 'EOF' > src/app/page.tsx
+'use client';
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import "@skyra-tech-platform/qr/web-component";
-import { Button } from "@skyra/ui";
-import "@skyra/ui/styles.css";
+import "@skyra-tech-platform/button";
+import "@skyra-tech-platform/design-tokens/tokens.css";
 
-declare global {
+declare module "react" {
   namespace JSX {
     interface IntrinsicElements {
-      'skyra-tech-qr-code': any;
+      'skyra-tech-qr-code': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & { value?: string };
+      'skyra-tech-button': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
     }
   }
 }
@@ -135,7 +138,7 @@ export default function Page() {
   return (
     <div>
       <skyra-tech-qr-code value="https://example.com"></skyra-tech-qr-code>
-      <Button>Click me</Button>
+      <skyra-tech-button>Click me</skyra-tech-button>
     </div>
   );
 }

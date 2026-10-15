@@ -1,6 +1,7 @@
 {
   "name": "@skyra-tech-platform/qr",
   "version": "0.1.0",
+  "sideEffects": ["./dist/skyra-tech-qr-code.js","./dist/skyra-tech-qr-code.cjs"],
   "description": "Skyra Platform generic QR code generation, matrix calculation, and SVG rendering",
   "exports": {
     ".": {

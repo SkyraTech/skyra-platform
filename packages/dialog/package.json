@@ -1,6 +1,7 @@
 {
   "name": "@skyra-tech-platform/dialog",
   "version": "0.1.0",
+  "sideEffects": true,
   "description": "Framework-agnostic Web Component Dialog for the Skyra Platform",
   "type": "module",
   "main": "dist/index.cjs",
@@ -15,6 +16,7 @@
   },
   "scripts": {
     "build": "tsup",
+    "typecheck": "tsc --noEmit",
     "dev": "tsup --watch",
     "test": "vitest run"
   },

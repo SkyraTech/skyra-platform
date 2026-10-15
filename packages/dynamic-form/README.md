@@ -1,44 +1,23 @@
-# @skyra/dynamic-form
+# @skyra-tech-platform/dynamic-form
 
-## Overview
-Skyra Platform schema-driven DynamicForm — mobile-first 2-col/1-col layout with robust Zod validation binding.
-
-## Runtime Support
-React + Browser
+Framework-agnostic schema-driven form Web Component. Importing the package registers `skyra-tech-dynamic-form` and loads its component dependencies in the browser.
 
 ## Installation
-```bash
-pnpm add @skyra/dynamic-form
+
+```sh
+pnpm add @skyra-tech-platform/dynamic-form
 ```
 
-## Public API
-- `.` (Main React component: `DynamicForm`, and types)
+## Usage
 
-## Basic Usage
-```tsx
-import { DynamicForm } from '@skyra/dynamic-form';
-import { z } from 'zod';
+```js
+import '@skyra-tech-platform/dynamic-form';
 
-const schema = z.object({ name: z.string() });
-
-export function ProfileForm() {
-  return (
-    <DynamicForm 
-      config={formConfig}
-      initialValues={{ name: '' }}
-      onSubmit={console.log}
-    />
-  );
-}
+const form = document.createElement('skyra-tech-dynamic-form');
+form.fields = [{ name: 'name', label: 'Name', type: 'text', required: true }];
+form.values = { name: 'Skyra' };
+form.addEventListener('skyra-submit', event => console.log(event.detail.values));
+document.body.append(form);
 ```
 
-## Dependencies / Peer Dependencies
-- **Dependencies:** `@skyra-tech-platform/utils`, `@skyra-tech-platform/validation`
-- **Peer Dependencies:** `react`, `react-dom`, `lucide-react`
-
-## Responsive Behavior
-Relies on CSS Grid to automatically adapt from a 2-column desktop layout to a 1-column mobile layout.
-
-## Version & Lifecycle
-Current Version: `0.1.0` (Pre-1.0 Minor bumps signify breaking changes).
-Lifecycle: `@stable`
+The main entry exports `SkyraTechDynamicForm`, field/form types, nested-value helpers and `evaluateCondition`. It does not export a React `DynamicForm` component. Its manifest declares workspace component, utility and validation dependencies; React, React DOM and lucide-react are not peer requirements.

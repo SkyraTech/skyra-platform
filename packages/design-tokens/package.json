@@ -1,6 +1,7 @@
 {
   "name": "@skyra-tech-platform/design-tokens",
   "version": "0.1.0",
+  "sideEffects": ["./src/reset.css","./src/tokens.css"],
   "description": "Skyra Platform design tokens — CSS custom properties, dark mode, reset",
   "type": "module",
   "exports": {

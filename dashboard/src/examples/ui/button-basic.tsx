@@ -1,8 +1,9 @@
 ﻿/**
  * @id ui-button-basic
  * @title Basic Button
- * @apiId @skyra/ui::Button
- * @packageId @skyra/ui
+ * @apiId @skyra-tech-platform/button::SkyraTechButton
+ * @packageId @skyra-tech-platform/button
+ * @capabilityId button/core
  */
 import React from 'react';
 import '@skyra-tech-platform/button';;

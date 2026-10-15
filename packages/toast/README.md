@@ -1,45 +1,21 @@
-# @skyra-tech-platform/button
+# @skyra-tech-platform/toast
 
-Framework-independent button component for the Skyra Tech Platform, implemented as a native Web Component (`<skyra-tech-button>`).
+Framework-agnostic toast viewport and imperative toast API. Importing the package registers `skyra-tech-toast-viewport`, the compatible `skyra-toast-viewport` tag, and Notification elements.
 
-## Features
-- **Variants:** `primary`, `orange`, `outline`, `ghost`, `danger`, `destructive`, `link`
-- **Sizes:** `sm`, `md`, `lg`
-- **States:** `loading`, `disabled`
-- **Options:** `full-width`, `icon-only`
-- **Slots:** `left-icon`, `right-icon`, default text slot
-- Fully accessible (ARIA roles, attributes, keyboard support)
+## Installation
+
+```sh
+pnpm add @skyra-tech-platform/toast
+```
 
 ## Usage
 
-### Vanilla HTML / No Framework
+Call the API in a browser after the document body exists:
 
-```html
-<script type="module">
-  import '@skyra-tech-platform/button';
-</script>
+```js
+import { toast } from '@skyra-tech-platform/toast';
 
-<skyra-tech-button variant="primary" size="md">
-  Save Changes
-</skyra-tech-button>
+toast({ title: 'Saved', message: 'Your changes were saved.', type: 'success' });
 ```
 
-### React / Next.js
-
-Since React 19 natively supports Custom Elements (and Next.js App Router works well with them), you can simply use the custom element after importing it (which automatically registers the component).
-
-```tsx
-'use client';
-import '@skyra-tech-platform/button';
-
-export function MyComponent() {
-  return (
-    <skyra-tech-button variant="orange" onClick={() => console.log('clicked')}>
-      React Button
-    </skyra-tech-button>
-  );
-}
-```
-
-### Angular, Vue, Svelte
-The component works natively in all standard web frameworks since it is a standard `HTMLElement`.
+The main entry exports `toast`, `SkyraToastViewportElement` and `ToastOptions`. The API creates its viewport when needed. Component styles are embedded; no Button import is required by this usage.

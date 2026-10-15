@@ -1,37 +1,22 @@
-# @skyra/data-table
+# @skyra-tech-platform/data-table
 
-## Overview
-Skyra Platform DynamicDataTable — typed, sortable, paginated, mobile-responsive data tables.
-
-## Runtime Support
-React + Browser
+Framework-agnostic data table Web Component with sorting, filtering and pagination. Importing the package registers `skyra-tech-data-table`.
 
 ## Installation
-```bash
-pnpm add @skyra/data-table
+
+```sh
+pnpm add @skyra-tech-platform/data-table
 ```
 
-## Public API
-- `.` (Main React component: `DataTable`, `Pagination`, etc.)
+## Usage
 
-## Basic Usage
-```tsx
-import { DataTable } from '@skyra/data-table';
+```js
+import '@skyra-tech-platform/data-table';
 
-export function UserTable({ users }) {
-  return <DataTable data={users} columns={columns} />;
-}
+const table = document.createElement('skyra-tech-data-table');
+table.columns = [{ accessor: 'name', header: 'Name' }];
+table.data = [{ name: 'Skyra' }];
+document.body.append(table);
 ```
 
-
-
-
-## Responsive Behavior
-Adapts to mobile viewports using advanced CSS Grid (`auto-fit`, `minmax`) for extreme resilience without fixed JS media queries.
-
-## Accessibility
-Includes ARIA attributes for sortable headers, pagination controls, and row selections. Keyboard navigable.
-
-## Version & Lifecycle
-Current Version: `0.1.0` (Pre-1.0 Minor bumps signify breaking changes).
-Lifecycle: `@stable`
+The main entry exports `SkyraTechDataTable`, `processTableData` and table types such as `BaseColumnDef`. It does not export a React `DataTable` or `Pagination` component. Use element properties for array/object data; attributes cannot represent these objects.

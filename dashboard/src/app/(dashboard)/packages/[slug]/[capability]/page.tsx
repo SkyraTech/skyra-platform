@@ -12,7 +12,7 @@ bootstrapRegistry();
 export async function generateStaticParams() {
   const capabilities = docsRegistry.getCapabilities();
   return capabilities.map((cap) => {
-    const pkgSlug = cap.packageId.replace('@skyra/', '');
+    const pkgSlug = cap.packageId.split('/').pop() || '';
     const capSlug = cap.id.split('/')[1];
     return { slug: pkgSlug, capability: capSlug };
   });
@@ -20,7 +20,9 @@ export async function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string, capability: string } }) {
   const capId = `${params.slug}/${params.capability}`;
-  const cap = docsRegistry.getCapability(capId);
+  const cap = docsRegistry.getCapabilities().find(candidate =>
+    candidate.packageId.split('/').pop() === params.slug && candidate.id.split('/')[1] === params.capability
+  ) ?? docsRegistry.getCapability(capId);
   
   if (!cap) {
     return { title: 'Capability Not Found' };
@@ -31,13 +33,15 @@ export function generateMetadata({ params }: { params: { slug: string, capabilit
 
 export default function CapabilityDetailPage({ params }: { params: { slug: string, capability: string } }) {
   const capId = `${params.slug}/${params.capability}`;
-  const cap = docsRegistry.getCapability(capId);
+  const cap = docsRegistry.getCapabilities().find(candidate =>
+    candidate.packageId.split('/').pop() === params.slug && candidate.id.split('/')[1] === params.capability
+  ) ?? docsRegistry.getCapability(capId);
 
   if (!cap) {
     notFound();
   }
 
-  const packageId = `@skyra/${params.slug}`;
+  const packageId = cap.packageId;
   const apis = cap.apis.map(apiId => docsRegistry.getApi(apiId)).filter(Boolean);
 
   return (
@@ -49,6 +53,8 @@ export default function CapabilityDetailPage({ params }: { params: { slug: strin
           <ArrowLeft size={16} /> Back to Package
         </Link>
       </div>
+
+      {cap.catalogState === 'historical' && <div role="note">Historical capability. Its recorded package is not a current workspace package.</div>}
 
       {/* Header */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', paddingBottom: '2rem', borderBottom: '1px solid var(--skyra-border)' }}>

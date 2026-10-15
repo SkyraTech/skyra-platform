@@ -1,6 +1,7 @@
 {
   "name": "@skyra-tech-platform/app-shell",
   "version": "0.1.0",
+  "sideEffects": ["./src/styles.css"],
   "description": "Skyra Platform reusable application shell and layout system",
   "type": "module",
   "exports": {

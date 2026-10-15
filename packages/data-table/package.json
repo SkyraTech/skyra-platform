@@ -1,6 +1,7 @@
 {
   "name": "@skyra-tech-platform/data-table",
   "version": "0.1.0",
+  "sideEffects": true,
   "description": "Skyra Platform DynamicDataTable — typed, sortable, paginated, mobile-responsive",
   "type": "module",
   "exports": {

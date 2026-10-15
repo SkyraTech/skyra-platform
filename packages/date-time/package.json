@@ -1,6 +1,7 @@
 {
   "name": "@skyra-tech-platform/date-time",
   "version": "0.1.0",
+  "sideEffects": true,
   "private": true,
   "type": "module",
   "main": "dist/index.cjs",
@@ -18,6 +19,7 @@
   ],
   "scripts": {
     "build": "tsup",
+    "typecheck": "tsc --noEmit",
     "dev": "tsup --watch",
     "test": "vitest run"
   },

@@ -79,7 +79,7 @@ export function buildSearchIndex(): SearchDocument[] {
   }
 
   // Capabilities
-  for (const cap of registry.getCapabilities()) {
+  for (const cap of registry.getCapabilities().filter(cap => cap.catalogState !== 'historical')) {
     const slug = cap.packageId.split('/').pop() || '';
     const capSlug = cap.id.split('/')[1];
 
@@ -98,7 +98,7 @@ export function buildSearchIndex(): SearchDocument[] {
   }
 
   // APIs
-  for (const api of registry.getApis()) {
+  for (const api of registry.getCurrentApis()) {
     const slug = api.packageId.split('/').pop() || '';
     const capSlug = api.capabilityId.split('/')[1];
     
@@ -135,7 +135,7 @@ export function buildSearchIndex(): SearchDocument[] {
   }
 
   // Examples
-  const apis = registry.getApis();
+  const apis = registry.getCurrentApis();
   const examples = registry.getExamplesForApi ? apis.flatMap(api => registry.getExamplesForApi(api.id)) : [];
   for (const ex of examples) {
     if (!ex.apiId) continue;

@@ -13,7 +13,7 @@ bootstrapRegistry();
 export async function generateStaticParams() {
   const apis = docsRegistry.getApis();
   return apis.map((api) => {
-    const pkgSlug = api.packageId.replace('@skyra/', '');
+    const pkgSlug = api.packageId.split('/').pop() || '';
     const capSlug = api.capabilityId.split('/')[1];
     return { slug: pkgSlug, capability: capSlug, api: api.name };
   });
@@ -21,8 +21,8 @@ export async function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string, capability: string, api: string } }) {
   const capId = `${params.slug}/${params.capability}`;
-  const apiId = `@skyra/${params.slug}::${params.api}`;
-  const api = docsRegistry.getApi(apiId);
+  const apiId = `@skyra-tech-platform/${params.slug}::${params.api}`;
+  const api = docsRegistry.findApiForRoute(params.slug, params.capability, params.api);
   
   if (!api) {
     return { title: 'API Not Found' };
@@ -32,13 +32,13 @@ export function generateMetadata({ params }: { params: { slug: string, capabilit
 }
 
 export default function ApiDetailPage({ params }: { params: { slug: string, capability: string, api: string } }) {
-  const apiId = `@skyra/${params.slug}::${params.api}`;
-  const api = docsRegistry.getApi(apiId);
+  const apiId = `@skyra-tech-platform/${params.slug}::${params.api}`;
+  const api = docsRegistry.findApiForRoute(params.slug, params.capability, params.api);
   const capId = `${params.slug}/${params.capability}`;
-  const cap = docsRegistry.getCapability(capId);
-  const pkgId = `@skyra/${params.slug}`;
+  const cap = api ? docsRegistry.getCapability(api.capabilityId) : docsRegistry.getCapability(capId);
+  const pkgId = api?.packageId ?? `@skyra-tech-platform/${params.slug}`;
   const pkg = docsRegistry.getPackage(pkgId);
-  const examples = docsRegistry.getExamplesForApi(apiId);
+  const examples = docsRegistry.getExamplesForApi(api?.id ?? apiId);
 
   if (!api || !cap) {
     notFound();
@@ -53,7 +53,7 @@ export default function ApiDetailPage({ params }: { params: { slug: string, capa
     for (const p of release.packages) {
       if (p.packageId === pkgId) {
         for (const change of p.changes) {
-          if (change.apiIds?.includes(apiId) || change.title.includes(api.name)) {
+          if (change.apiIds?.includes(api.id) || change.title.includes(api.name)) {
             if (!latestChangeForApi) {
               latestChangeForApi = change;
               latestReleaseForApi = release;
@@ -73,6 +73,12 @@ export default function ApiDetailPage({ params }: { params: { slug: string, capa
           <ArrowLeft size={16} /> Back to {cap.name}
         </Link>
       </div>
+
+      {api.catalogState === 'historical' && (
+        <div role="note" style={{ padding: '1rem', border: '1px solid var(--skyra-border)' }}>
+          Historical API record ({api.historyReason}). This signature and recorded import are archived documentation, not a current package contract. No replacement compatibility is asserted.
+        </div>
+      )}
 
       {/* Header */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', paddingBottom: '2rem', borderBottom: '1px solid var(--skyra-border)' }}>

@@ -1,8 +1,9 @@
 /**
  * @id app-shell-basic
  * @title Basic Application Shell
- * @apiId @skyra-tech-platform/app-shell::skyra-tech-app-shell
+ * @apiId @skyra-tech-platform/app-shell::SkyraAppShell
  * @packageId @skyra-tech-platform/app-shell
+ * @capabilityId app-shell/layout
  */
 import React from 'react';
 import { LayoutDashboard, Settings } from 'lucide-react';

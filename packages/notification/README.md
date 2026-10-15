@@ -1,45 +1,23 @@
-# @skyra-tech-platform/button
+# @skyra-tech-platform/notification
 
-Framework-independent button component for the Skyra Tech Platform, implemented as a native Web Component (`<skyra-tech-button>`).
+Framework-agnostic notification bar. Importing the package registers canonical `skyra-tech-notification-bar` and compatible `skyra-notification-bar` tags.
 
-## Features
-- **Variants:** `primary`, `orange`, `outline`, `ghost`, `danger`, `destructive`, `link`
-- **Sizes:** `sm`, `md`, `lg`
-- **States:** `loading`, `disabled`
-- **Options:** `full-width`, `icon-only`
-- **Slots:** `left-icon`, `right-icon`, default text slot
-- Fully accessible (ARIA roles, attributes, keyboard support)
+## Installation
+
+```sh
+pnpm add @skyra-tech-platform/notification
+```
 
 ## Usage
 
-### Vanilla HTML / No Framework
-
 ```html
 <script type="module">
-  import '@skyra-tech-platform/button';
+  import '@skyra-tech-platform/notification';
 </script>
-
-<skyra-tech-button variant="primary" size="md">
-  Save Changes
-</skyra-tech-button>
+<skyra-tech-notification-bar type="success">
+  <span slot="title">Saved</span>
+  Your changes were saved.
+</skyra-tech-notification-bar>
 ```
 
-### React / Next.js
-
-Since React 19 natively supports Custom Elements (and Next.js App Router works well with them), you can simply use the custom element after importing it (which automatically registers the component).
-
-```tsx
-'use client';
-import '@skyra-tech-platform/button';
-
-export function MyComponent() {
-  return (
-    <skyra-tech-button variant="orange" onClick={() => console.log('clicked')}>
-      React Button
-    </skyra-tech-button>
-  );
-}
-```
-
-### Angular, Vue, Svelte
-The component works natively in all standard web frameworks since it is a standard `HTMLElement`.
+The main entry exports `SkyraNotificationBarElement` and the `NotificationType` type. Component styles are embedded; this package is not the Button package.

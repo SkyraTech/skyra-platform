@@ -13,10 +13,11 @@ interface ExampleViewerProps {
 }
 
 export function ExampleViewer({ example }: ExampleViewerProps) {
-  const [view, setView] = useState<'preview' | 'code'>('preview');
+  const historical = example.catalogState === 'historical';
+  const [view, setView] = useState<'preview' | 'code'>(historical ? 'code' : 'preview');
 
   // Statically resolve the component using the trusted mapping
-  const Component = exampleComponents[example.id];
+  const Component = historical ? undefined : exampleComponents[example.id];
 
   return (
     <Card style={{ overflow: 'hidden', border: '1px solid var(--skyra-border)', marginBottom: '2rem' }}>
@@ -28,6 +29,7 @@ export function ExampleViewer({ example }: ExampleViewerProps) {
           <skyra-tech-button 
             variant={view === 'preview' ? 'primary' : 'outline'} 
             size="sm" 
+            disabled={historical}
             onClick={() => setView('preview')}
           >
             <Eye size={14} style={{ marginRight: '0.375rem' }} />

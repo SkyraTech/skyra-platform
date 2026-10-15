@@ -1,6 +1,8 @@
 import { docsRegistry } from './registry';
 import { bootstrapDesignTokens } from './design-metadata';
 import { behavioralMetadataMap } from './behavioral-metadata';
+import { historicalBehavioralMetadataMap } from './historical-behavioral-metadata';
+import { API_TARGETS } from './catalog-targets';
 import type { PackageMetadata, RuntimeCategory, CapabilityMetadata } from './metadata';
 
 // Import authoritative package manifests — machine-derived, never manually duplicated.
@@ -71,7 +73,7 @@ const runtimeMap: Record<string, RuntimeCategory> = {
 // ---------------------------------------------------------------------------
 // Capability metadata — authored descriptions; machine data stays in package.json
 // ---------------------------------------------------------------------------
-const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
+export const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
   // @skyra-tech-platform/app-shell
   {
     id: 'app-shell/layout',
@@ -244,6 +246,7 @@ const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
   // @skyra/ui
   {
     id: 'ui/components',
+    catalogState: 'historical',
     packageId: '@skyra/ui',
     name: 'UI Primitives',
     exportPath: '@skyra/ui',
@@ -377,10 +380,30 @@ export function bootstrapRegistry() {
     docsRegistry.registerCapability({ ...cap, apis: [] });
   });
 
+  // Fill only missing current capability groups from real manifest/export metadata.
+  for (const target of API_TARGETS) {
+    if (docsRegistry.getCapability(target.capabilityId)) continue;
+    const pkg = docsRegistry.getPackage(target.packageId);
+    if (!pkg) throw new Error('Unknown catalog package ' + target.packageId);
+    docsRegistry.registerCapability({ id: target.capabilityId, packageId: target.packageId,
+      name: pkg.name, description: pkg.description, exportPath: target.exportPath,
+      runtime: pkg.runtime, status: pkg.status, catalogState: 'current', apis: [] });
+  }
+
+  // Historical payloads are separately stored and never merged onto current declarations.
+  const historicalApis = require('./data/historical-apis.json') as import('./metadata').ApiMetadata[];
+  for (const api of historicalApis) {
+    docsRegistry.registerHistoricalApi({ ...api, ...historicalBehavioralMetadataMap[api.id] });
+    const cap = docsRegistry.getCapability(api.capabilityId);
+    if (cap?.catalogState === 'historical' && cap.packageId === api.packageId) cap.apis.push(api.id);
+  }
+  const historicalExamples = require('./data/historical-examples.json') as import('./metadata').ExampleMetadata[];
+  for (const example of historicalExamples) docsRegistry.registerHistoricalExample(example);
+
   // Register Extracted APIs
   try {
     const extractedApis = require('./data/apis.json');
-    extractedApis.forEach((api: any) => {
+    extractedApis.forEach((api: import('./metadata').ApiMetadata) => {
       // Merge authored behavioral metadata
       const behavior = behavioralMetadataMap[api.id];
       if (behavior) {
@@ -398,7 +421,7 @@ export function bootstrapRegistry() {
       }
     });
   } catch (e) {
-    console.warn('API metadata not found, skipping Phase 10.3 API registration');
+    throw new Error('Current API catalog is missing or invalid', { cause: e });
   }
 
   // Register Examples (Phase 10.4)
