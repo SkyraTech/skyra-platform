@@ -377,7 +377,9 @@ export class SkyraPopoverElement extends BaseClass {
 
   private _restoreFocusToTrigger() {
     if (!this._triggerWrapper) return;
-    const focusable = this.querySelector<HTMLElement>('button, [tabindex="0"], input, a') || this._triggerWrapper;
+    const trigger = this.querySelector<HTMLElement>('[slot="trigger"]');
+    const selector = 'button, [tabindex="0"], input, a';
+    const focusable = (trigger?.matches(selector) ? trigger : trigger?.querySelector<HTMLElement>(selector)) || this._triggerWrapper;
     focusable?.focus?.();
   }
 

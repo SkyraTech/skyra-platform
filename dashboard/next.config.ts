@@ -30,33 +30,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/ui-components/collapsible',
-        destination: '/components/disclosure/collapsible',
-        permanent: true,
-      },
-      {
-        source: '/ui-components/popover',
-        destination: '/components/overlays/popover',
-        permanent: true,
-      },
-      {
-        source: '/ui-components/dropdown-menu',
-        destination: '/components/overlays/dropdown-menu',
-        permanent: true,
-      },
-      {
-        source: '/ui-components/context-menu',
-        destination: '/components/overlays/context-menu',
-        permanent: true,
-      },
-      {
         source: '/components/qr',
         destination: '/components/utilities/qr',
-        permanent: true,
-      },
-      {
-        source: '/ui-components/command-palette',
-        destination: '/components/overlays/command-palette',
         permanent: true,
       },
     ];

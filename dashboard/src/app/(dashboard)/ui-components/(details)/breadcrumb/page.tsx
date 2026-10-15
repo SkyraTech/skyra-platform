@@ -1,11 +1,13 @@
 ﻿'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage, BreadcrumbEllipsis } from '@/components/ui';;
 import { DemoSection, DemoBlock } from '@/components/demos/DemoSection';
 import { ChevronRight, Slash, Home } from 'lucide-react';
 
 export default function BreadcrumbShowcasePage() {
+  const [level, setLevel] = useState(2);
+  const hierarchy = ['Workspace', 'Reviews', 'Quarterly review'];
   return (
     <div className="dash-page" style={{ padding: '2rem 1rem', maxWidth: '1200px', margin: '0 auto' }}>
       <div style={{ marginBottom: '2.5rem' }}>
@@ -17,6 +19,14 @@ export default function BreadcrumbShowcasePage() {
         </p>
       </div>
 
+      <DemoSection title="Navigate a hierarchy" desc="Choose an ancestor to navigate, then reopen the document to restore the full path.">
+        <Breadcrumb><BreadcrumbList>{hierarchy.slice(0, level + 1).map((name, index) => <React.Fragment key={name}>
+          {index > 0 && <BreadcrumbSeparator />}
+          <BreadcrumbItem>{index === level ? <BreadcrumbPage>{name}</BreadcrumbPage> : <BreadcrumbLink href="#hierarchy-result" onClick={event => { event.preventDefault(); setLevel(index); }}>{name}</BreadcrumbLink>}</BreadcrumbItem>
+        </React.Fragment>)}</BreadcrumbList></Breadcrumb>
+        <p id="hierarchy-result" role="status">Current location: {hierarchy[level]}</p>
+        <button type="button" onClick={() => setLevel(2)}>Open quarterly review</button>
+      </DemoSection>
       {/* 1. Basic & Separator Variations */}
       <DemoSection title="1. Separator Variants" desc="Navigation hierarchy with default chevron, custom slash, or icon separators." erpSource="Platform Foundation">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>

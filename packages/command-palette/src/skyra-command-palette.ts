@@ -198,7 +198,7 @@ export class SkyraCommandPaletteElement extends BaseElement {
 
     this.shadowRoot.innerHTML = `
       <style>${commandPaletteStyles}</style>
-      <div class="skyra-command-palette-backdrop" id="backdrop" aria-hidden="true">
+      <div class="skyra-command-palette-backdrop" id="backdrop" aria-hidden="true" inert>
         <div
           class="skyra-command-palette-modal"
           id="modal"
@@ -285,6 +285,8 @@ export class SkyraCommandPaletteElement extends BaseElement {
   }
 
   private _onOpenStateChanged(isOpen: boolean) {
+    this._backdropEl?.toggleAttribute('inert', !isOpen);
+    this._backdropEl?.setAttribute('aria-hidden', String(!isOpen));
     if (isOpen) {
       if (typeof document !== 'undefined') {
         this._previousActiveElement = document.activeElement as HTMLElement | null;

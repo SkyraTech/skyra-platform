@@ -19,7 +19,7 @@ import '@skyra-tech-platform/accordion';
 import '@skyra-tech-platform/collapsible';
 import '@skyra-tech-platform/dynamic-select';
 
-export type ShowcaseType = 'interactive' | 'workbench' | 'documentation';
+export type ShowcaseType = 'interactive' | 'workbench';
 
 export interface ShowcaseItem {
   id: string;
@@ -30,7 +30,7 @@ export interface ShowcaseItem {
   type: ShowcaseType;
   typeLabel: string;
   docsHref?: string;
-  showcaseHref?: string;
+  showcaseHref: string;
 }
 
 const CATALOGUE_ITEMS: ShowcaseItem[] = [
@@ -206,16 +206,6 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     showcaseHref: '/pdf-viewer',
   },
   {
-    id: 'print-studio',
-    title: 'Print Studio',
-    desc: 'Target container printing with isolated print media sheets, lifecycle hooks, and document export.',
-    icon: Printer,
-    packageId: 'dashboard/workbench',
-    type: 'workbench',
-    typeLabel: 'Dedicated Workbench',
-    showcaseHref: '/print',
-  },
-  {
     id: 'data-export',
     title: 'Data Export Engine',
     desc: 'RFC-4180 CSV & Excel XML export engines with ExportButton and ExportMenu adapters.',
@@ -227,7 +217,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     showcaseHref: '/export',
   },
 
-  // ─── 3. CANONICAL DOCUMENTATION REFERENCES ───
+  // ─── 3. COMPONENT SHOWCASES ───
   {
     id: 'tabs',
     title: 'Tabs',
@@ -256,9 +246,10 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     desc: 'Independent single expandable region primitive for advanced options and developer diagnostics.',
     icon: ChevronsUpDown,
     packageId: '@skyra-tech-platform/collapsible',
-    type: 'documentation',
-    typeLabel: 'Documentation Reference',
+    type: 'interactive',
+    typeLabel: 'Interactive Showcase',
     docsHref: '/components/disclosure/collapsible',
+    showcaseHref: '/ui-components/collapsible',
   },
   {
     id: 'switch',
@@ -277,9 +268,10 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     desc: 'Anchored rich content overlay with collision detection, boundary protection, focus restoration, and Escape dismissal.',
     icon: Layers,
     packageId: '@skyra-tech-platform/popover',
-    type: 'documentation',
-    typeLabel: 'Documentation Reference',
+    type: 'interactive',
+    typeLabel: 'Interactive Showcase',
     docsHref: '/components/overlays/popover',
+    showcaseHref: '/ui-components/popover',
   },
   {
     id: 'dropdown-menu',
@@ -287,9 +279,10 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     desc: 'Framework-independent action menu with roving keyboard navigation, collision detection, and checkable items.',
     icon: MoreHorizontal,
     packageId: '@skyra-tech-platform/dropdown-menu',
-    type: 'documentation',
-    typeLabel: 'Documentation Reference',
+    type: 'interactive',
+    typeLabel: 'Interactive Showcase',
     docsHref: '/components/overlays/dropdown-menu',
+    showcaseHref: '/ui-components/dropdown-menu',
   },
   {
     id: 'context-menu',
@@ -297,9 +290,10 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     desc: 'Framework-independent pointer and keyboard context action menu with virtual collision positioning.',
     icon: MousePointerClick,
     packageId: '@skyra-tech-platform/context-menu',
-    type: 'documentation',
-    typeLabel: 'Documentation Reference',
+    type: 'interactive',
+    typeLabel: 'Interactive Showcase',
     docsHref: '/components/overlays/context-menu',
+    showcaseHref: '/ui-components/context-menu',
   },
   {
     id: 'command-palette',
@@ -307,19 +301,21 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     desc: 'Enterprise quick-command overlay with fuzzy keyword search, category grouping, and ARIA combobox semantics.',
     icon: CommandIcon,
     packageId: '@skyra-tech-platform/command-palette',
-    type: 'documentation',
-    typeLabel: 'Documentation Reference',
+    type: 'interactive',
+    typeLabel: 'Interactive Showcase',
     docsHref: '/components/overlays/command-palette',
+    showcaseHref: '/ui-components/command-palette',
   },
   {
     id: 'date-time',
     title: 'Date & Time Suite',
-    desc: '10-component suite: DateField, DateRangeField, TimeField, TimeRangeField, DateTimeField, and Calendar.',
+    desc: 'Date, time, range and calendar controls with live schedule updates.',
     icon: Calendar,
     packageId: '@skyra-tech-platform/date-time',
-    type: 'documentation',
-    typeLabel: 'Documentation Reference',
+    type: 'interactive',
+    typeLabel: 'Interactive Showcase',
     docsHref: '/components/forms/date-time',
+    showcaseHref: '/ui-components/date-time',
   }
 ];
 
@@ -353,7 +349,7 @@ export default function UIComponentsPlaygroundPage() {
   }, [filterType, searchQuery]);
 
   return (
-    <main id="main-content" className="dash-page qr-playground-root">
+    <main id="main-content" className="dash-page qr-playground-root" data-playground-ready={mounted}>
       {/* ─── 1. PAGE HEADER ──────────────────────────────────────────────── */}
       <header className="playground-header">
         <div className="playground-header-title-row">
@@ -605,7 +601,6 @@ export default function UIComponentsPlaygroundPage() {
             { id: 'all', label: `All (${CATALOGUE_ITEMS.length})` },
             { id: 'interactive', label: `Interactive Showcases (${CATALOGUE_ITEMS.filter(i => i.type === 'interactive').length})` },
             { id: 'workbench', label: `Dedicated Workbenches (${CATALOGUE_ITEMS.filter(i => i.type === 'workbench').length})` },
-            { id: 'documentation', label: `Documentation (${CATALOGUE_ITEMS.filter(i => i.type === 'documentation').length})` },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -686,7 +681,7 @@ export default function UIComponentsPlaygroundPage() {
                       </span>
                     )}
 
-                    {item.showcaseHref ? (
+                    {(
                       <Link
                         href={item.showcaseHref}
                         className={`card-action-btn card-showcase-btn action-${item.type}`}
@@ -695,15 +690,6 @@ export default function UIComponentsPlaygroundPage() {
                         <span>Showcase</span>
                         <ChevronRight size={14} aria-hidden="true" />
                       </Link>
-                    ) : (
-                      <span
-                        className="card-action-btn card-showcase-btn card-action-disabled"
-                        aria-disabled="true"
-                        title="Interactive showcase currently in development"
-                      >
-                        <span>Showcase</span>
-                        <ChevronRight size={14} aria-hidden="true" />
-                      </span>
                     )}
                   </div>
                 </article>

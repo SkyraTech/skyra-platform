@@ -339,6 +339,7 @@ export class SkyraContextMenuElement extends BaseClass {
       <div
         id="${targetId}"
         class="skyra-context-menu-target"
+        role="button"
         tabindex="0"
         aria-haspopup="menu"
         aria-expanded="false"
