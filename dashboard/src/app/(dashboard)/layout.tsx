@@ -97,8 +97,8 @@ const NAV_SECTIONS: NavSection[] = [
       { href: '/components',         label: 'Components',             icon: Layers },
       { href: '/design-system',      label: 'Design System',          icon: Palette },
       { href: '/docs/design-tokens', label: 'Design Tokens',          icon: FileCode2 },
-      { href: '/docs/utils',         label: 'Utilities',              icon: WrapText },
-      { href: '/docs/validation',    label: 'Validation',             icon: FileText },
+      { href: '/docs/utils',         label: 'Utility Functions',       icon: WrapText },
+      { href: '/docs/validation',    label: 'Validation Schemas',      icon: FileText },
       { href: '/docs/data-export',   label: 'Data Export Docs',       icon: Download },
     ]
   },
