@@ -90,7 +90,7 @@ const COMPONENT_GROUPS = [
     title: 'Documents',
     description: 'Document rendering and interaction.',
     items: [
-      { packageId: '@skyra-tech-platform/pdf-viewer', href: '#', label: 'PDF Viewer', desc: 'Client-side PDF rendering component.', manualStatus: 'planned' },
+      { packageId: '@skyra-tech-platform/pdf-viewer', href: '/pdf-viewer', label: 'PDF Viewer', desc: 'Client-side PDF rendering component.' },
     ]
   },
   {
@@ -98,7 +98,6 @@ const COMPONENT_GROUPS = [
     description: 'Helper components and specialized rendering.',
     items: [
       { packageId: '@skyra-tech-platform/qr', href: '/components/utilities/qr', label: 'QR Code', desc: 'Framework-agnostic QR generation and styled rendering.' },
-      { packageId: 'future-misc', href: '#', label: 'Future components', desc: 'Placeholder for upcoming utilities.', manualStatus: 'planned' },
     ]
   }
 ];

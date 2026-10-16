@@ -19,7 +19,8 @@ export async function generateStaticParams() {
   });
 }
 
-export function generateMetadata({ params }: { params: { slug: string, capability: string, api: string } }) {
+export async function generateMetadata({ params: pendingParams }: { params: Promise<{ slug: string, capability: string, api: string }> }) {
+  const params = await pendingParams;
   const capId = `${params.slug}/${params.capability}`;
   const apiId = `@skyra-tech-platform/${params.slug}::${params.api}`;
   const api = docsRegistry.findApiForRoute(params.slug, params.capability, params.api);
@@ -31,7 +32,8 @@ export function generateMetadata({ params }: { params: { slug: string, capabilit
   return { title: `${api.name} — Skyra Platform` };
 }
 
-export default function ApiDetailPage({ params }: { params: { slug: string, capability: string, api: string } }) {
+export default async function ApiDetailPage({ params: pendingParams }: { params: Promise<{ slug: string, capability: string, api: string }> }) {
+  const params = await pendingParams;
   const apiId = `@skyra-tech-platform/${params.slug}::${params.api}`;
   const api = docsRegistry.findApiForRoute(params.slug, params.capability, params.api);
   const capId = `${params.slug}/${params.capability}`;
