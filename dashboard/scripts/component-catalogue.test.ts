@@ -19,12 +19,13 @@ const resolver = vm.runInNewContext(ts.transpileModule(source.getFunctionOrThrow
   compilerOptions: { target: ts.ScriptTarget.ES2022 },
 }).outputText, { docsRegistry }) as (item: object) => { status: string; href: string };
 
-test('PDF Viewer resolves to its existing implemented package status and Workbench', () => {
+test('PDF Viewer resolves to its existing implemented package status and documentation', () => {
   const pdf = groups.find(group => group.title === 'Documents')!.items.find(item => item.packageId === '@skyra-tech-platform/pdf-viewer')!;
   assert.equal(pdf.manualStatus, undefined);
   assert.equal(resolver(pdf).status, 'stable');
   assert.equal(resolver(pdf).status, docsRegistry.getPackage(pdf.packageId)!.status);
-  assert.equal(pdf.href, '/pdf-viewer');
+  assert.equal(pdf.href, '/docs/pdf-viewer');
+  assert(fs.existsSync(path.join(routes, 'docs/pdf-viewer/page.tsx')));
   assert(fs.existsSync(path.join(routes, 'pdf-viewer/page.tsx')));
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'packages/pdf-viewer/package.json'), 'utf8'));
   assert.equal(manifest.name, pdf.packageId);

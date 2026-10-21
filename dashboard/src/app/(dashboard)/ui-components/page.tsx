@@ -202,7 +202,7 @@ const CATALOGUE_ITEMS: ShowcaseItem[] = [
     packageId: '@skyra-tech-platform/pdf-viewer',
     type: 'workbench',
     typeLabel: 'Dedicated Workbench',
-    docsHref: '/packages/pdf-viewer',
+    docsHref: '/docs/pdf-viewer',
     showcaseHref: '/pdf-viewer',
   },
   {

@@ -22,7 +22,7 @@ try {
   await expect(page.getByText('Future components', { exact: true })).toHaveCount(0);
   const qr = page.locator('a[href="/components/utilities/qr"]');
   await expect(qr).toContainText('QR Code');
-  const pdf = page.locator('a[href="/pdf-viewer"]');
+  const pdf = page.locator('a[href="/docs/pdf-viewer"]');
   await expect(pdf).toHaveCount(1);
   await expect(pdf).toContainText('PDF Viewer');
   await expect(pdf).toContainText('stable');
@@ -34,6 +34,10 @@ try {
     return heading && Object.keys(heading).some(key => key.startsWith('__reactFiber'));
   });
   await pdf.focus(); await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(new URL('/docs/pdf-viewer', base).href);
+  await expect(page.getByRole('heading', { name: 'PDF Viewer', exact: true })).toBeVisible();
+  await expect(page.locator('skyra-tech-pdf-viewer')).toHaveCount(0);
+  await page.getByRole('link', { name: 'Open Interactive Workbench', exact: true }).first().click();
   await expect(page).toHaveURL(new URL('/pdf-viewer', base).href);
   const viewer = page.locator('skyra-tech-pdf-viewer');
   await expect(viewer.locator('#pdf-canvas')).toBeVisible({ timeout: 30000 });

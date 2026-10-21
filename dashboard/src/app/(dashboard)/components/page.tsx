@@ -90,7 +90,7 @@ const COMPONENT_GROUPS = [
     title: 'Documents',
     description: 'Document rendering and interaction.',
     items: [
-      { packageId: '@skyra-tech-platform/pdf-viewer', href: '/pdf-viewer', label: 'PDF Viewer', desc: 'Client-side PDF rendering component.' },
+      { packageId: '@skyra-tech-platform/pdf-viewer', href: '/docs/pdf-viewer', label: 'PDF Viewer', desc: 'Client-side PDF rendering component.' },
     ]
   },
   {
