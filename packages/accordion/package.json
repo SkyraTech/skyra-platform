@@ -1,6 +1,6 @@
 {
   "name": "@skyra-tech-platform/accordion",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Framework-agnostic Web Components for Skyra Tech Platform Accordion.",
   "main": "dist/index.cjs",
   "module": "dist/index.js",

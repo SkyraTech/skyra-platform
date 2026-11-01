@@ -8,13 +8,13 @@ const HEIGHT_MAP: Record<ProgressSize, string> = {
 };
 
 const COLOR_MAP: Record<ProgressVariant, string> = {
-  primary: 'var(--skyra-primary, #3b82f6)',
+  primary: 'var(--skyra-primary, #0A58CA)',
   success: 'var(--skyra-success, #10b981)',
   warning: 'var(--skyra-warning, #f59e0b)',
   danger: 'var(--skyra-danger, #ef4444)',
 };
 
-const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {} as typeof HTMLElement;
+const BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class { } as typeof HTMLElement;
 export class SkyraProgressElement extends BaseClass {
   constructor() {
     super();
@@ -197,6 +197,6 @@ if (typeof customElements !== 'undefined' && !customElements.get('skyra-progress
 // Canonical aliases use distinct constructors, as required by Custom Elements.
 if (typeof customElements !== 'undefined') {
   if (!customElements.get('skyra-tech-progress')) {
-    customElements.define('skyra-tech-progress', class extends SkyraProgressElement {});
+    customElements.define('skyra-tech-progress', class extends SkyraProgressElement { });
   }
 }

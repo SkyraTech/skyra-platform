@@ -8,10 +8,10 @@ export const buttonStyles = `
     --skyra-btn-orange-hover: var(--skyra-orange-hover, #e05e00);
     --skyra-btn-danger: var(--skyra-danger, #EF4444);
     --skyra-btn-danger-hover: #dc2626;
-    --skyra-btn-text: var(--skyra-text, #1f2937);
-    --skyra-btn-text-muted: var(--skyra-text-muted, #6b7280);
-    --skyra-btn-border: var(--skyra-border, #e5e7eb);
-    --skyra-btn-bg: var(--skyra-bg, #ffffff);
+    --skyra-btn-text: var(--skyra-text, #0f172a);
+    --skyra-btn-text-muted: var(--skyra-text-muted, #64748b);
+    --skyra-btn-border: var(--skyra-border, #e2e8f0);
+    --skyra-btn-bg: var(--skyra-bg, #f4f7fc);
     --skyra-btn-focus-ring: var(--skyra-focus-ring, 0 0 0 2px rgba(10, 88, 202, 0.4));
     --skyra-btn-radius: var(--skyra-radius-md, 0.375rem);
     --skyra-btn-radius-sm: var(--skyra-radius-sm, 6px);

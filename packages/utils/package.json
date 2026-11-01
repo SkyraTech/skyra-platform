@@ -1,7 +1,7 @@
 {
   "name": "@skyra-tech-platform/utils",
   "version": "0.1.0",
-  "sideEffects": false,
+  "sideEffects": true,
   "description": "Skyra Platform pure TypeScript utilities — zero DOM/React/CSS dependencies",
   "type": "module",
   "exports": {

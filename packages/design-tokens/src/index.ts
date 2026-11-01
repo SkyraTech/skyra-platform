@@ -11,7 +11,7 @@
  *   import '@skyra-tech-platform/design-tokens/reset.css';
  *
  * Usage in TypeScript:
- *   import { tokens } from '@skyra-tech-platform/design-tokens';
+ *   import { tokens, severityTokens, getSeverityColor } from '@skyra-tech-platform/design-tokens';
  *   tokens.primary // '#0A58CA'
  */
 
@@ -91,3 +91,33 @@ export type TokenValue = typeof tokens[TokenKey];
 
 // CSS variable name helpers
 export const cssVar = (name: string) => `var(--skyra-${name})`;
+
+/**
+ * Canonical ECS log severity semantic tokens.
+ * Maps documented Elastic Common Schema log severity levels to official Skyra branding tokens.
+ */
+export const severityTokens = {
+  fatal: '#991B1B', // Dark red
+  error: '#DC2626', // Red
+  warn:  '#D97706', // Amber
+  info:  tokens.primary, // Authoritative Skyra Brand Blue (#0A58CA)
+  debug: '#475569', // Slate
+  trace: '#94A3B8', // Light slate
+} as const;
+
+export type SeverityLevel = keyof typeof severityTokens;
+
+/**
+ * Normalizes an arbitrary severity or ECS level string and returns the canonical hex color.
+ * Safe for SSR, unit tests, and runtime chart renderers.
+ */
+export function getSeverityColor(severity: string | undefined | null): string {
+  const norm = (severity ?? 'info').toLowerCase().trim();
+  if (norm === 'emerg' || norm === 'fatal') return severityTokens.fatal;
+  if (norm === 'err' || norm === 'error') return severityTokens.error;
+  if (norm === 'warning' || norm === 'warn') return severityTokens.warn;
+  if (norm === 'info') return severityTokens.info;
+  if (norm === 'debug') return severityTokens.debug;
+  if (norm === 'trace') return severityTokens.trace;
+  return tokens.textMuted; // '#64748b' fallback
+}

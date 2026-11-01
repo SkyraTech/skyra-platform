@@ -1,6 +1,6 @@
 {
   "name": "@skyra-tech-platform/button",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Framework-independent button component for Skyra Platform",
   "type": "module",
   "main": "./dist/index.cjs",

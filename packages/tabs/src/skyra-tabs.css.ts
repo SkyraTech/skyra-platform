@@ -80,7 +80,9 @@ export const tabStyles = `
 
   /* Line Variant */
   :host-context(skyra-tabs[variant="line"])::after,
-  :host-context(skyra-tabs:not([variant]))::after {
+  :host-context(skyra-tabs:not([variant]))::after,
+  :host-context(skyra-tech-tabs[variant="line"])::after,
+  :host-context(skyra-tech-tabs:not([variant]))::after {
     content: '';
     position: absolute;
     bottom: -1px;
@@ -92,7 +94,9 @@ export const tabStyles = `
   }
   
   :host-context(skyra-tabs[orientation="vertical"][variant="line"])::after,
-  :host-context(skyra-tabs[orientation="vertical"]:not([variant]))::after {
+  :host-context(skyra-tabs[orientation="vertical"]:not([variant]))::after,
+  :host-context(skyra-tech-tabs[orientation="vertical"][variant="line"])::after,
+  :host-context(skyra-tech-tabs[orientation="vertical"]:not([variant]))::after {
     bottom: 0;
     left: auto;
     right: -1px;
@@ -108,21 +112,25 @@ export const tabStyles = `
 
   /* Active/Selected states */
   :host([aria-selected="true"]) {
-    color: var(--skyra-primary, #0284c7);
+    color: var(--skyra-primary, #0A58CA);
   }
 
   :host-context(skyra-tabs[variant="line"])[aria-selected="true"]::after,
-  :host-context(skyra-tabs:not([variant]))[aria-selected="true"]::after {
-    background-color: var(--skyra-primary, #0284c7);
+  :host-context(skyra-tabs:not([variant]))[aria-selected="true"]::after,
+  :host-context(skyra-tech-tabs[variant="line"])[aria-selected="true"]::after,
+  :host-context(skyra-tech-tabs:not([variant]))[aria-selected="true"]::after {
+    background-color: var(--skyra-primary, #0A58CA);
   }
 
   /* Pill Variant */
-  :host-context(skyra-tabs[variant="pill"]) {
+  :host-context(skyra-tabs[variant="pill"]),
+  :host-context(skyra-tech-tabs[variant="pill"]) {
     border-radius: 0.375rem;
     padding: 0.5rem 1rem;
   }
   
-  :host-context(skyra-tabs[variant="pill"])[aria-selected="true"] {
+  :host-context(skyra-tabs[variant="pill"])[aria-selected="true"],
+  :host-context(skyra-tech-tabs[variant="pill"])[aria-selected="true"] {
     background-color: var(--skyra-bg, #ffffff);
     color: var(--skyra-text, #0f172a);
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -130,7 +138,7 @@ export const tabStyles = `
 
   /* Focus ring */
   :host(:focus-visible) {
-    box-shadow: 0 0 0 2px var(--skyra-bg, #ffffff), 0 0 0 4px var(--skyra-primary, #0284c7);
+    box-shadow: 0 0 0 2px var(--skyra-bg, #ffffff), 0 0 0 4px var(--skyra-primary, #0A58CA);
     border-radius: 4px;
     z-index: 1;
   }
@@ -155,7 +163,7 @@ export const tabPanelStyles = `
   }
 
   :host(:focus-visible) {
-    outline: 2px solid var(--skyra-primary, #0284c7);
+    outline: 2px solid var(--skyra-primary, #0A58CA);
     outline-offset: -2px;
     border-radius: 4px;
   }

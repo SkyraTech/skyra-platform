@@ -1,6 +1,6 @@
 {
   "name": "@skyra-tech-platform/collapsible",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "sideEffects": true,
   "description": "Framework-agnostic independent collapsible Web Component",
   "type": "module",

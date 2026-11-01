@@ -1,6 +1,6 @@
 {
   "name": "@skyra-tech-platform/tabs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "sideEffects": true,
   "description": "Framework-agnostic Web Components for Skyra Tech Platform Tabs.",
   "main": "dist/index.cjs",

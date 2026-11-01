@@ -47,13 +47,13 @@ export const accordionItemStyles = `
   }
 
   .skyra-accordion-trigger:focus-visible {
-    box-shadow: 0 0 0 2px var(--skyra-bg, #ffffff), 0 0 0 4px var(--skyra-primary, #0284c7);
+    box-shadow: 0 0 0 2px var(--skyra-bg, #ffffff), 0 0 0 4px var(--skyra-primary, #0A58CA);
     border-radius: 4px;
     z-index: 1;
   }
 
   .skyra-accordion-trigger:hover:not([disabled]):not([aria-disabled="true"]) {
-    color: var(--skyra-primary, #0284c7);
+    color: var(--skyra-primary, #0A58CA);
   }
 
   .skyra-accordion-icon {

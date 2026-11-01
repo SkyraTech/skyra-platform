@@ -29,7 +29,7 @@ export const collapsibleStyles = `
   }
 
   .skyra-collapsible-trigger:focus-visible {
-    box-shadow: 0 0 0 2px var(--skyra-bg, #ffffff), 0 0 0 4px var(--skyra-primary, #0284c7);
+    box-shadow: 0 0 0 2px var(--skyra-bg, #ffffff), 0 0 0 4px var(--skyra-primary, #0A58CA);
     border-radius: 4px;
     z-index: 1;
   }
