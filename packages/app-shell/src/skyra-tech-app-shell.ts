@@ -1,4 +1,6 @@
-export class SkyraAppShell extends HTMLElement {
+const BaseClass = typeof HTMLElement !== 'undefined' ? HTMLElement : (class {} as typeof HTMLElement);
+
+export class SkyraAppShell extends BaseClass {
   private _collapsed: boolean = false;
   private _mobileOpen: boolean = false;
   private mql: MediaQueryList | null = null;
@@ -241,7 +243,7 @@ export class SkyraAppShell extends HTMLElement {
 }
 
 export function registerAppShell() {
-  if (typeof window !== 'undefined' && !window.customElements.get('skyra-tech-app-shell')) {
+  if (typeof window !== 'undefined' && typeof window.customElements !== 'undefined' && !window.customElements.get('skyra-tech-app-shell')) {
     window.customElements.define('skyra-tech-app-shell', SkyraAppShell);
   }
 }

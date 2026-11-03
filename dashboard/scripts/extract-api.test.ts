@@ -27,7 +27,9 @@ function bundle(): CatalogBundle {
     releaseApiIds: docsRegistry.getReleases().flatMap(release => release.packages.flatMap(pkg => pkg.changes.flatMap(change => change.apiIds || []))) };
 }
 function fixture() {
-  const root = fs.mkdtempSync(path.join(ROOT, '.tmp/f16/test-'));
+  const tmpDir = path.join(ROOT, '.tmp/f16');
+  fs.mkdirSync(tmpDir, { recursive: true });
+  const root = fs.mkdtempSync(path.join(tmpDir, 'test-'));
   const target = { packageId: '@skyra-tech-platform/fixture', exportPath: '@skyra-tech-platform/fixture', capabilityId: 'fixture/core', entry: 'packages/fixture/dist/index.d.ts' };
   fs.mkdirSync(path.join(root, 'packages/fixture/dist'), { recursive: true });
   fs.writeFileSync(path.join(root, 'packages/fixture/package.json'), JSON.stringify({ name: target.packageId, exports: { '.': { types: './dist/index.d.ts' } } }));
@@ -38,10 +40,10 @@ function fixture() {
   return { root, target, output: path.join(root, 'catalog.json') };
 }
 
-test('29 explicit declaration targets belong to 28 real canonical packages and exports', () => {
+test('32 explicit declaration targets belong to 31 real canonical packages and exports', () => {
   validateTargets(ROOT, API_TARGETS);
-  assert.equal(API_TARGETS.length, 29);
-  assert.equal(new Set(API_TARGETS.map(target => target.packageId)).size, 28);
+  assert.equal(API_TARGETS.length, 32);
+  assert.equal(new Set(API_TARGETS.map(target => target.packageId)).size, 31);
   assert(!API_TARGETS.some(target => target.packageId === '@skyra-tech-platform/ui'));
 });
 test('manifest identity and public subpath mismatches fail', () => {

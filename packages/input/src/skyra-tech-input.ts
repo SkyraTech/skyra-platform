@@ -116,7 +116,6 @@ export class SkyraTechInput extends BaseClass {
     // Connect IDs for accessibility
     const uid = Math.random().toString(36).slice(2, 9);
     this._input.id = this.id || `skyra-input-${uid}`;
-    this._labelContainer.htmlFor = this._input.id;
     this._errorContainer.id = `${this._input.id}-error`;
     this._helperContainer.id = `${this._input.id}-helper`;
 
@@ -283,6 +282,7 @@ export class SkyraTechInput extends BaseClass {
     const hasLabelSlot = this._labelSlot.assignedNodes().length > 0;
     if (hasLabelText || hasLabelSlot) {
       this._labelContainer.style.display = 'block';
+      this._labelContainer.htmlFor = this._input.id;
       if (hasLabelText && !hasLabelSlot) {
         if (this._labelSlot.textContent !== this.label) {
           this._labelSlot.textContent = this.label;
@@ -293,6 +293,9 @@ export class SkyraTechInput extends BaseClass {
         : this._labelContainer.classList.remove('skyra-label--required');
     } else {
       this._labelContainer.style.display = 'none';
+      this._labelContainer.removeAttribute('for');
+      const inputLabel = this.getAttribute('aria-label') || this.getAttribute('placeholder') || 'Input text';
+      this._input.setAttribute('aria-label', inputLabel);
     }
 
     // Left Adornment

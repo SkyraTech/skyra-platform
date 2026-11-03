@@ -1,1 +1,262 @@
-{}
+{
+  "pending-platform-loghub-004-hardening": {
+    "id": "pending-platform-loghub-004-hardening",
+    "version": "Pending Release",
+    "date": "2026-11-01",
+    "summary": "Release v0.1.1:",
+    "packages": [
+      {
+        "packageId": "@skyra-tech-platform/button",
+        "packageName": "@skyra-tech-platform/button",
+        "changes": [
+          {
+            "id": "change-494ll6r",
+            "type": "changed",
+            "title": "@skyra-tech-platform/design-tokens: Add TypeScript severityTokens and getSeverityColor() for safe SSR/analytics chart mapping.",
+            "breaking": false
+          },
+          {
+            "id": "change-a258btq",
+            "type": "changed",
+            "title": "@skyra-tech-platform/button: Update CSS token fallbacks to standard neutral design tokens.",
+            "breaking": false
+          },
+          {
+            "id": "change-pcokohc",
+            "type": "changed",
+            "title": "@skyra-tech-platform/tabs: Fix canonical tag selector :host-context(skyra-tech-tabs...) for consistent styling.",
+            "breaking": false
+          },
+          {
+            "id": "change-jg8r260",
+            "type": "changed",
+            "title": "@skyra-tech-platform/loader: Rectify progress bar token fallback to authoritative Skyra Blue.",
+            "breaking": false
+          },
+          {
+            "id": "change-ya50xrb",
+            "type": "changed",
+            "title": "@skyra-tech-platform/accordion: Rectify token fallbacks to authoritative Skyra Blue.",
+            "breaking": false
+          },
+          {
+            "id": "change-nj3cslb",
+            "type": "changed",
+            "title": "@skyra-tech-platform/collapsible: Rectify token fallbacks to authoritative Skyra Blue.",
+            "breaking": false
+          }
+        ]
+      },
+      {
+        "packageId": "@skyra-tech-platform/design-tokens",
+        "packageName": "@skyra-tech-platform/design-tokens",
+        "changes": [
+          {
+            "id": "change-494ll6r",
+            "type": "changed",
+            "title": "@skyra-tech-platform/design-tokens: Add TypeScript severityTokens and getSeverityColor() for safe SSR/analytics chart mapping.",
+            "breaking": false
+          },
+          {
+            "id": "change-a258btq",
+            "type": "changed",
+            "title": "@skyra-tech-platform/button: Update CSS token fallbacks to standard neutral design tokens.",
+            "breaking": false
+          },
+          {
+            "id": "change-pcokohc",
+            "type": "changed",
+            "title": "@skyra-tech-platform/tabs: Fix canonical tag selector :host-context(skyra-tech-tabs...) for consistent styling.",
+            "breaking": false
+          },
+          {
+            "id": "change-jg8r260",
+            "type": "changed",
+            "title": "@skyra-tech-platform/loader: Rectify progress bar token fallback to authoritative Skyra Blue.",
+            "breaking": false
+          },
+          {
+            "id": "change-ya50xrb",
+            "type": "changed",
+            "title": "@skyra-tech-platform/accordion: Rectify token fallbacks to authoritative Skyra Blue.",
+            "breaking": false
+          },
+          {
+            "id": "change-nj3cslb",
+            "type": "changed",
+            "title": "@skyra-tech-platform/collapsible: Rectify token fallbacks to authoritative Skyra Blue.",
+            "breaking": false
+          }
+        ]
+      },
+      {
+        "packageId": "@skyra-tech-platform/tabs",
+        "packageName": "@skyra-tech-platform/tabs",
+        "changes": [
+          {
+            "id": "change-494ll6r",
+            "type": "changed",
+            "title": "@skyra-tech-platform/design-tokens: Add TypeScript severityTokens and getSeverityColor() for safe SSR/analytics chart mapping.",
+            "breaking": false
+          },
+          {
+            "id": "change-a258btq",
+            "type": "changed",
+            "title": "@skyra-tech-platform/button: Update CSS token fallbacks to standard neutral design tokens.",
+            "breaking": false
+          },
+          {
+            "id": "change-pcokohc",
+            "type": "changed",
+            "title": "@skyra-tech-platform/tabs: Fix canonical tag selector :host-context(skyra-tech-tabs...) for consistent styling.",
+            "breaking": false
+          },
+          {
+            "id": "change-jg8r260",
+            "type": "changed",
+            "title": "@skyra-tech-platform/loader: Rectify progress bar token fallback to authoritative Skyra Blue.",
+            "breaking": false
+          },
+          {
+            "id": "change-ya50xrb",
+            "type": "changed",
+            "title": "@skyra-tech-platform/accordion: Rectify token fallbacks to authoritative Skyra Blue.",
+            "breaking": false
+          },
+          {
+            "id": "change-nj3cslb",
+            "type": "changed",
+            "title": "@skyra-tech-platform/collapsible: Rectify token fallbacks to authoritative Skyra Blue.",
+            "breaking": false
+          }
+        ]
+      },
+      {
+        "packageId": "@skyra-tech-platform/loader",
+        "packageName": "@skyra-tech-platform/loader",
+        "changes": [
+          {
+            "id": "change-494ll6r",
+            "type": "changed",
+            "title": "@skyra-tech-platform/design-tokens: Add TypeScript severityTokens and getSeverityColor() for safe SSR/analytics chart mapping.",
+            "breaking": false
+          },
+          {
+            "id": "change-a258btq",
+            "type": "changed",
+            "title": "@skyra-tech-platform/button: Update CSS token fallbacks to standard neutral design tokens.",
+            "breaking": false
+          },
+          {
+            "id": "change-pcokohc",
+            "type": "changed",
+            "title": "@skyra-tech-platform/tabs: Fix canonical tag selector :host-context(skyra-tech-tabs...) for consistent styling.",
+            "breaking": false
+          },
+          {
+            "id": "change-jg8r260",
+            "type": "changed",
+            "title": "@skyra-tech-platform/loader: Rectify progress bar token fallback to authoritative Skyra Blue.",
+            "breaking": false
+          },
+          {
+            "id": "change-ya50xrb",
+            "type": "changed",
+            "title": "@skyra-tech-platform/accordion: Rectify token fallbacks to authoritative Skyra Blue.",
+            "breaking": false
+          },
+          {
+            "id": "change-nj3cslb",
+            "type": "changed",
+            "title": "@skyra-tech-platform/collapsible: Rectify token fallbacks to authoritative Skyra Blue.",
+            "breaking": false
+          }
+        ]
+      },
+      {
+        "packageId": "@skyra-tech-platform/accordion",
+        "packageName": "@skyra-tech-platform/accordion",
+        "changes": [
+          {
+            "id": "change-494ll6r",
+            "type": "changed",
+            "title": "@skyra-tech-platform/design-tokens: Add TypeScript severityTokens and getSeverityColor() for safe SSR/analytics chart mapping.",
+            "breaking": false
+          },
+          {
+            "id": "change-a258btq",
+            "type": "changed",
+            "title": "@skyra-tech-platform/button: Update CSS token fallbacks to standard neutral design tokens.",
+            "breaking": false
+          },
+          {
+            "id": "change-pcokohc",
+            "type": "changed",
+            "title": "@skyra-tech-platform/tabs: Fix canonical tag selector :host-context(skyra-tech-tabs...) for consistent styling.",
+            "breaking": false
+          },
+          {
+            "id": "change-jg8r260",
+            "type": "changed",
+            "title": "@skyra-tech-platform/loader: Rectify progress bar token fallback to authoritative Skyra Blue.",
+            "breaking": false
+          },
+          {
+            "id": "change-ya50xrb",
+            "type": "changed",
+            "title": "@skyra-tech-platform/accordion: Rectify token fallbacks to authoritative Skyra Blue.",
+            "breaking": false
+          },
+          {
+            "id": "change-nj3cslb",
+            "type": "changed",
+            "title": "@skyra-tech-platform/collapsible: Rectify token fallbacks to authoritative Skyra Blue.",
+            "breaking": false
+          }
+        ]
+      },
+      {
+        "packageId": "@skyra-tech-platform/collapsible",
+        "packageName": "@skyra-tech-platform/collapsible",
+        "changes": [
+          {
+            "id": "change-494ll6r",
+            "type": "changed",
+            "title": "@skyra-tech-platform/design-tokens: Add TypeScript severityTokens and getSeverityColor() for safe SSR/analytics chart mapping.",
+            "breaking": false
+          },
+          {
+            "id": "change-a258btq",
+            "type": "changed",
+            "title": "@skyra-tech-platform/button: Update CSS token fallbacks to standard neutral design tokens.",
+            "breaking": false
+          },
+          {
+            "id": "change-pcokohc",
+            "type": "changed",
+            "title": "@skyra-tech-platform/tabs: Fix canonical tag selector :host-context(skyra-tech-tabs...) for consistent styling.",
+            "breaking": false
+          },
+          {
+            "id": "change-jg8r260",
+            "type": "changed",
+            "title": "@skyra-tech-platform/loader: Rectify progress bar token fallback to authoritative Skyra Blue.",
+            "breaking": false
+          },
+          {
+            "id": "change-ya50xrb",
+            "type": "changed",
+            "title": "@skyra-tech-platform/accordion: Rectify token fallbacks to authoritative Skyra Blue.",
+            "breaking": false
+          },
+          {
+            "id": "change-nj3cslb",
+            "type": "changed",
+            "title": "@skyra-tech-platform/collapsible: Rectify token fallbacks to authoritative Skyra Blue.",
+            "breaking": false
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -17,13 +17,56 @@ import { ResponsiveDemo } from '@/components/docs/ResponsiveDemo';
 import { RelatedComponents } from '@/components/docs/RelatedComponents';
 import { Callout } from '@/components/docs/Callout';
 import { HeadingAnchor } from '@/components/docs/HeadingAnchor';
+import { ComponentPlayground, PlaygroundControlDef } from '@/components/docs/ComponentPlayground';
 import { Mail, Search } from 'lucide-react';
+
+
+const inputPlaygroundControls: PlaygroundControlDef[] = [
+  {
+    name: 'placeholder',
+    label: 'Placeholder',
+    type: 'text',
+    defaultValue: 'Search service metrics...',
+  },
+  {
+    name: 'type',
+    label: 'Type',
+    type: 'select',
+    defaultValue: 'text',
+    options: [
+      { label: 'Text', value: 'text' },
+      { label: 'Email', value: 'email' },
+      { label: 'Password', value: 'password' },
+      { label: 'Search', value: 'search' },
+      { label: 'Number', value: 'number' },
+    ],
+  },
+  {
+    name: 'clearable',
+    label: 'Clearable',
+    type: 'boolean',
+    defaultValue: true,
+  },
+  {
+    name: 'disabled',
+    label: 'Disabled',
+    type: 'boolean',
+    defaultValue: false,
+  },
+  {
+    name: 'label',
+    label: 'Label',
+    type: 'text',
+    defaultValue: 'Query Filter',
+  },
+];
 
 export default function InputDocsPage() {
   const [loading1, setLoading1] = useState(false);
 
   const toc = [
     { id: 'quick-start', label: 'Quick Start' },
+    { id: 'playground', label: 'Interactive Playground' },
     { id: 'examples', label: 'Examples' },
     { id: 'usage', label: 'Usage Guidance' },
     { id: 'api', label: 'API Reference' },
@@ -74,6 +117,37 @@ export default function InputDocsPage() {
       >
         <skyra-tech-input label="Full Name" placeholder="Enter text" />
       </LiveExample>
+
+      
+      <HeadingAnchor id="playground">Interactive Playground</HeadingAnchor>
+      <ComponentPlayground
+        title="Input Playground"
+        description="Test input modes, clear buttons, disabled styles, and watch real input/change events."
+        controls={inputPlaygroundControls}
+        render={(values, logEvent) => (
+          <div style={{ width: '100%', maxWidth: '360px' }}>
+            <skyra-tech-input
+              placeholder={values.placeholder}
+              type={values.type}
+              disabled={values.disabled || undefined}
+              clearable={values.clearable || undefined}
+              label={values.label || undefined}
+              onInput={(e: any) => logEvent('input', { value: e.target?.value })}
+              onChange={(e: any) => logEvent('change', { value: e.target?.value })}
+            />
+          </div>
+        )}
+        generateCode={(values) => {
+          const attrs: string[] = [];
+          if (values.placeholder) attrs.push(`placeholder="${values.placeholder}"`);
+          if (values.type !== 'text') attrs.push(`type="${values.type}"`);
+          if (values.label) attrs.push(`label="${values.label}"`);
+          if (values.clearable) attrs.push('clearable');
+          if (values.disabled) attrs.push('disabled');
+          const attrStr = attrs.length > 0 ? ' ' + attrs.join(' ') : '';
+          return `<skyra-tech-input${attrStr}></skyra-tech-input>`;
+        }}
+      />
 
       <HeadingAnchor id="examples">Examples</HeadingAnchor>
       

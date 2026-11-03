@@ -15,6 +15,7 @@ const COMPONENT_GROUPS = [
     description: 'Core interactive primitives — fully framework-independent Web Components.',
     items: [
       { packageId: '@skyra-tech-platform/button', href: '/components/basic-controls/button', label: 'Button', desc: 'Framework-independent accessible button' },
+      { packageId: '@skyra-tech-platform/badge', href: '/components/basic-controls/badge', label: 'Badge', desc: 'Compact status, tag, and count indicator with 10 visual variants.' },
       { packageId: '@skyra-tech-platform/input', href: '/components/basic-controls/input', label: 'Input', desc: 'Text input, search, password, and number controls.' },
       { packageId: '@skyra-tech-platform/textarea', href: '/components/basic-controls/textarea', label: 'Textarea', desc: 'Auto-resizing, character count, validation states.' },
       { packageId: '@skyra-tech-platform/checkbox', href: '/components/basic-controls/checkbox', label: 'Checkbox', desc: 'Accessible single and grouped checkboxes.' },
@@ -57,7 +58,8 @@ const COMPONENT_GROUPS = [
     items: [
       { packageId: '@skyra-tech-platform/notification', href: '/components/feedback/notification', label: 'Notification', desc: 'In-page alert banners and system alerts.' },
       { packageId: '@skyra-tech-platform/toast', href: '/components/feedback/toast', label: 'Toast', desc: 'Ephemeral overlay notifications.' },
-      { packageId: '@skyra-tech-platform/loader', href: '/ui-components/loaders', label: 'Loader System', desc: 'Spinners, progress bars, and skeletons.' },
+      { packageId: '@skyra-tech-platform/empty-state', href: '/components/feedback/empty-state', label: 'Empty State', desc: 'Zero-data, search result, and missing content indicator.' },
+      { packageId: '@skyra-tech-platform/loader', href: '/components/feedback/loader', label: 'Loader System', desc: 'Spinners, progress bars, and skeletons.' },
     ]
   },
   {
@@ -80,6 +82,7 @@ const COMPONENT_GROUPS = [
     description: 'Modals, popovers, and contextual layers.',
     items: [
       { packageId: '@skyra-tech-platform/dialog', href: '/components/overlays/dialog', label: 'Dialog', desc: 'Accessible modal dialog wrapper.' },
+      { packageId: '@skyra-tech-platform/drawer', href: '/components/overlays/drawer', label: 'Drawer', desc: 'Accessible sliding panel with focus trapping, positions, and backdrop.' },
       { packageId: '@skyra-tech-platform/popover', href: '/components/overlays/popover', label: 'Popover', desc: 'Framework-independent anchored rich content overlay with collision detection.' },
       { packageId: '@skyra-tech-platform/dropdown-menu', href: '/components/overlays/dropdown-menu', label: 'Dropdown Menu', desc: 'Framework-independent action menu with roving keyboard navigation and checkable items.' },
       { packageId: '@skyra-tech-platform/context-menu', href: '/components/overlays/context-menu', label: 'Context Menu', desc: 'Framework-independent pointer and keyboard context action menu with virtual collision positioning.' },

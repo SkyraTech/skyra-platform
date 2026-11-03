@@ -17,13 +17,74 @@ import { ResponsiveDemo } from '@/components/docs/ResponsiveDemo';
 import { RelatedComponents } from '@/components/docs/RelatedComponents';
 import { Callout } from '@/components/docs/Callout';
 import { HeadingAnchor } from '@/components/docs/HeadingAnchor';
+import { ComponentPlayground, PlaygroundControlDef } from '@/components/docs/ComponentPlayground';
 import { ArrowRight, Trash2, Mail } from 'lucide-react';
+
+
+const buttonPlaygroundControls: PlaygroundControlDef[] = [
+  {
+    name: 'variant',
+    label: 'Variant',
+    type: 'select',
+    defaultValue: 'primary',
+    options: [
+      { label: 'Primary', value: 'primary' },
+      { label: 'Orange', value: 'orange' },
+      { label: 'Outline', value: 'outline' },
+      { label: 'Ghost', value: 'ghost' },
+      { label: 'Danger', value: 'danger' },
+      { label: 'Link', value: 'link' },
+    ],
+  },
+  {
+    name: 'size',
+    label: 'Size',
+    type: 'select',
+    defaultValue: 'md',
+    options: [
+      { label: 'Small (sm)', value: 'sm' },
+      { label: 'Medium (md)', value: 'md' },
+      { label: 'Large (lg)', value: 'lg' },
+    ],
+  },
+  {
+    name: 'label',
+    label: 'Label',
+    type: 'text',
+    defaultValue: 'Save changes',
+  },
+  {
+    name: 'disabled',
+    label: 'Disabled',
+    type: 'boolean',
+    defaultValue: false,
+  },
+  {
+    name: 'loading',
+    label: 'Loading',
+    type: 'boolean',
+    defaultValue: false,
+  },
+  {
+    name: 'loadingText',
+    label: 'Loading Text',
+    type: 'text',
+    defaultValue: 'Saving...',
+  },
+  {
+    name: 'fullWidth',
+    label: 'Full Width',
+    type: 'boolean',
+    defaultValue: false,
+  },
+];
 
 export default function ButtonDocsPage() {
   const [loading1, setLoading1] = useState(false);
 
   const toc = [
     { id: 'quick-start', label: 'Quick Start' },
+    { id: 'playground', label: 'Interactive Playground' },
     { id: 'examples', label: 'Examples' },
     { id: 'usage', label: 'Usage Guidance' },
     { id: 'api', label: 'API Reference' },
@@ -76,6 +137,38 @@ export default function ButtonDocsPage() {
       >
         <skyra-tech-button variant="primary">Save changes</skyra-tech-button>
       </LiveExample>
+
+      
+      <HeadingAnchor id="playground">Interactive Playground</HeadingAnchor>
+      <ComponentPlayground
+        title="Button Playground"
+        description="Configure variants, sizes, loading states, and labels to see live updates and custom events."
+        controls={buttonPlaygroundControls}
+        render={(values, logEvent) => (
+          <skyra-tech-button
+            variant={values.variant}
+            size={values.size}
+            disabled={values.disabled || undefined}
+            loading={values.loading || undefined}
+            loading-text={values.loadingText || undefined}
+            full-width={values.fullWidth || undefined}
+            onClick={() => logEvent('click', { time: new Date().toISOString(), label: values.label })}
+          >
+            {values.label}
+          </skyra-tech-button>
+        )}
+        generateCode={(values) => {
+          const attrs: string[] = [];
+          if (values.variant !== 'primary') attrs.push(`variant="${values.variant}"`);
+          if (values.size !== 'md') attrs.push(`size="${values.size}"`);
+          if (values.disabled) attrs.push('disabled');
+          if (values.loading) attrs.push('loading');
+          if (values.loadingText) attrs.push(`loading-text="${values.loadingText}"`);
+          if (values.fullWidth) attrs.push('full-width');
+          const attrStr = attrs.length > 0 ? ' ' + attrs.join(' ') : '';
+          return `<skyra-tech-button${attrStr}>${values.label}</skyra-tech-button>`;
+        }}
+      />
 
       <HeadingAnchor id="examples">Examples</HeadingAnchor>
       

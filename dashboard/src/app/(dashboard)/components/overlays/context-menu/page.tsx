@@ -148,7 +148,6 @@ export function ContextDemo() {
                 <div
                   id="context-area-demo"
                   slot="target"
-                  tabIndex={0}
                   style={{
                     border: '2px dashed var(--skyra-border)',
                     borderRadius: 'var(--skyra-radius-lg)',

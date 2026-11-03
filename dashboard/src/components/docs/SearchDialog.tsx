@@ -51,10 +51,11 @@ export function SearchDialog() {
         <kbd style={{ 
           fontFamily: 'var(--skyra-font-mono)', 
           fontSize: '0.75rem', 
-          background: 'rgba(0,0,0,0.2)', 
+          background: 'rgba(0,0,0,0.4)', 
+          color: '#ffffff',
           padding: '0.125rem 0.375rem', 
           borderRadius: '100px',
-          border: '1px solid rgba(255,255,255,0.05)' 
+          border: '1px solid rgba(255,255,255,0.25)' 
         }}>
           {typeof window !== 'undefined' && window.navigator.platform.includes('Mac') ? '⌘K' : 'Ctrl+K'}
         </kbd>

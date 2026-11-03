@@ -67,6 +67,7 @@ export class SkyraTechSwitch extends BaseClass {
 
   static get observedAttributes() {
     return [
+      'aria-label',
       'checked', 'disabled', 'readonly', 'required', 'loading',
       'name', 'value', 'variant', 'size',
       'label', 'helper-text', 'error', 'invalid'
@@ -194,6 +195,8 @@ export class SkyraTechSwitch extends BaseClass {
     const hasError = !!errorMsg || this.hasAttribute('invalid');
     const helperMsg = this.helperText;
     
+    const switchLabel = this.getAttribute('aria-label') || this.label || 'Switch';
+    this._btn.setAttribute('aria-label', switchLabel);
     this._btn.setAttribute('aria-checked', this.checked ? 'true' : 'false');
     this._btn.setAttribute('aria-disabled', (this.disabled || this.loading || this.readOnly) ? 'true' : 'false');
     if (this.name) this._btn.setAttribute('name', this.name);

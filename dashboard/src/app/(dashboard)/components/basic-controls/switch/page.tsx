@@ -17,12 +17,47 @@ import { ResponsiveDemo } from '@/components/docs/ResponsiveDemo';
 import { RelatedComponents } from '@/components/docs/RelatedComponents';
 import { Callout } from '@/components/docs/Callout';
 import { HeadingAnchor } from '@/components/docs/HeadingAnchor';
+import { ComponentPlayground, PlaygroundControlDef } from '@/components/docs/ComponentPlayground';
+
+
+const switchPlaygroundControls: PlaygroundControlDef[] = [
+  {
+    name: 'checked',
+    label: 'Checked State',
+    type: 'boolean',
+    defaultValue: true,
+  },
+  {
+    name: 'disabled',
+    label: 'Disabled',
+    type: 'boolean',
+    defaultValue: false,
+  },
+  {
+    name: 'size',
+    label: 'Size',
+    type: 'select',
+    defaultValue: 'md',
+    options: [
+      { label: 'Small (sm)', value: 'sm' },
+      { label: 'Medium (md)', value: 'md' },
+      { label: 'Large (lg)', value: 'lg' },
+    ],
+  },
+  {
+    name: 'label',
+    label: 'Label',
+    type: 'text',
+    defaultValue: 'Automated Log Retention',
+  },
+];
 
 export default function SwitchDocsPage() {
   const [airplaneMode, setAirplaneMode] = useState(false);
 
   const toc = [
     { id: 'quick-start', label: 'Quick Start' },
+    { id: 'playground', label: 'Interactive Playground' },
     { id: 'basic-usage', label: 'Basic Usage' },
     { id: 'variants', label: 'Variants' },
     { id: 'sizes', label: 'Sizes' },
@@ -63,6 +98,32 @@ export default function SwitchDocsPage() {
       <HeadingAnchor id="quick-start">Quick Start</HeadingAnchor>
       <InstallCommand packageName="@skyra-tech-platform/switch" />
       
+      
+      <HeadingAnchor id="playground">Interactive Playground</HeadingAnchor>
+      <ComponentPlayground
+        title="Switch Playground"
+        description="Interact with the switch to inspect toggle events, sizing, and disabled states."
+        controls={switchPlaygroundControls}
+        render={(values, logEvent) => (
+          <skyra-tech-switch
+            checked={values.checked || undefined}
+            disabled={values.disabled || undefined}
+            size={values.size}
+            onChange={(e: any) => logEvent('change', { checked: e.target?.checked ?? !values.checked })}
+          >
+            {values.label}
+          </skyra-tech-switch>
+        )}
+        generateCode={(values) => {
+          const attrs: string[] = [];
+          if (values.checked) attrs.push('checked');
+          if (values.disabled) attrs.push('disabled');
+          if (values.size !== 'md') attrs.push(`size="${values.size}"`);
+          const attrStr = attrs.length > 0 ? ' ' + attrs.join(' ') : '';
+          return `<skyra-tech-switch${attrStr}>${values.label}</skyra-tech-switch>`;
+        }}
+      />
+
       <HeadingAnchor id="basic-usage">Basic Usage</HeadingAnchor>
       <LiveExample 
         language="html"

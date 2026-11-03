@@ -347,7 +347,6 @@ export class SkyraContextMenuElement extends BaseClass {
       >
         <slot name="target"></slot>
         <slot name="trigger"></slot>
-        <slot></slot>
       </div>
       <div
         id="${panelId}"
@@ -358,6 +357,9 @@ export class SkyraContextMenuElement extends BaseClass {
       >
         <slot name="menu"></slot>
         <slot name="items"></slot>
+        <slot></slot>
+        <slot></slot>
+        <slot></slot>
       </div>
     `;
   }

@@ -302,6 +302,7 @@ export class SkyraDropdownMenuElement extends BaseClass {
         tabindex="0"
         aria-haspopup="menu"
         aria-expanded="false"
+        aria-label="${this.getAttribute('aria-label') || 'Options menu'}"
         aria-controls="${panelId}"
       >
         <slot name="trigger"></slot>

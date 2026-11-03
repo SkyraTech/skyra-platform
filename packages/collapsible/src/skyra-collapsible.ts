@@ -77,6 +77,7 @@ export class SkyraCollapsibleElement extends BaseClass {
         id="${triggerId}"
         class="skyra-collapsible-trigger"
         aria-controls="${contentId}"
+        aria-label="${this.getAttribute('aria-label') || this.getAttribute('header') || 'Toggle section'}"
       >
         <slot name="trigger"></slot>
       </button>

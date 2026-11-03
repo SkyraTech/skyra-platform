@@ -49,4 +49,25 @@ scratch/
 # Test output & accessibility violation dumps
 a11y-output.txt
 axe-violations.json
+a11y-diagnosis.json
+browser-audit-results.json
+*-audit-results.json
+*-diagnosis.json
+packages-inventory.json
 
+# Audit screenshots and visual test artifacts
+**/screenshots/
+docs/dashboard-audit/screenshots/
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# One-off migration & diagnostic scratch scripts
+scripts/add-playgrounds.mjs
+scripts/apply-a11y-fixes.mjs
+scripts/diagnose-a11y.mjs
+scripts/inspect-packages.js

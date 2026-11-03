@@ -94,12 +94,15 @@ const NAV_SECTIONS: NavSection[] = [
     id: 'documentation',
     title: 'Developer Documentation',
     items: [
+      { href: '/docs/getting-started', label: 'Getting Started',        icon: BookOpen },
+      { href: '/docs/frameworks',     label: 'Framework Setup',        icon: FileCode2 },
       { href: '/components',         label: 'Components',             icon: Layers },
       { href: '/design-system',      label: 'Design System',          icon: Palette },
       { href: '/docs/design-tokens', label: 'Design Tokens',          icon: FileCode2 },
       { href: '/docs/utils',         label: 'Utility Functions',       icon: WrapText },
       { href: '/docs/validation',    label: 'Validation Schemas',      icon: FileText },
       { href: '/docs/data-export',   label: 'Data Export Docs',       icon: Download },
+      { href: '/docs/contributing',  label: 'Contribution Guide',     icon: FileText },
     ]
   },
   {
@@ -290,7 +293,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               border: none;
               padding: 0.5rem 0.875rem;
               cursor: pointer;
-              color: rgba(255, 255, 255, 0.5);
+              color: rgba(255, 255, 255, 0.9);
               font-family: inherit;
               text-align: left;
               border-radius: var(--skyra-radius-sm, 4px);

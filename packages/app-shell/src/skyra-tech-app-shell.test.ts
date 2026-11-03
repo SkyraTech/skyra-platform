@@ -92,4 +92,9 @@ describe('SkyraAppShell Web Component', () => {
     
     expect(el.mobileOpen).toBe(false);
   });
+
+  it('should be safe for server environments without crashing on import', () => {
+    expect(SkyraAppShell).toBeDefined();
+    expect(typeof registerAppShell).toBe('function');
+  });
 });

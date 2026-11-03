@@ -14,6 +14,12 @@ export const API_TARGETS: readonly CatalogTarget[] = [
     "entry": "packages/app-shell/dist/index.d.ts"
   },
   {
+    "packageId": "@skyra-tech-platform/badge",
+    "exportPath": "@skyra-tech-platform/badge",
+    "capabilityId": "badge/core",
+    "entry": "packages/badge/dist/index.d.ts"
+  },
+  {
     "packageId": "@skyra-tech-platform/button",
     "exportPath": "@skyra-tech-platform/button",
     "capabilityId": "button/core",
@@ -74,6 +80,12 @@ export const API_TARGETS: readonly CatalogTarget[] = [
     "entry": "packages/dialog/dist/index.d.ts"
   },
   {
+    "packageId": "@skyra-tech-platform/drawer",
+    "exportPath": "@skyra-tech-platform/drawer",
+    "capabilityId": "drawer/core",
+    "entry": "packages/drawer/dist/index.d.ts"
+  },
+  {
     "packageId": "@skyra-tech-platform/dropdown-menu",
     "exportPath": "@skyra-tech-platform/dropdown-menu",
     "capabilityId": "dropdown-menu/menu",
@@ -90,6 +102,12 @@ export const API_TARGETS: readonly CatalogTarget[] = [
     "exportPath": "@skyra-tech-platform/dynamic-select",
     "capabilityId": "dynamic-select/core",
     "entry": "packages/dynamic-select/dist/index.d.ts"
+  },
+  {
+    "packageId": "@skyra-tech-platform/empty-state",
+    "exportPath": "@skyra-tech-platform/empty-state",
+    "capabilityId": "empty-state/core",
+    "entry": "packages/empty-state/dist/index.d.ts"
   },
   {
     "packageId": "@skyra-tech-platform/input",

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationFirst, PaginationLast, PaginationEllipsis, Card, Badge } from '@/components/ui';
@@ -10,7 +10,7 @@ const MOCK_INVOICES = Array.from({ length: 65 }, (_, i) => ({
   id: `INV-${String(1001 + i).padStart(4, '0')}`,
   customer: ['Acme Corp', 'Global Logistics', 'Apex Systems', 'Zenith Retail', 'Nova Tech'][i % 5],
   date: `2026-09-${String((i % 28) + 1).padStart(2, '0')}`,
-  amount: `₹${((i + 1) * 3450).toLocaleString('en-IN')}`,
+  amount: `â‚¹${((i + 1) * 3450).toLocaleString('en-IN')}`,
   status: ['PAID', 'PENDING', 'OVERDUE', 'DRAFT'][i % 4],
 }));
 
@@ -40,6 +40,10 @@ export default function PaginationShowcasePage() {
         <p style={{ color: 'var(--skyra-text-muted)', fontSize: '0.95rem', marginTop: '0.5rem' }}>
           Accessible navigation landmark with pure page calculation engine, controlled state, intelligent ellipsis placement, keyboard navigation, and responsive overflow management.
         </p>
+      </div>
+
+      <div style={{ padding: '0.875rem 1.25rem', marginBottom: '2rem', borderRadius: '8px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5 }}>
+        <strong>Application-Level Sandbox Primitive — Pending Platform Packaging.</strong> This component pattern currently resides within the dashboard application layer and is targeted for future packaging into @skyra-tech-platform.
       </div>
 
       {/* 1. Basic & Managed Pagination */}
@@ -151,9 +155,13 @@ export default function PaginationShowcasePage() {
                 Invoices Ledger
               </h3>
               <span style={{ fontSize: '0.8rem', color: 'var(--skyra-text-muted)' }}>
-                Showing {(tablePage - 1) * pageSizeNum + 1}–{Math.min(tablePage * pageSizeNum, MOCK_INVOICES.length)} of {MOCK_INVOICES.length} records
+                Showing {(tablePage - 1) * pageSizeNum + 1}â€“{Math.min(tablePage * pageSizeNum, MOCK_INVOICES.length)} of {MOCK_INVOICES.length} records
               </span>
             </div>
+
+      <div style={{ padding: '0.875rem 1.25rem', marginBottom: '2rem', borderRadius: '8px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5 }}>
+        <strong>Application-Level Sandbox Primitive — Pending Platform Packaging.</strong> This component pattern currently resides within the dashboard application layer and is targeted for future packaging into @skyra-tech-platform.
+      </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ fontSize: '0.8rem', color: 'var(--skyra-text-muted)' }}>Rows per page:</span>
@@ -175,6 +183,10 @@ export default function PaginationShowcasePage() {
               </div>
             </div>
           </div>
+
+      <div style={{ padding: '0.875rem 1.25rem', marginBottom: '2rem', borderRadius: '8px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5 }}>
+        <strong>Application-Level Sandbox Primitive — Pending Platform Packaging.</strong> This component pattern currently resides within the dashboard application layer and is targeted for future packaging into @skyra-tech-platform.
+      </div>
 
           {/* Table */}
           <div style={{ overflowX: 'auto', border: '1px solid var(--skyra-border)', borderRadius: 'var(--skyra-radius-md)' }}>
@@ -216,6 +228,10 @@ export default function PaginationShowcasePage() {
               </tbody>
             </table>
           </div>
+
+      <div style={{ padding: '0.875rem 1.25rem', marginBottom: '2rem', borderRadius: '8px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5 }}>
+        <strong>Application-Level Sandbox Primitive — Pending Platform Packaging.</strong> This component pattern currently resides within the dashboard application layer and is targeted for future packaging into @skyra-tech-platform.
+      </div>
 
           {/* Table Footer Pagination */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginTop: '0.5rem' }}>

@@ -98,7 +98,10 @@ export function CodeBlock({ code, language = 'html', hideToolbar = false, hideCo
         </div>
       )}
 
-      <pre style={{ 
+      <pre 
+        tabIndex={0}
+        aria-label={`${language} code snippet`}
+        style={{ 
         margin: 0, 
         padding: hideToolbar && !hideCopyButton ? '2.5rem 1rem 1rem 1rem' : '1rem', 
         fontSize: '0.875rem', 

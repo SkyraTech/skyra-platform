@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { ErrorState, ErrorStateIcon, ErrorStateTitle, ErrorStateDescription, ErrorStateActions, ErrorStateDetails, Card, Badge } from '@/components/ui';
@@ -34,13 +34,17 @@ export default function ErrorStateShowcasePage() {
         </p>
       </div>
 
+      <div style={{ padding: '0.875rem 1.25rem', marginBottom: '2rem', borderRadius: '8px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5 }}>
+        <strong>Application-Level Sandbox Primitive — Pending Platform Packaging.</strong> This component pattern currently resides within the dashboard application layer and is targeted for future packaging into @skyra-tech-platform.
+      </div>
+
       {/* 1. Basic & Interactive Error States */}
       <DemoSection title="1. Content Load Failures & Recovery" desc="Persistent error representation when a service or data fetch fails, equipped with retry action callbacks." erpSource="Platform Foundation">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1.5rem' }}>
           <DemoBlock title="Network Connection Failure">
             {retrySuccess ? (
               <div style={{ textAlign: 'center', padding: '2rem' }}>
-                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>✅</div>
+                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>âœ…</div>
                 <h4 style={{ margin: 0, color: 'var(--skyra-success, #10b981)' }}>Data Reloaded Successfully</h4>
                 <p style={{ fontSize: '0.85rem', color: 'var(--skyra-text-muted)', marginTop: '4px' }}>
                   The simulated network connection was restored.

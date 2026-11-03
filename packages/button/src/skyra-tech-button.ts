@@ -47,6 +47,7 @@ export class SkyraTechButton extends BaseClass {
 
   static get observedAttributes() {
     return [
+      'aria-label',
       'variant',
       'size',
       'loading',
@@ -175,6 +176,12 @@ export class SkyraTechButton extends BaseClass {
     this._button.setAttribute('aria-disabled', isDisabled ? 'true' : 'false');
     this._button.setAttribute('aria-busy', this.loading ? 'true' : 'false');
     this._button.setAttribute('type', this.type);
+    const ariaLabel = this.getAttribute('aria-label');
+    if (ariaLabel) {
+      this._button.setAttribute('aria-label', ariaLabel);
+    } else {
+      this._button.removeAttribute('aria-label');
+    }
     
     // Web Component internals for forms
     if (this._internals && typeof this._internals.setFormValue === 'function') {

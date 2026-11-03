@@ -115,6 +115,7 @@ export default function PackagesClient({ initialPackages }: PackagesClientProps)
         
         <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
           <select 
+            aria-label="Filter packages by status"
             value={statusFilter} 
             onChange={(e) => setStatusFilter(e.target.value as any)}
             style={{ padding: '0.5rem 2rem 0.5rem 1rem', borderRadius: 'var(--skyra-radius-md)', border: '1px solid var(--skyra-border)', background: 'var(--skyra-bg)', color: 'var(--skyra-text)', fontSize: '0.875rem', cursor: 'pointer', appearance: 'none' }}
@@ -126,6 +127,7 @@ export default function PackagesClient({ initialPackages }: PackagesClientProps)
           </select>
 
           <select 
+            aria-label="Filter packages by runtime"
             value={runtimeFilter} 
             onChange={(e) => setRuntimeFilter(e.target.value as any)}
             style={{ padding: '0.5rem 2rem 0.5rem 1rem', borderRadius: 'var(--skyra-radius-md)', border: '1px solid var(--skyra-border)', background: 'var(--skyra-bg)', color: 'var(--skyra-text)', fontSize: '0.875rem', cursor: 'pointer', appearance: 'none' }}

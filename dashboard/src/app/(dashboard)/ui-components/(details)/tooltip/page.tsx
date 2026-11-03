@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { Tooltip, StatusBadge } from '@/components/ui';
@@ -39,6 +39,10 @@ export default function TooltipShowcasePage() {
         <p style={{ color: 'var(--skyra-text-muted)', fontSize: '0.95rem', marginTop: '0.5rem' }}>
           Accessible, viewport-collision aware tooltips supporting plain strings, rich formatted content, status indicators, and keyboard focus triggers.
         </p>
+      </div>
+
+      <div style={{ padding: '0.875rem 1.25rem', marginBottom: '2rem', borderRadius: '8px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5 }}>
+        <strong>Application-Level Sandbox Primitive — Pending Platform Packaging.</strong> This component pattern currently resides within the dashboard application layer and is targeted for future packaging into @skyra-tech-platform.
       </div>
 
       {/* 1. Placement Variants */}
@@ -88,6 +92,10 @@ export default function TooltipShowcasePage() {
                   </span>
                 </Tooltip>
               </div>
+
+      <div style={{ padding: '0.875rem 1.25rem', marginBottom: '2rem', borderRadius: '8px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5 }}>
+        <strong>Application-Level Sandbox Primitive — Pending Platform Packaging.</strong> This component pattern currently resides within the dashboard application layer and is targeted for future packaging into @skyra-tech-platform.
+      </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span style={{ fontSize: '0.9rem', color: 'var(--skyra-text)' }}>Database Replica Lag:</span>

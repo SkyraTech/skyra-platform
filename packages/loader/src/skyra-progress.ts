@@ -96,7 +96,8 @@ export class SkyraProgressElement extends BaseClass {
     const barHeight = HEIGHT_MAP[this.size] || HEIGHT_MAP.md;
 
     // Build the accessible attributes for the progress bar container itself
-    const ariaLabelAttr = this.label ? `aria-label="${this.label}"` : (isIndeterminate ? `aria-label="Loading"` : '');
+    const accessibleProgressName = this.getAttribute('aria-label') || this.label || (isIndeterminate ? 'Loading' : 'Progress');
+    const ariaLabelAttr = `aria-label="${accessibleProgressName}"`;
     const ariaValueAttr = isIndeterminate ? '' : `aria-valuenow="${percent}"`;
 
     this.shadowRoot.innerHTML = `

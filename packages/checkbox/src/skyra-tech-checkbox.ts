@@ -64,6 +64,7 @@ export class SkyraTechCheckbox extends BaseClass {
 
   static get observedAttributes() {
     return [
+      'aria-label',
       'checked', 'indeterminate', 'disabled', 'required', 'name', 'value',
       'label', 'helper-text', 'error', 'invalid'
     ];
@@ -238,6 +239,8 @@ export class SkyraTechCheckbox extends BaseClass {
     } else {
       this._input.removeAttribute('aria-describedby');
     }
+    const checkLabel = this.getAttribute('aria-label') || this.label || 'Checkbox';
+    this._input.setAttribute('aria-label', checkLabel);
   }
 }
 

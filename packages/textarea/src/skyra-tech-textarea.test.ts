@@ -121,6 +121,7 @@ describe('skyra-tech-textarea', () => {
     });
 
     it('links label to textarea', () => {
+      element.label = 'Description';
       const label = element.shadowRoot?.querySelector('.skyra-label') as HTMLLabelElement;
       const textarea = element.shadowRoot?.querySelector('textarea') as HTMLTextAreaElement;
       expect(label.htmlFor).toBe(textarea.id);

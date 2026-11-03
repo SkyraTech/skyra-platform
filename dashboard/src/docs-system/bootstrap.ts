@@ -34,17 +34,23 @@ import popoverPkg from '../../../packages/popover/package.json';
 import dropdownMenuPkg from '../../../packages/dropdown-menu/package.json';
 import contextMenuPkg from '../../../packages/context-menu/package.json';
 import commandPalettePkg from '../../../packages/command-palette/package.json';
+import badgePkg from '../../../packages/badge/package.json';
+import drawerPkg from '../../../packages/drawer/package.json';
+import emptyStatePkg from '../../../packages/empty-state/package.json';
 
 // ---------------------------------------------------------------------------
 // Runtime classification — authored once, based on actual package architecture
 // ---------------------------------------------------------------------------
 const runtimeMap: Record<string, RuntimeCategory> = {
   '@skyra-tech-platform/app-shell':    'runtime-neutral',
+  '@skyra-tech-platform/badge':        'runtime-neutral',
   '@skyra-tech-platform/data-export':  'mixed',
   '@skyra-tech-platform/data-table': 'mixed',
   '@skyra-tech-platform/design-tokens':'design-tokens',
   '@skyra-tech-platform/dialog': 'runtime-neutral',
+  '@skyra-tech-platform/drawer': 'runtime-neutral',
   '@skyra-tech-platform/dynamic-form': 'mixed',
+  '@skyra-tech-platform/empty-state':  'runtime-neutral',
   '@skyra-tech-platform/qr': 'runtime-neutral',
   '@skyra/ui':           'react-browser',
   '@skyra-tech-platform/utils':        'runtime-neutral',
@@ -84,6 +90,18 @@ export const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     description: 'Framework-agnostic Web Component for building an application-level layout scaffold.',
     usageNote: "import { registerAppShell } from '@skyra-tech-platform/app-shell';\nregisterAppShell();",
     limitations: ['Does not provide routing — integrate with your router of choice.'],
+    status: 'stable',
+  },
+
+  // @skyra-tech-platform/badge
+  {
+    id: 'badge/core',
+    packageId: '@skyra-tech-platform/badge',
+    name: 'Badge',
+    exportPath: '@skyra-tech-platform/badge',
+    runtime: 'runtime-neutral',
+    description: 'Compact visual indicator component for displaying labels, counters, statuses, and tags with 10 design token-driven variants and size options.',
+    usageNote: "import '@skyra-tech-platform/badge';\n// <skyra-tech-badge variant=\"success\">Active</skyra-tech-badge>",
     status: 'stable',
   },
 
@@ -146,6 +164,18 @@ export const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     status: 'stable',
   },
 
+  // @skyra-tech-platform/drawer
+  {
+    id: 'drawer/core',
+    packageId: '@skyra-tech-platform/drawer',
+    name: 'Drawer',
+    exportPath: '@skyra-tech-platform/drawer',
+    runtime: 'runtime-neutral',
+    description: 'Accessible sliding overlay panel supporting left, right, top, and bottom placements, customizable sizes, focus trapping, ESC key dismiss, and backdrop transitions.',
+    usageNote: "import '@skyra-tech-platform/drawer';\n// <skyra-tech-drawer placement=\"right\" open>...</skyra-tech-drawer>",
+    status: 'stable',
+  },
+
   // @skyra-tech-platform/dynamic-form
   {
     id: 'dynamic-form/core',
@@ -155,6 +185,18 @@ export const capabilityDefinitions: Omit<CapabilityMetadata, 'apis'>[] = [
     runtime: 'mixed',
     description: 'Schema-driven form engine with validation, conditional fields, multi-step support, and full accessibility.',
     usageNote: "import '@skyra-tech-platform/dynamic-form';",
+    status: 'stable',
+  },
+
+  // @skyra-tech-platform/empty-state
+  {
+    id: 'empty-state/core',
+    packageId: '@skyra-tech-platform/empty-state',
+    name: 'Empty State',
+    exportPath: '@skyra-tech-platform/empty-state',
+    runtime: 'runtime-neutral',
+    description: 'Communicates missing content, empty search results, or zero-data states with customizable slots for icons, headlines, descriptions, and call-to-action buttons.',
+    usageNote: "import '@skyra-tech-platform/empty-state';\n// <skyra-tech-empty-state headline=\"No Results Found\">...</skyra-tech-empty-state>",
     status: 'stable',
   },
 
@@ -341,8 +383,8 @@ export function bootstrapRegistry() {
   bootstrapDesignTokens();
 
   const packages = [
-    appShellPkg, dataExportPkg, dataTablePkg, designTokensPkg,
-    dialogsPkg, dynamicFormPkg, qrPkg, utilsPkg, validationPkg,
+    appShellPkg, badgePkg, dataExportPkg, dataTablePkg, designTokensPkg,
+    dialogsPkg, drawerPkg, dynamicFormPkg, emptyStatePkg, qrPkg, utilsPkg, validationPkg,
     notificationPkg, toastPkg, tabsPkg, loaderPkg,
     buttonPkg, checkboxPkg, inputPkg, radioPkg, switchPkg, textareaPkg,
     dynamicSelectPkg, dateTimePkg, pdfViewerPkg, accordionPkg, collapsiblePkg,

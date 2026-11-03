@@ -22,6 +22,10 @@ export default function DropzoneShowcasePage() {
         </p>
       </div>
 
+      <div style={{ padding: '0.875rem 1.25rem', marginBottom: '2rem', borderRadius: '8px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5 }}>
+        <strong>Application-Level Sandbox Primitive — Pending Platform Packaging.</strong> This component pattern currently resides within the dashboard application layer and is targeted for future packaging into @skyra-tech-platform.
+      </div>
+
       {/* 1. Standard Dropzone */}
       <DemoSection title="1. Universal Drag-and-Drop Surface" desc="Drop any file or click / press Enter to open the native OS file picker." erpSource="Platform Foundation">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1.5rem' }}>

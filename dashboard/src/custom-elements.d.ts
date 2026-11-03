@@ -20,6 +20,9 @@ declare global {
     namespace JSX {
       interface IntrinsicElements {
         'skyra-tech-dialog': any;
+        'skyra-tech-drawer': any;
+        'skyra-tech-empty-state': any;
+        'skyra-tech-badge': any;
         'skyra-tech-app-shell': any;
         'skyra-tech-dynamic-form': any;
         'skyra-tech-data-table': any;
@@ -51,9 +54,13 @@ declare global {
         'skyra-tech-date-time-field': any;
         'skyra-tech-calendar': any;
         'skyra-spinner': any;
+        'skyra-tech-spinner': any;
         'skyra-progress': any;
+        'skyra-tech-progress': any;
         'skyra-circular-progress': any;
+        'skyra-tech-circular-progress': any;
         'skyra-skeleton': any;
+        'skyra-tech-skeleton': any;
         'skyra-skeleton-avatar': any;
         'skyra-skeleton-text': any;
         'skyra-skeleton-table': any;
@@ -89,6 +96,9 @@ declare global {
   namespace JSX {
     interface IntrinsicElements {
       'skyra-tech-dialog': any;
+      'skyra-tech-drawer': any;
+      'skyra-tech-empty-state': any;
+      'skyra-tech-badge': any;
       'skyra-tech-app-shell': any;
       'skyra-tech-dynamic-form': any;
       'skyra-tech-data-table': any;
@@ -120,9 +130,13 @@ declare global {
       'skyra-tech-date-time-field': any;
       'skyra-tech-calendar': any;
       'skyra-spinner': any;
+      'skyra-tech-spinner': any;
       'skyra-progress': any;
+      'skyra-tech-progress': any;
       'skyra-circular-progress': any;
+      'skyra-tech-circular-progress': any;
       'skyra-skeleton': any;
+      'skyra-tech-skeleton': any;
       'skyra-skeleton-avatar': any;
       'skyra-skeleton-text': any;
       'skyra-skeleton-table': any;

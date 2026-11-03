@@ -17,12 +17,42 @@ import { ResponsiveDemo } from '@/components/docs/ResponsiveDemo';
 import { RelatedComponents } from '@/components/docs/RelatedComponents';
 import { Callout } from '@/components/docs/Callout';
 import { HeadingAnchor } from '@/components/docs/HeadingAnchor';
+import { ComponentPlayground, PlaygroundControlDef } from '@/components/docs/ComponentPlayground';
+
+
+const checkboxPlaygroundControls: PlaygroundControlDef[] = [
+  {
+    name: 'checked',
+    label: 'Checked',
+    type: 'boolean',
+    defaultValue: true,
+  },
+  {
+    name: 'indeterminate',
+    label: 'Indeterminate',
+    type: 'boolean',
+    defaultValue: false,
+  },
+  {
+    name: 'disabled',
+    label: 'Disabled',
+    type: 'boolean',
+    defaultValue: false,
+  },
+  {
+    name: 'label',
+    label: 'Label',
+    type: 'text',
+    defaultValue: 'Notify operations on fatal alerts',
+  },
+];
 
 export default function CheckboxDocsPage() {
   const [checked, setChecked] = useState(false);
 
   const toc = [
     { id: 'quick-start', label: 'Quick Start' },
+    { id: 'playground', label: 'Interactive Playground' },
     { id: 'examples', label: 'Examples' },
     { id: 'usage', label: 'Usage Guidance' },
     { id: 'api', label: 'API Reference' },
@@ -73,6 +103,32 @@ export default function CheckboxDocsPage() {
       >
         <skyra-tech-checkbox label="Accept terms and conditions" />
       </LiveExample>
+
+      
+      <HeadingAnchor id="playground">Interactive Playground</HeadingAnchor>
+      <ComponentPlayground
+        title="Checkbox Playground"
+        description="Verify checked, indeterminate, and disabled states with live event feedback."
+        controls={checkboxPlaygroundControls}
+        render={(values, logEvent) => (
+          <skyra-tech-checkbox
+            checked={values.checked || undefined}
+            indeterminate={values.indeterminate || undefined}
+            disabled={values.disabled || undefined}
+            onChange={(e: any) => logEvent('change', { checked: e.target?.checked, indeterminate: e.target?.indeterminate })}
+          >
+            {values.label}
+          </skyra-tech-checkbox>
+        )}
+        generateCode={(values) => {
+          const attrs: string[] = [];
+          if (values.checked) attrs.push('checked');
+          if (values.indeterminate) attrs.push('indeterminate');
+          if (values.disabled) attrs.push('disabled');
+          const attrStr = attrs.length > 0 ? ' ' + attrs.join(' ') : '';
+          return `<skyra-tech-checkbox${attrStr}>${values.label}</skyra-tech-checkbox>`;
+        }}
+      />
 
       <HeadingAnchor id="examples">Examples</HeadingAnchor>
       
